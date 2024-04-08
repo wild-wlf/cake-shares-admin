@@ -1,8 +1,14 @@
 import React from "react";
-import TopBar from "./common/TopBar";
+import TopBar from "./common/TopBar/TopBar";
+import MyWallet from "./common/MyWallet/MyWallet";
 
 const index = () => {
-  return <TopBar />;
+  return (
+    <>
+      <TopBar />
+      <MyWallet />
+    </>
+  );
 };
 
 export default index;

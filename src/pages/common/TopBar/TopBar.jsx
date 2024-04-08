@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import Notifications from "../../components/molecules/Notifications";
+import Notifications from "../../../components/molecules/Notifications";
 import { StyledTopBar } from "./TopBar.styles";
-import logo from "../_assets/logo.svg";
+import logo from "../../_assets/logo.svg";
 import Image from "next/image";
-import bell from "../_assets/bell.svg";
+import bell from "../../_assets/bell.svg";
 import Button from "@/components/atoms/Button";
-import register from "../_assets/register.svg";
-import store from "../_assets/store.svg";
-import closedNav from "../_assets/closed-nav.svg";
-import SideNav from "../../components/atoms/sideNav/index.js";
+import store from "../../_assets/store.svg";
+import closedNav from "../../_assets/closed-nav.svg";
+import profile from "../../_assets/profile.png";
+import dropDown from "../../_assets/dropDown.png";
+import wallet from "../../_assets/wallet.png";
+import SideNav from "../../../components/atoms/sideNav/index.js";
 
 const TopBar = () => {
   const [sideNav, setSidenav] = useState(false);
@@ -27,28 +29,44 @@ const TopBar = () => {
           <span>Marketplace</span>
         </div>
       </div>
+
       <div className="actions" style={{ display: "Flex", gap: "10px" }}>
+        <div className="textfeildWrapper">
+          <div className="textFieldRight">
+            <span style={{ paddingRight: "69px" }}>My Kyc Level</span>
+            <span>3</span>
+          </div>
+        </div>
+
         <div className="notification">
           <Image src={bell} alt="bell" />
           <div className="notificationWrapper">
             <Notifications />
           </div>
         </div>
+        <div className="wallet">
+          <Image src={wallet} alt="wallet" />
+          <span>My Wallet</span>
+          <div className="walletWrapper">
+            <Notifications />
+          </div>
+        </div>
         <div className="buttonWrapper">
           <Button rounded sm btntype="new">
-            <Image src={register} />
-            Register
+            <Image src={profile} />
+            Alex
+            <Image src={dropDown} />
           </Button>
         </div>
       </div>
-      {/* ///////////////// */}
+
       <div
         className={sideNav ? "sideNav show" : "sideNav"}
         onMouseLeave={() => {
           setSidenav(false);
         }}
       >
-      <SideNav />
+        <SideNav />
       </div>
     </StyledTopBar>
   );

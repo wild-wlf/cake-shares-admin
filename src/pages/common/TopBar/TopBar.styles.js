@@ -27,6 +27,11 @@ export const StyledTopBar = styled.header`
       height: auto;
     }
   }
+  .textfeildWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .textField {
     display: flex;
     width: 100%;
@@ -45,6 +50,26 @@ export const StyledTopBar = styled.header`
     left: 0;
     width: 70px;
     height: 1px;
+    background-color: var(--green);
+  }
+  .textFieldRight {
+    display: flex;
+    width: 100%;
+    height: 26px;
+    padding: 0 10px 10px 0;
+    align-items: center;
+    position: relative;
+    gap: 8px;
+    background: var(--white);
+    font-weight: 500;
+  }
+  .textFieldRight::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
     background-color: var(--green);
   }
   .notification {
@@ -78,7 +103,37 @@ export const StyledTopBar = styled.header`
     opacity: 0;
     transition: 0.4s;
   }
-
+  .wallet {
+    display: flex;
+    padding: 8px 15px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 50px;
+    border: 1px solid #cdcdcd;
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    cursor: pointer;
+    &:hover {
+      .walletWrapper {
+        visibility: visible;
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+  .walletWrapper {
+    max-width: 432px;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    padding-top: 64px;
+    visibility: hidden;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: 0.4s;
+  }
   .sideNav {
     position: absolute;
     left: -260px;
@@ -101,6 +156,9 @@ export const StyledTopBar = styled.header`
       display: none;
     }
     .textField {
+      display: none;
+    }
+    .textFieldRight {
       display: none;
     }
   }

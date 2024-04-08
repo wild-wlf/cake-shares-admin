@@ -34,6 +34,9 @@ export const StyledButton = styled.button`
     if (btntype === "primary") {
       return "var(--white)";
     }
+    if (btntype === "green") {
+      return "var(--white)";
+    }
     if (btntype === "new") {
       return "rgba(64,143,140,1)";
     }
@@ -59,6 +62,9 @@ export const StyledButton = styled.button`
     }
     if (btntype === "new") {
       return "rgba(64,143,140,0.1)";
+    }
+    if (btntype === "green") {
+      return "#408F8C";
     }
 
     if (btntype === "white") {
