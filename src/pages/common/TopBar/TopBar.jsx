@@ -33,7 +33,7 @@ const TopBar = () => {
       <div className="actions" style={{ display: "Flex", gap: "10px" }}>
         <div className="textfeildWrapper">
           <div className="textFieldRight">
-            <span style={{ paddingRight: "69px" }}>My Kyc Level</span>
+            <span className="heading">My Kyc Level</span>
             <span>3</span>
           </div>
         </div>
@@ -47,9 +47,7 @@ const TopBar = () => {
         <div className="wallet">
           <Image src={wallet} alt="wallet" />
           <span>My Wallet</span>
-          <div className="walletWrapper">
-            <Notifications />
-          </div>
+          <div className="walletWrapper">{/* <Notifications /> */}</div>
         </div>
         <div className="buttonWrapper">
           <Button rounded sm btntype="new">

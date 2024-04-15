@@ -23,3 +23,13 @@ export const StyledContainer = styled.div`
     }
   }
 `;
+
+export const ChartWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+`;

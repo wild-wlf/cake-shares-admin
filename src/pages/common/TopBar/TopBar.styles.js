@@ -62,6 +62,9 @@ export const StyledTopBar = styled.header`
     gap: 8px;
     background: var(--white);
     font-weight: 500;
+    .heading {
+      padding-right: 69px;
+    }
   }
   .textFieldRight::after {
     content: "";
@@ -140,10 +143,18 @@ export const StyledTopBar = styled.header`
     transition: all 0.3s ease-in-out;
     height: 100%;
   }
-
   .sideNav.show {
     left: 0;
     transition: linear 0.3s;
+  }
+
+  @media (max-width: 1024px) {
+    .textFieldRight{
+      .heading{
+        display: inline-block;
+        padding-right: 40px;
+      }
+    }
   }
 
   @media (max-width: 768px) {
