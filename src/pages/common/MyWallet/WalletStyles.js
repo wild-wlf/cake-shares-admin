@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
+  width: 100%;
   padding: 0px 50px;
-  margin-top: 100px;
+  margin-top: 20px;
   font-family: var(--base-font-sans-serif);
   z-index: 5;
   .btnDiv {
@@ -13,7 +14,7 @@ export const StyledContainer = styled.div`
   }
   .textContainer {
     width: 100%;
-    padding-top: 45px;
+    padding: 40px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,9 +28,11 @@ export const StyledContainer = styled.div`
 export const ChartWrapper = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
   gap: 10px;
   justify-content: center;
+  /* align-items: center; */
   flex-wrap: wrap;
-
+  /* .ChartContainer {
+    width: 440px;
+  } */
 `;

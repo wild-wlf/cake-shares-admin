@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyledContainer, ChartWrapper } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../_assets/btnLeftArrow.png";
@@ -6,7 +6,7 @@ import walletWhite from "../../_assets/walletWhite.png";
 import Image from "next/image";
 import Graph from "@/components/molecules/Charts";
 import PieChart from "@/components/molecules/PieChart";
-import DetailBar from "@/components/atoms/DetailBar";
+import CenterModal from "@/components/molecules/Modal/CenterModal";
 
 const MyWallet = () => {
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
@@ -21,16 +21,29 @@ const MyWallet = () => {
     { name: "Bazar", y: 15, color: "#419400" },
     { name: "Cars", y: 10, color: "#4E6199" },
   ];
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => {
+    setOpen(true);
+  };
 
   return (
     <>
+      <CenterModal
+        open={open}
+        setOpen={setOpen}
+        width="666"
+        padding={"30px"}
+        title="Download Statement"
+      ></CenterModal>
+
       <StyledContainer>
         <div className="btnDiv">
           <Button rounded sm btntype="gray">
             <Image src={btnLeftArrow} />
             Go Back
           </Button>
-          <Button rounded sm btntype="green">
+          <Button rounded sm btntype="green" onClick={() => openModal()}>
             Top Up Wallet
             <Image src={walletWhite} />
           </Button>
@@ -80,8 +93,6 @@ const MyWallet = () => {
           </div>
         </ChartWrapper>
       </StyledContainer>
-
-      <DetailBar />
     </>
   );
 };

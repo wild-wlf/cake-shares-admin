@@ -60,6 +60,12 @@ export const Styling = css`
     }
   }
 
+  .container{
+    max-width  : 1440px ;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
   img {
     max-width: 100%;
     height: auto;
@@ -131,7 +137,7 @@ export const Styling = css`
   h4,
   h5,
   h6 {
-    margin: 0 0 1.25rem;
+    /* margin: 0 0 1.25rem; */
   }
 
   p {

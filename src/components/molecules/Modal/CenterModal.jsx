@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { IoIosClose } from "react-icons/io";
+import { MdOutlineClose } from "react-icons/md";
 import { ContentHolder, Head, StyledModal } from "./Modal.styles";
+import Image from "next/image";
 
 const CenterModal = ({
   children,
@@ -13,6 +14,8 @@ const CenterModal = ({
   desktopRight,
   desktopTop,
   setIsEditing,
+  title,
+  headImage,
 }) => {
   useEffect(() => {
     const disableScroll = () => {
@@ -64,13 +67,15 @@ const CenterModal = ({
           tabIndex={-1}
         >
           <Head>
+            {title && <h1 className="title">{title}</h1>}
+            {headImage && <Image src={headImage} alt="Icon" />}
             <button
               type="button"
               className="closer"
               onClick={handleClose}
               tabIndex={0}
             >
-              <IoIosClose size={25} color="var(--white)" />
+              <MdOutlineClose size={25} />
             </button>
           </Head>
           {children}

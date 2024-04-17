@@ -2,10 +2,10 @@
 import styled from "styled-components";
 
 export const StyledTopBar = styled.header`
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   padding: 30px 50px;
   font-family: var(--base-font-sans-serif);
   background: var(--white);

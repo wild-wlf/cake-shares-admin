@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const StyledGraph = styled.div`
-  width: 450px;
+  width: 440px;
   margin: 0 0 15px;
   background: var(--white);
   border-radius: 25px;
   border: 1px solid rgba(74, 85, 104, 0.1);
+  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
+    -10px 10px 20px rgba(0, 0, 0, 0.1); */
   padding: 40px 30px 0 0;
   flex-grow: 1;
   position: relative;
