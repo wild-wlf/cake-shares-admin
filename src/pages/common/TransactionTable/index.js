@@ -12,6 +12,8 @@ import SuccessIcon from "../../_assets/successIcon.png";
 const AdminTable = () => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
+  const modalParagraph =
+    "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
     setOpen(true);
   };
@@ -36,6 +38,7 @@ const AdminTable = () => {
       </ActionBtnList>
     </>
   );
+
   const transactions = [
     {
       name: "name",
@@ -99,7 +102,10 @@ const AdminTable = () => {
         padding={"25px"}
         headImage={SuccessIcon}
       >
-        <SuccessModal />
+        <SuccessModal
+          heading="Statement Sent Successfully!"
+          paragraph={modalParagraph}
+        />
       </CenterModal>
 
       <TableContainer>

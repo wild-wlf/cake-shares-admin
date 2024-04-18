@@ -16,7 +16,6 @@ export const Styling = css`
     scroll-behavior: smooth;
     box-sizing: border-box;
   }
-  
   *:before,
   *:after {
     box-sizing: inherit;
@@ -158,7 +157,6 @@ export const Styling = css`
       background: rgba(233, 0, 0, 0.15);
     }
   }
-
   .merchantName {
     display: flex;
     align-items: center;
@@ -210,6 +208,9 @@ export const Styling = css`
   input[type="number"] {
     appearance: textfield;
   }
+.react-datepicker-wrapper {
+  width: 100%;
+}
 
   .react-datepicker {
     font-family: var(--base-font-sans-serif);

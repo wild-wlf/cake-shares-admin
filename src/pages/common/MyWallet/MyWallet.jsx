@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyledContainer, ChartWrapper } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../_assets/btnLeftArrow.png";
@@ -7,6 +7,8 @@ import Image from "next/image";
 import Graph from "@/components/molecules/Charts";
 import PieChart from "@/components/molecules/PieChart";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
+import TopUpModal from "@/components/molecules/TopUpModal/TopUpModal";
+import BankModal from "@/components/molecules/BankModal/BankModal";
 
 const MyWallet = () => {
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
@@ -22,20 +24,46 @@ const MyWallet = () => {
     { name: "Cars", y: 10, color: "#4E6199" },
   ];
   const [open, setOpen] = useState(false);
-
+  const [openBank, setOpenBank] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("bank");
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
   const openModal = () => {
     setOpen(true);
+  };
+  const openNext = () => {
+    setOpen(false);
+    if (selectedOption === "bank") {
+      setOpenBank(true);
+    }
   };
 
   return (
     <>
       <CenterModal
-        open={open}
-        setOpen={setOpen}
+        open={openBank}
+        setOpen={setOpenBank}
         width="666"
         padding={"30px"}
-        title="Download Statement"
-      ></CenterModal>
+        title="Top up via Bank Account"
+      >
+        <BankModal />
+      </CenterModal>
+
+      <CenterModal
+        open={open}
+        setOpen={setOpen}
+        width="623"
+        padding={"30px"}
+        title="Top up your Wallet"
+      >
+        <TopUpModal
+          openNext={openNext}
+          handleOptionSelect={handleOptionSelect}
+          selectedOption={selectedOption}
+        />
+      </CenterModal>
 
       <StyledContainer>
         <div className="btnDiv">

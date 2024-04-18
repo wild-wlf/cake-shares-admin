@@ -1,19 +1,20 @@
 import styled, { css } from "styled-components";
 // import { darken, cssVar } from 'polished';
-import FakeInput from '../FakeInput';
+import FakeInput from "../FakeInput";
 
 export const styles = css`
   border: 2px solid
     ${({ $invalid }) => ($invalid ? "var(--danger)" : "var(--light)")};
   background: var(--white);
   outline: none;
-  height: ${({ sm }) => (sm ? "40px" : "60px")};
-  padding: ${({ sm }) =>
-    sm ? "0.3125rem .9375rem" : "var(--form-element-padding-lg)"};
+  height: 40px;
+  /* padding: ${({ sm }) =>
+    sm ? "0.3125rem .9375rem" : "var(--form-element-padding-lg)"}; */
+  padding: 12px 23px;
   width: 100%;
   transition: border var(--animation-speed) ease-in-out;
   color: var(--secondary-text-color);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   font-weight: 500;
   border-radius: ${({ $straight }) => ($straight ? "6px" : "60px")};
   padding-left: ${({ $prefix }) => $prefix && "2.5rem"};

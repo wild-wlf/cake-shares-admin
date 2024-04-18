@@ -11,9 +11,11 @@ export const ModalContainer = styled.div`
 export const DateContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 26px;
+  justify-content: space-between;
   padding: 26px 0;
+  .wrapper {
+    width: 48%;
+  }
   .feild {
     width: 290px;
     padding: 13px 23px;
@@ -26,14 +28,6 @@ export const DateContainer = styled.div`
 
 export const MailContainer = styled.div`
   padding-bottom: 26px;
-  .feild {
-    width: 100%;
-    padding: 13px 23px;
-    border-radius: 100px;
-    border: 1px solid #f1f1f1;
-    outline: none;
-    margin-top: 16px;
-  }
 `;
 
 export const Button = styled.button`

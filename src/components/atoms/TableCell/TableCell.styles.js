@@ -51,10 +51,10 @@ export const Td = styled.td`
       justify-content: space-between;
       @media (max-width: 991px) {
         padding: 10px 15px;
-        &:last-child {
+        /* &:last-child {
           height: 0;
           padding: 0;
-        }
+        } */
         &:nth-child(odd) {
           background: var(--gray-3);
           border-radius: 8px;

@@ -92,6 +92,7 @@ export const StyledTopBar = styled.header`
         visibility: visible;
         transform: translateY(0);
         opacity: 1;
+        z-index: 9;
       }
     }
   }
@@ -149,8 +150,8 @@ export const StyledTopBar = styled.header`
   }
 
   @media (max-width: 1024px) {
-    .textFieldRight{
-      .heading{
+    .textFieldRight {
+      .heading {
         display: inline-block;
         padding-right: 40px;
       }
