@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container, OptionsWrapper, Option, Button } from "./styles";
 import Image from "next/image";
-import Bank from "../../../pages/_assets/Bank.png";
-import CryptoWallet from "../../../pages/_assets/CryptoWallet.png";
-import Card from "../../../pages/_assets/card.png";
+import Bank from "../../../_assets/Bank.png";
+import CryptoWallet from "../../../_assets/CryptoWallet.png";
+import Card from "../../../_assets/card.png";
 
 const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
   return (

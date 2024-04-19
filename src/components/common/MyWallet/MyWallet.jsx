@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { StyledContainer, ChartWrapper, ButtonContainer } from "./WalletStyles";
+import {
+  StyledContainer,
+  ChartWrapper,
+  ButtonContainer,
+  Button2,
+  Button3,
+} from "./WalletStyles";
 import Button from "@/components/atoms/Button";
-import btnLeftArrow from "../../_assets/btnLeftArrow.png";
-import walletWhite from "../../_assets/walletWhite.png";
+import btnLeftArrow from "../../../_assets/btnLeftArrow.png";
+import walletWhite from "../../../_assets/walletWhite.png";
 import Image from "next/image";
 import Graph from "@/components/molecules/Charts";
 import PieChart from "@/components/molecules/PieChart";
@@ -10,7 +16,7 @@ import CenterModal from "@/components/molecules/Modal/CenterModal";
 import TopUpModal from "@/components/molecules/TopUpModal/TopUpModal";
 import BankModal from "@/components/molecules/BankModal/BankModal";
 import AccountDetailModal from "@/components/molecules/AccountDetailModal/AccountDetailModal";
-import infoIcon from "../../_assets/infoIcon.png";
+import infoIcon from "../../../_assets/infoIcon.png";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 
 const MyWallet = () => {
@@ -30,6 +36,7 @@ const MyWallet = () => {
   const [openBank, setOpenBank] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("bank");
 
   const handleOptionSelect = (option) => {
@@ -55,9 +62,28 @@ const MyWallet = () => {
     } else if (option === "download") {
     }
   };
+  const closeInfoModal = () => {
+    setOpenInfo(false);
+  };
+  const openLastModal = () => {
+    setOpenInfo(false);
+  };
 
   return (
     <>
+      <CenterModal
+        open={openSuccessModal}
+        setOpen={setOpenSuccessModal}
+        width="543"
+        padding={"25px"}
+        // headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Statement Sent Successfully!"
+          // paragraph={modalParagraph}
+        />
+      </CenterModal>
+
       <CenterModal
         open={openInfo}
         setOpen={setOpenInfo}
@@ -70,12 +96,14 @@ const MyWallet = () => {
           paragraph="Do you want to save your bank details for future top-ups?"
         />
         <ButtonContainer>
-          <Button rounded sm btntype={"download"}>
-            cancel
-          </Button>
-          <Button sm rounded btntype={"green"} onClick={""}>
+          <Button3 onClick={() => closeInfoModal()}>Cancel</Button3>
+          <Button2
+            onClick={() => {
+              openLastModal();
+            }}
+          >
             Yes, Save
-          </Button>
+          </Button2>
         </ButtonContainer>
       </CenterModal>
 

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Notifications from "../../../components/molecules/Notifications";
 import { StyledTopBar } from "./TopBar.styles";
-import logo from "../../_assets/logo.svg";
+import logo from "../../../_assets/logo.svg";
 import Image from "next/image";
-import bell from "../../_assets/bell.svg";
+import bell from "../../../_assets/bell.svg";
 import Button from "@/components/atoms/Button";
-import store from "../../_assets/store.svg";
-import closedNav from "../../_assets/closed-nav.svg";
-import profile from "../../_assets/profile.png";
-import dropDown from "../../_assets/dropDown.png";
-import wallet from "../../_assets/wallet.png";
+import store from "../../../_assets/store.svg";
+import closedNav from "../../../_assets/closed-nav.svg";
+import profile from "../../../_assets/profile.png";
+import dropDown from "../../../_assets/dropDown.png";
+import wallet from "../../../_assets/wallet.png";
 import SideNav from "../../../components/atoms/sideNav/index.js";
 
 const TopBar = () => {

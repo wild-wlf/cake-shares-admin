@@ -49,6 +49,6 @@ const Form = React.forwardRef((props, ref) => {
   );
 });
 
-Form.displayName = "Form"; 
+Form.displayName = "Form";
 
 export default Form;

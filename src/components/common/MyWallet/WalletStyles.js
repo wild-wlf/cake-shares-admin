@@ -30,11 +30,12 @@ export const ChartWrapper = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-bottom: 50px;
   /* align-items: center; */
   flex-wrap: wrap;
-  /* .ChartContainer {
-    width: 440px;
-  } */
+  .ChartContainer {
+    width: 32%;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -43,4 +44,22 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+`;
+
+export const Button2 = styled.button`
+  width: 170px;
+  height: 40px;
+  background-color: #408f8c;
+  border-radius: 52px;
+  color: #fff;
+  &:hover {
+    background-color: #70aba9;
+  }
+`;
+export const Button3 = styled.button`
+  width: 170px;
+  height: 40px;
+  border-radius: 52px;
+  color: #111;
+  border: 1px solid #dadada;
 `;
