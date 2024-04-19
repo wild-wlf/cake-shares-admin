@@ -232,5 +232,6 @@ const Field = forwardRef(
 );
 
 Field.defaultProps = defaultProps;
+Field.displayName = "Field";
 
 export default Field;

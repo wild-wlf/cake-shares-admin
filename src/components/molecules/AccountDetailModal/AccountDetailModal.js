@@ -7,7 +7,7 @@ const AccountDetailModal = ({ closeAccountModal }) => {
     <Container>
       <p>
         For this payment, please utilize the provided bank account details. Be
-        sure to include the reference number in the "Reason" field.
+        sure to include the reference number in the &quot;Reason&quot; field.
       </p>
       <DetailsContainer>
         <div className="Dets">

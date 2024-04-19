@@ -38,5 +38,9 @@ export const ChartWrapper = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-
+  display: flex;
+  padding-top: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
 `;
