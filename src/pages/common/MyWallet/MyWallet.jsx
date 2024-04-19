@@ -69,7 +69,14 @@ const MyWallet = () => {
           heading="Save Bank Details!"
           paragraph="Do you want to save your bank details for future top-ups?"
         />
-        <ButtonContainer></ButtonContainer>
+        <ButtonContainer>
+          <Button rounded sm btntype={"download"}>
+            cancel
+          </Button>
+          <Button sm rounded btntype={"green"} onClick={""}>
+            Yes, Save
+          </Button>
+        </ButtonContainer>
       </CenterModal>
 
       <CenterModal

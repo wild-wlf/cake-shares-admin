@@ -1,12 +1,20 @@
 /* eslint-disable react/prop-types */
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 // eslint-disable-next-line no-unused-vars
-import Styled from 'styled-components';
-import useForm from './useForm';
-import FieldContext from './FieldContext';
+import Styled from "styled-components";
+import useForm from "./useForm";
+import FieldContext from "./FieldContext";
 
-export default React.forwardRef((props, ref) => {
-  const { form, children, initialValues, onSubmit, onError, onTouched, ...restProps } = props;
+const Form = React.forwardRef((props, ref) => {
+  const {
+    form,
+    children,
+    initialValues,
+    onSubmit,
+    onError,
+    onTouched,
+    ...restProps
+  } = props;
   const [formInstance] = useForm(form);
 
   const { setInitialValues, setCallbacks } = formInstance.getInternalHooks();
@@ -28,12 +36,19 @@ export default React.forwardRef((props, ref) => {
   return (
     <form
       {...restProps}
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
         event.stopPropagation();
         formInstance.submit();
-      }}>
-      <FieldContext.Provider value={formInstance}>{children}</FieldContext.Provider>
+      }}
+    >
+      <FieldContext.Provider value={formInstance}>
+        {children}
+      </FieldContext.Provider>
     </form>
   );
 });
+
+Form.displayName = "Form"; 
+
+export default Form;
