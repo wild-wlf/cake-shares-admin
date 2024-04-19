@@ -53,6 +53,9 @@ export const StyledButton = styled.button`
     if (btntype === "info") {
       return "var(--blue)";
     }
+    if (btntype === "download") {
+      return "#4E6199";
+    }
     return "var(--white)";
   }};
 
@@ -88,7 +91,16 @@ export const StyledButton = styled.button`
     if (btntype === "info") {
       return "var(--light-blue)";
     }
+    if (btntype === "download") {
+      return "#fff";
+    }
     return "var(--primary)";
+  }};
+
+  border: ${({ btntype }) => {
+    if (btntype === "download") {
+      return "1.5px solid #4E6199";
+    }
   }};
 
   transition: 0.3s all ease-in-out;

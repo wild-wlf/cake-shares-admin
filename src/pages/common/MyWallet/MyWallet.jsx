@@ -1,31 +1,168 @@
-import React from "react";
-import { StyledContainer } from "./WalletStyles";
+import React, { useState } from "react";
+import { StyledContainer, ChartWrapper, ButtonContainer } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../_assets/btnLeftArrow.png";
 import walletWhite from "../../_assets/walletWhite.png";
 import Image from "next/image";
+import Graph from "@/components/molecules/Charts";
+import PieChart from "@/components/molecules/PieChart";
+import CenterModal from "@/components/molecules/Modal/CenterModal";
+import TopUpModal from "@/components/molecules/TopUpModal/TopUpModal";
+import BankModal from "@/components/molecules/BankModal/BankModal";
+import AccountDetailModal from "@/components/molecules/AccountDetailModal/AccountDetailModal";
+import infoIcon from "../../_assets/infoIcon.png";
+import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 
 const MyWallet = () => {
+  const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
+  const ary2 = [
+    0, 200, 300, 6000, 500, 1000, 500, 5000, 1000, 8000, 200, 5000, 5200, 5500,
+    5700, 5720, 5880,
+  ];
+  const pieData = [
+    { name: "Banking product", y: 30, color: "#408F8C" },
+    { name: "Properties", y: 25, color: "#00AFD6" },
+    { name: "Ventures", y: 20, color: "#0A1149" },
+    { name: "Bazar", y: 15, color: "#419400" },
+    { name: "Cars", y: 10, color: "#4E6199" },
+  ];
+  const [open, setOpen] = useState(false);
+  const [openBank, setOpenBank] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
+  const [openAccount, setOpenAccount] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("bank");
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+  const openModal = () => {
+    setOpen(true);
+  };
+  const openNext = () => {
+    setOpen(false);
+    if (selectedOption === "bank") {
+      setOpenBank(true);
+    }
+  };
+  const openAccountModal = () => {
+    setOpenBank(false);
+    setOpenAccount(true);
+  };
+  const closeAccountModal = (option) => {
+    setOpenAccount(false);
+    if (option === "save") {
+      setOpenInfo(true);
+    } else if (option === "download") {
+    }
+  };
+
   return (
-    <StyledContainer>
-      <div className="btnDiv">
-        <Button rounded sm btntype="gray">
-          <Image src={btnLeftArrow} />
-          Go Back
-        </Button>
-        <Button rounded sm btntype="green">
-          Top Up Wallet
-          <Image src={walletWhite} />
-        </Button>
-      </div>
-      <div className="textContainer">
-        <h1 className="title">MyWallet</h1>
-        <div className="credit">
-          <span>Total Credit:</span> <br />
-          <h1>$35,265.000</h1>
+    <>
+      <CenterModal
+        open={openInfo}
+        setOpen={setOpenInfo}
+        width="543"
+        padding={"24px"}
+        headImage={infoIcon}
+      >
+        <SuccessModal
+          heading="Save Bank Details!"
+          paragraph="Do you want to save your bank details for future top-ups?"
+        />
+        <ButtonContainer></ButtonContainer>
+      </CenterModal>
+
+      <CenterModal
+        open={openAccount}
+        setOpen={setOpenAccount}
+        width="643"
+        padding={"30px"}
+        title="Bank Top-up Acc details "
+      >
+        <AccountDetailModal closeAccountModal={closeAccountModal} />
+      </CenterModal>
+
+      <CenterModal
+        open={openBank}
+        setOpen={setOpenBank}
+        width="666"
+        padding={"30px"}
+        title="Top up via Bank Account"
+      >
+        <BankModal openAccountModal={openAccountModal} />
+      </CenterModal>
+
+      <CenterModal
+        open={open}
+        setOpen={setOpen}
+        width="623"
+        padding={"30px"}
+        title="Top up your Wallet"
+      >
+        <TopUpModal
+          openNext={openNext}
+          handleOptionSelect={handleOptionSelect}
+          selectedOption={selectedOption}
+        />
+      </CenterModal>
+
+      <StyledContainer>
+        <div className="btnDiv">
+          <Button rounded sm btntype="gray">
+            <Image src={btnLeftArrow} />
+            Go Back
+          </Button>
+          <Button rounded sm btntype="green" onClick={() => openModal()}>
+            Top Up Wallet
+            <Image src={walletWhite} />
+          </Button>
         </div>
-      </div>
-    </StyledContainer>
+        <div className="textContainer">
+          <h1 className="title">MyWallet</h1>
+          <div className="credit">
+            <span>Total Credit:</span> <br />
+            <h1>$35,265.000</h1>
+          </div>
+        </div>
+
+        <ChartWrapper>
+          <div className="ChartContainer">
+            <PieChart
+              graphData={pieData}
+              title="Total Investments"
+              amount="$1000"
+              timeFrame="year"
+            />
+          </div>
+
+          <div className="ChartContainer">
+            <Graph
+              graphLineColor="#4E6199"
+              // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
+              graphData={ary2}
+              tooltipBg=""
+              title="Potential Return P.A"
+              // amount={dashboard_data?.totalTransactionAmount}
+              amount="$2405"
+              timeFrame=""
+            />
+          </div>
+          <div className="ChartContainer">
+            <Graph
+              graphLineColor="#D74120"
+              // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
+              graphData={ary3}
+              tooltipBg=""
+              tooltipImg=""
+              title="Portfolio Costs"
+              // amount={dashboard_data?.totalTransactionAmount}
+              amount="$2405"
+              timeFrame=""
+            />
+          </div>
+        </ChartWrapper>
+      </StyledContainer>
+    </>
   );
 };
 

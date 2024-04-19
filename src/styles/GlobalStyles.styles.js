@@ -16,7 +16,6 @@ export const Styling = css`
     scroll-behavior: smooth;
     box-sizing: border-box;
   }
-  
   *:before,
   *:after {
     box-sizing: inherit;
@@ -58,6 +57,12 @@ export const Styling = css`
       background: rgba(50, 59, 75, 0.3);
       z-index: 9;
     }
+  }
+
+  .container{
+    max-width  : 1440px ;
+    margin: 0 auto;
+    overflow: hidden;
   }
 
   img {
@@ -131,7 +136,7 @@ export const Styling = css`
   h4,
   h5,
   h6 {
-    margin: 0 0 1.25rem;
+    /* margin: 0 0 1.25rem; */
   }
 
   p {
@@ -152,7 +157,6 @@ export const Styling = css`
       background: rgba(233, 0, 0, 0.15);
     }
   }
-
   .merchantName {
     display: flex;
     align-items: center;
@@ -204,6 +208,9 @@ export const Styling = css`
   input[type="number"] {
     appearance: textfield;
   }
+.react-datepicker-wrapper {
+  width: 100%;
+}
 
   .react-datepicker {
     font-family: var(--base-font-sans-serif);

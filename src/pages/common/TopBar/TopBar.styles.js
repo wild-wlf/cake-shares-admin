@@ -2,10 +2,10 @@
 import styled from "styled-components";
 
 export const StyledTopBar = styled.header`
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   padding: 30px 50px;
   font-family: var(--base-font-sans-serif);
   background: var(--white);
@@ -62,6 +62,9 @@ export const StyledTopBar = styled.header`
     gap: 8px;
     background: var(--white);
     font-weight: 500;
+    .heading {
+      padding-right: 69px;
+    }
   }
   .textFieldRight::after {
     content: "";
@@ -89,6 +92,7 @@ export const StyledTopBar = styled.header`
         visibility: visible;
         transform: translateY(0);
         opacity: 1;
+        z-index: 9;
       }
     }
   }
@@ -140,10 +144,18 @@ export const StyledTopBar = styled.header`
     transition: all 0.3s ease-in-out;
     height: 100%;
   }
-
   .sideNav.show {
     left: 0;
     transition: linear 0.3s;
+  }
+
+  @media (max-width: 1024px) {
+    .textFieldRight {
+      .heading {
+        display: inline-block;
+        padding-right: 40px;
+      }
+    }
   }
 
   @media (max-width: 768px) {

@@ -28,7 +28,7 @@ export const ContentHolder = styled.div`
   animation: myAnim 0.3s ease;
   background: var(--white);
   max-height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 
   @keyframes myAnim {
     0% {
@@ -45,20 +45,27 @@ export const ContentHolder = styled.div`
 
 export const Head = styled.div`
   width: 100%;
-  padding: 10px 50px 10px 10px;
-  border-bottom: 1px solid var(--gray-2);
+  /* padding: 10px 50px 10px 10px; */
+  /* border-bottom: 1px solid var(--gray-2); */
   min-height: 65px;
   position: relative;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .title {
+    font-size: 32px;
+    font-weight: 400;
+  }
   .closer {
     position: absolute;
-    top: 24px;
+    top: 14px;
     right: 18px;
-    width: 20px;
-    height: 20px;
-    background: ${({ gray }) =>
-      gray ? "var(--gray-2)" : "var(--danger-light)"};
-    border-radius: 100%;
+    width: 40px;
+    border: 1px solid #dadada;
+    height: 40px;
+    /* background: ${({ gray }) =>
+      gray ? "var(--gray-2)" : "var(--danger-light)"}; */
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
