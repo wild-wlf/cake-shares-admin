@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyledContainer, ChartWrapper } from "./WalletStyles";
+import React, { useState } from "react";
+import { StyledContainer, ChartWrapper, ButtonContainer } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../_assets/btnLeftArrow.png";
 import walletWhite from "../../_assets/walletWhite.png";
@@ -9,6 +9,9 @@ import PieChart from "@/components/molecules/PieChart";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import TopUpModal from "@/components/molecules/TopUpModal/TopUpModal";
 import BankModal from "@/components/molecules/BankModal/BankModal";
+import AccountDetailModal from "@/components/molecules/AccountDetailModal/AccountDetailModal";
+import infoIcon from "../../_assets/infoIcon.png";
+import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 
 const MyWallet = () => {
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
@@ -25,7 +28,10 @@ const MyWallet = () => {
   ];
   const [open, setOpen] = useState(false);
   const [openBank, setOpenBank] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
+  const [openAccount, setOpenAccount] = useState(false);
   const [selectedOption, setSelectedOption] = useState("bank");
+
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
@@ -38,9 +44,44 @@ const MyWallet = () => {
       setOpenBank(true);
     }
   };
+  const openAccountModal = () => {
+    setOpenBank(false);
+    setOpenAccount(true);
+  };
+  const closeAccountModal = (option) => {
+    setOpenAccount(false);
+    if (option === "save") {
+      setOpenInfo(true);
+    } else if (option === "download") {
+    }
+  };
 
   return (
     <>
+      <CenterModal
+        open={openInfo}
+        setOpen={setOpenInfo}
+        width="543"
+        padding={"24px"}
+        headImage={infoIcon}
+      >
+        <SuccessModal
+          heading="Save Bank Details!"
+          paragraph="Do you want to save your bank details for future top-ups?"
+        />
+        <ButtonContainer></ButtonContainer>
+      </CenterModal>
+
+      <CenterModal
+        open={openAccount}
+        setOpen={setOpenAccount}
+        width="643"
+        padding={"30px"}
+        title="Bank Top-up Acc details "
+      >
+        <AccountDetailModal closeAccountModal={closeAccountModal} />
+      </CenterModal>
+
       <CenterModal
         open={openBank}
         setOpen={setOpenBank}
@@ -48,7 +89,7 @@ const MyWallet = () => {
         padding={"30px"}
         title="Top up via Bank Account"
       >
-        <BankModal />
+        <BankModal openAccountModal={openAccountModal} />
       </CenterModal>
 
       <CenterModal

@@ -36,3 +36,7 @@ export const ChartWrapper = styled.div`
     width: 440px;
   } */
 `;
+
+export const ButtonContainer = styled.div`
+
+`;

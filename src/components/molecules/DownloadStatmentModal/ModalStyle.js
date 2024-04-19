@@ -36,4 +36,8 @@ export const Button = styled.button`
   background-color: #408f8c;
   border-radius: 52px;
   color: #fff;
+  cursor: pointer;
+  &:hover {
+    background-color: #70aba9;
+  }
 `;

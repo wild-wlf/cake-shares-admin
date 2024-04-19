@@ -37,9 +37,8 @@ export const Data = styled.div`
     background-color: #fff;
     opacity: 0.2;
   }
-  /* Adjust spacing if needed */
   &:last-child::after {
-    display: none; /* Hide border after the last div */
+    display: none; 
   }
 
   @media (max-width: 1296px) {

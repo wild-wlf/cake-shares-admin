@@ -22,22 +22,6 @@ const AdminTable = () => {
     setOpen(false);
   };
 
-  const actionBtns = () => (
-    <>
-      <ActionBtnList>
-        <li>
-          <button type="button" className="btn view-more">
-            s,kdjfh
-          </button>
-        </li>
-        <li>
-          <button type="button" className="btn delete">
-            nvfdshjf
-          </button>
-        </li>
-      </ActionBtnList>
-    </>
-  );
 
   const transactions = [
     {
@@ -79,7 +63,6 @@ const AdminTable = () => {
       transaction.email || "------------",
       transaction.email || "------------",
       transaction.phone || "------------",
-      // actionBtns(),
     ]),
   }));
   const columnNamess = [`Created at`, `Roles`, `Email`, "Action", "Amout"];
