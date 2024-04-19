@@ -1,8 +1,8 @@
 import React from "react";
 import { ImageHolder, NotificationsHolder } from "./Notifications.styles";
-import storeImg from "../../../pages/_assets/new-store-icon.png";
+import storeImg from "../../../_assets/new-store-icon.png";
 import Image from "next/image";
-import UserImg from "../../../pages/_assets/user-icon.png";
+import UserImg from "../../../_assets/user-icon.png";
 
 const Notifications = () => {
   const notificationData = [

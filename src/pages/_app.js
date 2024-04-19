@@ -1,4 +1,4 @@
-import "./global.css";
+import "../styles/global.css";
 import { createGlobalStyle } from "styled-components";
 import Variables from "../styles/variables.css";
 import { HelperClasses, Styling } from "../styles/GlobalStyles.styles";

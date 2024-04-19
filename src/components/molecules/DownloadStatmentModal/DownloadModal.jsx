@@ -61,7 +61,6 @@ const DownloadModal = ({ openNext }) => {
             </Form.Item>
           </div>
         </DateContainer>
-
         <MailContainer>
           <div className="wrapper">
             <Form.Item
@@ -82,8 +81,7 @@ const DownloadModal = ({ openNext }) => {
             </Form.Item>
           </div>
         </MailContainer>
-
-        <Button onClick={openNext}> send Mail</Button>
+        <Button onClick={openNext}> Send Mail</Button>
       </Form>
     </ModalContainer>
   );

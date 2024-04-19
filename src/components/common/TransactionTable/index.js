@@ -3,11 +3,11 @@ import { ActionBtnList } from "@/components/atoms/ActionBtns/ActionBtns.styles";
 import Table from "@/components/molecules/Table";
 import TableLayout from "@/components/atoms/TableLayout";
 import { TableContainer } from "./TableStyles";
-import downloadIcon from "../../_assets/statement.png";
+import downloadIcon from "../../../_assets/statement.png";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import DownloadModal from "@/components/molecules/DownloadStatmentModal/DownloadModal";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
-import SuccessIcon from "../../_assets/successIcon.png";
+import SuccessIcon from "../../../_assets/successIcon.png";
 
 const AdminTable = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,6 @@ const AdminTable = () => {
     setStatementModal(true);
     setOpen(false);
   };
-
 
   const transactions = [
     {
@@ -93,7 +92,7 @@ const AdminTable = () => {
 
       <TableContainer>
         <TableLayout
-          tableHeading="Transactions History"
+          tableHeading="Transaction History"
           placeholder="Search history"
           btnText="Download Statement"
           btnType="download"

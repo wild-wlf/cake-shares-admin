@@ -65,7 +65,7 @@ function PieCharts({
       <GraphHeader bg={tooltipBg}>
         <div className="head">
           <strong>{title}</strong>
-          <span>{amount}</span>
+          <strong>{amount}</strong>
         </div>
       </GraphHeader>
       <ChartContainer>

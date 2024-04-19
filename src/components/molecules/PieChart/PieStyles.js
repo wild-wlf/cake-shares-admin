@@ -9,29 +9,25 @@ export const GraphHeader = styled.div`
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    strong {
+      font-size: 22px;
+      font-weight: 500;
+    }
   }
 `;
 
 export const StyledGraph = styled.div`
-  width: 440px;
+  width: 100%;
   background: var(--white);
   border-radius: 25px;
   border: 1px solid rgba(74, 85, 104, 0.1);
-  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
-    -10px 10px 20px rgba(0, 0, 0, 0.1); */
-  padding: 23px 31px;
-  /* span {
-    font-size: 22px;
-    font-weight: 500;
-  }
-  strong {
-    font-size: 22px;
-    font-weight: 500;
-  } */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
+    -10px 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 31px;
 `;
 
 export const ChartContainer = styled.div`
   .highcharts-container {
-    height: 330px !important;
+    height: 300px !important;
   }
 `;

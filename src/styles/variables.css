@@ -22,6 +22,7 @@
   --light: #eff2f8;
   --light-secondary: #f6f8fa;
   --success: #53b13e;
+  --danger: #f44336;
   --danger-dark: #b10000;
   --danger-light: #f44336;
   --info: var(--secondary);

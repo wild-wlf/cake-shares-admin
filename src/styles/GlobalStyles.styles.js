@@ -58,11 +58,8 @@ export const Styling = css`
       z-index: 9;
     }
   }
-
-  .container{
-    max-width  : 1440px ;
-    margin: 0 auto;
-    overflow: hidden;
+  .modalOpen {
+    overflow: hidden !important;
   }
 
   img {
