@@ -18,6 +18,9 @@ import BankModal from "@/components/molecules/BankModal/BankModal";
 import AccountDetailModal from "@/components/molecules/AccountDetailModal/AccountDetailModal";
 import infoIcon from "../../../_assets/infoIcon.png";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
+import SuccessIcon from "../../../_assets/SuccessIcon.png";
+import CardModal from "@/components/molecules/CreditCardModal/CardModal.jsx";
+import CryptoModal from "@/components/molecules/CryptoModal/CryptoModal";
 
 const MyWallet = () => {
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
@@ -34,8 +37,12 @@ const MyWallet = () => {
   ];
   const [open, setOpen] = useState(false);
   const [openBank, setOpenBank] = useState(false);
+  const [openCard, setOpenCard] = useState(false);
+  const [openCrypto, setOpenCrypto] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
+  const [openCardSuccess, setOpenCardSuccess] = useState(false);
+  const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("bank");
 
@@ -49,6 +56,10 @@ const MyWallet = () => {
     setOpen(false);
     if (selectedOption === "bank") {
       setOpenBank(true);
+    } else if (selectedOption === "crypto") {
+      setOpenCrypto(true);
+    } else if (selectedOption === "card") {
+      setOpenCard(true);
     }
   };
   const openAccountModal = () => {
@@ -67,20 +78,82 @@ const MyWallet = () => {
   };
   const openLastModal = () => {
     setOpenInfo(false);
+    setOpenSuccessModal(true);
+  };
+  const openCardNext = () => {
+    setOpenCard(false);
+    setOpenCardSuccess(true);
   };
 
   return (
     <>
       <CenterModal
+        open={openCrypto}
+        setOpen={setOpenCrypto}
+        width="667"
+        padding={"25px"}
+        title={"Top up via Crypto Wallet"}
+      >
+        <CryptoModal />
+      </CenterModal>
+
+      <CenterModal
+        open={openCardLast}
+        setOpen={setOpenCardLast}
+        width="543"
+        padding={"25px"}
+        headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Card Details Saved Successfully!"
+          paragraph="Your credit card details have been saved for future top ups."
+        />
+      </CenterModal>
+
+      <CenterModal
+        open={openCardSuccess}
+        setOpen={setOpenCardSuccess}
+        width="543"
+        padding={"24px"}
+        headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Wallet Top up Successful!"
+          paragraph="Great news! Your wallet top-up using your credit card was successful. Funds should be available within 3 business days."
+        />
+        <ButtonContainer>
+          <Button3 onClick={() => setOpenCardSuccess(false)}>Cancel</Button3>
+          <Button2
+            onClick={() => {
+              setOpenCardSuccess(false);
+              setOpenCardLast(true);
+            }}
+          >
+            Save Card Details
+          </Button2>
+        </ButtonContainer>
+      </CenterModal>
+
+      <CenterModal
+        open={openCard}
+        setOpen={setOpenCard}
+        width="666"
+        title={"Top up via Credit Card"}
+        padding={"30px"}
+      >
+        <CardModal openCardNext={openCardNext} />
+      </CenterModal>
+
+      <CenterModal
         open={openSuccessModal}
         setOpen={setOpenSuccessModal}
         width="543"
         padding={"25px"}
-        // headImage={SuccessIcon}
+        headImage={SuccessIcon}
       >
         <SuccessModal
-          heading="Statement Sent Successfully!"
-          // paragraph={modalParagraph}
+          heading="Bank Details Saved Successfully!"
+          paragraph="Your bank details have been saved for future top ups."
         />
       </CenterModal>
 
@@ -179,7 +252,7 @@ const MyWallet = () => {
               title="Potential Return P.A"
               // amount={dashboard_data?.totalTransactionAmount}
               amount="$2405"
-              timeFrame=""
+              timeFrame="steps"
             />
           </div>
           <div className="ChartContainer">
@@ -192,7 +265,7 @@ const MyWallet = () => {
               title="Portfolio Costs"
               // amount={dashboard_data?.totalTransactionAmount}
               amount="$2405"
-              timeFrame=""
+              timeFrame="steps"
             />
           </div>
         </ChartWrapper>

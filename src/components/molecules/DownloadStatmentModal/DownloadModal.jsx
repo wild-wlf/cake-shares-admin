@@ -4,7 +4,7 @@ import {
   DateContainer,
   MailContainer,
   Button,
-} from "./ModalStyle";
+} from "./DownloadModalStyle";
 import Field from "../Field";
 import Form, { useForm } from "../Form";
 import { MdDateRange } from "react-icons/md";

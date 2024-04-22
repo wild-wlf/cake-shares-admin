@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Container, Button } from "./BankStyles";
+import React from "react";
+import { Container, Button } from "../BankModal/BankStyles";
 import Field from "../Field";
 import Form, { useForm } from "../Form";
 
-const BankModal = ({ openAccountModal }) => {
+const CardModal = ({ openCardNext }) => {
   const [form] = useForm();
 
   return (
@@ -16,16 +16,16 @@ const BankModal = ({ openAccountModal }) => {
         <div className="feildContainer">
           <div className="wrapper">
             <Form.Item
-              label="Bank Name"
+              label="Card Holder Name"
               type="input"
               rounded
               sm
-              name="Bank Name"
-              placeholder="Bank of America"
+              name="Card Holder Name"
+              placeholder="Alez Mertiz"
               rules={[
                 {
                   required: true,
-                  message: "Bank Name is Required",
+                  message: "Card Holder Name is Required",
                 },
               ]}
             >
@@ -34,55 +34,16 @@ const BankModal = ({ openAccountModal }) => {
           </div>
           <div className="wrapper">
             <Form.Item
-              label="IBAN"
+              label="Card Number"
               type="input"
               rounded
               sm
-              name="IBAN"
-              placeholder="PK033310084246213"
+              name="Card Number"
+              placeholder="123456789"
               rules={[
                 {
                   required: true,
-                  message: "IBAN Number is Required",
-                },
-              ]}
-            >
-              <Field />
-            </Form.Item>
-          </div>
-        </div>
-
-        <div className="feildContainer">
-          <div className="wrapper">
-            <Form.Item
-              label="SWIFT / BIC Number"
-              type="input"
-              rounded
-              sm
-              name="SWIFT / BIC Number"
-              placeholder="PK033310084246213"
-              rules={[
-                {
-                  required: true,
-                  message: " SWIFT or BIC Number is Required",
-                },
-              ]}
-            >
-              <Field />
-            </Form.Item>
-          </div>
-          <div className="wrapper">
-            <Form.Item
-              label="User ID"
-              type="input"
-              rounded
-              sm
-              name="User ID"
-              placeholder="33445554"
-              rules={[
-                {
-                  required: true,
-                  message: "User ID is Required",
+                  message: "Card Number is Required",
                 },
               ]}
             >
@@ -94,16 +55,16 @@ const BankModal = ({ openAccountModal }) => {
         <div className="feildContainer">
           <div className="wrapper">
             <Form.Item
-              label="First Name (CakeSahre Profile)"
+              label="Expiry Date"
               type="input"
               rounded
               sm
-              name="First Name"
-              placeholder="Alex"
+              name="Expiry Date"
+              placeholder="02/29"
               rules={[
                 {
                   required: true,
-                  message: "First Name Required",
+                  message: "Expiry Date is Required",
                 },
               ]}
             >
@@ -112,16 +73,37 @@ const BankModal = ({ openAccountModal }) => {
           </div>
           <div className="wrapper">
             <Form.Item
-              label="Last Name (CakeSahre Profile)"
+              label="CVC Number"
               type="input"
               rounded
               sm
-              name="Last Name"
-              placeholder="Mertiz"
+              name="CVC Number"
+              placeholder="356"
               rules={[
                 {
                   required: true,
-                  message: "Last Name Required",
+                  message: "CVC Number is Required",
+                },
+              ]}
+            >
+              <Field />
+            </Form.Item>
+          </div>
+        </div>
+
+        <div className="feildContainer">
+          <div className="wrapper fullWidth">
+            <Form.Item
+              label="Enter Amount"
+              type="input"
+              rounded
+              sm
+              name="Amount"
+              placeholder="$2,000,00"
+              rules={[
+                {
+                  required: true,
+                  message: "Amount Required",
                 },
               ]}
             >
@@ -131,9 +113,9 @@ const BankModal = ({ openAccountModal }) => {
         </div>
       </Form>
 
-      <Button onClick={() => openAccountModal()}>Continue</Button>
+      <Button onClick={() => openCardNext()}>Top up Now</Button>
     </Container>
   );
 };
 
-export default BankModal;
+export default CardModal;

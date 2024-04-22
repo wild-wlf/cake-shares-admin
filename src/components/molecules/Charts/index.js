@@ -57,7 +57,13 @@ function Graph({
         </div>
       </GraphHeader>
       <HighchartsReact highcharts={Highcharts} options={options} />
-      {timeFrame === "day" ? (
+
+      {timeFrame === "steps" ? (
+        <div className="label">
+          <span>Step 1</span>
+          <span>Step 30</span>
+        </div>
+      ) : timeFrame === "day" ? (
         <div className="label">
           <span>12:01 - 03:01</span>
           <span>03:01 - 06:01</span>

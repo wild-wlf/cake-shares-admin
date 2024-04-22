@@ -15,6 +15,9 @@ export const Container = styled.div`
     .wrapper {
       width: 48%;
     }
+    .fullWidth {
+      width: 100%;
+    }
   }
 `;
 
