@@ -15,7 +15,7 @@ export const StyledButton = styled.button`
   cursor: pointer;
   font-weight: ${({ weight }) => weight || "600"};
   width: ${({ width }) => width && "100%"};
-  max-width: ${({ width }) => width && `${width}px`};
+  /* max-width: ${({ width }) => width && `${width}px`}; */
   transition: filter 0.3s linear, box-shadow 0.3s linear;
 
   border-radius: ${({ rounded }) => {

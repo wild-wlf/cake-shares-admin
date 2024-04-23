@@ -21,7 +21,6 @@ const AdminTable = () => {
     setStatementModal(true);
     setOpen(false);
   };
-
   const transactions = [
     {
       name: "name",

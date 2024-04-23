@@ -1,27 +1,44 @@
 import React, { useState } from "react";
-import { Sort } from "../../atoms/ContentHeader/ContentHeader.styles";
 import { Container } from "./CryptoMOdalStyles";
-import Field from "../Field";
-import Button from "@/components/atoms/Button";
+import Select from "@/components/atoms/Select";
+import Form, { useForm } from "../Form";
+import {
+  ButtonConfirm,
+  ButtonContainer,
+} from "@/components/common/MyWallet/WalletStyles";
 
-const CryptoModal = () => {
-  const [kycBox, setKycBox] = useState(false);
-  const [selected, setSelected] = useState({
-    kyc: "Select Level",
-  });
-
-  const handleKycChecked = (e) => {
-    const { name } = e.target;
-    setSelected((prev) => ({
-      ...prev,
-      kyc: name,
-    }));
-    setSearchQuery((prev) => ({
-      ...prev,
-      kyc: name,
-    }));
-    setKycBox(false);
-  };
+const CryptoModal = ({ walletLinkModal }) => {
+  const cryptoWalletNames = [
+    {
+      label: "Bitcoin Wallet",
+      value: "Bitcoin Wallet",
+    },
+    {
+      label: "Ethereum Wallet",
+      value: "Ethereum Wallet",
+    },
+    {
+      label: "Ripple Wallet",
+      value: "Ripple Wallet",
+    },
+    {
+      label: "Litecoin Wallet",
+      value: "Litecoin Wallet",
+    },
+    {
+      label: "Bitcoin Cash Wallet",
+      value: "Bitcoin Cash Wallet",
+    },
+    {
+      label: "Cardano Wallet",
+      value: "Cardano Wallet",
+    },
+    {
+      label: "Polkadot Wallet",
+      value: "Polkadot Wallet",
+    },
+  ];
+  const { form } = useForm();
 
   return (
     <Container>
@@ -29,44 +46,26 @@ const CryptoModal = () => {
         Choose the crypto wallet you want to transfer funds from to top up your
         balance.
       </h3>
-
-      <Sort className={kycBox && "active"}>
-        <Button
-          type="dropdown"
-          rounded
-          sm
-          width="100%"
-          onClick={() => setKycBox(!kycBox)}
-          className="dropdown"
+      <Form form={form}>
+        <Form.Item
+          label={"Select Crypto Wallet"}
+          options={cryptoWalletNames}
+          rules={[
+            {
+              required: true,
+              message: "Crypto wallet should be selected",
+            },
+          ]}
         >
-          {selected.kyc}
-          {/* <IoMdArrowDropdown size={20} /> */}
-        </Button>
-        <div className="sort-list">
-          {kycBox && (
-            <div className="list">
-              <Field
-                type="radio"
-                label="Level 1"
-                name="Level 1"
-                radioBorder="var(--gray-2)"
-                labelReverse
-                onChange={handleKycChecked}
-                value={selected.kyc === "Level 1"}
-              />
-              <Field
-                type="radio"
-                label="Level 2"
-                name="Level 2"
-                radioBorder="var(--gray-2)"
-                labelReverse
-                onChange={handleKycChecked}
-                value={selected.kyc === "Level 2"}
-              />
-            </div>
-          )}
-        </div>
-      </Sort>
+          <Select />
+        </Form.Item>
+      </Form>
+
+      <ButtonContainer>
+        <ButtonConfirm onClick={() => walletLinkModal()}>
+          Link wallet
+        </ButtonConfirm>
+      </ButtonContainer>
     </Container>
   );
 };

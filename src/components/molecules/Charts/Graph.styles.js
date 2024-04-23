@@ -38,6 +38,12 @@ export const StyledGraph = styled.div`
     width: 100% !important;
   }
 
+  @media (max-width: 1200px) {
+    .highcharts-container {
+      height: 185px !important;
+    }
+  }
+
   .highcharts-background {
     fill: transparent !important;
   }
@@ -69,6 +75,15 @@ export const GraphHeader = styled.div`
     display: block;
     font-size: 22px;
     font-weight: 500;
+  }
+
+  @media (max-width: 1200px) {
+    span,
+    strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+    }
   }
 `;
 

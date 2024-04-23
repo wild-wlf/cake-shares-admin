@@ -3,8 +3,8 @@ import {
   StyledContainer,
   ChartWrapper,
   ButtonContainer,
-  Button2,
-  Button3,
+  ButtonConfirm,
+  ButtonCancel,
 } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../../_assets/btnLeftArrow.png";
@@ -21,6 +21,7 @@ import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 import SuccessIcon from "../../../_assets/SuccessIcon.png";
 import CardModal from "@/components/molecules/CreditCardModal/CardModal.jsx";
 import CryptoModal from "@/components/molecules/CryptoModal/CryptoModal";
+import AddAmountModal from "@/components/molecules/AddAmountModal/AddAmountModal";
 
 const MyWallet = () => {
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
@@ -36,11 +37,15 @@ const MyWallet = () => {
     { name: "Cars", y: 10, color: "#4E6199" },
   ];
   const [open, setOpen] = useState(false);
+  const [openLast, setOpenLast] = useState(false);
   const [openBank, setOpenBank] = useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [openCrypto, setOpenCrypto] = useState(false);
+  const [openAmout, setOpenAmount] = useState(false);
+  const [openTopupSuccess, setOpenTopupSuccess] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
+  const [openWalletLink, setOpenWalletLink] = useState(false);
   const [openCardSuccess, setOpenCardSuccess] = useState(false);
   const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -84,9 +89,92 @@ const MyWallet = () => {
     setOpenCard(false);
     setOpenCardSuccess(true);
   };
+  const walletLinkModal = () => {
+    setOpenCrypto(false);
+    setOpenWalletLink(true);
+  };
+  const saveDetailsModal = () => {
+    setOpenAmount(false);
+    setOpenTopupSuccess(true);
+  };
 
   return (
     <>
+      <CenterModal
+        open={openLast}
+        setOpen={setOpenLast}
+        width="543"
+        padding={"25px"}
+        headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Wallet Details Saved Successfully!"
+          paragraph="Your wallet details have been saved for future top ups."
+        />
+      </CenterModal>
+
+      <CenterModal
+        open={openTopupSuccess}
+        setOpen={setOpenTopupSuccess}
+        width="543"
+        padding={"25px"}
+        headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Wallet Top up Successful!"
+          paragraph="Great news! Your wallet top-up using your bank details was successful. Funds should be available within 3 business days."
+        />
+        <ButtonContainer>
+          <ButtonCancel onClick={() => setOpenTopupSuccess(false)}>
+            Cancel
+          </ButtonCancel>
+          <ButtonConfirm
+            onClick={() => {
+              setOpenTopupSuccess(false);
+              setOpenLast(true);
+            }}
+          >
+            Save Wallet Details
+          </ButtonConfirm>
+        </ButtonContainer>
+      </CenterModal>
+
+      <CenterModal
+        open={openAmout}
+        setOpen={setOpenAmount}
+        width="667"
+        padding={"25px"}
+        title={"Top up via Crypto Wallet"}
+      >
+        <AddAmountModal saveDetailsModal={saveDetailsModal} />
+      </CenterModal>
+
+      <CenterModal
+        open={openWalletLink}
+        setOpen={setOpenWalletLink}
+        width="543"
+        padding={"25px"}
+        headImage={SuccessIcon}
+      >
+        <SuccessModal
+          heading="Wallet Linked Successfully!"
+          paragraph="Your Binance crypto wallet has been successfully linked to your CakeShares account. You can now transfer funds easily."
+        />
+        <ButtonContainer>
+          <ButtonCancel onClick={() => setOpenWalletLink(false)}>
+            Cancel
+          </ButtonCancel>
+          <ButtonConfirm
+            onClick={() => {
+              setOpenWalletLink(false);
+              setOpenAmount(true);
+            }}
+          >
+            Add Amount
+          </ButtonConfirm>
+        </ButtonContainer>
+      </CenterModal>
+
       <CenterModal
         open={openCrypto}
         setOpen={setOpenCrypto}
@@ -94,7 +182,7 @@ const MyWallet = () => {
         padding={"25px"}
         title={"Top up via Crypto Wallet"}
       >
-        <CryptoModal />
+        <CryptoModal walletLinkModal={walletLinkModal} />
       </CenterModal>
 
       <CenterModal
@@ -122,15 +210,17 @@ const MyWallet = () => {
           paragraph="Great news! Your wallet top-up using your credit card was successful. Funds should be available within 3 business days."
         />
         <ButtonContainer>
-          <Button3 onClick={() => setOpenCardSuccess(false)}>Cancel</Button3>
-          <Button2
+          <ButtonCancel onClick={() => setOpenCardSuccess(false)}>
+            Cancel
+          </ButtonCancel>
+          <ButtonConfirm
             onClick={() => {
               setOpenCardSuccess(false);
               setOpenCardLast(true);
             }}
           >
             Save Card Details
-          </Button2>
+          </ButtonConfirm>
         </ButtonContainer>
       </CenterModal>
 
@@ -169,14 +259,14 @@ const MyWallet = () => {
           paragraph="Do you want to save your bank details for future top-ups?"
         />
         <ButtonContainer>
-          <Button3 onClick={() => closeInfoModal()}>Cancel</Button3>
-          <Button2
+          <ButtonCancel onClick={() => closeInfoModal()}>Cancel</ButtonCancel>
+          <ButtonConfirm
             onClick={() => {
               openLastModal();
             }}
           >
             Yes, Save
-          </Button2>
+          </ButtonConfirm>
         </ButtonContainer>
       </CenterModal>
 

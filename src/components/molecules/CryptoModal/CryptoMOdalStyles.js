@@ -6,4 +6,10 @@ export const Container = styled.div`
     font-weight: 300;
     padding: 26px 0;
   }
+
+  @media (max-width: 500px) {
+    h3 {
+      font-size: 14px;
+    }
+  }
 `;

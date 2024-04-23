@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, DetailsContainer, ButtonWrapper } from "./AccountDetsStyle";
 import Button from "@/components/atoms/Button";
+import { ButtonConfirm } from "@/components/common/MyWallet/WalletStyles";
 
 const AccountDetailModal = ({ closeAccountModal }) => {
   return (
@@ -13,6 +14,11 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         <div className="Dets">
           <h4>Bank Name</h4>
           <span>Bank of America</span>
+        </div>
+
+        <div className="Dets">
+          <h4>Swift/BIC Number</h4>
+          <span>123456789123456799</span>
         </div>
 
         <div className="Dets">
@@ -40,14 +46,9 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         >
           Download Details
         </Button>
-        <Button
-          rounded
-          sm
-          btntype="green"
-          onClick={() => closeAccountModal("save")}
-        >
+        <ButtonConfirm onClick={() => closeAccountModal("save")}>
           Save my Bank Details
-        </Button>
+        </ButtonConfirm>
       </ButtonWrapper>
     </Container>
   );

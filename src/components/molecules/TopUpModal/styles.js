@@ -7,6 +7,11 @@ export const Container = styled.div`
     font-weight: 300;
     padding-bottom: 26px;
   }
+  @media (max-width: 650px) {
+    .heading {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const OptionsWrapper = styled.div``;
@@ -15,16 +20,20 @@ export const Option = styled.div`
   height: 130px;
   user-select: none;
   margin-bottom: 20px;
-  width: 562px;
+  width: 100%;
   background-color: #f1f1f1;
   border-radius: 16px;
+  position: relative;
   cursor: pointer;
   display: flex;
   gap: 17px;
   align-items: center;
   justify-content: flex-start;
   padding: 20px 24px;
-
+  .contarinerBox {
+    display: flex;
+    gap: 80px;
+  }
   .imgContainer {
     height: 75px;
     min-width: 75px;
@@ -35,7 +44,6 @@ export const Option = styled.div`
   }
   .textContainer {
     max-width: 320px;
-    margin-right: 60px;
     .optionName {
       font-size: 22px;
       font-weight: 500;
@@ -47,10 +55,43 @@ export const Option = styled.div`
     }
   }
 
+  @media (max-width: 650px) {
+    .contarinerBox {
+      gap: 30px;
+    }
+    .textContainer {
+      .optionName {
+        font-size: 14px;
+      }
+    }
+    .custom-radio {
+      margin-right: 10px;
+    }
+  }
+  @media (max-width: 450px) {
+    height: 165px;
+    padding: 18px 16px;
+    .contarinerBox {
+      gap: 10px;
+    }
+    .custom-radio {
+      margin-right: 10px;
+    }
+  }
+  @media (max-width: 390px) {
+    gap: 10px;
+    .contarinerBox {
+      gap: 0px;
+    }
+    .custom-radio {
+      margin-right: 5px;
+    }
+  }
   .custom-radio {
     height: 100%;
     display: flex;
     align-items: flex-start;
+
     input {
       display: none;
     }
