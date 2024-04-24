@@ -73,6 +73,15 @@ export const Head = styled.div`
   }
 
   @media (max-width: 500px) {
+    .closer {
+      width: 30px;
+      height: 30px;
+      .Icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
     .title {
       font-size: 20px;
       font-weight: 400;

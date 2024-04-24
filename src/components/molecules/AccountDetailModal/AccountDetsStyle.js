@@ -55,4 +55,8 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
+  }
 `;

@@ -15,10 +15,15 @@ export const StyledTopBar = styled.header`
   z-index: 5;
   .closedNav {
     display: none;
+    .Icon {
+      font-size: 25px;
+      font-weight: 500;
+    }
   }
   .logoWrapper {
     display: flex;
     gap: 32px;
+    align-items: center;
   }
   .logo {
     max-width: 206px;
@@ -138,15 +143,12 @@ export const StyledTopBar = styled.header`
     opacity: 0;
     transition: 0.4s;
   }
-  .sideNav {
-    position: absolute;
-    left: -260px;
-    transition: all 0.3s ease-in-out;
-    height: 100%;
-  }
-  .sideNav.show {
-    left: 0;
-    transition: linear 0.3s;
+
+  .authContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
 
   @media (max-width: 1024px) {
@@ -158,10 +160,63 @@ export const StyledTopBar = styled.header`
     }
   }
 
+  @media (max-width: 992px) {
+    .logoWrapper {
+      display: flex;
+      gap: 20px;
+    }
+    .logo {
+      max-width: 150px;
+      img {
+        max-width: 152px;
+        height: auto;
+      }
+    }
+    .wallet {
+      padding: 6px 10px !important;
+      font-size: 12px;
+    }
+    .textFieldRight {
+      padding: 0 10px 5px 0;
+      .heading {
+        padding-right: 30px;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    .textFieldRight {
+      padding: 0 10px 5px 0;
+      .heading {
+        font-size: 13px;
+        padding-right: 10px;
+      }
+    }
+    .logo {
+      max-width: 120px;
+      img {
+        max-width: 122px;
+        height: auto;
+      }
+    }
+  }
+
+  @media (max-width: 530px) {
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 500px) {
+    .wallet {
+      display: none;
+    }
+    .buttonWrapper {
+      display: none;
+    }
+  }
+
   @media (max-width: 768px) {
     .closedNav {
       display: block;
-      border: 1px solid black;
       cursor: pointer;
     }
     .logo {

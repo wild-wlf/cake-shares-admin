@@ -46,9 +46,14 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         >
           Download Details
         </Button>
-        <ButtonConfirm onClick={() => closeAccountModal("save")}>
+        <Button
+          rounded
+          sm
+          btntype="green"
+          onClick={() => closeAccountModal("save")}
+        >
           Save my Bank Details
-        </ButtonConfirm>
+        </Button>
       </ButtonWrapper>
     </Container>
   );
