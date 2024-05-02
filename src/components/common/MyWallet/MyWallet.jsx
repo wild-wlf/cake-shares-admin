@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyledContainer,
-  ChartWrapper,
-  ButtonContainer,
-  ButtonConfirm,
-  ButtonCancel,
-} from "./WalletStyles";
+import { StyledContainer, ChartWrapper, ButtonContainer } from "./WalletStyles";
 import Button from "@/components/atoms/Button";
 import btnLeftArrow from "../../../_assets/btnLeftArrow.png";
 import walletWhite from "../../../_assets/walletWhite.png";
@@ -125,17 +119,29 @@ const MyWallet = () => {
           paragraph="Great news! Your wallet top-up using your bank details was successful. Funds should be available within 3 business days."
         />
         <ButtonContainer>
-          <ButtonCancel onClick={() => setOpenTopupSuccess(false)}>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="cancel"
+            onClick={() => setOpenTopupSuccess(false)}
+          >
             Cancel
-          </ButtonCancel>
-          <ButtonConfirm
+          </Button>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="green"
             onClick={() => {
               setOpenTopupSuccess(false);
               setOpenLast(true);
             }}
           >
             Save Wallet Details
-          </ButtonConfirm>
+          </Button>
         </ButtonContainer>
       </CenterModal>
 
@@ -161,17 +167,29 @@ const MyWallet = () => {
           paragraph="Your Binance crypto wallet has been successfully linked to your CakeShares account. You can now transfer funds easily."
         />
         <ButtonContainer>
-          <ButtonCancel onClick={() => setOpenWalletLink(false)}>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="cancel"
+            onClick={() => setOpenWalletLink(false)}
+          >
             Cancel
-          </ButtonCancel>
-          <ButtonConfirm
+          </Button>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="green"
             onClick={() => {
               setOpenWalletLink(false);
               setOpenAmount(true);
             }}
           >
             Add Amount
-          </ButtonConfirm>
+          </Button>
         </ButtonContainer>
       </CenterModal>
 
@@ -210,17 +228,29 @@ const MyWallet = () => {
           paragraph="Great news! Your wallet top-up using your credit card was successful. Funds should be available within 3 business days."
         />
         <ButtonContainer>
-          <ButtonCancel onClick={() => setOpenCardSuccess(false)}>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="cancel"
+            onClick={() => setOpenCardSuccess(false)}
+          >
             Cancel
-          </ButtonCancel>
-          <ButtonConfirm
+          </Button>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="green"
             onClick={() => {
               setOpenCardSuccess(false);
               setOpenCardLast(true);
             }}
           >
             Save Card Details
-          </ButtonConfirm>
+          </Button>
         </ButtonContainer>
       </CenterModal>
 
@@ -259,14 +289,28 @@ const MyWallet = () => {
           paragraph="Do you want to save your bank details for future top-ups?"
         />
         <ButtonContainer>
-          <ButtonCancel onClick={() => closeInfoModal()}>Cancel</ButtonCancel>
-          <ButtonConfirm
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="cancel"
+            onClick={() => closeInfoModal()}
+          >
+            Cancel
+          </Button>
+          <Button
+            rounded
+            width={"170px"}
+            height={"40px"}
+            sm
+            btntype="green"
             onClick={() => {
               openLastModal();
             }}
           >
             Yes, Save
-          </ButtonConfirm>
+          </Button>
         </ButtonContainer>
       </CenterModal>
 
@@ -306,11 +350,18 @@ const MyWallet = () => {
 
       <StyledContainer>
         <div className="btnDiv">
-          <Button rounded sm btntype="gray">
+          <Button width={"111px"} height={"40px"} rounded sm btntype="gray">
             <Image src={btnLeftArrow} />
             Go Back
           </Button>
-          <Button rounded sm btntype="green" onClick={() => openModal()}>
+          <Button
+            width={"142px"}
+            height={"40px"}
+            rounded
+            sm
+            btntype="primary"
+            onClick={() => openModal()}
+          >
             Top Up Wallet
             <Image src={walletWhite} />
           </Button>

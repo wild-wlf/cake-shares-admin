@@ -84,22 +84,8 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
-`;
 
-export const ButtonConfirm = styled.button`
-  width: 170px;
-  height: 40px;
-  background-color: #408f8c;
-  border-radius: 52px;
-  color: #fff;
-  &:hover {
-    background-color: #70aba9;
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
   }
-`;
-export const ButtonCancel = styled.button`
-  width: 170px;
-  height: 40px;
-  border-radius: 52px;
-  color: #111;
-  border: 1px solid #dadada;
 `;

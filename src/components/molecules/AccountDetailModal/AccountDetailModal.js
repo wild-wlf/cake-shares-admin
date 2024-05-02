@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, DetailsContainer, ButtonWrapper } from "./AccountDetsStyle";
 import Button from "@/components/atoms/Button";
-import { ButtonConfirm } from "@/components/common/MyWallet/WalletStyles";
 
 const AccountDetailModal = ({ closeAccountModal }) => {
   return (
@@ -41,6 +40,8 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         <Button
           rounded
           sm
+          width={"170px"}
+          height={"40px"}
           btntype="download"
           onClick={() => closeAccountModal("download")}
         >
@@ -48,6 +49,8 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         </Button>
         <Button
           rounded
+          width={"170px"}
+          height={"40px"}
           sm
           btntype="green"
           onClick={() => closeAccountModal("save")}

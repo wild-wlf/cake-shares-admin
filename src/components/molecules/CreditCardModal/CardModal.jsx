@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Button } from "../BankModal/BankStyles";
+import { Container } from "../BankModal/BankStyles";
 import Field from "../Field";
 import Form, { useForm } from "../Form";
+import Button from "@/components/atoms/Button";
 
 const CardModal = ({ openCardNext }) => {
   const [form] = useForm();
@@ -113,7 +114,16 @@ const CardModal = ({ openCardNext }) => {
         </div>
       </Form>
 
-      <Button onClick={() => openCardNext()}>Top up Now</Button>
+      <Button
+        rounded
+        width={"170px"}
+        height={"40px"}
+        sm
+        btntype="green"
+        onClick={() => openCardNext()}
+      >
+        Top up Now
+      </Button>
     </Container>
   );
 };

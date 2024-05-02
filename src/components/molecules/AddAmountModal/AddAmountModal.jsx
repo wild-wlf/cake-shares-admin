@@ -1,11 +1,9 @@
 import React from "react";
-import { Container } from "../CryptoModal/CryptoMOdalStyles";
+import { Container } from "../CryptoModal/CryptoModalStyles";
 import Form, { useForm } from "../Form";
 import Field from "../Field";
-import {
-  ButtonConfirm,
-  ButtonContainer,
-} from "@/components/common/MyWallet/WalletStyles";
+import { ButtonContainer } from "@/components/common/MyWallet/WalletStyles";
+import Button from "@/components/atoms/Button";
 
 const AddAmountModal = ({ saveDetailsModal }) => {
   const { form } = useForm();
@@ -34,9 +32,16 @@ const AddAmountModal = ({ saveDetailsModal }) => {
       </Form>
 
       <ButtonContainer>
-        <ButtonConfirm onClick={() => saveDetailsModal()}>
+        <Button
+          rounded
+          width={"170px"}
+          height={"40px"}
+          sm
+          btntype="green"
+          onClick={() => saveDetailsModal()}
+        >
           Top up now
-        </ButtonConfirm>
+        </Button>
       </ButtonContainer>
     </Container>
   );

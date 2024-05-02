@@ -7,6 +7,7 @@ function Button({
   htmlType,
   type,
   width,
+  height,
   disabled,
   color,
   rounded,
@@ -19,6 +20,7 @@ function Button({
     <StyledButton
       type={htmlType === "submit" ? "submit" : "button"}
       btntype={type}
+      height={height}
       width={width}
       rounded={rounded?.toString()}
       color={color}

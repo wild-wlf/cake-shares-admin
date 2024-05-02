@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Container, OptionsWrapper, Option, Button } from "./styles";
+import { Container, OptionsWrapper, Option } from "./styles";
 import Image from "next/image";
 import Bank from "../../../_assets/Bank.png";
 import CryptoWallet from "../../../_assets/CryptoWallet.png";
 import Card from "../../../_assets/card.png";
+import Button from "@/components/atoms/Button";
 
 const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
   return (
@@ -89,7 +90,16 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
         </Option>
       </OptionsWrapper>
 
-      <Button onClick={() => openNext()}>Continue</Button>
+      <Button
+        width={"170px"}
+        height={"40px"}
+        rounded
+        sm
+        btntype="green"
+        onClick={() => openNext()}
+      >
+        Continue
+      </Button>
     </Container>
   );
 };

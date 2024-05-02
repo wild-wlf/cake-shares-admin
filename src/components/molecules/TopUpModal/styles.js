@@ -136,15 +136,3 @@ export const Option = styled.div`
     }
   }
 `;
-
-export const Button = styled.button`
-  width: 170px;
-  height: 40px;
-  background-color: #408f8c;
-  border-radius: 52px;
-  cursor: pointer;
-  color: #fff;
-  &:hover {
-    background-color: #70aba9;
-  }
-`;

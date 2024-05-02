@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "./CryptoMOdalStyles";
 import Select from "@/components/atoms/Select";
 import Form, { useForm } from "../Form";
-import {
-  ButtonConfirm,
-  ButtonContainer,
-} from "@/components/common/MyWallet/WalletStyles";
+import { ButtonContainer } from "@/components/common/MyWallet/WalletStyles";
+import Button from "@/components/atoms/Button";
 
 const CryptoModal = ({ walletLinkModal }) => {
   const cryptoWalletNames = [
@@ -62,9 +60,16 @@ const CryptoModal = ({ walletLinkModal }) => {
       </Form>
 
       <ButtonContainer>
-        <ButtonConfirm onClick={() => walletLinkModal()}>
+        <Button
+          rounded
+          width={"170px"}
+          height={"40px"}
+          sm
+          btntype="green"
+          onClick={() => walletLinkModal()}
+        >
           Link wallet
-        </ButtonConfirm>
+        </Button>
       </ButtonContainer>
     </Container>
   );

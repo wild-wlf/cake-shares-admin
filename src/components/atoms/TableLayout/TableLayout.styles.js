@@ -80,7 +80,7 @@ export const StyledTableLayout = styled.div`
       padding: 5px 20px 20px;
       border-radius: 10px;
       background: var(--gray-4);
-      border-radius: 10px;
+      border-radius: 100px;
     }
     @media (max-width: 768px) {
       padding: 5px 10px 10px;
