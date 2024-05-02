@@ -7,9 +7,9 @@ import SellerTable from "@/components/common/SellerTable";
 const seller = () => {
   return (
     <SellerContainer>
-      <SellerWallet />
+      {/* <SellerWallet />
       <SellerDetailBar />
-      <SellerTable />
+      <SellerTable /> */}
     </SellerContainer>
   );
 };

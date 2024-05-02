@@ -498,7 +498,7 @@ export const HelperClasses = css`
 `;
 
 export const PageWrapper = styled.div`
-  padding: 30px 50px 30px 325px;
+  padding: 30px 50px 30px 320px;
   background-color: #fefefe;
 `;
 
