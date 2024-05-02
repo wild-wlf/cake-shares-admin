@@ -11,7 +11,6 @@ import Sidenav from "@/components/molecules/sideNav/index";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
-  const a = true;
   const [userType, setUserType] = useState("seller");
 
   const GlobalStyles = createGlobalStyle`

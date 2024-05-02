@@ -4,8 +4,9 @@ export const Sidenav = styled.div`
   position: fixed;
   left: 0;
   top: 0;
+  /* margin: 30px 0; */
   background-color: white;
-  width: 260px;
+  width: 300px;
   padding-top: 39px;
   padding-left: 20px;
   height: 100%;
@@ -30,13 +31,4 @@ export const Sidenav = styled.div`
       height: auto;
     }
   }
-
-  .profile {
-    padding-top: 30px;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
 `;
