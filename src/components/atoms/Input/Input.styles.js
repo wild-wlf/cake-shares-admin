@@ -12,9 +12,10 @@ export const styles = css`
     sm ? "0.3125rem .9375rem" : "var(--form-element-padding-lg)"}; */
   padding: 12px 23px;
   width: 100%;
+  font-family: "Outfit", sans-serif;
   transition: border var(--animation-speed) ease-in-out;
   color: var(--secondary-text-color);
-  font-size: var(--font-size-base);
+  font-size: 12px;
   font-weight: 500;
   border-radius: ${({ $straight }) => ($straight ? "6px" : "60px")};
   padding-left: ${({ $prefix }) => $prefix && "2.5rem"};

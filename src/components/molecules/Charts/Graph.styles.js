@@ -7,7 +7,7 @@ export const StyledGraph = styled.div`
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
     -10px 10px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px 0 0;
+  padding: 22px 20px 0 0;
   flex-grow: 1;
   position: relative;
 
@@ -22,15 +22,14 @@ export const StyledGraph = styled.div`
   } */
 
   .label {
-    width: 93%;
     position: relative;
     bottom: 50px;
-    left: 40px;
+    left: 36px;
     display: flex;
     flex-flow: wrap;
-    gap: 6px;
-    justify-content: space-between;
-    font-size: 14px;
+    gap: 210px;
+    font-size: 10px;
+    font-weight: 600;
   }
 
   .highcharts-container {

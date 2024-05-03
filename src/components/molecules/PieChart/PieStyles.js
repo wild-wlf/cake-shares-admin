@@ -32,7 +32,7 @@ export const StyledGraph = styled.div`
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
     -10px 10px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 31px;
+  padding: 22px 20px;
 `;
 
 export const ChartContainer = styled.div`

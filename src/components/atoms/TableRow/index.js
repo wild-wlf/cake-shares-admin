@@ -20,6 +20,10 @@ export const TableRow = styled.tr`
         border-radius: 10px;
         position: relative;
       }
+      @media (max-width: 768px) {
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05),
+          -10px 10px 20px rgba(0, 0, 0, 0.05);
+      }
     `}
 
   @media (min-width: 992px) {
