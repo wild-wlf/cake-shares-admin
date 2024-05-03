@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledContainer = styled.div`
   width: 100%;
   padding: 29px 29px 0px 29px;
-  margin-top: 20px;
   font-family: var(--base-font-sans-serif);
   z-index: 5;
 `;
@@ -16,6 +15,20 @@ export const ChartWrapper = styled.div`
   margin-bottom: 30px;
   .ChartContainer {
     width: 32%;
+  }
+
+  @media (max-width: 1235px) {
+    flex-wrap: wrap;
+    .ChartContainer {
+      width: 339px;
+    }
+  }
+
+  @media (max-width: 1107px) {
+    flex-wrap: wrap;
+    .ChartContainer {
+      width: 100%;
+    }
   }
 
   @media (max-width: 992px) {

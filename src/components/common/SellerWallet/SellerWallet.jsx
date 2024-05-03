@@ -36,7 +36,7 @@ const SellerWallet = () => {
               // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
               graphData={ary2}
               tooltipBg=""
-              title="Potential Return P.A"
+              title="Total Return"
               // amount={dashboard_data?.totalTransactionAmount}
               amount="$2405"
               timeFrame="steps"

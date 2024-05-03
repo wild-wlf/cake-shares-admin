@@ -27,9 +27,11 @@ export const StyledGraph = styled.div`
     left: 36px;
     display: flex;
     flex-flow: wrap;
-    gap: 210px;
+    align-items: center;
+    justify-content: space-between;
     font-size: 10px;
     font-weight: 600;
+    padding-right: ${({ sm }) => (sm ? " 40px" : " 30px ")};
   }
 
   .highcharts-container {

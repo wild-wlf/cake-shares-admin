@@ -49,7 +49,7 @@ export const StyledTableLayout = styled.div`
       font-family: "Outfit", sans-serif;
       .Search {
         height: 40px;
-        max-width: 291px;
+        width: 291px;
         input {
           color: rgba(49, 49, 49, 1);
           background-color: rgba(246, 248, 250, 1);

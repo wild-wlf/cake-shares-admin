@@ -9,15 +9,15 @@ export const Sidenav = styled.div`
   gap: 50px;
   background-color: white;
   max-width: 300px;
-  padding: 30px 30px 30px 50px;
+  padding: 30px 10px 30px 50px;
   height: 100%;
   transition: left 0.3s ease-in-out;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 768px) {
-    display: block;
+  @media (max-width: 992px) {
+    display: none;
   }
 
   .nav-logo {
@@ -32,6 +32,7 @@ export const Sidenav = styled.div`
 
 export const NavLinks = styled.ul`
   padding-top: 30px;
+  padding-right: 20px;
 
   .listHead {
     font-size: 16px;

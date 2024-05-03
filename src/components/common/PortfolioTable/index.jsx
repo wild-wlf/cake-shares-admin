@@ -17,7 +17,7 @@ import FileIcon from "../../../_assets/file.svg";
 import TableStyle from "../../../_assets/table-style.jpg";
 import Image from "next/image";
 
-const PortfolioTable = () => {
+const PortfolioTable = ({ title }) => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
   const modalParagraph =
@@ -155,7 +155,7 @@ const PortfolioTable = () => {
       <TableContainer>
         <Image src={TableStyle} className="tableStyle" />
         <TableLayout
-          tableHeading={<ButtonsGroup />}
+          tableHeading={<ButtonsGroup title={title} />}
           placeholder="Search Product"
           btnWidth={"40px"}
           btnType="download"
