@@ -7,7 +7,8 @@ export const StyledGraph = styled.div`
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
     -10px 10px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px 0 0;
+  padding: ${({ sm }) => (sm ? "20px 40px 0 0" : "40px 30px 0 0")};
+
   flex-grow: 1;
   position: relative;
 
@@ -34,13 +35,13 @@ export const StyledGraph = styled.div`
   }
 
   .highcharts-container {
-    height: 285px !important;
+    height: ${({ sm }) => (sm ? "170px !important" : "285px !important")};
     width: 100% !important;
   }
 
   @media (max-width: 1200px) {
     .highcharts-container {
-      height: 185px !important;
+      height: ${({ sm }) => (sm ? "170px !important" : "185px !important")};
     }
   }
 
@@ -73,7 +74,8 @@ export const GraphHeader = styled.div`
   span,
   strong {
     display: block;
-    font-size: 22px;
+    font-size: ${({ sm }) => (sm ? "18px" : "22px")};
+    padding-bottom: ${({ sm }) => (sm ? "30px" : "0")};
     font-weight: 500;
   }
 

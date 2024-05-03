@@ -1,6 +1,5 @@
 import React from "react";
 import { StyledContainer, ChartWrapper } from "./SellerWalletStyles";
-import Button from "@/components/atoms/Button";
 import Graph from "@/components/molecules/Charts";
 import PieChart from "@/components/molecules/PieChart";
 
@@ -10,7 +9,7 @@ const SellerWallet = () => {
     5700, 5720, 5880,
   ];
   const pieData = [
-    { name: "Banking product", y: 30, color: "#408F8C" },
+    { name: "Banking", y: 30, color: "#408F8C" },
     { name: "Properties", y: 25, color: "#00AFD6" },
     { name: "Ventures", y: 20, color: "#0A1149" },
     { name: "Bazar", y: 15, color: "#419400" },
@@ -20,31 +19,6 @@ const SellerWallet = () => {
   return (
     <>
       <StyledContainer>
-        <div className="btnDiv">
-          <Button width={"111px"} height={"40px"} rounded sm btntype="gray">
-            {/* <Image src={btnLeftArrow} /> */}
-            Go Back
-          </Button>
-          <Button
-            width={"142px"}
-            height={"40px"}
-            rounded
-            sm
-            btntype="primary"
-            onClick={() => openModal()}
-          >
-            Top Up Wallet
-            {/* <Image src={walletWhite} /> */}
-          </Button>
-        </div>
-        <div className="textContainer">
-          <h1 className="title">MyWallet</h1>
-          <div className="credit">
-            <span>Total Credit:</span> <br />
-            <h1>$35,265.000</h1>
-          </div>
-        </div>
-
         <ChartWrapper>
           <div className="ChartContainer">
             <PieChart
@@ -52,6 +26,7 @@ const SellerWallet = () => {
               title="Total Investments"
               amount="$1000"
               timeFrame="year"
+              sm={true}
             />
           </div>
 
@@ -65,14 +40,16 @@ const SellerWallet = () => {
               // amount={dashboard_data?.totalTransactionAmount}
               amount="$2405"
               timeFrame="steps"
+              sm={true}
             />
           </div>
           <div className="ChartContainer">
             <PieChart
               graphData={pieData}
-              title="Total Investments"
-              amount="$1000"
+              title="Best Selling Products"
+              amount="32"
               timeFrame="year"
+              sm={true}
             />
           </div>
         </ChartWrapper>

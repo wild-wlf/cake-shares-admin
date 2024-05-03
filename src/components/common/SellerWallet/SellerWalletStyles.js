@@ -2,41 +2,10 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   width: 100%;
-  padding: 0px 50px;
+  padding: 29px 29px 0px 29px;
   margin-top: 20px;
   font-family: var(--base-font-sans-serif);
   z-index: 5;
-  .btnDiv {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .textContainer {
-    width: 100%;
-    padding: 40px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .title {
-      font-size: 34px;
-      font-weight: 500;
-    }
-  }
-  @media (max-width: 530px) {
-    padding: 0px 20px;
-    .textContainer {
-      .title {
-        font-size: 28px;
-        font-weight: 500;
-      }
-      .credit {
-        h1 {
-          font-size: 28px;
-        }
-      }
-    }
-  }
 `;
 
 export const ChartWrapper = styled.div`
@@ -44,7 +13,7 @@ export const ChartWrapper = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   .ChartContainer {
     width: 32%;
   }
@@ -75,17 +44,5 @@ export const ChartWrapper = styled.div`
     .ChartContainer {
       width: 100%;
     }
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  padding-top: 20px;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-
-  @media (max-width: 450px) {
-    flex-wrap: wrap;
   }
 `;

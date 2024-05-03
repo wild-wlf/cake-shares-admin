@@ -32,6 +32,7 @@ export const Sidenav = styled.div`
 
 export const NavLinks = styled.ul`
   padding-top: 30px;
+
   .listHead {
     font-size: 16px;
     font-weight: 400;
@@ -40,17 +41,17 @@ export const NavLinks = styled.ul`
 
   .NavItem {
     cursor: pointer;
-    width: 190px;
-    height: 50px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
     border-radius: 100px;
     margin-top: 17px;
     transition: 0.5s all ease-in-out;
-    .name {
+    .Link {
+      width: 190px;
+      padding: 14px 20px;
+      height: 50px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
       font-size: 14px;
       font-weight: 300;
       color: black;
@@ -68,13 +69,23 @@ export const NavLinks = styled.ul`
 
     &:hover {
       background-color: rgba(64, 143, 140, 0.3);
-      .name {
+      .Link {
         font-weight: 500;
         color: #408f8c;
       }
       .iconCon {
         background-color: #408f8c;
       }
+    }
+  }
+  .active {
+    background-color: rgba(64, 143, 140, 0.3);
+    .Link {
+      font-weight: 500;
+      color: #408f8c;
+    }
+    .iconCon {
+      background-color: #408f8c;
     }
   }
 `;
