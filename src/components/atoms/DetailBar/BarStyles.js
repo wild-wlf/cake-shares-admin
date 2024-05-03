@@ -9,11 +9,23 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media (max-width: 890px) {
+    gap: 24px;
+  }
+  @media (max-width: 530px) {
+    padding: 16px 20px;
+  }
 `;
 
 export const Data = styled.div`
   color: #fff;
   position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 67px;
+  &:last-child {
+    border: none;
+    padding-right: 0;
+  }
   h1 {
     font-size: 42px;
     margin: 0;
@@ -26,27 +38,11 @@ export const Data = styled.div`
   .l-span {
     font-size: 20px;
   }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 15%;
-    bottom: 0;
-    right: -67px;
-    width: 1px;
-    height: 80px;
-    background-color: #fff;
-    opacity: 0.2;
-  }
-  &:last-child::after {
-    display: none; 
-  }
 
   @media (max-width: 1296px) {
+    padding-right: 50px;
     h1 {
       font-size: 40px;
-    }
-    &::after {
-      right: -57px;
     }
   }
   @media (max-width: 1200px) {
@@ -59,8 +55,14 @@ export const Data = styled.div`
     .l-span {
       font-size: 18px;
     }
-    &::after {
-      right: -50px;
+  }
+  @media (max-width: 1024px) {
+    padding-right: 30px;
+  }
+  @media (max-width: 890px) {
+    &:nth-child(2n) {
+      border-right: none;
+      padding-right: 0;
     }
   }
 `;

@@ -6,8 +6,13 @@ export const Container = styled.div`
     font-size: 24px;
     font-weight: 500;
   }
-  p{
+  p {
     font-size: 14px;
     font-weight: 400;
+  }
+  @media (max-width: 450px) {
+    .heading {
+      font-size: 20px;
+    }
   }
 `;

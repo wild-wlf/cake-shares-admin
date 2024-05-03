@@ -6,6 +6,16 @@ export const Container = styled.div`
     font-weight: 400;
     padding: 26px 0;
   }
+  @media (max-width: 650px) {
+    p {
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 450px) {
+    p {
+      font-size: 14px;
+    }
+  }
 `;
 
 export const DetailsContainer = styled.div`
@@ -13,7 +23,10 @@ export const DetailsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding-bottom: 26px;
+  gap: 26px;
+
   .Dets {
     padding-right: 26px;
     border-right: 1px solid #dadada;
@@ -30,6 +43,11 @@ export const DetailsContainer = styled.div`
       font-weight: 300;
     }
   }
+  @media (max-width: 650px) {
+    .Dets {
+      padding-right: 16px;
+    }
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -37,4 +55,8 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
+  }
 `;

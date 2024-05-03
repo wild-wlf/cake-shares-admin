@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 // prettier-ignore
 export const Styling = css`
@@ -172,7 +172,8 @@ export const Styling = css`
   /* This will work on Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--primary) #eceaf9;
+    scrollbar-color: #408f8c;
+
   }
 
   /* Targtes on Chrome, Edge, and Safari */
@@ -183,11 +184,11 @@ export const Styling = css`
 
   *::-webkit-scrollbar-track {
     border-radius: 30px;
-    background: #eceaf9;
+    background: #408f8c;
   }
 
   *::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: #408f8c;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.03);
     border-radius: 30px;
   }
@@ -494,5 +495,25 @@ export const HelperClasses = css`
   }
   .star-rating {
     font-size: 24px !important;
+  }
+`;
+
+export const PageWrapper = styled.div`
+  padding: 30px 50px 30px 310px;
+  background-color: #fefefe;
+
+  @media (max-width: 992px) {
+    padding: 30px 50px;
+  }
+`;
+
+export const SellerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 30px;
+  border: 1px solid #dadada;
+  @media only screen and (max-width: 1024px) {
+    border: none;
   }
 `;

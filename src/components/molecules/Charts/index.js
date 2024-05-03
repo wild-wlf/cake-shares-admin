@@ -2,6 +2,7 @@ import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { GraphHeader, StyledGraph } from "./Graph.styles";
+import { size } from "polished";
 
 function Graph({
   graphData,
@@ -9,6 +10,7 @@ function Graph({
   title,
   amount,
   graphLineColor,
+  sm,
   timeFrame,
 }) {
   const options = {
@@ -49,15 +51,21 @@ function Graph({
   };
 
   return (
-    <StyledGraph>
-      <GraphHeader bg={tooltipBg}>
+    <StyledGraph sm={sm}>
+      <GraphHeader bg={tooltipBg} sm={sm}>
         <div className="Head">
           <strong>{title}</strong>
           <span>{amount}</span>
         </div>
       </GraphHeader>
       <HighchartsReact highcharts={Highcharts} options={options} />
-      {timeFrame === "day" ? (
+
+      {timeFrame === "steps" ? (
+        <div className="label">
+          <span>Step 1</span>
+          <span>Step 30</span>
+        </div>
+      ) : timeFrame === "day" ? (
         <div className="label">
           <span>12:01 - 03:01</span>
           <span>03:01 - 06:01</span>

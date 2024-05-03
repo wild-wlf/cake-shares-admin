@@ -21,37 +21,42 @@ const AdminTable = () => {
     setStatementModal(true);
     setOpen(false);
   };
-
   const transactions = [
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "24-May-2024",
     },
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "24-May-2024",
     },
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "24-May-2024",
     },
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "",
     },
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "24-May-2024",
     },
     {
       name: "name",
       phone: "2301652065",
       email: "shjdgf@.com",
+      date: "24-May-2024",
     },
   ];
 
@@ -62,9 +67,17 @@ const AdminTable = () => {
       transaction.email || "------------",
       transaction.email || "------------",
       transaction.phone || "------------",
+      transaction.date || "------------",
     ]),
   }));
-  const columnNamess = [`Created at`, `Roles`, `Email`, "Action", "Amout"];
+  const columnNamess = [
+    `Created at`,
+    `Roles`,
+    `Email`,
+    "Action",
+    "Amout",
+    "Date",
+  ];
   return (
     <>
       <CenterModal

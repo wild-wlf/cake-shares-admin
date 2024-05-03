@@ -6,6 +6,7 @@ import { StyledTableLayout } from "./TableLayout.styles";
 import Button from "../Button";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
+import Field from "@/components/molecules/Field";
 
 function TableLayout({
   children,
@@ -27,6 +28,8 @@ function TableLayout({
   btnType,
   btnText,
   btnImg,
+  btnWidth,
+  iconImg,
   openModal,
   setResetFilter = () => {},
 }) {
@@ -57,19 +60,34 @@ function TableLayout({
           <div className="actions">
             {placeholder && (
               <div className="item">
-                <input
-                  className="Search"
-                  type="text"
-                  placeholder={placeholder}
-                />
-                <CiSearch className="icon" />
+                <div className="Search">
+                  <Field
+                    type="search"
+                    rounded
+                    sm
+                    name="search"
+                    placeholder={placeholder}
+                    suffix={<CiSearch className="icon" />}
+                  />
+                </div>
               </div>
             )}
             {btnText && (
-              <Button rounded sm btntype={btnType} onClick={openModal}>
+              <Button
+                rounded
+                width={btnWidth ? btnWidth : "100%"}
+                sm
+                btntype={btnType}
+                onClick={openModal}
+              >
                 {btnText}
                 <Image src={btnImg} />
               </Button>
+            )}
+            {iconImg && (
+              <div className="icon-div">
+                <Image src={iconImg} />
+              </div>
             )}
           </div>
         </div>

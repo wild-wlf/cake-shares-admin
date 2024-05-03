@@ -3,11 +3,11 @@ import {
   ModalContainer,
   DateContainer,
   MailContainer,
-  Button,
-} from "./ModalStyle";
+} from "./DownloadModalStyle";
 import Field from "../Field";
 import Form, { useForm } from "../Form";
 import { MdDateRange } from "react-icons/md";
+import Button from "@/components/atoms/Button";
 
 const DownloadModal = ({ openNext }) => {
   const [form] = useForm();
@@ -81,7 +81,16 @@ const DownloadModal = ({ openNext }) => {
             </Form.Item>
           </div>
         </MailContainer>
-        <Button onClick={openNext}> Send Mail</Button>
+        <Button
+          rounded
+          width={"170px"}
+          height={"40px"}
+          sm
+          btntype="green"
+          onClick={openNext}
+        >
+          Send Mail
+        </Button>
       </Form>
     </ModalContainer>
   );

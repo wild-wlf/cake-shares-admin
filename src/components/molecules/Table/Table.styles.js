@@ -28,7 +28,7 @@ export const TableScroll = styled.div`
   width: 100%;
   max-height: ${({ $height }) => $height && `${$height}px`};
 
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     overflow-x: auto;
   }
 `;
@@ -68,11 +68,11 @@ export const Thead = styled.thead`
     th {
       &:first-child {
         padding-left: 25px;
-        border-radius: 10px 0 0 10px;
+        border-radius: 100px 0 0 100px;
       }
       &:last-child {
         padding-right: 1.25rem;
-        border-radius: 0 10px 10px 0;
+        border-radius: 0 100px 100px 0;
       }
     }
   }

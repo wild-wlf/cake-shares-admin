@@ -23,6 +23,20 @@ export const StyledContainer = styled.div`
       font-weight: 500;
     }
   }
+  @media (max-width: 530px) {
+    padding: 0px 20px;
+    .textContainer {
+      .title {
+        font-size: 28px;
+        font-weight: 500;
+      }
+      .credit {
+        h1 {
+          font-size: 28px;
+        }
+      }
+    }
+  }
 `;
 
 export const ChartWrapper = styled.div`
@@ -31,10 +45,36 @@ export const ChartWrapper = styled.div`
   gap: 10px;
   justify-content: center;
   margin-bottom: 50px;
-  /* align-items: center; */
-  flex-wrap: wrap;
   .ChartContainer {
     width: 32%;
+  }
+
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+    .ChartContainer {
+      width: 400px;
+    }
+  }
+
+  @media (max-width: 910px) {
+    flex-wrap: wrap;
+    .ChartContainer {
+      width: 350px;
+    }
+  }
+
+  @media (max-width: 810px) {
+    flex-wrap: wrap;
+    .ChartContainer {
+      width: 320px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    .ChartContainer {
+      width: 100%;
+    }
   }
 `;
 
@@ -44,22 +84,8 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
-`;
 
-export const Button2 = styled.button`
-  width: 170px;
-  height: 40px;
-  background-color: #408f8c;
-  border-radius: 52px;
-  color: #fff;
-  &:hover {
-    background-color: #70aba9;
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
   }
-`;
-export const Button3 = styled.button`
-  width: 170px;
-  height: 40px;
-  border-radius: 52px;
-  color: #111;
-  border: 1px solid #dadada;
 `;

@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Button } from "./BankStyles";
+import { Container } from "./BankStyles";
 import Field from "../Field";
 import Form, { useForm } from "../Form";
+import Button from "@/components/atoms/Button";
 
 const BankModal = ({ openAccountModal }) => {
   const [form] = useForm();
@@ -16,16 +17,55 @@ const BankModal = ({ openAccountModal }) => {
         <div className="feildContainer">
           <div className="wrapper">
             <Form.Item
-              label="IBAN, SWIFT or BIC Number"
+              label="Bank Name"
               type="input"
               rounded
               sm
-              name="IBAN number"
+              name="Bank Name"
+              placeholder="Bank of America"
+              rules={[
+                {
+                  required: true,
+                  message: "Bank Name is Required",
+                },
+              ]}
+            >
+              <Field />
+            </Form.Item>
+          </div>
+          <div className="wrapper">
+            <Form.Item
+              label="IBAN"
+              type="input"
+              rounded
+              sm
+              name="IBAN"
               placeholder="PK033310084246213"
               rules={[
                 {
                   required: true,
-                  message: "IBAN, SWIFT or BIC Number is Required",
+                  message: "IBAN Number is Required",
+                },
+              ]}
+            >
+              <Field />
+            </Form.Item>
+          </div>
+        </div>
+
+        <div className="feildContainer">
+          <div className="wrapper">
+            <Form.Item
+              label="SWIFT / BIC Number"
+              type="input"
+              rounded
+              sm
+              name="SWIFT / BIC Number"
+              placeholder="PK033310084246213"
+              rules={[
+                {
+                  required: true,
+                  message: " SWIFT or BIC Number is Required",
                 },
               ]}
             >
@@ -35,10 +75,10 @@ const BankModal = ({ openAccountModal }) => {
           <div className="wrapper">
             <Form.Item
               label="User ID"
-              type="email"
+              type="input"
               rounded
               sm
-              name="email"
+              name="User ID"
               placeholder="33445554"
               rules={[
                 {
@@ -92,7 +132,16 @@ const BankModal = ({ openAccountModal }) => {
         </div>
       </Form>
 
-      <Button onClick={() => openAccountModal()}>Continue</Button>
+      <Button
+        rounded
+        width={"170px"}
+        height={"40px"}
+        sm
+        btntype="green"
+        onClick={() => openAccountModal()}
+      >
+        Continue
+      </Button>
     </Container>
   );
 };

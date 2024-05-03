@@ -14,8 +14,8 @@ export const StyledButton = styled.button`
   line-height: 26px;
   cursor: pointer;
   font-weight: ${({ weight }) => weight || "600"};
-  width: ${({ width }) => width && "100%"};
-  max-width: ${({ width }) => width && `${width}px`};
+  width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || ""};
   transition: filter 0.3s linear, box-shadow 0.3s linear;
 
   border-radius: ${({ rounded }) => {
@@ -36,6 +36,9 @@ export const StyledButton = styled.button`
     }
     if (btntype === "green") {
       return "var(--white)";
+    }
+    if (btntype === "cancel") {
+      return "#000";
     }
     if (btntype === "new") {
       return "rgba(64,143,140,1)";
@@ -61,7 +64,7 @@ export const StyledButton = styled.button`
 
   background: ${({ btntype }) => {
     if (btntype === "primary") {
-      return "var(--primary)";
+      return "#408F8C";
     }
     if (btntype === "new") {
       return "rgba(64,143,140,0.1)";
@@ -69,7 +72,9 @@ export const StyledButton = styled.button`
     if (btntype === "green") {
       return "#408F8C";
     }
-
+    if (btntype === "cancel") {
+      return "var(--white)";
+    }
     if (btntype === "white") {
       return "var(--white)";
     }
@@ -100,6 +105,9 @@ export const StyledButton = styled.button`
   border: ${({ btntype }) => {
     if (btntype === "download") {
       return "1.5px solid #4E6199";
+    }
+    if (btntype === "cancel") {
+      return "1.5px solid #dadada";
     }
   }};
 

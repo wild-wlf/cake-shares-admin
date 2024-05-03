@@ -30,14 +30,4 @@ export const MailContainer = styled.div`
   padding-bottom: 26px;
 `;
 
-export const Button = styled.button`
-  width: 170px;
-  height: 40px;
-  background-color: #408f8c;
-  border-radius: 52px;
-  color: #fff;
-  cursor: pointer;
-  &:hover {
-    background-color: #70aba9;
-  }
-`;
+
