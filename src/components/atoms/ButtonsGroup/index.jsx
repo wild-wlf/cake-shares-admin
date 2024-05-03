@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../Button";
 import { ButtonsGroupWrapper } from "./ButtonsGroup.style";
 
-const ButtonsGroup = () => {
+const ButtonsGroup = ({ title = "" }) => {
   const [Tab, setTab] = useState(0);
 
   const categoryData = [
@@ -18,6 +18,7 @@ const ButtonsGroup = () => {
   ];
   return (
     <ButtonsGroupWrapper>
+      {title}
       {categoryData?.map((item, index) => (
         <div key={index}>
           <Button

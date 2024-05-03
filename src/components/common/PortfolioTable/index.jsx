@@ -14,7 +14,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import DeleteIcon from "../../../_assets/delete.svg";
 import SpeakerIcon from "../../../_assets/speaker.svg";
 import FileIcon from "../../../_assets/file.svg";
-
+import TableStyle from "../../../_assets/table-style.jpg";
 import Image from "next/image";
 
 const PortfolioTable = () => {
@@ -85,22 +85,22 @@ const PortfolioTable = () => {
       <ActionBtnList>
         <li>
           <button type="button" className="btn file">
-            <Image src={FileIcon} />
+            <Image src={FileIcon} alt="file" />
           </button>
         </li>
         <li>
           <button type="button" className="btn edit">
-            <MdModeEditOutline color="rgba(64, 143, 140, 1)" />
+            <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
         <li>
           <button type="button" className="btn speaker">
-            <Image src={SpeakerIcon} />
+            <Image src={SpeakerIcon} alt="speaker" />
           </button>
         </li>
         <li>
           <button type="button" className="btn delete">
-            <Image src={DeleteIcon} />
+            <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
       </ActionBtnList>
@@ -153,13 +153,13 @@ const PortfolioTable = () => {
       </CenterModal>
 
       <TableContainer>
+        <Image src={TableStyle} className="tableStyle" />
         <TableLayout
           tableHeading={<ButtonsGroup />}
           placeholder="Search Product"
-          btnText=" "
           btnWidth={"40px"}
           btnType="download"
-          btnImg={CalenderIcon}
+          iconImg={CalenderIcon}
           openModal={openModal}
         >
           <Table

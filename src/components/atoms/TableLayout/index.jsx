@@ -29,6 +29,7 @@ function TableLayout({
   btnText,
   btnImg,
   btnWidth,
+  iconImg,
   openModal,
   setResetFilter = () => {},
 }) {
@@ -82,6 +83,11 @@ function TableLayout({
                 {btnText}
                 <Image src={btnImg} />
               </Button>
+            )}
+            {iconImg && (
+              <div className="icon-div">
+                <Image src={iconImg} />
+              </div>
             )}
           </div>
         </div>

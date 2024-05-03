@@ -41,11 +41,11 @@ export const Th = styled.th`
   padding-bottom: 0.9375rem;
   text-transform: capitalize;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
 `;
 
 export const Td = styled.td`
-  font-weight: 300;
+  font-weight: 400;
 
   ${styles}
   ${({ responsive }) =>

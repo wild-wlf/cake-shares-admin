@@ -49,31 +49,46 @@ export const StyledTableLayout = styled.div`
       font-family: "Outfit", sans-serif;
       .Search {
         height: 40px;
-        width: 291px;
+        max-width: 291px;
+        input {
+          color: rgba(49, 49, 49, 1);
+          background-color: rgba(246, 248, 250, 1);
+        }
       }
     }
 
-    @media (max-width: 992px) {
+    .icon-div {
+      display: flex;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(246, 248, 250, 1);
+      border-radius: 50px;
+    }
+
+    /* @media (max-width: 992px) {
       .Search {
         width: 250px !important;
         height: 35px !important;
       }
+    } */
+    @media only screen and (max-width: 992px) {
+      flex-direction: column;
+      align-items: center;
+      .item {
+        width: 100%;
+      }
     }
 
     @media (max-width: 800px) {
-      flex-direction: column !important;
-      gap: 16px;
-      .actions {
-        flex-direction: column !important;
-        gap: 16px;
-        .item {
-          width: 100%;
-        }
+      /* flex-direction: column !important; */
+      gap: 10px;
+      /* .actions {
         .Search {
           width: 100% !important;
           height: 40px !important;
         }
-      }
+      } */
       .table-heading {
         margin: 0;
       }
@@ -92,8 +107,7 @@ export const StyledTableLayout = styled.div`
     }
     .pagination {
       /* background: var(--gray-4); */
-      border-radius: 0 0 10px 10px;
-      padding-bottom: 20px;
+      /* border-radius: 0 0 10px 10px; */
     }
   }
 `;
