@@ -28,6 +28,7 @@ function TableLayout({
   btnType,
   btnText,
   btnImg,
+  btnWidth,
   openModal,
   setResetFilter = () => {},
 }) {
@@ -73,7 +74,7 @@ function TableLayout({
             {btnText && (
               <Button
                 rounded
-                width={"100%"}
+                width={btnWidth ? btnWidth : "100%"}
                 sm
                 btntype={btnType}
                 onClick={openModal}

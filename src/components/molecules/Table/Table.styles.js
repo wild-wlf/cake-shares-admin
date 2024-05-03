@@ -28,7 +28,7 @@ export const TableScroll = styled.div`
   width: 100%;
   max-height: ${({ $height }) => $height && `${$height}px`};
 
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     overflow-x: auto;
   }
 `;

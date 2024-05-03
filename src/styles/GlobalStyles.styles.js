@@ -172,7 +172,8 @@ export const Styling = css`
   /* This will work on Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--primary) #eceaf9;
+    scrollbar-color: #408f8c;
+
   }
 
   /* Targtes on Chrome, Edge, and Safari */
@@ -183,11 +184,11 @@ export const Styling = css`
 
   *::-webkit-scrollbar-track {
     border-radius: 30px;
-    background: #eceaf9;
+    background: #408f8c;
   }
 
   *::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: #408f8c;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.03);
     border-radius: 30px;
   }
@@ -508,4 +509,7 @@ export const SellerContainer = styled.div`
   background-color: #fff;
   border-radius: 30px;
   border: 1px solid #dadada;
+  @media only screen and (max-width: 1024px) {
+    border: none;
+  }
 `;

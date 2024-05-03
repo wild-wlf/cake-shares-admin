@@ -20,29 +20,12 @@ const SellerWallet = () => {
   return (
     <>
       <StyledContainer>
-        <div className="btnDiv">
-          <Button width={"111px"} height={"40px"} rounded sm btntype="gray">
-            {/* <Image src={btnLeftArrow} /> */}
-            Go Back
-          </Button>
-          <Button
-            width={"142px"}
-            height={"40px"}
-            rounded
-            sm
-            btntype="primary"
-            onClick={() => openModal()}
-          >
-            Top Up Wallet
-            {/* <Image src={walletWhite} /> */}
-          </Button>
-        </div>
+        <div className="btnDiv"></div>
         <div className="textContainer">
-          <h1 className="title">MyWallet</h1>
-          <div className="credit">
-            <span>Total Credit:</span> <br />
-            <h1>$35,265.000</h1>
-          </div>
+          <h1 className="title">Welcome John</h1>
+          <Button btntype="new" sm rounded width="140">
+            Create New Product
+          </Button>
         </div>
 
         <ChartWrapper>
