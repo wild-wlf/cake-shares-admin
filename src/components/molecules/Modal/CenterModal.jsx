@@ -69,14 +69,14 @@ const CenterModal = ({
           <Head>
             {title && <h1 className="title">{title}</h1>}
             {headImage && <Image src={headImage} alt="Icon" />}
-            <button
+            <div
               type="button"
               className="closer"
               onClick={handleClose}
               tabIndex={0}
             >
-              <MdOutlineClose size={25} />
-            </button>
+              <MdOutlineClose size={25} className="Icon" />
+            </div>
           </Head>
           {children}
         </ContentHolder>

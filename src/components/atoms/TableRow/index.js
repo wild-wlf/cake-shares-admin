@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const TableRow = styled.tr`
   border: none;
@@ -17,6 +17,7 @@ export const TableRow = styled.tr`
         border: 1px solid var(--table-border);
         display: block;
         padding: 15px;
+        border-radius: 10px;
         position: relative;
       }
     `}

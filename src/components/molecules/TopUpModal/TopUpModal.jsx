@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Container, OptionsWrapper, Option, Button } from "./styles";
+import { Container, OptionsWrapper, Option } from "./styles";
 import Image from "next/image";
 import Bank from "../../../_assets/Bank.png";
 import CryptoWallet from "../../../_assets/CryptoWallet.png";
 import Card from "../../../_assets/card.png";
+import Button from "@/components/atoms/Button";
 
 const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
   return (
@@ -17,23 +18,24 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
           <div className="imgContainer">
             <Image src={Bank} alt="bank image" />
           </div>
-          <div className="textContainer">
-            <h2 className="optionName">Top up via Bank Account</h2>
-            <p>
-              Lorem Ipsum adalah contoh teks atau dummy dalam industri
-              percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah
-              menjadi standar contoh teks sejak tahun 1500.
-            </p>
-          </div>
-
-          <div className="custom-radio">
-            <input
-              type="radio"
-              id="bank"
-              checked={selectedOption === "bank"}
-              onChange={() => handleOptionSelect("bank")}
-            />
-            <div></div>
+          <div className="contarinerBox">
+            <div className="textContainer">
+              <h2 className="optionName">Top up via Bank Account</h2>
+              <p>
+                Lorem Ipsum adalah contoh teks atau dummy dalam industri
+                percetakan dan penataan huruf atau typesetting. Lorem Ipsum
+                telah menjadi standar contoh teks sejak tahun 1500.
+              </p>
+            </div>
+            <div className="custom-radio">
+              <input
+                type="radio"
+                id="bank"
+                checked={selectedOption === "bank"}
+                onChange={() => handleOptionSelect("bank")}
+              />
+              <div></div>
+            </div>
           </div>
         </Option>
 
@@ -41,22 +43,24 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
           <div className="imgContainer">
             <Image src={CryptoWallet} alt="bank image" />
           </div>
-          <div className="textContainer">
-            <h2 className="optionName">Top up via Crypto Wallet</h2>
-            <p>
-              Lorem Ipsum adalah contoh teks atau dummy dalam industri
-              percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah
-              menjadi standar contoh teks sejak tahun 1500.
-            </p>
-          </div>
-          <div className="custom-radio">
-            <input
-              type="radio"
-              id="crypto"
-              checked={selectedOption === "crypto"}
-              onChange={() => handleOptionSelect("crypto")}
-            />
-            <div></div>
+          <div className="contarinerBox">
+            <div className="textContainer">
+              <h2 className="optionName">Top up via Crypto Wallet</h2>
+              <p>
+                Lorem Ipsum adalah contoh teks atau dummy dalam industri
+                percetakan dan penataan huruf atau typesetting. Lorem Ipsum
+                telah menjadi standar contoh teks sejak tahun 1500.
+              </p>
+            </div>
+            <div className="custom-radio">
+              <input
+                type="radio"
+                id="crypto"
+                checked={selectedOption === "crypto"}
+                onChange={() => handleOptionSelect("crypto")}
+              />
+              <div></div>
+            </div>
           </div>
         </Option>
 
@@ -64,26 +68,38 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
           <div className="imgContainer">
             <Image src={Card} alt="bank image" />
           </div>
-          <div className="textContainer">
-            <h2 className="optionName">Top up via Credit Card</h2>
-            <p>
-              Credit Card fees will be deducted from your credits. These fees
-              can significantly decrease your returns for some investments.
-            </p>
-          </div>
-          <div className="custom-radio">
-            <input
-              type="radio"
-              id="card"
-              checked={selectedOption === "card"}
-              onChange={() => handleOptionSelect("card")}
-            />
-            <div></div>
+
+          <div className="contarinerBox">
+            <div className="textContainer">
+              <h2 className="optionName">Top up via Credit Card</h2>
+              <p>
+                Credit Card fees will be deducted from your credits. These fees
+                can significantly decrease your returns for some investments.
+              </p>
+            </div>
+            <div className="custom-radio">
+              <input
+                type="radio"
+                id="card"
+                checked={selectedOption === "card"}
+                onChange={() => handleOptionSelect("card")}
+              />
+              <div></div>
+            </div>
           </div>
         </Option>
       </OptionsWrapper>
 
-      <Button onClick={() => openNext()}>Continue</Button>
+      <Button
+        width={"170px"}
+        height={"40px"}
+        rounded
+        sm
+        btntype="green"
+        onClick={() => openNext()}
+      >
+        Continue
+      </Button>
     </Container>
   );
 };

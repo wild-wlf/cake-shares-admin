@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StyledGraph = styled.div`
   width: 100%;
-  margin: 0 0 15px;
   background: var(--white);
   border-radius: 25px;
   border: 1px solid rgba(74, 85, 104, 0.1);
@@ -35,8 +34,14 @@ export const StyledGraph = styled.div`
   }
 
   .highcharts-container {
-    height: 300px !important;
+    height: 285px !important;
     width: 100% !important;
+  }
+
+  @media (max-width: 1200px) {
+    .highcharts-container {
+      height: 185px !important;
+    }
   }
 
   .highcharts-background {
@@ -70,6 +75,15 @@ export const GraphHeader = styled.div`
     display: block;
     font-size: 22px;
     font-weight: 500;
+  }
+
+  @media (max-width: 1200px) {
+    span,
+    strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+    }
   }
 `;
 

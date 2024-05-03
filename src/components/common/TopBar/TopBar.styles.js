@@ -1,37 +1,36 @@
-/* eslint-disable no-restricted-imports */
 import styled from "styled-components";
 
 export const StyledTopBar = styled.header`
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0; */
+  position: relative;
   padding: 30px 50px;
   font-family: var(--base-font-sans-serif);
-  background: var(--white);
+  /* background: var(--white); */
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 5;
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
   .closedNav {
     display: none;
+    svg {
+      width: 30px;
+      height: 30px;
+    }
   }
-  .logoWrapper {
-    display: flex;
-    gap: 32px;
-  }
+
   .logo {
+    width: 100%;
     max-width: 206px;
     img {
-      max-width: 208px;
+      display: block;
+      max-width: 100%;
       height: auto;
     }
   }
-  .textfeildWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
   .textField {
     display: flex;
     width: 100%;
@@ -40,8 +39,24 @@ export const StyledTopBar = styled.header`
     align-items: center;
     position: relative;
     gap: 8px;
-    background: var(--white);
-    color: var(--green);
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 1px;
+      width: 0;
+      transition: all 0.6s ease-in-out;
+      left: 0;
+      bottom: 0;
+      background: var(--green);
+    }
+
+    &.textField-home {
+      color: var(--green);
+      &::before {
+        width: 70px;
+      }
+    }
   }
   .textField::after {
     content: "";
@@ -50,7 +65,6 @@ export const StyledTopBar = styled.header`
     left: 0;
     width: 70px;
     height: 1px;
-    background-color: var(--green);
   }
   .textFieldRight {
     display: flex;
@@ -66,15 +80,7 @@ export const StyledTopBar = styled.header`
       padding-right: 69px;
     }
   }
-  .textFieldRight::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--green);
-  }
+
   .notification {
     display: flex;
     padding: 8px 10px;
@@ -87,20 +93,27 @@ export const StyledTopBar = styled.header`
     font-weight: 400;
     line-height: 17px;
     cursor: pointer;
-    &:hover {
-      .notificationWrapper {
-        visibility: visible;
-        transform: translateY(0);
-        opacity: 1;
-        z-index: 9;
-      }
+    z-index: 1;
+    .bell-white {
+      display: none;
     }
+  }
+  .notificationWrapper-visible {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+    max-width: 432px;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    transform: translateY(50px);
+    transition: 0.4s;
   }
   .notificationWrapper {
     max-width: 432px;
     position: absolute;
-    top: 0;
-    right: 30px;
+    top: 20px;
+    right: 0px;
     padding-top: 64px;
     visibility: hidden;
     transform: translateY(50px);
@@ -113,65 +126,122 @@ export const StyledTopBar = styled.header`
     align-items: center;
     gap: 8px;
     border-radius: 50px;
-    border: 1px solid #cdcdcd;
+    border: 1px solid #313131;
     color: var(--dark);
     font-size: 13px;
-    font-weight: 400;
     line-height: 17px;
+    font-weight: 400;
     cursor: pointer;
+    transition: 0.4s;
+
     &:hover {
-      .walletWrapper {
-        visibility: visible;
-        transform: translateY(0);
-        opacity: 1;
+      background: rgba(64, 143, 140, 0.7);
+      border: 1px solid var(--green);
+      color: var(--white);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .wallet {
+      padding: 6px 10px !important;
+      font-size: 12px;
+    }
+    .textFieldRight {
+      padding: 0 10px 5px 0;
+      .heading {
+        padding-right: 30px;
       }
     }
   }
-  .walletWrapper {
-    max-width: 432px;
-    position: absolute;
-    top: 0;
-    right: 30px;
-    padding-top: 64px;
-    visibility: hidden;
-    transform: translateY(50px);
-    opacity: 0;
-    transition: 0.4s;
-  }
-  .sideNav {
-    position: absolute;
-    left: -260px;
-    transition: all 0.3s ease-in-out;
-    height: 100%;
-  }
-  .sideNav.show {
-    left: 0;
-    transition: linear 0.3s;
+  .authContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 850px) {
     .textFieldRight {
+      padding: 0 10px 5px 0;
       .heading {
-        display: inline-block;
-        padding-right: 40px;
+        font-size: 13px;
+        padding-right: 10px;
       }
+    }
+  }
+
+  @media (max-width: 525px) {
+    padding: 20px 20px;
+    .wallet {
+      display: none;
+    }
+    .buttonWrapper {
+      display: none;
     }
   }
 
   @media (max-width: 768px) {
     .closedNav {
       display: block;
-      border: 1px solid black;
       cursor: pointer;
     }
-    .logo {
-      display: none;
-    }
+
     .textField {
       display: none;
     }
     .textFieldRight {
       display: none;
+    }
+  }
+  .active-nav & {
+    @media (max-width: 768px) {
+      .layer {
+        position: fixed;
+        inset: 0;
+        backdrop-filter: blur(4px);
+        z-index: 9;
+      }
+    }
+  }
+`;
+export const NavLinks = styled.div`
+  display: flex;
+  gap: 32px;
+  position: relative;
+  .profile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 260px;
+    padding: 40px 0px 0px 20px;
+    border-radius: 0px 40px 40px 0px;
+    background: rgba(255, 255, 255, 1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    transition: all 0.4s ease-in-out;
+    transform: ${({ $active }) =>
+      $active ? "translateX(0%)" : "translateX(-100%)"};
+    .profile {
+      padding-top: 30px;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .profile-details {
+      display: flex;
+      gap: 9px;
+    }
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .sub {
+      font-size: 10px;
     }
   }
 `;

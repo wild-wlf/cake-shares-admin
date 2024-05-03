@@ -16,6 +16,11 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         </div>
 
         <div className="Dets">
+          <h4>Swift/BIC Number</h4>
+          <span>123456789123456799</span>
+        </div>
+
+        <div className="Dets">
           <h4>Account Name</h4>
           <span>Daud Bongani</span>
         </div>
@@ -35,6 +40,8 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         <Button
           rounded
           sm
+          width={"170px"}
+          height={"40px"}
           btntype="download"
           onClick={() => closeAccountModal("download")}
         >
@@ -42,6 +49,8 @@ const AccountDetailModal = ({ closeAccountModal }) => {
         </Button>
         <Button
           rounded
+          width={"170px"}
+          height={"40px"}
           sm
           btntype="green"
           onClick={() => closeAccountModal("save")}
