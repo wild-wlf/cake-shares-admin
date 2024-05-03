@@ -6,20 +6,22 @@ import { TableContainer } from "./PorfolioTable.style";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import DownloadModal from "@/components/molecules/DownloadStatmentModal/DownloadModal";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
-import SuccessIcon from "../../../_assets/successIcon.png";
+import SuccessIcon from "../../../../_assets/successIcon.png";
 import ButtonsGroup from "@/components/atoms/ButtonsGroup";
-import CalenderIcon from "../../../_assets/calander.svg";
+import CalenderIcon from "../../../../_assets/calander.svg";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { MdModeEditOutline } from "react-icons/md";
-import DeleteIcon from "../../../_assets/delete.svg";
-import SpeakerIcon from "../../../_assets/speaker.svg";
-import FileIcon from "../../../_assets/file.svg";
+import DeleteIcon from "../../../../_assets/delete.svg";
+import SpeakerIcon from "../../../../_assets/speaker.svg";
+import FileIcon from "../../../../_assets/file.svg";
 
 import Image from "next/image";
+import ProductDetailModal from "../ProductDetailModal";
 
 const PortfolioTable = () => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
+  const [productDetailModal, setProductDetailModal] = useState(false);
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -84,7 +86,10 @@ const PortfolioTable = () => {
     <>
       <ActionBtnList>
         <li>
-          <button type="button" className="btn file">
+          <button
+            type="button"
+            className="btn file"
+            onClick={() => setProductDetailModal(true)}>
             <Image src={FileIcon} />
           </button>
         </li>
@@ -134,8 +139,7 @@ const PortfolioTable = () => {
         setOpen={setOpen}
         width="666"
         padding={"30px"}
-        title="Download Statement"
-      >
+        title="Download Statement">
         <DownloadModal openNext={openStatementModal} />
       </CenterModal>
 
@@ -144,12 +148,18 @@ const PortfolioTable = () => {
         setOpen={setStatementModal}
         width="543"
         padding={"25px"}
-        headImage={SuccessIcon}
-      >
+        headImage={SuccessIcon}>
         <SuccessModal
           heading="Statement Sent Successfully!"
           paragraph={modalParagraph}
         />
+      </CenterModal>
+      <CenterModal
+        open={productDetailModal}
+        setOpen={setProductDetailModal}
+        title="Gov. Egypt Property Detail"
+        width="1030">
+        <ProductDetailModal />
       </CenterModal>
 
       <TableContainer>
@@ -160,8 +170,7 @@ const PortfolioTable = () => {
           btnWidth={"40px"}
           btnType="download"
           btnImg={CalenderIcon}
-          openModal={openModal}
-        >
+          openModal={openModal}>
           <Table
             width={1024}
             rowsData={product_rows}
