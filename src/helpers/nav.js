@@ -18,8 +18,8 @@ export const nav = [
         icon: Dashboard,
       },
       {
-        navigation: "my-portfolio",
-        name: "My Portfolio",
+        navigation: "portfolio",
+        name: "Portfolio",
         icon: Portfolio,
       },
     ],

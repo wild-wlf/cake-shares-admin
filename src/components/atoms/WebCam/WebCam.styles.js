@@ -82,5 +82,3 @@ export const ImageWrapper = styled.div`
     object-fit: cover;
   }
 `;
-
-

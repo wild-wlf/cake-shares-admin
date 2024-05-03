@@ -2,6 +2,7 @@ import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { GraphHeader, StyledGraph } from "./Graph.styles";
+import { size } from "polished";
 
 function Graph({
   graphData,
