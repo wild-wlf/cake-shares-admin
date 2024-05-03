@@ -10,6 +10,7 @@ export const StyledTableLayout = styled.div`
     -10px 10px 20px rgba(0, 0, 0, 0.2);
   margin: ${({ noNegativeMargin }) => (noNegativeMargin ? "" : "0 0 0")};
   background: var(--white);
+  overflow: hidden;
 
   @media (min-width: 768px) {
     padding: 20px;
@@ -23,42 +24,53 @@ export const StyledTableLayout = styled.div`
       }
     `}
 
-  .table-heading {
-    display: block;
-    font-size: 22px;
-    line-height: 25px;
-    font-weight: 500;
-    text-transform: capitalize;
-    margin: 0 0 15px;
-  }
   .head {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+    .table-heading {
+      display: block;
+      font-size: 22px;
+      line-height: 25px;
+      font-weight: 500;
+      text-transform: capitalize;
+      margin: 0 0 15px;
+    }
     .actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      .item {
-        position: relative;
-      }
-      .icon {
-        position: absolute;
-        right: 20px;
-        top: 12px;
-      }
-      .icon {
-      }
+
       .Search {
-        background-color: #f6f8fa;
         height: 40px;
         width: 291px;
-        border-radius: 100px;
-        border: none;
-        outline: none;
-        padding: 0px 27px;
-        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .Search {
+        width: 250px !important;
+        height: 35px !important;
+      }
+    }
+
+    @media (max-width: 800px) {
+      flex-direction: column !important;
+      gap: 16px;
+      .actions {
+        flex-direction: column !important;
+        gap: 16px;
+        .item {
+          width: 100%;
+        }
+        .Search {
+          width: 100% !important;
+          height: 40px !important;
+        }
+      }
+      .table-heading {
+        margin: 0;
       }
     }
   }
@@ -68,7 +80,7 @@ export const StyledTableLayout = styled.div`
       padding: 5px 20px 20px;
       border-radius: 10px;
       background: var(--gray-4);
-      border-radius: 10px;
+      border-radius: 100px;
     }
     @media (max-width: 768px) {
       padding: 5px 10px 10px;

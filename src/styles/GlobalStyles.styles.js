@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 // prettier-ignore
 export const Styling = css`
@@ -495,4 +495,17 @@ export const HelperClasses = css`
   .star-rating {
     font-size: 24px !important;
   }
+`;
+
+export const PageWrapper = styled.div`
+  padding: 30px 50px 30px 320px;
+  background-color: #fefefe;
+`;
+
+export const SellerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 30px;
+  border: 1px solid #dadada;
 `;

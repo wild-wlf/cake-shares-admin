@@ -1,5 +1,5 @@
 import React from "react";
-import TopBar from "../components/common/TopBar/TopBar";
+import TopBar from "@/components/common/TopBar/TopBar";
 import MyWallet from "../components/common/MyWallet/MyWallet";
 import TransactionTable from "../components/common/TransactionTable";
 import DetailBar from "@/components/atoms/DetailBar";

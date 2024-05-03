@@ -15,16 +15,24 @@ export const Container = styled.div`
     .wrapper {
       width: 48%;
     }
+    .fullWidth {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .Heading {
+      font-size: 17px;
+    }
+    .feildContainer {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-bottom: 16px;
+      gap: 16px;
+      .wrapper {
+        width: 100%;
+      }
+    }
   }
 `;
 
-export const Button = styled.button`
-  width: 170px;
-  height: 40px;
-  background-color: #408f8c;
-  border-radius: 52px;
-  color: #fff;
-  &:hover {
-    background-color: #70aba9;
-  }
-`;

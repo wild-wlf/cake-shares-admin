@@ -28,7 +28,7 @@ export const ContentHolder = styled.div`
   animation: myAnim 0.3s ease;
   background: var(--white);
   max-height: 100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
 
   @keyframes myAnim {
     0% {
@@ -70,5 +70,21 @@ export const Head = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    .closer {
+      width: 30px;
+      height: 30px;
+      .Icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 400;
+    }
   }
 `;
