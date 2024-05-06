@@ -6,20 +6,31 @@ import { TableContainer } from "./PorfolioTable.style";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import DownloadModal from "@/components/molecules/DownloadStatmentModal/DownloadModal";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
-import SuccessIcon from "../../../_assets/successIcon.png";
+import SuccessIcon from "../../../../_assets/successIcon.png";
 import ButtonsGroup from "@/components/atoms/ButtonsGroup";
-import CalenderIcon from "../../../_assets/calander.svg";
-import { RiDeleteBinFill } from "react-icons/ri";
+import CalenderIcon from "../../../../_assets/calander.svg";
 import { MdModeEditOutline } from "react-icons/md";
-import DeleteIcon from "../../../_assets/delete.svg";
-import SpeakerIcon from "../../../_assets/speaker.svg";
-import FileIcon from "../../../_assets/file.svg";
-import TableStyle from "../../../_assets/table-style.jpg";
+import DeleteIcon from "../../../../_assets/delete.svg";
+import SpeakerIcon from "../../../../_assets/speaker.svg";
+import FileIcon from "../../../../_assets/file.svg";
+import TableStyle from "../../../../_assets/table-style.jpg";
+import InfoIcon from "../../../../_assets/infoIcon.png";
 import Image from "next/image";
+import ProductDetailModal from "../ProductDetailModal";
+import DeleteModal from "@/components/atoms/ProductDeleteModal/DeleteModal";
+import SuccessfulModal from "@/components/atoms/ProductDeleteModal/SuccessfulModal";
+import AdvertiseModal from "@/components/atoms/AdvertiseProductModal/AdvertiseModal";
+import AdvertiseSuccessfulModal from "@/components/atoms/AdvertiseProductModal/AdvertiseSuccessfulModal";
 
 const PortfolioTable = ({ title }) => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
+  const [productDetailModal, setProductDetailModal] = useState(false);
+  const [productDeleteModal, setProductDeleteModal] = useState(false);
+  const [productAdvertiseModal, setProductAdvertiseModal] = useState(false);
+  const [deleteSuccessfulModal, setDeleteSuccessfulModal] = useState(false);
+  const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] =
+    useState(false);
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -28,6 +39,13 @@ const PortfolioTable = ({ title }) => {
   const openStatementModal = () => {
     setStatementModal(true);
     setOpen(false);
+  };
+  const closeDeleteModal = () => {
+    setProductDeleteModal(false);
+  };
+  const handleAdvertiseModal = () => {
+    setProductAdvertiseModal(false);
+    setAdvertiseSuccessfulModal(true);
   };
   const transactions = [
     {
@@ -84,7 +102,11 @@ const PortfolioTable = ({ title }) => {
     <>
       <ActionBtnList>
         <li>
-          <button type="button" className="btn file">
+          <button
+            type="button"
+            className="btn file"
+            onClick={() => setProductDetailModal(true)}
+          >
             <Image src={FileIcon} alt="file" />
           </button>
         </li>
@@ -95,11 +117,21 @@ const PortfolioTable = ({ title }) => {
         </li>
         <li>
           <button type="button" className="btn speaker">
-            <Image src={SpeakerIcon} alt="speaker" />
+            <Image
+              src={SpeakerIcon}
+              alt="advertise"
+              onClick={() => {
+                setProductAdvertiseModal(true);
+              }}
+            />
           </button>
         </li>
         <li>
-          <button type="button" className="btn delete">
+          <button
+            type="button"
+            className="btn delete"
+            onClick={() => setProductDeleteModal(true)}
+          >
             <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
@@ -150,6 +182,52 @@ const PortfolioTable = ({ title }) => {
           heading="Statement Sent Successfully!"
           paragraph={modalParagraph}
         />
+      </CenterModal>
+      <CenterModal
+        open={productDetailModal}
+        setOpen={setProductDetailModal}
+        title="Gov. Egypt Property Detail"
+        width="1030"
+      >
+        <ProductDetailModal />
+      </CenterModal>
+      <CenterModal
+        open={productDeleteModal}
+        setOpen={setProductDeleteModal}
+        title={<Image src={InfoIcon} alt="InfoIcon" />}
+        width="543"
+      >
+        <DeleteModal
+          closeDeleteModal={closeDeleteModal}
+          openSuccessfulModal={() => {
+            setProductDeleteModal(false), setDeleteSuccessfulModal(true);
+          }}
+        />
+      </CenterModal>
+      <CenterModal
+        open={deleteSuccessfulModal}
+        setOpen={setDeleteSuccessfulModal}
+        title={<Image src={SuccessIcon} alt="SuccessIcon" />}
+        width="543"
+      >
+        <SuccessfulModal />
+      </CenterModal>
+
+      <CenterModal
+        open={productAdvertiseModal}
+        setOpen={setProductAdvertiseModal}
+        title="Advertise Product"
+        width="667"
+      >
+        <AdvertiseModal handleAdvertiseModal={handleAdvertiseModal} />
+      </CenterModal>
+      <CenterModal
+        open={advertiseSuccessfulModal}
+        setOpen={setAdvertiseSuccessfulModal}
+        title={<Image src={SuccessIcon} alt="SuccessIcon" />}
+        width="543"
+      >
+        <AdvertiseSuccessfulModal />
       </CenterModal>
 
       <TableContainer>

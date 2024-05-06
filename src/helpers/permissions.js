@@ -4,7 +4,7 @@ export const individualSellerPermission = [
   "/portfolio",
   "/chat",
   "/wallet",
-  "/settings",
+  "/profile",
   "/private-chat",
 ];
 export const companySellerPermission = [
