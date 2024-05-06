@@ -7,9 +7,8 @@ import SellerProfile from "../../../_assets/SellerProfile.png";
 import { nav } from "@/helpers/nav";
 import { useRouter } from "next/router";
 
-const index = () => {
+const SideBar = () => {
   const { pathname } = useRouter();
-
   return (
     <Sidenav>
       <div className="nav-logo">
@@ -25,13 +24,18 @@ const index = () => {
                 return (
                   <li
                     className={`NavItem ${
-                      pathname === `/${data.navigation}` && "active"
+                      pathname === `${data.navigation}` && "active"
                     }`}
                     key={index}
                   >
-                    <Link className="Link" href={`/${data.navigation}`}>
+                    <Link className="Link" href={data.navigation}>
                       <figure className="iconCon">
-                        <Image src={data.icon} width={15} height={15} />
+                        <Image
+                          src={data.icon}
+                          width={15}
+                          height={15}
+                          alt="icon"
+                        />
                       </figure>
                       {data.name}
                     </Link>
@@ -44,7 +48,7 @@ const index = () => {
       </LinkContainer>
 
       <UserDet>
-        <Image src={SellerProfile} height={40} width={40} />
+        <Image src={SellerProfile} height={40} width={40} alt="user-profile" />
         <div className="detailContainer">
           <span className="userName">John Michel</span>
           <span className="type">Induvial Seller</span>
@@ -55,4 +59,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default SideBar;

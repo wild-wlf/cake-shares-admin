@@ -9,6 +9,12 @@ import {
 import { KycContextProvider } from "@/context/KycContext";
 import Sidenav from "@/components/molecules/sideNav/index";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  buyerPermission,
+  companySellerPermission,
+  individualSellerPermission,
+} from "@/helpers/permissions";
 
 export default function App({ Component, pageProps }) {
   const [userType, setUserType] = useState("seller");
@@ -18,21 +24,32 @@ export default function App({ Component, pageProps }) {
   ${Styling}
   ${HelperClasses}
 `;
+  const pathname = usePathname();
+  console.log(pathname);
+
   return (
     <>
       <KycContextProvider>
         <GlobalStyles />
-        {userType === "seller" && (
-          <PageWrapper>
-            <Sidenav />
-            <Component {...pageProps} />
-          </PageWrapper>
-        )}
-        {userType === "buyer" && (
+        {userType === "buyer" && buyerPermission.includes(pathname) && (
           <>
             <Component {...pageProps} />
           </>
         )}
+        {userType === "seller" &&
+          individualSellerPermission.includes(pathname) && (
+            <PageWrapper>
+              <Sidenav />
+              <Component {...pageProps} />
+            </PageWrapper>
+          )}
+        {userType === "companySeller" &&
+          companySellerPermission.includes(pathname) && (
+            <PageWrapper>
+              <Sidenav />
+              <Component {...pageProps} />
+            </PageWrapper>
+          )}
       </KycContextProvider>
     </>
   );

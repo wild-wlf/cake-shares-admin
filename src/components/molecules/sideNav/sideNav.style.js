@@ -31,9 +31,8 @@ export const Sidenav = styled.div`
 `;
 
 export const NavLinks = styled.ul`
-  padding-top: 30px;
   padding-right: 20px;
-
+  margin-bottom: 20px;
   .listHead {
     font-size: 16px;
     font-weight: 400;
@@ -46,7 +45,8 @@ export const NavLinks = styled.ul`
     margin-top: 17px;
     transition: 0.5s all ease-in-out;
     .Link {
-      width: 190px;
+      max-width: 190px;
+      width: 100%;
       padding: 14px 20px;
       height: 50px;
       display: flex;
@@ -56,6 +56,18 @@ export const NavLinks = styled.ul`
       font-size: 14px;
       font-weight: 300;
       color: black;
+      position: relative;
+      &::before {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        background: var(--white);
+        left: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
     .iconCon {
       height: 25px;
@@ -66,6 +78,7 @@ export const NavLinks = styled.ul`
       justify-content: center;
       background-color: black;
       border-radius: 50%;
+      transition: 0.5s all ease-in-out;
     }
 
     &:hover {
@@ -99,10 +112,9 @@ export const LinkContainer = styled.div`
 `;
 
 export const UserDet = styled.div`
-  width: 195px;
+  max-width: 195px;
   background-color: rgba(64, 143, 140, 0.3);
   border-radius: 16px;
-  height: 90px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
