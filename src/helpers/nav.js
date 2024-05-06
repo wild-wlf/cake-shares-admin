@@ -53,7 +53,7 @@ export const nav = [
         icon: navWalletIcon,
       },
       {
-        navigation: "settings",
+        navigation: "profile",
         name: "Settings",
         icon: settingIcon,
       },
