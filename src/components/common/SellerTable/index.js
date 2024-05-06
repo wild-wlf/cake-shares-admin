@@ -2,14 +2,14 @@ import React, { useMemo, useState } from "react";
 import { ActionBtnList } from "@/components/atoms/ActionBtns/ActionBtns.styles";
 import Table from "@/components/molecules/Table";
 import TableLayout from "@/components/atoms/TableLayout";
-import { TableContainer } from "./TableStyles";
+import { TableContainer } from "./SellerTableStyles";
 import downloadIcon from "../../../_assets/statement.png";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import DownloadModal from "@/components/molecules/DownloadStatmentModal/DownloadModal";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 import SuccessIcon from "../../../_assets/successIcon.png";
 
-const TransactionTable = () => {
+const SellerTable = () => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
   const modalParagraph =
@@ -84,9 +84,7 @@ const TransactionTable = () => {
         open={open}
         setOpen={setOpen}
         width="666"
-        padding={"30px"}
-        title="Download Statement"
-      >
+        title="Download Statement">
         <DownloadModal openNext={openStatementModal} />
       </CenterModal>
 
@@ -94,9 +92,7 @@ const TransactionTable = () => {
         open={statementModal}
         setOpen={setStatementModal}
         width="543"
-        padding={"25px"}
-        headImage={SuccessIcon}
-      >
+        headImage={SuccessIcon}>
         <SuccessModal
           heading="Statement Sent Successfully!"
           paragraph={modalParagraph}
@@ -110,8 +106,7 @@ const TransactionTable = () => {
           btnText="Download Statement"
           btnType="download"
           btnImg={downloadIcon}
-          openModal={openModal}
-        >
+          openModal={openModal}>
           <Table
             width={1024}
             rowsData={product_rows}
@@ -125,4 +120,4 @@ const TransactionTable = () => {
   );
 };
 
-export default TransactionTable;
+export default SellerTable;

@@ -13,7 +13,7 @@ export const nav = [
     name: "Menu",
     link: [
       {
-        navigation: "seller",
+        navigation: "/dashboard",
         name: "Dashboard",
         icon: Dashboard,
       },
@@ -28,17 +28,17 @@ export const nav = [
     name: "Messages & Chats",
     link: [
       {
-        navigation: "private-chat",
+        navigation: "/private-chat",
         name: "Private Chat",
         icon: privateChat,
       },
       {
-        navigation: "stakeholder-chat",
+        navigation: "/stakeholder-chat",
         name: "Stakeholder Chat",
         icon: stakeChat,
       },
       {
-        navigation: "community-chat",
+        navigation: "/community-chat",
         name: "Community Chat",
         icon: comunityChat,
       },
@@ -48,17 +48,17 @@ export const nav = [
     name: "System",
     link: [
       {
-        navigation: "my-wallet",
+        navigation: "/my-wallet",
         name: "My Wallet",
         icon: navWalletIcon,
       },
       {
-        navigation: "settings",
+        navigation: "/profile",
         name: "Settings",
         icon: settingIcon,
       },
       {
-        navigation: "Log-Out",
+        navigation: "/Log-Out",
         name: "Log Out",
         icon: navlogoutIcon,
       },
