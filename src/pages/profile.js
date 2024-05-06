@@ -7,7 +7,7 @@ const index = () => {
   return (
     <SellerContainer>
       <Profile />
-      <Categories />
+      <Categories title="My Fully Funded Products" />
     </SellerContainer>
   );
 };

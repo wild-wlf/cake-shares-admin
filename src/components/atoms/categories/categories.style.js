@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const CategoriesWrapper = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   .title {
     display: flex;
     align-items: center;
@@ -20,7 +23,7 @@ export const CategoriesWrapper = styled.div`
     }
     @media (min-width: 576px) {
       gap: 20px;
-      margin: 0 -20px;
+      /* margin: 0 -20px; */
     }
     .slick-slide {
       width: 100%;
