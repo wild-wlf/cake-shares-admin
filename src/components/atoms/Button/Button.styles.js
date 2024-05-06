@@ -50,6 +50,9 @@ export const StyledButton = styled.button`
     if (btntype === "gray") {
       return "var(--primary)";
     }
+    if (btntype === "danger") {
+      return "#D74120";
+    }
     if (btntype === "light-danger") {
       return "#E90000";
     }
@@ -79,7 +82,7 @@ export const StyledButton = styled.button`
       return "var(--white)";
     }
     if (btntype === "danger") {
-      return "var(--danger-dark)";
+      return "rgba(215, 65, 32, 0.1)";
     }
     if (btntype === "secondary") {
       return "var(--purple)";

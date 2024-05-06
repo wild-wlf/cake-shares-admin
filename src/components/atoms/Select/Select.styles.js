@@ -1,7 +1,7 @@
-import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
-import styled, { css } from 'styled-components';
-import { styles } from '../Input/Input.styles';
+import Select from "react-select";
+import AsyncSelect from "react-select/async";
+import styled, { css } from "styled-components";
+import { styles } from "../Input/Input.styles";
 
 const Styles = css`
   .react-select__control {
@@ -9,7 +9,7 @@ const Styles = css`
     min-height: inherit;
     padding-top: 0;
     padding-bottom: 0;
-    border-color: ${({ error }) => error && 'var(--danger) !important'};
+    border-color: ${({ error }) => error && "var(--danger) !important"};
     box-shadow: none;
     ${({ $gray }) =>
       $gray &&
@@ -22,7 +22,7 @@ const Styles = css`
     }
     &.react-select__control--is-focused,
     &.react-select__control--menu-is-open {
-      border-color: var(--primary);
+      border-color: #408f8c;
     }
   }
   .react-select__placeholder {
@@ -45,14 +45,17 @@ const Styles = css`
   .react-select__option {
     font-size: var(--font-size-sm);
     &:active {
-      background: var(--light-primary);
+      color: #f1f1f1;
+      background: #408f8c;
     }
   }
   .react-select__option--is-focused {
-    background: var(--light-primary);
+    color: #f1f1f1;
+    background: #408f8c;
   }
   .react-select__option--is-selected {
-    background: var(--primary);
+    color: #f1f1f1;
+    background: #408f8c;
   }
   ${({ isMulti }) =>
     isMulti &&
@@ -70,7 +73,7 @@ const Styles = css`
         text-transform: uppercase;
         &:before,
         &:after {
-          content: '';
+          content: "";
           position: absolute;
           left: 14px;
           top: 50%;
@@ -81,8 +84,8 @@ const Styles = css`
           height: 16px;
         }
         &:after {
-          content: '\\e876';
-          font-family: 'Material Icons Round';
+          content: "\\e876";
+          font-family: "Material Icons Round";
           background: var(--primary);
           opacity: 0;
           visibility: hidden;

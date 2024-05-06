@@ -84,9 +84,7 @@ const SellerTable = () => {
         open={open}
         setOpen={setOpen}
         width="666"
-        padding={"30px"}
-        title="Download Statement"
-      >
+        title="Download Statement">
         <DownloadModal openNext={openStatementModal} />
       </CenterModal>
 
@@ -94,9 +92,7 @@ const SellerTable = () => {
         open={statementModal}
         setOpen={setStatementModal}
         width="543"
-        padding={"25px"}
-        headImage={SuccessIcon}
-      >
+        headImage={SuccessIcon}>
         <SuccessModal
           heading="Statement Sent Successfully!"
           paragraph={modalParagraph}
@@ -110,8 +106,7 @@ const SellerTable = () => {
           btnText="Download Statement"
           btnType="download"
           btnImg={downloadIcon}
-          openModal={openModal}
-        >
+          openModal={openModal}>
           <Table
             width={1024}
             rowsData={product_rows}
