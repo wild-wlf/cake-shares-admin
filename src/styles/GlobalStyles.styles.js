@@ -503,7 +503,7 @@ export const PageWrapper = styled.div`
   background-color: #fefefe;
 
   @media (max-width: 992px) {
-    padding: 30px 50px;
+    padding: 0;
   }
 `;
 
@@ -513,7 +513,7 @@ export const SellerContainer = styled.div`
   background-color: #fff;
   border-radius: 30px;
   border: 1px solid #dadada;
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 992px) {
     border: none;
   }
 `;
