@@ -499,8 +499,12 @@ export const HelperClasses = css`
 `;
 
 export const PageWrapper = styled.div`
-  padding: 30px 50px 30px 320px;
+  padding: 30px 50px 30px 310px;
   background-color: #fefefe;
+
+  @media (max-width: 992px) {
+    padding: 30px 50px;
+  }
 `;
 
 export const SellerContainer = styled.div`

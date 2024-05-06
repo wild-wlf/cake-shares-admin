@@ -37,5 +37,9 @@ export const ActionBtnList = styled.ul`
     &.wallet {
       background: #cbe2ea;
     }
+
+    @media only screen and (max-width: 992px) {
+      flex-wrap: wrap;
+    }
   }
 `;

@@ -8,6 +8,7 @@ function PieCharts({
   tooltipBg,
   title,
   amount,
+  sm,
   graphLineColor,
   timeFrame,
 }) {
@@ -61,14 +62,14 @@ function PieCharts({
   };
 
   return (
-    <StyledGraph>
-      <GraphHeader bg={tooltipBg}>
+    <StyledGraph sm={sm}>
+      <GraphHeader bg={tooltipBg} sm={sm}>
         <div className="head">
           <strong>{title}</strong>
           <strong>{amount}</strong>
         </div>
       </GraphHeader>
-      <ChartContainer>
+      <ChartContainer sm={sm}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </ChartContainer>
     </StyledGraph>

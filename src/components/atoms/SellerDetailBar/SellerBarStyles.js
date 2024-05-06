@@ -4,7 +4,7 @@ export const Container = styled.div`
   /* margin: 50px 0 0; */
   width: 100%;
   background-color: #4e6199;
-  padding: 16px 38px;
+  padding: ${({ sm }) => (sm ? "16px 38px" : "16px 58px")};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,23 +21,22 @@ export const Data = styled.div`
   color: #fff;
   position: relative;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
-  padding-right: 30px;
+  padding-right: ${({ sm }) => (sm ? "30px" : "67px")};
   &:last-child {
     border: none;
     padding-right: 0;
   }
   h1 {
-    font-size: 38px;
+    font-size: ${({ sm }) => (sm ? "38px" : "42px")};
     margin: 0;
     padding: 6px 0;
   }
   .f-span {
-    font-size: 18px;
+    font-size: ${({ sm }) => (sm ? "18px" : "22px")};
     font-weight: 500;
   }
   .l-span {
-    font-size: 18px;
-    font-weight: 400;
+    font-size: ${({ sm }) => (sm ? "16px" : "20px")};
   }
 
   @media (max-width: 1296px) {

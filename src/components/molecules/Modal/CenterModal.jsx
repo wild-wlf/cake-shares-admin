@@ -52,8 +52,7 @@ const CenterModal = ({
           if (e.key === "Escape") {
             handleClose();
           }
-        }}
-      >
+        }}>
         <ContentHolder
           bg={bg}
           padding={padding}
@@ -64,17 +63,15 @@ const CenterModal = ({
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
-          tabIndex={-1}
-        >
+          tabIndex={-1}>
           <Head>
-            {title && <h1 className="title">{title}</h1>}
+            {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
             <div
               type="button"
               className="closer"
               onClick={handleClose}
-              tabIndex={0}
-            >
+              tabIndex={0}>
               <MdOutlineClose size={25} className="Icon" />
             </div>
           </Head>

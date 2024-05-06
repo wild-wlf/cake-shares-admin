@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../Button";
 import { ButtonsGroupWrapper } from "./ButtonsGroup.style";
 
-const ButtonsGroup = () => {
+const ButtonsGroup = ({ title = "" }) => {
   const [Tab, setTab] = useState(0);
 
   const categoryData = [
@@ -18,21 +18,24 @@ const ButtonsGroup = () => {
   ];
   return (
     <ButtonsGroupWrapper>
-      {categoryData?.map((item, index) => (
-        <div key={index}>
-          <Button
-            rounded
-            sm
-            btntype="white"
-            width="83px"
-            className={Tab === index ? "button active" : "button"}
-            onClick={() => setTab(index)}
-          >
-            {item.image}
-            {item.text}
-          </Button>
-        </div>
-      ))}
+      <h1>{title}</h1>
+      <div className="btn-Wrapper">
+        {categoryData?.map((item, index) => (
+          <div key={index}>
+            <Button
+              rounded
+              sm
+              btntype="white"
+              width="83px"
+              className={Tab === index ? "button active" : "button"}
+              onClick={() => setTab(index)}
+            >
+              {item.image}
+              {item.text}
+            </Button>
+          </div>
+        ))}
+      </div>
     </ButtonsGroupWrapper>
   );
 };

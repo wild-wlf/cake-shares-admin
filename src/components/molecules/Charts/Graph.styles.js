@@ -7,7 +7,7 @@ export const StyledGraph = styled.div`
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
     -10px 10px 20px rgba(0, 0, 0, 0.1);
-  padding: 22px 20px 0 0;
+  padding: ${({ sm }) => (sm ? "20px 40px 0 0" : "40px 30px 0 0")};
   flex-grow: 1;
   position: relative;
 
@@ -27,19 +27,21 @@ export const StyledGraph = styled.div`
     left: 36px;
     display: flex;
     flex-flow: wrap;
-    gap: 210px;
+    align-items: center;
+    justify-content: space-between;
     font-size: 10px;
     font-weight: 600;
+    padding-right: ${({ sm }) => (sm ? " 40px" : " 30px ")};
   }
 
   .highcharts-container {
-    height: 285px !important;
+    height: ${({ sm }) => (sm ? "170px !important" : "285px !important")};
     width: 100% !important;
   }
 
   @media (max-width: 1200px) {
     .highcharts-container {
-      height: 185px !important;
+      height: ${({ sm }) => (sm ? "170px !important" : "185px !important")};
     }
   }
 
@@ -72,7 +74,8 @@ export const GraphHeader = styled.div`
   span,
   strong {
     display: block;
-    font-size: 22px;
+    font-size: ${({ sm }) => (sm ? "18px" : "22px")};
+    padding-bottom: ${({ sm }) => (sm ? "30px" : "0")};
     font-weight: 500;
   }
 

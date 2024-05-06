@@ -17,24 +17,26 @@ export const PaginationList = styled.div`
     width: 35px !important;
     padding: 5px !important;
     text-align: center;
-    background: none;
+    color: white;
+    background: rgba(64, 143, 140, 1);
+    border: 0px;
   }
 `;
 
 export const PaginationButton = styled.button`
   width: 26px;
   height: 26px;
-  border: 1px solid var(--black);
-  border-radius: 4px;
+  border-radius: 50px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(246, 248, 250, 1);
 
   .icon {
     display: block;
     font-size: 16px;
     line-height: 1;
-    color: var(--matte-black);
+    color: rgba(49, 49, 49, 1);
   }
 `;

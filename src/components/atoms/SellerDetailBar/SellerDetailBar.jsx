@@ -1,44 +1,33 @@
 import React from "react";
 import { Container, Data } from "./SellerBarStyles";
 
-const SellerDetailBar = () => {
+const SellerDetailBar = ({ sm }) => {
+  const data = [
+    {
+      title: "Banking Product",
+      amount: "$5,000",
+      investments: "2 Investments",
+    },
+    { title: "Properties", amount: "$30,000", investments: "12 Investments" },
+    { title: "Ventures", amount: "$2,000", investments: "1 Investment" },
+    { title: "Bazar", amount: "$2,000", investments: "1 Investment" },
+    {
+      title: "Total Investment",
+      amount: "$37,000",
+      investments: "16 Investments",
+    },
+  ];
   return (
-    <Container>
-      <Data>
-        <span className="f-span">Banking Product</span>
-        <h1>$5,000</h1>
-        <span className="l-span">
-          2 Investments <span>(Opens)</span>
-        </span>
-      </Data>
-      <Data>
-        <span className="f-span">Properties</span>
-        <h1>$30,000</h1>
-        <span className="l-span">
-          12 Investments <span>(Opens)</span>
-        </span>
-      </Data>
-      <Data>
-        <span className="f-span">Ventures</span>
-        <h1>$2,000</h1>
-        <span className="l-span">
-          1 Investments <span>(Opens)</span>
-        </span>
-      </Data>
-      <Data>
-        <span className="f-span">Bazar</span>
-        <h1>$2,000</h1>
-        <span className="l-span">
-          1 Investments <span>(Opens)</span>
-        </span>
-      </Data>
-      <Data>
-        <span className="f-span">Total Investment</span>
-        <h1>$37,000</h1>
-        <span className="l-span">
-          16 Investments <span>(Opens)</span>
-        </span>
-      </Data>
+    <Container sm={sm}>
+      {data.map((item, index) => {
+        return (
+          <Data key={index} sm={sm}>
+            <span className="f-span">{item.title}</span>
+            <h1>{item.amount}</h1>
+            <span className="l-span">{item.investments}</span>
+          </Data>
+        );
+      })}
     </Container>
   );
 };

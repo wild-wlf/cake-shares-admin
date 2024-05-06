@@ -9,15 +9,15 @@ export const Sidenav = styled.div`
   gap: 50px;
   background-color: white;
   max-width: 300px;
-  padding: 30px 30px 30px 50px;
+  padding: 30px 10px 30px 50px;
   height: 100%;
   transition: left 0.3s ease-in-out;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 768px) {
-    display: block;
+  @media (max-width: 992px) {
+    display: none;
   }
 
   .nav-logo {
@@ -32,6 +32,8 @@ export const Sidenav = styled.div`
 
 export const NavLinks = styled.ul`
   padding-top: 30px;
+  padding-right: 20px;
+
   .listHead {
     font-size: 16px;
     font-weight: 400;
@@ -40,17 +42,17 @@ export const NavLinks = styled.ul`
 
   .NavItem {
     cursor: pointer;
-    width: 190px;
-    height: 50px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
     border-radius: 100px;
     margin-top: 17px;
     transition: 0.5s all ease-in-out;
-    .name {
+    .Link {
+      width: 190px;
+      padding: 14px 20px;
+      height: 50px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
       font-size: 14px;
       font-weight: 300;
       color: black;
@@ -68,13 +70,23 @@ export const NavLinks = styled.ul`
 
     &:hover {
       background-color: rgba(64, 143, 140, 0.3);
-      .name {
+      .Link {
         font-weight: 500;
         color: #408f8c;
       }
       .iconCon {
         background-color: #408f8c;
       }
+    }
+  }
+  .active {
+    background-color: rgba(64, 143, 140, 0.3);
+    .Link {
+      font-weight: 500;
+      color: #408f8c;
+    }
+    .iconCon {
+      background-color: #408f8c;
     }
   }
 `;

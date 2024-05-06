@@ -2,14 +2,14 @@ import React from "react";
 import { SellerContainer } from "../styles/GlobalStyles.styles";
 import SellerWallet from "@/components/common/SellerWallet/SellerWallet";
 import SellerDetailBar from "@/components/atoms/SellerDetailBar/SellerDetailBar";
-import SellerTable from "@/components/common/SellerTable";
+import PortfolioTable from "@/components/common/Portfolio/PortfolioTable";
 
 const seller = () => {
   return (
     <SellerContainer>
       <SellerWallet />
-      <SellerDetailBar />
-      <SellerTable />
+      <SellerDetailBar sm={true} />
+      <PortfolioTable title="My Portfolio" />
     </SellerContainer>
   );
 };

@@ -30,6 +30,36 @@ const ProductDetailModal = () => {
       text: "Level 3 Required",
     },
   ];
+  const investmentData = [
+    {
+      heading: "Return Rate (%):",
+      text: "30%",
+    },
+    {
+      heading: "Funding Ratio:",
+      text: "56%",
+    },
+    {
+      heading: "Minimum Backers:",
+      text: "01",
+    },
+    {
+      heading: "Maximum Backers:",
+      text: "20",
+    },
+    {
+      heading: "Annual Cost:",
+      text: "$2,000",
+    },
+    {
+      heading: "Min Investment:",
+      text: "$5,000",
+    },
+    {
+      heading: "Total Asset Value",
+      text: "$2,000,000",
+    },
+  ];
   const productDescription = [
     {
       heading: "Product Description",
@@ -80,6 +110,34 @@ const ProductDetailModal = () => {
             <Image src={productImg3} alt="productImg1" />
           </div>
         </div>
+      </div>
+      <div className="amenities-holder">
+        <span className="heading">Amenities:</span>
+        <div className="amenities">
+          <div className="product-property">
+            <span>Grade A Property</span>
+          </div>
+          <div className="product-property">
+            <span>Grade A Property</span>
+          </div>
+          <div className="product-property">
+            <span>Grade A Property</span>
+          </div>
+          <div className="product-property">
+            <span>Premium Collection</span>
+          </div>
+          <div className="product-property">
+            <span>Premium Collection</span>
+          </div>
+        </div>
+      </div>
+      <div className="product-info investment-info">
+        {investmentData?.map((item, index) => (
+          <div className="col" key={index}>
+            <span className="heading">{item.heading}</span>
+            <span className="text">{item.text}</span>
+          </div>
+        ))}
       </div>
     </StyledProductDetailModal>
   );

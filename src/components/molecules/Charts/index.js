@@ -10,6 +10,7 @@ function Graph({
   title,
   amount,
   graphLineColor,
+  sm,
   timeFrame,
 }) {
   const options = {
@@ -50,8 +51,8 @@ function Graph({
   };
 
   return (
-    <StyledGraph>
-      <GraphHeader bg={tooltipBg}>
+    <StyledGraph sm={sm}>
+      <GraphHeader bg={tooltipBg} sm={sm}>
         <div className="Head">
           <strong>{title}</strong>
           <span>{amount}</span>
