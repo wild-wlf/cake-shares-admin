@@ -33,6 +33,22 @@ const images = [
     image: Property3,
     id: "6",
   },
+  {
+    image: Property3,
+    id: "3",
+  },
+  {
+    image: Property,
+    id: "4",
+  },
+  {
+    image: Property2,
+    id: "5",
+  },
+  {
+    image: Property3,
+    id: "6",
+  },
 ];
 const Categories = ({ title, arr = images }) => {
   var settings = {
@@ -41,7 +57,6 @@ const Categories = ({ title, arr = images }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    swipeToSlide: true,
     responsive: [
       {
         breakpoint: 1200,
@@ -59,26 +74,6 @@ const Categories = ({ title, arr = images }) => {
         breakpoint: 900,
         settings: { slidesToShow: 2 },
       },
-      // {
-      //   breakpoint: 768,
-      //   settings: { slidesToShow: 4 },
-      // },
-      // {
-      //   breakpoint: 700,
-      //   settings: { slidesToShow: 3.5 },
-      // },
-      // {
-      //   breakpoint: 600,
-      //   settings: { slidesToShow: 3 },
-      // },
-      // {
-      //   breakpoint: 510,
-      //   settings: { slidesToShow: 2.5 },
-      // },
-      // {
-      //   breakpoint: 430,
-      //   settings: { slidesToShow: 2 },
-      // },
     ],
   };
 
