@@ -6,7 +6,7 @@ import Button from "@/components/atoms/Button";
 import Select from "@/components/atoms/Select";
 import UploadImg from "@/components/molecules/UploadImg";
 
-const CreateUserModal = () => {
+const EditUserModal = () => {
   const cryptoWalletNames = [
     {
       label: "Bitcoin Wallet",
@@ -87,12 +87,13 @@ const CreateUserModal = () => {
         <div className="feildContainer">
           <div className="fullWidth ">
             <Form.Item
-              label={"Role"}
+              label={"Roles"}
               options={cryptoWalletNames}
+              isMulti
               rules={[
                 {
                   required: true,
-                  message: "Role should be selected",
+                  message: "Roles should be selected",
                 },
               ]}
             >
@@ -100,44 +101,7 @@ const CreateUserModal = () => {
             </Form.Item>
           </div>
         </div>
-        <div className="feildContainer">
-          <div className="wrapper">
-            <Form.Item
-              label="Change Password"
-              type="password"
-              rounded
-              sm
-              name="Change Password"
-              placeholder="******************"
-              rules={[
-                {
-                  required: true,
-                  message: "Password is Required",
-                },
-              ]}
-            >
-              <Field />
-            </Form.Item>
-          </div>
-          <div className="wrapper">
-            <Form.Item
-              label="Confirm New Password"
-              type="password"
-              rounded
-              sm
-              name="Confirm New Password"
-              placeholder="******************"
-              rules={[
-                {
-                  required: true,
-                  message: "New Password is Required",
-                },
-              ]}
-            >
-              <Field />
-            </Form.Item>
-          </div>
-        </div>
+
         <Button rounded width={"170px"} height={"40px"} sm btntype="green">
           Save Changes
         </Button>
@@ -146,4 +110,4 @@ const CreateUserModal = () => {
   );
 };
 
-export default CreateUserModal;
+export default EditUserModal;

@@ -9,13 +9,21 @@ import UserImg from "../../../../_assets/table-user-img.png";
 import PasswordImg from "../../../../_assets/table-password-icon.png";
 import Image from "next/image";
 import { TableContainer } from "../../Portfolio/PortfolioTable/PorfolioTable.style";
+import { ModalText } from "@/components/atoms/RolesTable/RolesTable.style";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import UpdatePasswordModal from "../UpdatePasswordModal";
 import CreateUserModal from "../CreateUserModal";
+import EditUserModal from "../EditUserModal";
+import DeleteUserModal from "../DeleteUserModal";
+import InfoIcon from "../../../../_assets/infoIcon.png";
+import successIcon from "../../../../_assets/successIcon.png";
 
 const UsersTable = () => {
   const [openPassword, setOpenPassword] = useState(false);
   const [openCreateUser, setOpenCreateUser] = useState(false);
+  const [openEditUser, setOpenEditUser] = useState(false);
+  const [openDeleteUser, setOpenDeleteUser] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const transactions = [
     {
@@ -87,7 +95,13 @@ const UsersTable = () => {
     <>
       <ActionBtnList>
         <li>
-          <button type="button" className="btn edit">
+          <button
+            type="button"
+            className="btn edit"
+            onClick={() => {
+              setOpenEditUser(true);
+            }}
+          >
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
@@ -104,7 +118,13 @@ const UsersTable = () => {
         </li>
 
         <li>
-          <button type="button" className="btn delete">
+          <button
+            type="button"
+            className="btn delete"
+            onClick={() => {
+              setOpenDeleteUser(true);
+            }}
+          >
             <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
@@ -129,6 +149,41 @@ const UsersTable = () => {
   const columnNamess = [`Created at`, `Username`, `Email`, "Roles", "Actions"];
   return (
     <>
+      <CenterModal
+        open={openSuccessModal}
+        setOpen={setOpenSuccessModal}
+        headImage={successIcon}
+        width="543"
+      >
+        <ModalText>User Deleted Successfully!</ModalText>
+      </CenterModal>
+
+      <CenterModal
+        open={openDeleteUser}
+        setOpen={setOpenDeleteUser}
+        headImage={InfoIcon}
+        width="543"
+      >
+        <DeleteUserModal
+          closeDeleteModal={() => {
+            setOpenDeleteUser(false);
+          }}
+          openSuccessfulModal={() => {
+            setOpenDeleteUser(false);
+            setOpenSuccessModal(true);
+          }}
+        />
+      </CenterModal>
+
+      <CenterModal
+        open={openEditUser}
+        setOpen={setOpenEditUser}
+        title={"Edit User"}
+        width="666"
+      >
+        <EditUserModal />
+      </CenterModal>
+
       <CenterModal
         open={openCreateUser}
         setOpen={setOpenCreateUser}
