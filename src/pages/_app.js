@@ -15,9 +15,10 @@ import {
   companySellerPermission,
   individualSellerPermission,
 } from "@/helpers/permissions";
+import { companySellerNav, indivisualSellerNav } from "@/helpers/nav";
 
 export default function App({ Component, pageProps }) {
-  const [userType, setUserType] = useState("seller");
+  const [userType, setUserType] = useState("companySeller");
 
   const GlobalStyles = createGlobalStyle`
   ${Variables}
@@ -39,14 +40,14 @@ export default function App({ Component, pageProps }) {
         {userType === "seller" &&
           individualSellerPermission.includes(pathname) && (
             <PageWrapper>
-              <Sidenav />
+              <Sidenav data={indivisualSellerNav} />
               <Component {...pageProps} />
             </PageWrapper>
           )}
         {userType === "companySeller" &&
           companySellerPermission.includes(pathname) && (
             <PageWrapper>
-              <Sidenav />
+              <Sidenav data={companySellerNav} />
               <Component {...pageProps} />
             </PageWrapper>
           )}

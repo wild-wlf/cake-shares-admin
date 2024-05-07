@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   width: 100%;
-  padding: 29px 29px 0px 29px;
+  padding: 30px 30px 0px 30px;
   font-family: var(--base-font-sans-serif);
   z-index: 5;
 `;

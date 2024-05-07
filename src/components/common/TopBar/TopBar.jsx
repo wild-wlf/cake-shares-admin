@@ -113,7 +113,6 @@ const TopBar = () => {
             }}
           >
             <Image src={bell} alt="bell" className="bell" />
-            {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
             <div
               className={
                 notifications
