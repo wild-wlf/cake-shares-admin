@@ -3,6 +3,10 @@ import React, { useMemo } from "react";
 import { StyledUserDetail } from "./UserDetail.styles";
 import Button from "../../Button";
 import { MdModeEdit } from "react-icons/md";
+import { FaCarAlt, FaFire } from "react-icons/fa";
+import { FaHouseChimney } from "react-icons/fa6";
+import { PiStorefrontFill } from "react-icons/pi";
+import { TbBuildingFactory } from "react-icons/tb";
 import bankIcon from "../../../../_assets/bankIcon.svg";
 import numIcon from "../../../../_assets/numIcon.svg";
 import userIcon from "../../../../_assets/userIcon.svg";
@@ -10,14 +14,10 @@ import userId from "../../../../_assets/userId.svg";
 import userName from "../../../../_assets/userName.svg";
 import emailAddress from "../../../../_assets/emailAddress.svg";
 import password from "../../../../_assets/password.svg";
-import flagIcon from "../../../../_assets/flagIcon.svg";
-import countryflgIcon from "../../../../_assets/countryflgIcon.svg";
 import dltIcon from "../../../../_assets/dltIcon.svg";
 import accDelete from "../../../../_assets/accDelete.svg";
 import Image from "next/image";
 // import Inheritance from "./Inheritance";
-import TableLayout from "../../TableLayout";
-import Table from "@/components/molecules/Table";
 import { IoIosArrowBack } from "react-icons/io";
 import EditBank from "./EditBank";
 import EditProfile from "./EditBank/EditProfile";
@@ -107,73 +107,77 @@ const UserDetail = () => {
         </div>
       </div>
       <div className="colWrapper">
-        <div className="colHeader">
-          <strong className="colTitle">Personal Information:</strong>
-          <ModalContainer
-            lg
-            width={673}
-            title="Edit Profile"
-            btnComponent={({ onClick }) => (
-              <Button
-                type="primary"
-                rounded
-                sm
-                onClick={onClick}
-                width={"127px"}
-              >
-                <MdModeEdit />
-                Edit Info
-              </Button>
-            )}
-            content={({ onClose }) => <EditProfile onClose={onClose} />}
-          />
+        <div>
+          <div className="colHeader">
+            <strong className="colTitle">Financial Information:</strong>
+          </div>
+          <div className="colBody">
+            <div className="col-content">
+              <div className="iconWrap">
+                <Image src={userIcon} alt="userIcon" />
+              </div>
+              <div className="textWrap">
+                <strong className="title">42</strong>
+                <span>Ongoing Products</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="iconWrap">
+                <Image src={userName} alt="userName" />
+              </div>
+              <div className="textWrap">
+                <strong className="title">$2,653,000</strong>
+                <span>Total Return Made</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="colBody">
-          <div className="col-content">
-            <div className="iconWrap">
-              <Image src={userIcon} alt="userIcon" />
-            </div>
-            <div className="textWrap">
-              <strong className="title">Full Name</strong>
-              <span>Alex Mertiz</span>
-            </div>
+
+        <div>
+          <div className="colHeader">
+            <strong className="colTitle">My Product Top Categories:</strong>
           </div>
-          <div className="col-content">
-            <div className="iconWrap">
-              <Image src={userName} alt="userName" />
+          <div className="category-colBody">
+            <div className="col-content">
+              <div className="category-col">
+                <FaFire size={20} />
+                <span>Popular</span>
+              </div>
             </div>
-            <div className="textWrap">
-              <strong className="title">Username</strong>
-              <span>alex123</span>
+
+            <div className="col-content">
+              <div className="category-col">
+                <FaHouseChimney size={20} />
+                <span>Properties</span>
+              </div>
             </div>
-          </div>
-          <div className="col-content">
-            <div className="iconWrap">
-              <Image src={emailAddress} alt="emailAddress" />
+
+            <div className="col-content">
+              <div className="category-col">
+                <TbBuildingFactory size={20} />
+                <span>Ventures</span>
+              </div>
             </div>
-            <div className="textWrap">
-              <strong className="title">Email Address</strong>
-              <span>alex123@gmail.com</span>
+
+            <div className="col-content">
+              <div className="category-col">
+                <PiStorefrontFill size={20} />
+                <span>Bazaar</span>
+              </div>
             </div>
-          </div>
-          <div className="col-content">
-            <div className="iconWrap">
-              <Image src={password} alt="password" />
+
+            <div className="col-content">
+              <div className="category-col">
+                <TbBuildingFactory size={20} />
+                <span>Ventures</span>
+              </div>
             </div>
-            <div className="textWrap">
-              <strong className="title">Password</strong>
-              <span>**************</span>
-            </div>
-          </div>
-          <div className="col-content danger">
-            <div className="iconWrap">
-              <Image src={dltIcon} alt="dltIcon" />
-            </div>
-            <div className="textWrap">
-              <strong className="title">Account Deactivation</strong>
-              <div className="discreptionWrap">
-                <span>Deactivate Account</span>
-                <Image src={accDelete} alt="accDelete" />
+
+            <div className="col-content">
+              <div className="category-col">
+                <FaCarAlt size={20} />
+                <span>Vehicals</span>
               </div>
             </div>
           </div>
