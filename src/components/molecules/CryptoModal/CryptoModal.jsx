@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./CryptoMOdalStyles";
+import { Container } from "./CryptoModalStyles";
 import Select from "@/components/atoms/Select";
 import Form, { useForm } from "../Form";
 import { ButtonContainer } from "@/components/common/MyWallet/WalletStyles";

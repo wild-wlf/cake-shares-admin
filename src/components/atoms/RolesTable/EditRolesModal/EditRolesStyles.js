@@ -1,17 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  .ProfilePicture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 16px;
-  }
-  .Heading {
-    padding: 26px 0;
-    font-size: 20px;
-    font-weight: 300;
-  }
+  padding-top: 26px;
   .feildContainer {
     width: 100%;
     display: flex;
@@ -21,15 +11,14 @@ export const Container = styled.div`
     .wrapper {
       width: 48%;
     }
-    .fullWidth {
-      width: 100%;
-    }
+  }
+
+  .btn {
+    padding-bottom: 26px;
+    width: 290px;
   }
 
   @media (max-width: 580px) {
-    .Heading {
-      font-size: 17px;
-    }
     .feildContainer {
       flex-direction: column;
       align-items: flex-start;
@@ -38,6 +27,9 @@ export const Container = styled.div`
       .wrapper {
         width: 100%;
       }
+    }
+    .btn {
+      width: 100%;
     }
   }
 `;
