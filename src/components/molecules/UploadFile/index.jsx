@@ -10,7 +10,7 @@ import {
   ProgressBarHolder,
   RemoveBtn,
 } from "./UploadFile.styles";
-// import UploadImg from "../../../_assets/uploadFile.svg";
+import UploadImg from "../../../_assets/uploadFile.svg";
 import Image from "next/image";
 // import Toast from "../Toast";
 
@@ -38,7 +38,7 @@ const UploadFile = ({
       const fileLength = file.size / (1024 * 1024);
       if (fileLength <= fileSize) {
         setUploaded(e.target.files[0]);
-        onChange(e.target.files[0]);
+        onChange({ target: { file } });
       } else {
         alert("file size exceeded");
       }

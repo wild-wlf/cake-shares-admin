@@ -64,6 +64,7 @@ export const StyledFormGroup = styled.div`
     $invalid || noMargin ? "0px" : "1.625rem"};
   /* position: relative; */
   font-family: "Outfit", sans-serif;
+  width: 100%;
   &:nth-last-child(1) {
     margin-bottom: 0;
   }
