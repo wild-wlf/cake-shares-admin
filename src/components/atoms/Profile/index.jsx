@@ -16,7 +16,6 @@ const Profile = () => {
     <StyledProfile>
       <ProfileBanner image={bgImage} />
       <UserInfo userImage={UserImage} />
-      <UserDetail />
     </StyledProfile>
   );
 };

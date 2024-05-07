@@ -15,7 +15,6 @@ export const Sidenav = styled.div`
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
   @media (max-width: 992px) {
     display: none;
   }
@@ -27,6 +26,9 @@ export const Sidenav = styled.div`
       max-width: 176px;
       height: auto;
     }
+  }
+  .aside-active & {
+    display: block;
   }
 `;
 

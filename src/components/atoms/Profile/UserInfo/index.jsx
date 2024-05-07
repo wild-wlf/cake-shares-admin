@@ -26,23 +26,6 @@ const UserInfo = ({ userImage }) => {
             <span className="addbefore"> Member since Feb 15, 2024</span>
           </div>
         </div>
-        {/* <div className="textWrapper addbefore">
-          <span className="categoriesText">My Investments in Categories:</span>
-          <ul className="categoriesWrapper">
-            <li className="categoriesList">
-              <Image src={popular} alt="popular" />
-              Popular
-            </li>
-            <li className="categoriesList">
-              <Image src={PropertyIcon} alt="PropertyIcon" />
-              Properties
-            </li>
-            <li className="categoriesList">
-              <Image src={VentureIcon} alt="VentureIcon" />
-              Ventures
-            </li>
-          </ul>
-        </div> */}
       </div>
       {router == "/profile" ? (
         <div className="kycWrapper">
