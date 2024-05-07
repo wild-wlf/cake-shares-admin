@@ -167,6 +167,20 @@ export const Styling = css`
       height: 40px;
     }
   }
+  .table-img-holder{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    .img-holder{
+      max-width: 26px;
+      img{
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
   /************* custom scrollbar styles ************/
 
   /* This will work on Firefox */
