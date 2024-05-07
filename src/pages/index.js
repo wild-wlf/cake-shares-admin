@@ -9,7 +9,8 @@ const Buyer = () => {
   const router = useRouter();
   useEffect(() => {
     router.push("/buyer");
-  }, []);
+    console.log(router);
+  }, [router.pathname]);
 
   return (
     <>

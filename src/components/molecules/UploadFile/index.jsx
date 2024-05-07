@@ -28,6 +28,7 @@ const UploadFile = ({
   icon,
   img = "",
   id = "upload",
+  noMargin,
   ...props
 }) => {
   const { CSVReader } = useCSVReader();
@@ -78,7 +79,7 @@ const UploadFile = ({
   }, [img]);
 
   return (
-    <StyledUploadFile $bg={bg}>
+    <StyledUploadFile $bg={bg} $noMargin={noMargin}>
       {label && <span className="label-text">{title}</span>}
       {type === "img" && (
         <label htmlFor={id} className="labelButton">
@@ -137,8 +138,7 @@ const UploadFile = ({
           onDragLeave={(event) => {
             event.preventDefault();
           }}
-          {...props}
-        >
+          {...props}>
           {({
             getRootProps,
             acceptedFile,
@@ -152,8 +152,7 @@ const UploadFile = ({
               css={`
                 padding: 38px;
               `}
-              className="labelButton"
-            >
+              className="labelButton">
               <div>
                 {acceptedFile ? (
                   <FileUploadBox>
@@ -171,8 +170,7 @@ const UploadFile = ({
                       }}
                       onMouseOut={(event) => {
                         event.preventDefault();
-                      }}
-                    >
+                      }}>
                       <Remove />
                     </RemoveBtn>
                   </FileUploadBox>

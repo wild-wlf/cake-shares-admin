@@ -61,7 +61,11 @@ export const Centered = css`
 
 export const StyledFormGroup = styled.div`
   margin-bottom: ${({ $invalid, noMargin }) =>
-    $invalid || noMargin ? "0px" : "1.625rem"};
+    $invalid || noMargin ? "0px" : "10px"};
+  @media (min-width: 768px) {
+    margin-bottom: ${({ $invalid, noMargin }) =>
+      $invalid || noMargin ? "0px" : "20px"};
+  }
   /* position: relative; */
   font-family: "Outfit", sans-serif;
   width: 100%;

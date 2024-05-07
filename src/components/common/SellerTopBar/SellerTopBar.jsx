@@ -7,9 +7,12 @@ import Notifications from "../../../components/molecules/Notifications";
 import bell from "../../../_assets/bell.svg";
 import Button from "@/components/atoms/Button";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import CenterModal from "@/components/molecules/Modal/CenterModal";
+import CreateNewProduct from "../Portfolio/CreateNewProduct";
 
 const SellerTopBar = ({ title, tagLine, suffix }) => {
   const [notifications, setNotifications] = useState(false);
+  const [createProductModal, setCreateProductModal] = useState(false);
 
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } =
     useContext(KycContext);
@@ -21,14 +24,20 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
 
   return (
     <>
+      <CenterModal
+        open={createProductModal}
+        setOpen={setCreateProductModal}
+        title="Create new Product"
+        width="900">
+        <CreateNewProduct />
+      </CenterModal>
       <Container>
         <div className="barData">
           <div
             className="closedNav"
             onClick={() => {
               openSideNav();
-            }}
-          >
+            }}>
             <HiOutlineMenuAlt1 />
           </div>
           <div className="dataContainer">
@@ -52,8 +61,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             className="notification"
             onClick={() => {
               setNotifications(!notifications);
-            }}
-          >
+            }}>
             <Image src={bell} alt="bell" className="bell" />
             {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
             <div
@@ -61,12 +69,17 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
                 notifications
                   ? "notificationWrapper-visible"
                   : "notificationWrapper"
-              }
-            >
+              }>
               <Notifications />
             </div>
           </div>
-          <Button rounded sm btntype="new" width={"160px"} height={"35px"}>
+          <Button
+            rounded
+            sm
+            btntype="new"
+            width={"150px"}
+            height={"35px"}
+            onClick={() => setCreateProductModal(true)}>
             Create New Product
           </Button>
         </div>
