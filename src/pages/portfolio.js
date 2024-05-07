@@ -1,4 +1,4 @@
-import PortfolioTable from "@/components/common/PortfolioTable";
+import PortfolioTable from "@/components/common/Portfolio/PortfolioTable";
 import SellerTopBar from "@/components/common/SellerTopBar/SellerTopBar";
 import { SellerContainer } from "@/styles/GlobalStyles.styles";
 import React from "react";

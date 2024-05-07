@@ -9,8 +9,19 @@ import { useRouter } from "next/router";
 
 const SideBar = () => {
   const { pathname } = useRouter();
+
+  const closeSideNav = () => {
+    document.body.remove.classList("sideNav-active");
+  };
+
   return (
     <Sidenav>
+      <div
+        className="layer"
+        onClick={() => {
+          closeSideNav();
+        }}
+      />
       <div className="nav-logo">
         <Image src={logo} alt="logo" />
       </div>

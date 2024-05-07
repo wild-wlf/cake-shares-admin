@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Container ,DataContainer } from "./SellerbarStyles";
+import { Container, DataContainer } from "./SellerbarStyles";
 import Image from "next/image";
 import { KycContext } from "../../../context/KycContext";
 import KycLevel from "@/components/atoms/KYC/KycLevel";
@@ -14,11 +14,20 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } =
     useContext(KycContext);
 
+  const openSideNav = () => {
+    document.body.classList.toggle("sideNav-active");
+  };
+
   return (
     <>
       <Container>
         <div className="barData">
-          <div className="closedNav">
+          <div
+            className="closedNav"
+            onClick={() => {
+              openSideNav();
+            }}
+          >
             <HiOutlineMenuAlt1 />
           </div>
           <div className="dataContainer">
