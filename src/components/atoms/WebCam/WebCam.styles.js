@@ -44,7 +44,8 @@ export const WebCamHolder = styled.div`
     z-index: 10;
     right: 10px;
     top: 10px;
-    min-width: 50px;
+    min-width: 50px !important;
+    width: 50px;
   }
 `;
 

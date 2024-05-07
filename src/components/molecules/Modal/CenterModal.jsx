@@ -17,6 +17,7 @@ const CenterModal = ({
   title,
   headImage,
 }) => {
+  console.log(open);
   useEffect(() => {
     const disableScroll = () => {
       document.body.style.overflow = "hidden";

@@ -23,7 +23,7 @@ const SideBar = ({ nav }) => {
         open={kyc1}
         setOpen={setKyc1}
         width="688"
-        title="Upgrade to KYC Level 1"
+        title="Upgrade KYC"
       >
         <KycBuyerLevelOne setKycLevel={setKycLevel} setOpen={setKyc1} />
       </CenterModal>

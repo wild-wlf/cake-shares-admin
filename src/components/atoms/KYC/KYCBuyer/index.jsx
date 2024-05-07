@@ -10,9 +10,9 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel }) => {
   }
   return (
     <StyledKycBuyer>
-      <span className="kycdiscreption">Upgrade to KYC Level 1</span>
+      <span className="kycdiscreption">ID Proof Info:</span>
       <label htmlFor="" className="fakelabel">
-        ID Proof
+        Upload ID
       </label>
       <div className="combineField">
         <UploadFile
