@@ -153,11 +153,11 @@ export const UserDet = styled.div`
   }
   .type {
     color: #408f8c;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 300;
   }
   .date {
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 300;
   }
 `;
