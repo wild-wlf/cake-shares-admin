@@ -56,6 +56,9 @@ export const Data = styled.div`
       font-size: 18px;
     }
   }
+  @media (max-width: 1290px) {
+    padding-bottom: 20px;
+  }
   @media (max-width: 1024px) {
     padding-right: 30px;
   }
