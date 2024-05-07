@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Sidenav, NavLinks, LinkContainer, UserDet } from "./sideNav.style";
 import Link from "next/link";
 import SellerProfile from "../../../_assets/SellerProfile.png";
-import { nav } from "@/helpers/nav";
 import { useRouter } from "next/router";
 import CenterModal from "../Modal/CenterModal";
 import KycBuyerLevelOne from "@/components/atoms/KYC/KYCBuyer";
@@ -12,7 +11,7 @@ import KycBuyerLevelTwo from "@/components/atoms/KYC/KYCBuyerTwo";
 import KYCBuyerThree from "@/components/atoms/KYC/KYCBuyerThree";
 import { KycContext } from "@/context/KycContext";
 
-const SideBar = () => {
+const SideBar = ({ nav }) => {
   const { pathname } = useRouter();
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } =
     useContext(KycContext);

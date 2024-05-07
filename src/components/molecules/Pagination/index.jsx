@@ -104,7 +104,7 @@ function Pagination(props) {
         <IoIosArrowForward className="icon" />
       </PaginationButton>
       <span className="flex">
-        <span className="text">out of</span>
+        {/* <span className="text">out of</span> */}
         {paginationRange?.map(
           (pageNumber, index, arr) =>
             arr.length - 1 === index && <span key={index}>{pageNumber}</span>
