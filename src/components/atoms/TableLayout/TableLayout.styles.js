@@ -57,6 +57,19 @@ export const StyledTableLayout = styled.div`
       }
     }
 
+    ${({ filterBlock }) =>
+      filterBlock &&
+      css`
+        @media only screen and (max-width: 576px) {
+          .actions {
+            flex-direction: column;
+            button {
+              width: 100%;
+            }
+          }
+        }
+      `}
+
     .icon-div {
       display: flex;
       justify-content: center;

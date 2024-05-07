@@ -29,6 +29,7 @@ function TableLayout({
   btnText,
   btnImg,
   btnWidth,
+  filterBlock,
   iconImg,
   openModal,
   setResetFilter = () => {},
@@ -52,6 +53,7 @@ function TableLayout({
       <StyledTableLayout
         noNegativeMargin={noNegativeMargin}
         noPagination={noPagination}
+        filterBlock={filterBlock}
       >
         <div className="head">
           {tableHeading && (

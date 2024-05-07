@@ -167,6 +167,7 @@ const PermissionTable = ({ title }) => {
           openModal={() => {
             setCreatePermissionModal(true);
           }}
+          filterBlock={true}
         >
           <Table
             width={1024}
