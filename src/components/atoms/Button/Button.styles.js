@@ -59,6 +59,9 @@ export const StyledButton = styled.button`
     if (btntype === "info") {
       return "var(--blue)";
     }
+    if (btntype === "blue") {
+      return "rgba(78, 97, 153, 1)";
+    }
     if (btntype === "download") {
       return "#4E6199";
     }
@@ -74,6 +77,9 @@ export const StyledButton = styled.button`
     }
     if (btntype === "green") {
       return "#408F8C";
+    }
+    if (btntype === "blue") {
+      return "rgba(78, 97, 153, 0.1)";
     }
     if (btntype === "cancel") {
       return "var(--white)";

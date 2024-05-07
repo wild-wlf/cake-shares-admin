@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const CategoriesWrapper = styled.div`
-  overflow: hidden;
-  position: relative;
-  width: 100%;
   .title {
     display: flex;
     align-items: center;
@@ -15,7 +12,6 @@ export const CategoriesWrapper = styled.div`
   .slick-track {
     display: flex;
     gap: 10px;
-    max-width: 100%;
     padding: 20px 0 50px 0;
 
     @media (min-width: 992px) {
@@ -23,15 +19,15 @@ export const CategoriesWrapper = styled.div`
     }
     @media (min-width: 576px) {
       gap: 20px;
-      /* margin: 0 -20px; */
-    }
-    .slick-slide {
-      width: 100%;
-      max-width: 221px;
+      margin: 0 -20px;
     }
   }
   .slider {
     width: 100%;
+    .slick-slide {
+      width: 100%;
+      padding: 10px 5px;
+    }
     .slick-arrow.slick-next,
     .slick-arrow.slick-prev {
       background-color: #4e6199;

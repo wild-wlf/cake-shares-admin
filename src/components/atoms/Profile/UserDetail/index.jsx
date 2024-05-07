@@ -3,6 +3,10 @@ import React, { useMemo } from "react";
 import { StyledUserDetail } from "./UserDetail.styles";
 import Button from "../../Button";
 import { MdModeEdit } from "react-icons/md";
+import { FaCarAlt, FaFire } from "react-icons/fa";
+import { FaHouseChimney } from "react-icons/fa6";
+import { PiStorefrontFill } from "react-icons/pi";
+import { TbBuildingFactory } from "react-icons/tb";
 import bankIcon from "../../../../_assets/bankIcon.svg";
 import numIcon from "../../../../_assets/numIcon.svg";
 import userIcon from "../../../../_assets/userIcon.svg";
@@ -10,100 +14,25 @@ import userId from "../../../../_assets/userId.svg";
 import userName from "../../../../_assets/userName.svg";
 import emailAddress from "../../../../_assets/emailAddress.svg";
 import password from "../../../../_assets/password.svg";
-import flagIcon from "../../../../_assets/flagIcon.svg";
-import countryflgIcon from "../../../../_assets/countryflgIcon.svg";
 import dltIcon from "../../../../_assets/dltIcon.svg";
 import accDelete from "../../../../_assets/accDelete.svg";
 import Image from "next/image";
 // import Inheritance from "./Inheritance";
-import TableLayout from "../../TableLayout";
-import Table from "@/components/molecules/Table";
 import { IoIosArrowBack } from "react-icons/io";
 import EditBank from "./EditBank";
 import EditProfile from "./EditBank/EditProfile";
 import ModalContainer from "@/components/molecules/ModalContainer";
 
 const UserDetail = () => {
-  const reports_data = [
-    {
-      product_name: "Gov. Egypt Property",
-      category: "Properties",
-      total_share: "Sales",
-      amount: "$40,256.000",
-    },
-    {
-      product_name: "Audi A8 Car",
-      category: "Accessories",
-      amount: "$40,256.000",
-      total_share: "Refund",
-    },
-    {
-      product_name: "Rolex Watch (GMT-Master II)",
-      category: "Properties",
-      total_share: "Sales",
-      amount: "$40,256.000",
-    },
-    {
-      product_name: "Audi A8 Car",
-      category: "Car",
-      total_share: "Refund",
-      amount: "$40,256.000",
-    },
-  ];
   const actionBtns = () => (
     // eslint-disable-next-line react/jsx-filename-extension
     <button type="button" className="chatButton">
       Chat
     </button>
   );
-  const { report_rows, totalItems } = useMemo(
-    () => ({
-      report_rows: reports_data?.map((report) => [
-        report.product_name,
-        report.category,
-        report.total_share,
-        report.amount,
 
-        actionBtns(),
-      ]),
-      totalItems: reports_data?.length || 0,
-    }),
-    [reports_data]
-  );
-  const columnNames = [
-    `Product`,
-    `Category`,
-    `Total Shares`,
-    `Amount`,
-    `Chat (Stakeholders)`,
-  ];
-
-  const bankInfo = [
-    {
-      icon: bankIcon,
-      title: "Bank Name",
-      discreption: "Bank of Americe",
-    },
-    {
-      icon: numIcon,
-      title: "IBAN",
-      discreption: "PK033310084246213",
-    },
-
-    {
-      icon: userIcon,
-      title: "SWIFT / BIC Number",
-      discreption: "PK033310084246213",
-    },
-    {
-      icon: userId,
-      title: "User ID",
-      discreption: "33445554",
-    },
-  ];
   return (
     <StyledUserDetail>
-      {/* <Inheritance /> */}
       <div className="colWrapper">
         <div className="colHeader">
           <strong className="colTitle">Personal Information:</strong>
@@ -172,6 +101,83 @@ const UserDetail = () => {
               <div className="discreptionWrap">
                 <span>Deactivate Account</span>
                 <Image src={accDelete} alt="accDelete" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="colWrapper">
+        <div>
+          <div className="colHeader">
+            <strong className="colTitle">Financial Information:</strong>
+          </div>
+          <div className="colBody">
+            <div className="col-content">
+              <div className="iconWrap">
+                <Image src={userIcon} alt="userIcon" />
+              </div>
+              <div className="textWrap">
+                <strong className="title">42</strong>
+                <span>Ongoing Products</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="iconWrap">
+                <Image src={userName} alt="userName" />
+              </div>
+              <div className="textWrap">
+                <strong className="title">$2,653,000</strong>
+                <span>Total Return Made</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="colHeader">
+            <strong className="colTitle">My Product Top Categories:</strong>
+          </div>
+          <div className="category-colBody">
+            <div className="col-content">
+              <div className="category-col">
+                <FaFire size={20} />
+                <span>Popular</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="category-col">
+                <FaHouseChimney size={20} />
+                <span>Properties</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="category-col">
+                <TbBuildingFactory size={20} />
+                <span>Ventures</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="category-col">
+                <PiStorefrontFill size={20} />
+                <span>Bazaar</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="category-col">
+                <TbBuildingFactory size={20} />
+                <span>Ventures</span>
+              </div>
+            </div>
+
+            <div className="col-content">
+              <div className="category-col">
+                <FaCarAlt size={20} />
+                <span>Vehicals</span>
               </div>
             </div>
           </div>

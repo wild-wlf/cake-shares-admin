@@ -4,7 +4,7 @@ import editIcon from "../../../../_assets/editIcon.svg";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const ProfileBanner = ({ title = "Master the World of NFT’s!" }) => {
+const ProfileBanner = ({ title = "Real Estate Broker Things mate!" }) => {
   const [bannerImg, setBannerImg] = useState(null);
   const router = usePathname();
   function handleBannerImg(e) {

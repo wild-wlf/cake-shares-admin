@@ -509,11 +509,14 @@ export const PageWrapper = styled.div`
 
 export const SellerContainer = styled.div`
   width: 100%;
-  height: 100%;
+
   background-color: #fff;
   border-radius: 30px;
   border: 1px solid #dadada;
   @media only screen and (max-width: 992px) {
     border: none;
+  }
+  .child-Wrapper {
+    padding: 0 30px 20px;
   }
 `;
