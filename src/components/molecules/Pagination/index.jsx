@@ -29,7 +29,7 @@ function Pagination(props) {
     setInputCurrentPage(currentPage);
   }, [currentPage]);
   const onNext = () => {
-    onPageChange(currentPage + 1);
+    // onPageChange(currentPage + 1);
     setInputCurrentPage(currentPage + 1);
   };
 
