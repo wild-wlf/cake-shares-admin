@@ -27,7 +27,7 @@ const EditProductModal = () => {
         <Field label="Product Name" />
         <Select label="Investment Type" />
         <Field label="Address" />
-        <Field type="datePicker" label="Deadline" />
+        <Field type="datepicker" label="Deadline" />
         <Select label="KYC Level" />
       </div>
       <div className="product-description">

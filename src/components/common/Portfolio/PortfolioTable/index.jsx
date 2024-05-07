@@ -15,15 +15,27 @@ import SpeakerIcon from "../../../../_assets/speaker.svg";
 import FileIcon from "../../../../_assets/file.svg";
 import TableStyle from "../../../../_assets/table-style.jpg";
 
+import EditProductModal from "../EditProductModal";
+import InfoIcon from "../../../../_assets/infoIcon.png";
 import Image from "next/image";
 import ProductDetailModal from "../ProductDetailModal";
-import EditProductModal from "../EditProductModal";
+import DeleteModal from "@/components/atoms/ProductDeleteModal/DeleteModal";
+import SuccessfulModal from "@/components/atoms/ProductDeleteModal/SuccessfulModal";
+import AdvertiseModal from "@/components/atoms/AdvertiseProductModal/AdvertiseModal";
+import AdvertiseSuccessfulModal from "@/components/atoms/AdvertiseProductModal/AdvertiseSuccessfulModal";
+import CreateNewProduct from "../CreateNewProduct";
 
 const PortfolioTable = ({ title }) => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [editProductModal, setEditProductModal] = useState(false);
+  const [createProductModal, setCreateProductModal] = useState(false);
+  const [productDeleteModal, setProductDeleteModal] = useState(false);
+  const [productAdvertiseModal, setProductAdvertiseModal] = useState(false);
+  const [deleteSuccessfulModal, setDeleteSuccessfulModal] = useState(false);
+  const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] =
+    useState(false);
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -32,6 +44,13 @@ const PortfolioTable = ({ title }) => {
   const openStatementModal = () => {
     setStatementModal(true);
     setOpen(false);
+  };
+  const closeDeleteModal = () => {
+    setProductDeleteModal(false);
+  };
+  const handleAdvertiseModal = () => {
+    setProductAdvertiseModal(false);
+    setAdvertiseSuccessfulModal(true);
   };
   const transactions = [
     {
@@ -91,6 +110,14 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn file"
+            onClick={() => setCreateProductModal(true)}>
+            <Image src={FileIcon} />
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="btn file"
             onClick={() => setProductDetailModal(true)}>
             <Image src={FileIcon} />
           </button>
@@ -105,11 +132,20 @@ const PortfolioTable = ({ title }) => {
         </li>
         <li>
           <button type="button" className="btn speaker">
-            <Image src={SpeakerIcon} alt="speaker" />
+            <Image
+              src={SpeakerIcon}
+              alt="advertise"
+              onClick={() => {
+                setProductAdvertiseModal(true);
+              }}
+            />
           </button>
         </li>
         <li>
-          <button type="button" className="btn delete">
+          <button
+            type="button"
+            className="btn delete"
+            onClick={() => setProductDeleteModal(true)}>
             <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
@@ -163,8 +199,15 @@ const PortfolioTable = ({ title }) => {
         open={productDetailModal}
         setOpen={setProductDetailModal}
         title="Gov. Egypt Property Detail"
-        width="1050">
+        width="1030">
         <ProductDetailModal />
+      </CenterModal>
+      <CenterModal
+        open={createProductModal}
+        setOpen={setCreateProductModal}
+        title="Create new Product"
+        width="900">
+        <CreateNewProduct />
       </CenterModal>
       <CenterModal
         open={editProductModal}
@@ -172,6 +215,40 @@ const PortfolioTable = ({ title }) => {
         title="Edit Product"
         width="900">
         <EditProductModal />
+      </CenterModal>
+      <CenterModal
+        open={productDeleteModal}
+        setOpen={setProductDeleteModal}
+        title={<Image src={InfoIcon} alt="InfoIcon" />}
+        width="543">
+        <DeleteModal
+          closeDeleteModal={closeDeleteModal}
+          openSuccessfulModal={() => {
+            setProductDeleteModal(false), setDeleteSuccessfulModal(true);
+          }}
+        />
+      </CenterModal>
+      <CenterModal
+        open={deleteSuccessfulModal}
+        setOpen={setDeleteSuccessfulModal}
+        title={<Image src={SuccessIcon} alt="SuccessIcon" />}
+        width="543">
+        <SuccessfulModal />
+      </CenterModal>
+
+      <CenterModal
+        open={productAdvertiseModal}
+        setOpen={setProductAdvertiseModal}
+        title="Advertise Product"
+        width="667">
+        <AdvertiseModal handleAdvertiseModal={handleAdvertiseModal} />
+      </CenterModal>
+      <CenterModal
+        open={advertiseSuccessfulModal}
+        setOpen={setAdvertiseSuccessfulModal}
+        title={<Image src={SuccessIcon} alt="SuccessIcon" />}
+        width="543">
+        <AdvertiseSuccessfulModal />
       </CenterModal>
 
       <TableContainer>
@@ -181,7 +258,7 @@ const PortfolioTable = ({ title }) => {
           placeholder="Search Product"
           btnWidth={"40px"}
           btnType="download"
-          btnImg={CalenderIcon}
+          iconImg={CalenderIcon}
           openModal={openModal}>
           <Table
             width={1024}

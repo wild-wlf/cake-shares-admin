@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ramonak/react-progress-bar": "^5.2.0",
     "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^3.6.0",
     "highcharts": "^11.4.1",
@@ -25,9 +26,11 @@
     "react-media-hook": "^0.5.0",
     "react-papaparse": "^4.4.0",
     "react-select": "^5.8.0",
+    "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.3",
     "react-webcam": "^7.2.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.8",
     "uuid": "^9.0.1"
   },

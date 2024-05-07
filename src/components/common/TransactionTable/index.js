@@ -9,7 +9,7 @@ import DownloadModal from "@/components/molecules/DownloadStatmentModal/Download
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
 import SuccessIcon from "../../../_assets/successIcon.png";
 
-const AdminTable = () => {
+const TransactionTable = () => {
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
   const modalParagraph =
@@ -125,4 +125,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default TransactionTable;
