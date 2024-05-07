@@ -90,7 +90,7 @@ const UsersTable = () => {
         </li>
         <li>
           <button type="button" className="btn file">
-            <Image src={PasswordImg} />
+            <Image src={PasswordImg} alt="PasswordImg" height={18} width={18} />
           </button>
         </li>
 
@@ -131,7 +131,6 @@ const UsersTable = () => {
           <Table
             width={1024}
             rowsData={product_rows}
-            // loading={admins_loading}
             columnNames={columnNamess}
             noPadding
           />
