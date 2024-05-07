@@ -1,10 +1,10 @@
 import React from "react";
 import { SuccessfulModalWrapper } from "./SuccessfulModal.style";
 
-const SuccessfulModal = () => {
+const SuccessfulModal = ({ title }) => {
   return (
     <SuccessfulModalWrapper>
-      <h2>Product Deleted Successfully!</h2>
+      <h2>{title}</h2>
     </SuccessfulModalWrapper>
   );
 };

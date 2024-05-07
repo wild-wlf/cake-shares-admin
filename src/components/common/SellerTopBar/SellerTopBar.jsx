@@ -66,7 +66,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
               <Notifications />
             </div>
           </div>
-          <Button rounded sm btntype="new" width={"150px"} height={"35px"}>
+          <Button rounded sm btntype="new" width={"160px"} height={"35px"}>
             Create New Product
           </Button>
         </div>

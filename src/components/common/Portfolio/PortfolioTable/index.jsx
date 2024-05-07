@@ -210,7 +210,7 @@ const PortfolioTable = ({ title }) => {
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
         width="543"
       >
-        <SuccessfulModal />
+        <SuccessfulModal title={"Product Deleted Successfully!"} />
       </CenterModal>
 
       <CenterModal

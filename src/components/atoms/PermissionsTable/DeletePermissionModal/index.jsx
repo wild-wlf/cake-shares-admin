@@ -18,7 +18,7 @@ const DeletePermissionModal = ({ closeDeleteModal, openSuccessfulModal }) => {
           rounded
           btntype="danger"
           className="danger"
-          // onClick={openSuccessfulModal}
+          onClick={openSuccessfulModal}
         >
           Yes, Delete
         </Button>
