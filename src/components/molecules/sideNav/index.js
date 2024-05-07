@@ -11,7 +11,7 @@ const SideBar = () => {
   const { pathname } = useRouter();
 
   const closeSideNav = () => {
-    document.body.remove.classList("sideNav-active");
+    document.body.classList.toggle("sideNav-active");
   };
 
   return (
