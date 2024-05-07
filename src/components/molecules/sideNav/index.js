@@ -12,6 +12,7 @@ const SideBar = () => {
 
   const closeSideNav = () => {
     document.body.classList.toggle("sideNav-active");
+    document.body.style.overflow = "auto";
   };
 
   return (

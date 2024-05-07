@@ -16,6 +16,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
 
   const openSideNav = () => {
     document.body.classList.toggle("sideNav-active");
+    document.body.style.overflow = "hidden";
   };
 
   return (
