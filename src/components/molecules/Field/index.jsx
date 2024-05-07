@@ -12,6 +12,7 @@ import { StyledFormGroup } from "../../../styles/helpers.styles";
 import ChooseFile from "../../atoms/ChooseFile";
 import { Error, InputHolder } from "./Field.styles";
 import DatePicker from "../DatePicker";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const defaultProps = {
   type: "text",
@@ -165,11 +166,7 @@ const Field = forwardRef(
                     css="cursor: pointer"
                     onClick={() => setIsRevealPwd((prevState) => !prevState)}
                   >
-                    {isRevealPwd ? (
-                      <i className="material-icons-outlined">visibility</i>
-                    ) : (
-                      <i className="material-icons-outlined">visibility_off</i>
-                    )}
+                    {isRevealPwd ? <FaEyeSlash /> : <FaEye />}
                   </InputIcon>
                 </>
               ) : type === "datepicker" ? (

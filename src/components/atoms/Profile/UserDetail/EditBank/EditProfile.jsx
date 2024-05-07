@@ -13,32 +13,8 @@ import Password from "../../../../../_assets/changePassword.svg";
 import ChangePassword from "../ChangePassword";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 const EditProfile = () => {
-  // const [arr, setArr] = useState(countries);
   const [changePassword, setChangePassword] = useState(false);
   const [form] = useForm();
-
-  function handelChange(value = "PK") {
-    const newArr = arr.map((elem, index) => ({
-      ...elem,
-      label: (
-        <div key={index} className="countrySelect">
-          <figure>
-            <Image
-              src={`https://flagsapi.com/${elem.value}/shiny/48.png`}
-              width={48}
-              height={48}
-              alt={`Flag of ${elem.value}`}
-            />
-          </figure>
-          {elem.label}
-        </div>
-      ),
-    }));
-    setArr(newArr);
-  }
-  useEffect(() => {
-    handelChange();
-  }, []);
 
   function handelSubmit(e) {
     console.log(e);
