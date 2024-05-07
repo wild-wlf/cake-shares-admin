@@ -1,7 +1,7 @@
 import React from "react";
-import { Container } from "../BankModal/BankStyles";
-import Field from "../Field";
-import Form, { useForm } from "../Form";
+import { Container } from "../../../molecules/BankModal/BankStyles";
+import Field from "../../../molecules/Field";
+import Form, { useForm } from "../../../molecules/Form";
 import Button from "@/components/atoms/Button";
 import Select from "@/components/atoms/Select";
 

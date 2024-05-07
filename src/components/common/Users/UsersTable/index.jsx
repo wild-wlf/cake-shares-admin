@@ -9,8 +9,14 @@ import UserImg from "../../../../_assets/table-user-img.png";
 import PasswordImg from "../../../../_assets/table-password-icon.png";
 import Image from "next/image";
 import { TableContainer } from "../../Portfolio/PortfolioTable/PorfolioTable.style";
+import CenterModal from "@/components/molecules/Modal/CenterModal";
+import UpdatePasswordModal from "../UpdatePasswordModal";
+import CreateUserModal from "../CreateUserModal";
 
 const UsersTable = () => {
+  const [openPassword, setOpenPassword] = useState(false);
+  const [openCreateUser, setOpenCreateUser] = useState(false);
+
   const transactions = [
     {
       created_at: "27/04/2024",
@@ -81,15 +87,18 @@ const UsersTable = () => {
     <>
       <ActionBtnList>
         <li>
-          <button
-            type="button"
-            className="btn edit"
-            onClick={() => setEditProductModal(true)}>
+          <button type="button" className="btn edit">
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
         <li>
-          <button type="button" className="btn file">
+          <button
+            type="button"
+            className="btn file"
+            onClick={() => {
+              setOpenPassword(true);
+            }}
+          >
             <Image src={PasswordImg} />
           </button>
         </li>
@@ -120,6 +129,24 @@ const UsersTable = () => {
   const columnNamess = [`Created at`, `Username`, `Email`, "Roles", "Actions"];
   return (
     <>
+      <CenterModal
+        open={openCreateUser}
+        setOpen={setOpenCreateUser}
+        title={"Create User"}
+        width="666"
+      >
+        <CreateUserModal />
+      </CenterModal>
+
+      <CenterModal
+        open={openPassword}
+        setOpen={setOpenPassword}
+        title={"Update Password"}
+        width="666"
+      >
+        <UpdatePasswordModal />
+      </CenterModal>
+
       <TableContainer>
         <Image src={TableStyle} className="tableStyle" />
         <TableLayout
@@ -127,7 +154,11 @@ const UsersTable = () => {
           btnType="blue"
           btnText="+ Create User"
           btnWidth="162px"
-          placeholder="Search User">
+          placeholder="Search User"
+          openModal={() => {
+            setOpenCreateUser(true);
+          }}
+        >
           <Table
             width={1024}
             rowsData={product_rows}

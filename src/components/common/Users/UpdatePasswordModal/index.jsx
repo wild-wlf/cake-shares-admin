@@ -1,9 +1,9 @@
 import React from "react";
-import { Container } from "../BankModal/BankStyles";
-import Field from "../Field";
-import Form, { useForm } from "../Form";
+import { Container } from "../../../molecules/BankModal/BankStyles";
+import Field from "../../../molecules/Field";
+import Form, { useForm } from "../../../molecules/Form";
 import Button from "@/components/atoms/Button";
-import ProfileMenuImage from "../../../_assets/ProfileMenuImage.png";
+import ProfileMenuImage from "../../../../_assets/ProfileMenuImage.png";
 import Image from "next/image";
 
 const UpdatePasswordModal = () => {

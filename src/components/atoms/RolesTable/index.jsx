@@ -20,16 +20,12 @@ import DeletePermissionModal from "./DeletePermissionModal";
 import EditRolesModal from "./EditRolesModal";
 import CreateRolesModal from "./CreateRolesModal";
 import successIcon from "../../../_assets/successIcon.png";
-import UpdatePasswordModal from "@/components/molecules/UpdatePasswordModal";
-import CreateUserModal from "@/components/molecules/CreateUserModal";
 
 const RolesTable = ({ title }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openCreateRole, setOpenCreateRole] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-
-  const [openPassword, setOpenPassword] = useState(false);
 
   const permissions = [
     {
@@ -76,8 +72,7 @@ const RolesTable = ({ title }) => {
             type="button"
             className="btn edit"
             onClick={() => {
-              //   setOpenEditModal(true);
-              setOpenPassword(true);
+              setOpenEditModal(true);
             }}
           >
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
@@ -107,24 +102,6 @@ const RolesTable = ({ title }) => {
   const columnNamess = [`Created at`, `Type`, `Description`, "Actions"];
   return (
     <>
-      <CenterModal
-        open={openPassword}
-        setOpen={setOpenPassword}
-        title={"Create User"}
-        width="666"
-      >
-        <CreateUserModal />
-      </CenterModal>
-
-      <CenterModal
-        // open={openPassword}
-        // setOpen={setOpenPassword}
-        title={"Update Password"}
-        width="666"
-      >
-        <UpdatePasswordModal />
-      </CenterModal>
-
       <CenterModal
         open={deleteModal}
         setOpen={setDeleteModal}
