@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import Modal from "../Modal/CenterModal";
 
 function ModalContainer({
   btnComponent,
+  content,
   title,
   xl,
   lg,
   sm,
   isClosable,
   onModalClose = () => {},
+  isOpen,
   imgPreview,
   width,
   helpModal,
-  children,
+  stateChanged = () => {},
 }) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(!!isOpen);
+  const [p_isVisible, p_setIsVisible] = useState(!!isOpen);
   const showModal = () => {
+    stateChanged({ [title]: true });
     setIsVisible(true);
+    p_setIsVisible(true);
   };
-
   const handleCancel = () => {
-    onModalClose();
+    stateChanged({ [title]: false });
     setIsVisible(false);
   };
   useEffect(() => {
-    if (!isVisible) {
+    if (p_isVisible && !isVisible) {
+      stateChanged({ [title]: false });
       onModalClose();
     }
   }, [isVisible]);
@@ -35,17 +41,16 @@ function ModalContainer({
       <Modal
         title={title}
         open={isVisible}
-        setOpen={(x) => {
-          setIsVisible(x);
-        }}
+        setOpen={setIsVisible}
         xl={xl}
         lg={lg}
         sm={sm}
         width={width}
+        isClosable={isClosable}
         helpModal={helpModal}
         imgPreview={imgPreview}
       >
-        {children}
+        {content({ onClose: handleCancel })}
       </Modal>
     </>
   );

@@ -16,7 +16,7 @@ export const StyledModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9;
+  z-index: 99;
 `;
 
 export const ContentHolder = styled.div`

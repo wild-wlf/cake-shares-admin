@@ -194,13 +194,7 @@ const PortfolioTable = ({ title }) => {
         width="1030">
         <ProductDetailModal />
       </CenterModal>
-      <CenterModal
-        open={createProductModal}
-        setOpen={setCreateProductModal}
-        title="Create new Product"
-        width="900">
-        <CreateNewProduct />
-      </CenterModal>
+
       <CenterModal
         open={editProductModal}
         setOpen={setEditProductModal}
