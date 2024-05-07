@@ -14,6 +14,9 @@ export const StyledUserDetail = styled.div`
     padding: 15px;
     box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     @media screen and (min-width: 767px) {
       padding: 20px;
     }
@@ -25,7 +28,7 @@ export const StyledUserDetail = styled.div`
       margin-bottom: 30px;
 
       .colTitle {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400;
         line-height: 18px;
       }
@@ -47,6 +50,18 @@ export const StyledUserDetail = styled.div`
       }
       @media screen and (min-width: 1439px) {
         grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .category-colBody {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 25px;
+      @media screen and (min-width: 575px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @media screen and (min-width: 1439px) {
+        grid-template-columns: repeat(5, 1fr);
       }
     }
     .col-content {
@@ -85,6 +100,16 @@ export const StyledUserDetail = styled.div`
       .discreptionWrap {
         display: flex;
         gap: 10px;
+      }
+      .category-col {
+        color: rgba(78, 97, 153, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        @media only screen and (max-width: 576px) {
+          font-size: 14px;
+        }
       }
     }
     .danger {
