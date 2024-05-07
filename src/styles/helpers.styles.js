@@ -68,6 +68,7 @@ export const StyledFormGroup = styled.div`
   }
   /* position: relative; */
   font-family: "Outfit", sans-serif;
+  width: 100%;
   &:nth-last-child(1) {
     margin-bottom: 0;
   }

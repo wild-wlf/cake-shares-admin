@@ -21,105 +21,100 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel }) => {
     setOpen(false);
     setKycLevel(3);
   }
+  // function handelSubmit(e) {
+  //   console.log(e);
+  //   setOpen(false);
+  //   setKycLevel(3);
+  // }
+  // function handelError(e) {
+  //   console.log(e);
+  // }
+
   return (
     <StyledKycBuyer>
       <div className="twoCol">
         <span className="kycdiscreption">
           Verification required. Please provide some details.
         </span>
-        <StepWrapperContainar>
+        {/* <StepWrapperContainar>
           <span className="stepStatus">Step {step} of 2</span>
           <StepWrapper $width={step}>
             <Step $bg={step >= 1} />
             <Step $bg={step == 2} />
           </StepWrapper>
-        </StepWrapperContainar>
+        </StepWrapperContainar> */}
       </div>
       <Form form={form}>
-        {step == 1 && (
-          <>
-            <Form.Item
-              type="text"
-              label="Email Address"
-              name="email"
-              // placeholder="Your Email or Username"
-              rules={[
-                { required: true },
-                {
-                  pattern: /^.{0,256}$/,
-                  message: "Maximum Character Length is 256",
-                },
-              ]}
-            >
-              <Select options={optionData} />
-            </Form.Item>
-            <div className="combineFields">
-              <Form.Item
-                type="text"
-                label="Account Holder Name"
-                name="AccountHolderName"
-                placeholder="Alex Mertiz"
-                rules={[
-                  { required: true },
-                  {
-                    pattern: /^.{0,256}$/,
-                    message: "Maximum Character Length is 256",
-                  },
-                ]}
-              >
-                <Field />
-              </Form.Item>
-              <Form.Item
-                type="num"
-                label="Account no"
-                name="accountNo"
-                placeholder="35402755003895"
-                rules={[
-                  { required: true },
-                  {
-                    pattern: /^.{0,256}$/,
-                    message: "Maximum Character Length is 256",
-                  },
-                ]}
-              >
-                <Field />
-              </Form.Item>
-            </div>
-            <Button
-              className={"stepOneButton"}
-              rounded
-              sm
-              btntype="primary"
-              width="134"
-              onClick={() => setStep(2)}
-              // htmlType="submit"
-            >
-              Continue
-            </Button>
-          </>
-        )}
-        {step == 2 && (
-          <>
-            <label htmlFor="" className="fakelabel">
-              Residence Proof
-            </label>
-            <div className="combineField">
-              <UploadFile
-                uploadTitle="Upload a copy of bills, bank statement"
-                onChange={(e) => console.log(e)}
-              />
-            </div>
-            <Button
-              rounded
-              md
-              btntype="primary"
-              width="214"
-              onClick={handelKycLevel}
-            >
-              Complete Verification
-            </Button>
-          </>
-        )}
+        <Form.Item
+          label="Bank Name"
+          name="Bank Name"
+          rules={[
+            { required: true },
+            {
+              message: "Maximum Character Length is 256",
+            },
+          ]}
+        >
+          <Select options={optionData} />
+        </Form.Item>
+        <div className="combineFields">
+          <Form.Item
+            type="text"
+            label="Account Holder Name"
+            name="AccountHolderName"
+            placeholder="Alex Mertiz"
+            rules={[
+              { required: true },
+              {
+                message: "Maximum Character Length is 256",
+              },
+            ]}
+          >
+            <Field />
+          </Form.Item>
+          <Form.Item
+            type="num"
+            label="Account no"
+            name="accountNo"
+            placeholder="35402755003895"
+            rules={[
+              { required: true },
+              {
+                message: "Maximum Character Length is 256",
+              },
+            ]}
+          >
+            <Field />
+          </Form.Item>
+        </div>
+
+        <label htmlFor="" className="fakelabel">
+          Residence Proof
+        </label>
+        <Form.Item
+          rules={[
+            { required: true },
+            {
+              pattern: /^.{0,256}$/,
+              message: "Maximum Character Length is 256",
+            },
+          ]}
+        >
+          <UploadFile
+            uploadTitle="Upload a copy of bills, bank statement"
+            onChange={(e) => console.log(e)}
+          />
+        </Form.Item>
+
+        <Button
+          rounded
+          md
+          btntype="primary"
+          width="214"
+          onClick={handelKycLevel}
+        >
+          Continue
+        </Button>
       </Form>
     </StyledKycBuyer>
   );
