@@ -110,14 +110,6 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn file"
-            onClick={() => setCreateProductModal(true)}>
-            <Image src={FileIcon} />
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            className="btn file"
             onClick={() => setProductDetailModal(true)}>
             <Image src={FileIcon} />
           </button>

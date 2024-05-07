@@ -46,6 +46,23 @@ export const StyledCreateNewProduct = styled.div`
       }
     }
   }
+
+  .upload-image {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-bottom: 20px;
+    .upload {
+      width: 100%;
+      @media (min-width: 576px) {
+        width: 48%;
+      }
+      @media (min-width: 768px) {
+        width: 32%;
+      }
+    }
+  }
+
   .add-amenities-holder {
     margin-bottom: 20px;
     .add-amenities {
@@ -73,10 +90,15 @@ export const StyledCreateNewProduct = styled.div`
     .amenities {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 10px;
-      @media (min-width: 768px) {
-        justify-content: flex-start;
+      > div {
+        width: 100%;
+        @media (min-width: 576px) {
+          width: 48%;
+        }
+        @media (min-width: 768px) {
+          width: 32.33%;
+        }
       }
     }
   }

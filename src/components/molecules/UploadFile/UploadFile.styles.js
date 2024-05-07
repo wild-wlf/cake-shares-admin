@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledUploadFile = styled.div`
   width: 100%;
-  margin: 0 0 30px;
+  margin-bottom: ${({ $noMargin }) => ($noMargin ? "0" : "30px")};
 
   .label-text {
     display: block;

@@ -29,8 +29,35 @@ const CreateNewProduct = () => {
           <textarea placeholder="Enter Text" />
         </div>
       </div>
-      <div>
-        <UploadFile />
+      <span className="heading">Upload Media</span>
+      <div className="upload-image">
+        <div className="upload">
+          <UploadFile
+            id="firstImg"
+            bg
+            noMargin
+            disc="image should be up to 1mb only"
+            onChange={(e) => console.log(e)}
+          />
+        </div>
+        <div className="upload">
+          <UploadFile
+            id="SecondImg"
+            bg
+            noMargin
+            disc="image should be up to 1mb only"
+            onChange={(e) => console.log(e)}
+          />
+        </div>
+        <div className="upload">
+          <UploadFile
+            id="thirdImg"
+            bg
+            noMargin
+            disc="image should be up to 1mb only"
+            onChange={(e) => console.log(e)}
+          />
+        </div>
       </div>
       <div className="add-amenities-holder">
         <span className="heading">Investment Info:</span>
@@ -42,17 +69,17 @@ const CreateNewProduct = () => {
           </div>
         </div>
         <div className="amenities">
-          <Field placeholder="Enter text" />
-          <Field placeholder="Enter text" />
-          <Field placeholder="Enter text" />
+          <Field noMargin placeholder="Enter text" />
+          <Field noMargin placeholder="Enter text" />
+          <Field noMargin placeholder="Enter text" />
         </div>
       </div>
       <span className="heading">Investment Info:</span>
       <div className="input-grid">
         <Field label="Minimum Backers" placeholder="01" />
-        <Field label="Maximum Backers" placeholder="20" />
-        <Field label="Total Asset Value" placeholder="$2,000,000" />
-        <Field label="Min Investment" placeholder="$5,000" />
+        <Field label="Maximum Backers" placeholder="Enter text" />
+        <Field label="Total Asset Value" placeholder="Enter text" />
+        <Field label="Min Investment" placeholder="Enter text" />
       </div>
       <Button type="primary" width="150px" sm rounded>
         Create Product
