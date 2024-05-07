@@ -11,17 +11,34 @@ export const Sidenav = styled.div`
   max-width: 300px;
   padding: 30px 10px 30px 50px;
   height: 100%;
+  z-index: 50;
   transition: left 0.3s ease-in-out;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   @media (max-width: 992px) {
+    left: -100%;
+  }
+
+  .layer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    right: -271px;
+    z-index: -1;
+    backdrop-filter: blur(4px);
     display: none;
+  }
+
+  .sideNav-active & {
+    left: 0 !important;
+    .layer {
+      display: block;
+    }
   }
 
   .nav-logo {
     max-width: 176px;
-    /* margin-bottom: 10px; */
     img {
       max-width: 176px;
       height: auto;

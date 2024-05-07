@@ -40,14 +40,14 @@ export default function App({ Component, pageProps }) {
         {userType === "seller" &&
           individualSellerPermission.includes(pathname) && (
             <PageWrapper>
-              <Sidenav nav={indivisualSellerNav} />
+              <Sidenav data={indivisualSellerNav} />
               <Component {...pageProps} />
             </PageWrapper>
           )}
         {userType === "companySeller" &&
           companySellerPermission.includes(pathname) && (
             <PageWrapper>
-              <Sidenav nav={companySellerNav} />
+              <Sidenav data={companySellerNav} />
               <Component {...pageProps} />
             </PageWrapper>
           )}
