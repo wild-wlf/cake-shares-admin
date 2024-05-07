@@ -13,10 +13,13 @@ import { TableContainer } from "./PermissionsTable.style";
 import DeletePermissionModal from "./DeletePermissionModal";
 import SuccessfulModal from "../ProductDeleteModal/SuccessfulModal";
 import CreatePermissionModal from "./CreatePermissionModal";
+import EditPermissionModal from "./EditPermissionModal";
 
 const PermissionTable = ({ title }) => {
   const [deleteModal, setDeleteModal] = useState(false);
+  const [permissionToUpdate, setPermissionToUpdate] = useState(null);
   const [createPermissionModal, setCreatePermissionModal] = useState(false);
+  const [editPermissionModal, setEditPermissionModal] = useState(false);
   const [deleteSuccesfulModal, setDeleteSuccessfulModal] = useState(false);
 
   const permissions = [
@@ -27,8 +30,8 @@ const PermissionTable = ({ title }) => {
     },
     {
       created_at: "27/04/2024",
-      can_do: "permission.delete",
-      desc: "can delete permission",
+      can_do: "permission.edit",
+      desc: "can edit details of permission",
     },
     {
       created_at: "27/04/2024",
@@ -37,8 +40,8 @@ const PermissionTable = ({ title }) => {
     },
     {
       created_at: "27/04/2024",
-      can_do: "permission.delete",
-      desc: "can delete permission",
+      can_do: "permission.edit",
+      desc: "can edit details of permission",
     },
     {
       created_at: "27/04/2024",
@@ -47,21 +50,34 @@ const PermissionTable = ({ title }) => {
     },
     {
       created_at: "27/04/2024",
-      can_do: "permission.delete",
-      desc: "can delete permission",
+      can_do: "permission.edit",
+      desc: "can edit details of permission",
     },
     {
       created_at: "27/04/2024",
       can_do: "permission.delete",
       desc: "can delete permission",
+    },
+    {
+      created_at: "27/04/2024",
+      can_do: "permission.edit",
+      desc: "can edit details of permission",
     },
   ];
 
+  const handleEditModal = (e) => {
+    setEditPermissionModal(true);
+    setPermissionToUpdate(e);
+  };
   const actionBtns = (_) => (
     <>
       <ActionBtnList>
         <li>
-          <button type="button" className="btn edit">
+          <button
+            type="button"
+            className="btn edit"
+            onClick={() => handleEditModal(_)}
+          >
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
@@ -119,7 +135,25 @@ const PermissionTable = ({ title }) => {
         title={"Create Permission"}
         width="669"
       >
-        <CreatePermissionModal />
+        <CreatePermissionModal
+          closeModal={() => {
+            setCreatePermissionModal(false);
+          }}
+        />
+      </CenterModal>
+
+      <CenterModal
+        open={editPermissionModal}
+        setOpen={setEditPermissionModal}
+        title={"Edit Permission"}
+        width="669"
+      >
+        <EditPermissionModal
+          closeModal={() => {
+            setEditPermissionModal(false);
+          }}
+          value={permissionToUpdate}
+        />
       </CenterModal>
 
       <TableContainer>

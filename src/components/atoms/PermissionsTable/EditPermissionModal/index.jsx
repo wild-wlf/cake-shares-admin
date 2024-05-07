@@ -1,13 +1,14 @@
 import React from "react";
-import { CreatePermissionModalWrapper } from "./CreatePermissionModal.style";
+import { CreatePermissionModalWrapper } from "./EditPermissionModal.style";
 import Form from "@/components/molecules/Form/Form";
 import Field from "@/components/molecules/Field";
 import Button from "../../Button";
 import { useForm } from "@/components/molecules/Form";
 import Select from "../../Select";
 
-const CreatePermissionModal = ({ closeModal }) => {
+const EditPermissionModal = ({ closeModal, value }) => {
   const [form] = useForm();
+  console.log(value, "value");
 
   const arr = [
     {
@@ -28,7 +29,7 @@ const CreatePermissionModal = ({ closeModal }) => {
             type="text"
             label="Route"
             name="route"
-            placeholder="Enter text"
+            placeholder="/route"
             rules={[
               { required: true },
               {
@@ -42,7 +43,7 @@ const CreatePermissionModal = ({ closeModal }) => {
             type="text"
             label="Can Do"
             name="can_do"
-            placeholder="Enter text"
+            placeholder={value.can_do}
             rules={[
               { required: true },
               {
@@ -58,7 +59,7 @@ const CreatePermissionModal = ({ closeModal }) => {
             type="text"
             label="Description"
             name="description"
-            placeholder="Enter text"
+            placeholder={value.desc}
             rules={[
               { required: true },
               {
@@ -85,7 +86,7 @@ const CreatePermissionModal = ({ closeModal }) => {
         </div>
         <div>
           <Button sm rounded btntype="green" width="170px" onClick={closeModal}>
-            Create Permission
+            Save Changes
           </Button>
         </div>
       </Form>
@@ -93,4 +94,4 @@ const CreatePermissionModal = ({ closeModal }) => {
   );
 };
 
-export default CreatePermissionModal;
+export default EditPermissionModal;
