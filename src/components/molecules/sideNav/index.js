@@ -11,7 +11,7 @@ import KycBuyerLevelTwo from "@/components/atoms/KYC/KYCBuyerTwo";
 import KYCBuyerThree from "@/components/atoms/KYC/KYCBuyerThree";
 import { KycContext } from "@/context/KycContext";
 
-const SideBar = ({ nav }) => {
+const SideBar = ({ data }) => {
   const { pathname } = useRouter();
 
   const closeSideNav = () => {
@@ -65,7 +65,7 @@ const SideBar = ({ nav }) => {
         </div>
 
         <LinkContainer>
-          {nav.map((data, index) => {
+          {data.map((data, index) => {
             return (
               <NavLinks key={index}>
                 <li className="listHead">{data.name}</li>
