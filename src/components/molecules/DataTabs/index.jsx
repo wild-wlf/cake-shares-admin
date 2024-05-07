@@ -14,16 +14,15 @@ function DataTabs({
   data,
   verticalTabs,
   uploadBtn,
-  rounded,
   title,
   noBorder,
   noOverflow,
 }) {
   const [activeTab, setActiveTab] = useState(0);
   return (
-    <StyledTabs verticalTabs={verticalTabs} rounded={rounded}>
-      <Wrap uploadBtn verticalTabs={verticalTabs} rounded={rounded}>
-        <StyledTabList verticalTabs={verticalTabs} rounded={rounded}>
+    <StyledTabs verticalTabs={verticalTabs}>
+      <Wrap uploadBtn verticalTabs={verticalTabs}>
+        <StyledTabList verticalTabs={verticalTabs}>
           {title && <strong className="title">{title}</strong>}
           {data.map((tab, index) => (
             <TabBtn
@@ -35,7 +34,6 @@ function DataTabs({
               <StyledTab
                 active={activeTab === index}
                 verticalTabs={verticalTabs}
-                rounded={rounded}
               >
                 {tab.label}
               </StyledTab>
@@ -46,7 +44,6 @@ function DataTabs({
       </Wrap>
       <StyledTabPanels
         verticalTabs={verticalTabs}
-        rounded={rounded}
         $noBorder={noBorder}
         $noOverflow={noOverflow}
       >

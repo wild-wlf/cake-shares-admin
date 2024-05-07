@@ -12,32 +12,26 @@ export const StyledTabPanels = styled.div`
       overflow: ${({ $noOverflow }) => ($noOverflow ? "" : "hidden")};
       padding: ${({ $noBorder }) => ($noBorder ? "" : "20px 5px")};
     `}
-  ${({ rounded }) =>
-    rounded &&
-    css`
-      border: ${({ $noBorder }) =>
-        $noBorder ? "" : "1px solid rgba(74, 85, 104, 0.1)"};
-      border-radius: ${({ $noBorder }) => ($noBorder ? "" : "25px")};
-      overflow: ${({ $noOverflow }) => ($noOverflow ? "" : "hidden")};
-      padding: ${({ $noBorder }) => ($noBorder ? "" : "20px 5px")};
-    `}
 `;
 
 export const StyledTabPanel = styled.div`
   position: relative;
-  padding: 0 15px;
-  width: 100%;
+  padding: 20px 15px;
+  margin-left: 15px;
   opacity: 0;
   visibility: hidden;
   height: 0;
-
+  border: 1px solid #e1e4e8;
+  display: none;
+  border-radius: 20px;
   ${({ active }) =>
     active &&
     css`
+      display: block;
       opacity: 1;
       visibility: visible;
       height: auto;
-    `}
+    `};
 `;
 export const TabBtn = styled.div`
   flex-shrink: 0;
@@ -80,37 +74,17 @@ export const StyledTabList = styled.div`
         }
       }
     `}
-  ${({ rounded }) =>
-    rounded === true &&
-    css`
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      gap: 10px;
-      width: 100%;
-      height: auto;
-      padding: 0;
-
-      ${StyledTabPanel} {
-        padding-left: 0;
-      }
-      ${StyledTabPanels} {
-        padding: 10px 0;
-      }
-      ${TabBtn} {
-        padding: 0 0 0 0px;
-      }
-    `}
 `;
 
 export const StyledTab = styled.button`
-  font-size: var(--font-size-base);
-  line-height: 16px;
-  font-weight: 400;
+  max-width: max-content;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 300;
   text-transform: capitalize;
-  color: var(--gray-5);
+  color: #9d9d9d;
   position: relative;
-  padding: 10px 0px 18px;
+  padding: 10px 0px 4px;
   border-radius: 0px;
   width: 100%;
   text-align: left;
@@ -126,88 +100,40 @@ export const StyledTab = styled.button`
     position: absolute;
     content: "";
     transition: ease-in-out 0.5s;
-    left: 50%;
-    right: 0;
-    bottom: -2px;
-    transform: translateX(-50%);
+    left: 0;
+    bottom: 2px;
     height: 2px;
     width: 0;
-    background: var(--primary);
+    background: var(--green);
   }
 
-  ${({ rounded }) =>
-    rounded === true &&
-    css`
-      margin-bottom: 0;
-      padding: 8px 15px;
-      border-radius: 100px;
-      border: 1px solid #f1f1f1;
-      color: var(--gray-5);
-      text-align: center;
-      font-size: 14px;
-      line-height: 18px;
-      font-weight: 500;
-      &:hover {
-        &:after {
-          visibility: visible;
-          opacity: 1;
-          width: 100%;
-        }
-      }
-      &::after {
-        display: none;
-      }
-    `}
   ${({ active }) =>
     active &&
     css`
-      color: var(--primary);
+      color: var(--green);
 
       &:after {
         visibility: visible;
         opacity: 1;
         width: 100%;
       }
-      ${({ rounded }) =>
-        rounded === true &&
-        css`
-          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-          color: var(--white);
-          background: var(--primary);
-
-          &::after {
-            display: none;
-          }
-        `}
     `}
-     &:hover {
-    color: var(--primary);
+  &:hover {
+    color: var(--green);
 
     &:after {
       visibility: visible;
       opacity: 1;
       width: 100%;
     }
-    ${({ rounded }) =>
-      rounded === true &&
-      css`
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        color: var(--white);
-        background: var(--primary);
-
-        &::after {
-          display: none;
-        }
-      `}
   }
 `;
 
 export const Wrap = styled.div`
   overflow-y: auto;
-  width: 265px;
-  height: 450px;
-  padding: 0 8px;
-  border-right: 1px solid #e6e8ec;
+  max-width: 175px;
+  width: 100%;
+  border-right: 1px solid rgba(225, 228, 232, 1);
   position: relative;
 
   ${({ verticalTabs }) =>
@@ -221,17 +147,7 @@ export const Wrap = styled.div`
       overflow-y: hidden;
       border-right: 0;
     `}
-  ${({ rounded }) =>
-    rounded === true &&
-    css`
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: auto;
-      padding: 7px 15px;
-      overflow-y: hidden;
-      border-right: 0;
-    `}
+
   &::-webkit-scrollbar {
     height: 8px;
     border-radius: 0;
@@ -248,16 +164,12 @@ export const StyledTabs = styled.div`
   display: flex;
   margin: 0;
   width: 100%;
+  padding-top: 20px;
 
   ${({ verticalTabs }) =>
     verticalTabs === true &&
     css`
       display: block;
       margin: 15px 0 15px 0;
-    `}
-  ${({ rounded }) =>
-    rounded === true &&
-    css`
-      display: block;
     `}
 `;

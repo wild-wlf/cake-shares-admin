@@ -6,16 +6,38 @@ import { SellerContainer } from "@/styles/GlobalStyles.styles";
 import React from "react";
 import handIcon from "../_assets/handIcon.png";
 import DataTabs from "@/components/molecules/DataTabs";
+import CenterModal from "@/components/molecules/Modal/CenterModal";
+import Switch from "@/components/molecules/Switch";
 
 const dashoard = () => {
   const data = [
     {
-      label: "hello",
+      label: "Dashboard",
       content: "hjhk",
     },
     {
-      label: "hello",
-      content: "jhk",
+      label: "portfolio",
+      content: "portfolio",
+    },
+    {
+      label: "Private Chat",
+      content: "Private Chat",
+    },
+    {
+      label: "Stakeholder Chat",
+      content: (
+        <>
+          <Switch onChange={(e) => console.log(e)} label="Select All" />
+        </>
+      ),
+    },
+    {
+      label: "Permissions",
+      content: "Permissions",
+    },
+    {
+      label: "Roles",
+      content: "Roles",
     },
   ];
   return (
@@ -30,7 +52,9 @@ const dashoard = () => {
         <SellerDetailBar sm={true} />
         <PortfolioTable title="My Portfolio" />
       </SellerContainer>
-      {/* <DataTabs data={data} /> */}
+      {/* <CenterModal open={true} width="955" title="Customize Permissions">
+        <DataTabs data={data} />
+      </CenterModal> */}
     </div>
   );
 };
