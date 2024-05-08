@@ -133,9 +133,9 @@ const UsersTable = () => {
   );
 
   const { product_rows, totalItems } = useMemo(() => ({
-    product_rows: transactions?.map((user) => [
+    product_rows: transactions?.map((user, ind) => [
       user.created_at || "------------",
-      <div className="table-img-holder">
+      <div className="table-img-holder" key={ind}>
         <div className="img-holder">
           <Image src={user.userImage} />
         </div>
