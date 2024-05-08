@@ -83,12 +83,12 @@ function TableLayout({
                 onClick={openModal}
               >
                 {btnText}
-                <Image src={btnImg} />
+                <Image src={btnImg} alt="btnImg" />
               </Button>
             )}
             {iconImg && (
               <div className="icon-div">
-                <Image src={iconImg} />
+                <Image src={iconImg} alt="iconImg" />
               </div>
             )}
           </div>

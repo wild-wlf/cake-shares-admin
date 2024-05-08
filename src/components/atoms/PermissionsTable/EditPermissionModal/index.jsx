@@ -8,7 +8,6 @@ import Select from "../../Select";
 
 const EditPermissionModal = ({ closeModal, value }) => {
   const [form] = useForm();
-  console.log(value, "value");
 
   const arr = [
     {

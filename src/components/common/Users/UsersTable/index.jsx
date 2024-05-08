@@ -113,7 +113,7 @@ const UsersTable = () => {
               setOpenPassword(true);
             }}
           >
-            <Image src={PasswordImg} />
+            <Image src={PasswordImg} alt="Password Img" />
           </button>
         </li>
 
@@ -137,7 +137,7 @@ const UsersTable = () => {
       user.created_at || "------------",
       <div className="table-img-holder">
         <div className="img-holder">
-          <Image src={user.userImage} />
+          <Image src={user.userImage} alt="userImage" />
         </div>
         {user.username || "------------"}
       </div>,
@@ -203,7 +203,7 @@ const UsersTable = () => {
       </CenterModal>
 
       <TableContainer>
-        <Image src={TableStyle} className="tableStyle" />
+        <Image src={TableStyle} className="tableStyle" alt="tableStyle" />
         <TableLayout
           tableHeading=" "
           btnType="blue"

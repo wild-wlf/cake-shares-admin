@@ -11,7 +11,11 @@ const UpdatePasswordModal = () => {
 
   return (
     <Container>
-      <Image src={ProfileMenuImage} className="ProfilePicture" />
+      <Image
+        src={ProfileMenuImage}
+        className="ProfilePicture"
+        alt="Profile Picture"
+      />
       <Form form={form}>
         <div className="feildContainer">
           <div className="wrapper">

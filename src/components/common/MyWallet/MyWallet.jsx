@@ -12,7 +12,7 @@ import BankModal from "@/components/molecules/BankModal/BankModal";
 import AccountDetailModal from "@/components/molecules/AccountDetailModal/AccountDetailModal";
 import infoIcon from "../../../_assets/infoIcon.png";
 import SuccessModal from "@/components/molecules/SuccessModal/SuccessModal";
-import SuccessIcon from "../../../_assets/SuccessIcon.png";
+import SuccessIcon from "../../../_assets/successIcon.png";
 import CardModal from "@/components/molecules/CreditCardModal/CardModal.jsx";
 import CryptoModal from "@/components/molecules/CryptoModal/CryptoModal";
 import AddAmountModal from "@/components/molecules/AddAmountModal/AddAmountModal";
@@ -98,7 +98,8 @@ const MyWallet = () => {
         open={openLast}
         setOpen={setOpenLast}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Wallet Details Saved Successfully!"
           paragraph="Your wallet details have been saved for future top ups."
@@ -109,7 +110,8 @@ const MyWallet = () => {
         open={openTopupSuccess}
         setOpen={setOpenTopupSuccess}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Wallet Top up Successful!"
           paragraph="Great news! Your wallet top-up using your bank details was successful. Funds should be available within 3 business days."
@@ -121,7 +123,8 @@ const MyWallet = () => {
             height={"40px"}
             sm
             btntype="cancel"
-            onClick={() => setOpenTopupSuccess(false)}>
+            onClick={() => setOpenTopupSuccess(false)}
+          >
             Cancel
           </Button>
           <Button
@@ -133,7 +136,8 @@ const MyWallet = () => {
             onClick={() => {
               setOpenTopupSuccess(false);
               setOpenLast(true);
-            }}>
+            }}
+          >
             Save Wallet Details
           </Button>
         </ButtonContainer>
@@ -143,7 +147,8 @@ const MyWallet = () => {
         open={openAmout}
         setOpen={setOpenAmount}
         width="667"
-        title={"Top up via Crypto Wallet"}>
+        title={"Top up via Crypto Wallet"}
+      >
         <AddAmountModal saveDetailsModal={saveDetailsModal} />
       </CenterModal>
 
@@ -151,7 +156,8 @@ const MyWallet = () => {
         open={openWalletLink}
         setOpen={setOpenWalletLink}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Wallet Linked Successfully!"
           paragraph="Your Binance crypto wallet has been successfully linked to your CakeShares account. You can now transfer funds easily."
@@ -163,7 +169,8 @@ const MyWallet = () => {
             height={"40px"}
             sm
             btntype="cancel"
-            onClick={() => setOpenWalletLink(false)}>
+            onClick={() => setOpenWalletLink(false)}
+          >
             Cancel
           </Button>
           <Button
@@ -175,7 +182,8 @@ const MyWallet = () => {
             onClick={() => {
               setOpenWalletLink(false);
               setOpenAmount(true);
-            }}>
+            }}
+          >
             Add Amount
           </Button>
         </ButtonContainer>
@@ -185,7 +193,8 @@ const MyWallet = () => {
         open={openCrypto}
         setOpen={setOpenCrypto}
         width="667"
-        title={"Top up via Crypto Wallet"}>
+        title={"Top up via Crypto Wallet"}
+      >
         <CryptoModal walletLinkModal={walletLinkModal} />
       </CenterModal>
 
@@ -193,7 +202,8 @@ const MyWallet = () => {
         open={openCardLast}
         setOpen={setOpenCardLast}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Card Details Saved Successfully!"
           paragraph="Your credit card details have been saved for future top ups."
@@ -204,7 +214,8 @@ const MyWallet = () => {
         open={openCardSuccess}
         setOpen={setOpenCardSuccess}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Wallet Top up Successful!"
           paragraph="Great news! Your wallet top-up using your credit card was successful. Funds should be available within 3 business days."
@@ -216,7 +227,8 @@ const MyWallet = () => {
             height={"40px"}
             sm
             btntype="cancel"
-            onClick={() => setOpenCardSuccess(false)}>
+            onClick={() => setOpenCardSuccess(false)}
+          >
             Cancel
           </Button>
           <Button
@@ -228,7 +240,8 @@ const MyWallet = () => {
             onClick={() => {
               setOpenCardSuccess(false);
               setOpenCardLast(true);
-            }}>
+            }}
+          >
             Save Card Details
           </Button>
         </ButtonContainer>
@@ -238,7 +251,8 @@ const MyWallet = () => {
         open={openCard}
         setOpen={setOpenCard}
         width="666"
-        title={"Top up via Credit Card"}>
+        title={"Top up via Credit Card"}
+      >
         <CardModal openCardNext={openCardNext} />
       </CenterModal>
 
@@ -246,7 +260,8 @@ const MyWallet = () => {
         open={openSuccessModal}
         setOpen={setOpenSuccessModal}
         width="543"
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Bank Details Saved Successfully!"
           paragraph="Your bank details have been saved for future top ups."
@@ -257,7 +272,8 @@ const MyWallet = () => {
         open={openInfo}
         setOpen={setOpenInfo}
         width="543"
-        headImage={infoIcon}>
+        headImage={infoIcon}
+      >
         <SuccessModal
           heading="Save Bank Details!"
           paragraph="Do you want to save your bank details for future top-ups?"
@@ -269,7 +285,8 @@ const MyWallet = () => {
             height={"40px"}
             sm
             btntype="cancel"
-            onClick={() => closeInfoModal()}>
+            onClick={() => closeInfoModal()}
+          >
             Cancel
           </Button>
           <Button
@@ -280,7 +297,8 @@ const MyWallet = () => {
             btntype="green"
             onClick={() => {
               openLastModal();
-            }}>
+            }}
+          >
             Yes, Save
           </Button>
         </ButtonContainer>
@@ -290,7 +308,8 @@ const MyWallet = () => {
         open={openAccount}
         setOpen={setOpenAccount}
         width="643"
-        title="Bank Top-up Acc details ">
+        title="Bank Top-up Acc details "
+      >
         <AccountDetailModal closeAccountModal={closeAccountModal} />
       </CenterModal>
 
@@ -298,7 +317,8 @@ const MyWallet = () => {
         open={openBank}
         setOpen={setOpenBank}
         width="666"
-        title="Top up via Bank Account">
+        title="Top up via Bank Account"
+      >
         <BankModal openAccountModal={openAccountModal} />
       </CenterModal>
 
@@ -306,7 +326,8 @@ const MyWallet = () => {
         open={open}
         setOpen={setOpen}
         width="623"
-        title="Top up your Wallet">
+        title="Top up your Wallet"
+      >
         <TopUpModal
           openNext={openNext}
           handleOptionSelect={handleOptionSelect}
@@ -317,7 +338,7 @@ const MyWallet = () => {
       <StyledContainer>
         <div className="btnDiv">
           <Button width={"111px"} height={"40px"} rounded sm btntype="gray">
-            <Image src={btnLeftArrow} />
+            <Image src={btnLeftArrow} alt="btnLeftArrow" />
             Go Back
           </Button>
           <Button
@@ -326,9 +347,10 @@ const MyWallet = () => {
             rounded
             sm
             btntype="primary"
-            onClick={() => openModal()}>
+            onClick={() => openModal()}
+          >
             Top Up Wallet
-            <Image src={walletWhite} />
+            <Image src={walletWhite} alt="walletWhite" />
           </Button>
         </div>
         <div className="textContainer">

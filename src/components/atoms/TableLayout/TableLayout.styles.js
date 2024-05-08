@@ -60,7 +60,7 @@ export const StyledTableLayout = styled.div`
     ${({ filterBlock }) =>
       filterBlock &&
       css`
-        @media only screen and (max-width: 576px) {
+        @media only screen and (max-width: 768px) {
           .actions {
             flex-direction: column;
             button {
@@ -85,7 +85,7 @@ export const StyledTableLayout = styled.div`
         height: 35px !important;
       }
     } */
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 1200px) {
       flex-direction: column;
       align-items: center;
       .item {

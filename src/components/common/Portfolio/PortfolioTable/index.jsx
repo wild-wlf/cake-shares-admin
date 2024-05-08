@@ -110,15 +110,17 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn file"
-            onClick={() => setProductDetailModal(true)}>
-            <Image src={FileIcon} />
+            onClick={() => setProductDetailModal(true)}
+          >
+            <Image src={FileIcon} alt="FileIcon" />
           </button>
         </li>
         <li>
           <button
             type="button"
             className="btn edit"
-            onClick={() => setEditProductModal(true)}>
+            onClick={() => setEditProductModal(true)}
+          >
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
@@ -137,7 +139,8 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn delete"
-            onClick={() => setProductDeleteModal(true)}>
+            onClick={() => setProductDeleteModal(true)}
+          >
             <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
@@ -172,7 +175,8 @@ const PortfolioTable = ({ title }) => {
         setOpen={setOpen}
         width="666"
         padding={"30px"}
-        title="Download Statement">
+        title="Download Statement"
+      >
         <DownloadModal openNext={openStatementModal} />
       </CenterModal>
 
@@ -181,7 +185,8 @@ const PortfolioTable = ({ title }) => {
         setOpen={setStatementModal}
         width="543"
         padding={"25px"}
-        headImage={SuccessIcon}>
+        headImage={SuccessIcon}
+      >
         <SuccessModal
           heading="Statement Sent Successfully!"
           paragraph={modalParagraph}
@@ -191,7 +196,8 @@ const PortfolioTable = ({ title }) => {
         open={productDetailModal}
         setOpen={setProductDetailModal}
         title="Gov. Egypt Property Detail"
-        width="1030">
+        width="1030"
+      >
         <ProductDetailModal />
       </CenterModal>
 
@@ -199,14 +205,16 @@ const PortfolioTable = ({ title }) => {
         open={editProductModal}
         setOpen={setEditProductModal}
         title="Edit Product"
-        width="900">
+        width="900"
+      >
         <EditProductModal />
       </CenterModal>
       <CenterModal
         open={productDeleteModal}
         setOpen={setProductDeleteModal}
         title={<Image src={InfoIcon} alt="InfoIcon" />}
-        width="543">
+        width="543"
+      >
         <DeleteModal
           closeDeleteModal={closeDeleteModal}
           openSuccessfulModal={() => {
@@ -218,34 +226,38 @@ const PortfolioTable = ({ title }) => {
         open={deleteSuccessfulModal}
         setOpen={setDeleteSuccessfulModal}
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
-        width="543">
-        <SuccessfulModal />
+        width="543"
+      >
+        <SuccessfulModal title={"Product Deleted Successfully!"} />
       </CenterModal>
 
       <CenterModal
         open={productAdvertiseModal}
         setOpen={setProductAdvertiseModal}
         title="Advertise Product"
-        width="667">
+        width="667"
+      >
         <AdvertiseModal handleAdvertiseModal={handleAdvertiseModal} />
       </CenterModal>
       <CenterModal
         open={advertiseSuccessfulModal}
         setOpen={setAdvertiseSuccessfulModal}
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
-        width="543">
+        width="543"
+      >
         <AdvertiseSuccessfulModal />
       </CenterModal>
 
       <TableContainer>
-        <Image src={TableStyle} className="tableStyle" />
+        <Image src={TableStyle} className="tableStyle" alt="tableStyle" />
         <TableLayout
           tableHeading={<ButtonsGroup title={title} />}
           placeholder="Search Product"
           btnWidth={"40px"}
           btnType="download"
           iconImg={CalenderIcon}
-          openModal={openModal}>
+          openModal={openModal}
+        >
           <Table
             width={1024}
             rowsData={product_rows}
