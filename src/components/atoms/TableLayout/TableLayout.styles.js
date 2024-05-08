@@ -77,6 +77,7 @@ export const StyledTableLayout = styled.div`
       height: 40px;
       background-color: rgba(246, 248, 250, 1);
       border-radius: 50px;
+      cursor: pointer;
     }
 
     /* @media (max-width: 992px) {

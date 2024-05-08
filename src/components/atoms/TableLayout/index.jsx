@@ -87,7 +87,7 @@ function TableLayout({
               </Button>
             )}
             {iconImg && (
-              <div className="icon-div">
+              <div className="icon-div" onClick={openModal}>
                 <Image src={iconImg} alt="iconImg" />
               </div>
             )}
