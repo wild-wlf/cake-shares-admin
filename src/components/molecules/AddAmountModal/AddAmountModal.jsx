@@ -1,9 +1,9 @@
 import React from "react";
-import { Container } from "../CryptoModal/CryptoModalStyles";
 import Form, { useForm } from "../Form";
 import Field from "../Field";
 import { ButtonContainer } from "@/components/common/MyWallet/WalletStyles";
 import Button from "@/components/atoms/Button";
+import { Container } from "../CryptoModal/CryptoMOdalStyles";
 
 const AddAmountModal = ({ saveDetailsModal }) => {
   const { form } = useForm();
