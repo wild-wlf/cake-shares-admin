@@ -137,7 +137,7 @@ export const StyledUserInfo = styled.div`
   }
 `;
 
-export const ProfileWrapper = styled.div`
+export const ProfileWrapper = styled.label`
   display: flex;
   flex-shrink: 0;
   width: 120px;
@@ -147,6 +147,8 @@ export const ProfileWrapper = styled.div`
   background: var(--dark);
   margin-top: -100px;
   margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
   @media screen and (min-width: 576px) {
     margin-top: 0px;
   }
@@ -158,5 +160,33 @@ export const ProfileWrapper = styled.div`
     width: 100%;
     height: auto;
     object-fit: cover;
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s all ease-in;
+  }
+  input {
+    display: none;
+  }
+  .rounded-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .rounded-icon,
+    &::before {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 `;

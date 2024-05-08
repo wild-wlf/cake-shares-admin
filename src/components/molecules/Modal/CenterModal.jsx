@@ -17,7 +17,7 @@ const CenterModal = ({
   title,
   headImage,
 }) => {
-  console.log(open);
+  // console.log(open);
   useEffect(() => {
     const disableScroll = () => {
       document.body.style.overflow = "hidden";
@@ -53,7 +53,8 @@ const CenterModal = ({
           if (e.key === "Escape") {
             handleClose();
           }
-        }}>
+        }}
+      >
         <ContentHolder
           bg={bg}
           padding={padding}
@@ -64,7 +65,8 @@ const CenterModal = ({
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <Head>
             {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
@@ -72,7 +74,8 @@ const CenterModal = ({
               type="button"
               className="closer"
               onClick={handleClose}
-              tabIndex={0}>
+              tabIndex={0}
+            >
               <MdOutlineClose size={25} className="Icon" />
             </div>
           </Head>

@@ -157,7 +157,7 @@ const PermissionTable = ({ title }) => {
       </CenterModal>
 
       <TableContainer>
-        <Image src={TableStyle} className="tableStyle" />
+        <Image src={TableStyle} className="tableStyle" alt="tableStyle" />
         <TableLayout
           tableHeading={" "}
           placeholder="Search Permission"
