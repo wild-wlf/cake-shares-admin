@@ -24,6 +24,7 @@ import SuccessfulModal from "@/components/atoms/ProductDeleteModal/SuccessfulMod
 import AdvertiseModal from "@/components/atoms/AdvertiseProductModal/AdvertiseModal";
 import AdvertiseSuccessfulModal from "@/components/atoms/AdvertiseProductModal/AdvertiseSuccessfulModal";
 import CreateNewProduct from "../CreateNewProduct";
+import SelectRangeModal from "@/components/atoms/SelectRangeModal";
 
 const PortfolioTable = ({ title }) => {
   const [open, setOpen] = useState(false);
@@ -175,9 +176,9 @@ const PortfolioTable = ({ title }) => {
         setOpen={setOpen}
         width="666"
         padding={"30px"}
-        title="Download Statement"
+        title="Select Range"
       >
-        <DownloadModal openNext={openStatementModal} />
+        <SelectRangeModal />
       </CenterModal>
 
       <CenterModal
