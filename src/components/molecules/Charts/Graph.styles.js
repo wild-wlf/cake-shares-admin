@@ -35,7 +35,7 @@ export const StyledGraph = styled.div`
   }
 
   .highcharts-container {
-    height: ${({ sm }) => (sm ? "170px !important" : "285px !important")};
+    height: ${({ sm }) => (sm ? "220px !important" : "285px !important")};
     width: 100% !important;
   }
 
