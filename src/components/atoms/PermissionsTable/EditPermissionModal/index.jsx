@@ -80,7 +80,7 @@ const EditPermissionModal = ({ closeModal, value }) => {
               },
             ]}
           >
-            <Select options={arr} />
+            <Select options={arr} isMulti />
           </Form.Item>
         </div>
         <div>

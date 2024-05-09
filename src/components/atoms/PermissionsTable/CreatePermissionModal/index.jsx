@@ -80,7 +80,7 @@ const CreatePermissionModal = ({ closeModal }) => {
               },
             ]}
           >
-            <Select options={arr} />
+            <Select options={arr} isMulti />
           </Form.Item>
         </div>
         <div>
