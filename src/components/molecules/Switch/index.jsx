@@ -12,7 +12,7 @@ const Switch = ({ value, label, ...props }) => {
         )}
 
         <input
-          type="checkbox"
+          type="check box"
           checked={value}
           onChange={({ target: { checked } }) => {
             props.onChange({
