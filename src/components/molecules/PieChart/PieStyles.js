@@ -41,7 +41,7 @@ export const ChartContainer = styled.div`
   align-items: center;
   justify-content: center;
   .highcharts-container {
-    height: ${({ sm }) => (sm ? "200px !important" : "300px !important")};
+    height: ${({ sm }) => (sm ? "250px !important" : "300px !important")};
   }
 
   @media (max-width: 1200px) {

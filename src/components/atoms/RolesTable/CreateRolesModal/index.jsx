@@ -4,7 +4,7 @@ import Button from "@/components/atoms/Button";
 import Form, { useForm } from "../../../molecules/Form";
 import Field from "../../../molecules/Field";
 
-const CreateRolesModal = () => {
+const CreateRolesModal = ({ openPermission }) => {
   const [form] = useForm();
 
   return (
@@ -49,7 +49,13 @@ const CreateRolesModal = () => {
           </div>
         </div>
         <div className="btn">
-          <Button rounded height={"40px"} sm btntype={"blue"}>
+          <Button
+            rounded
+            height={"40px"}
+            sm
+            btntype={"blue"}
+            onClick={openPermission}
+          >
             Customize Permissions
           </Button>
         </div>

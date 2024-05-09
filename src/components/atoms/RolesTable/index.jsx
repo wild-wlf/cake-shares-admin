@@ -20,12 +20,55 @@ import DeletePermissionModal from "./DeletePermissionModal";
 import EditRolesModal from "./EditRolesModal";
 import CreateRolesModal from "./CreateRolesModal";
 import successIcon from "../../../_assets/successIcon.png";
+import Switch from "@/components/molecules/Switch";
+import DataTabs from "@/components/molecules/DataTabs";
+import PermissionHead from "../PremissionsHead";
 
 const RolesTable = ({ title }) => {
+  const data = [
+    {
+      label: "Dashboard",
+      content: (
+        <>
+          <PermissionHead lable={"dashboard.nav"} />
+        </>
+      ),
+    },
+    {
+      label: "portfolio",
+      content: "portfolio",
+    },
+    {
+      label: "Private Chat",
+      content: "Private Chat",
+    },
+    {
+      label: "Stakeholder Chat",
+      content: (
+        <>
+          <Switch onChange={(e) => console.log(e)} label="Select All" />
+        </>
+      ),
+    },
+    {
+      label: "Permissions",
+      content: "Permissions",
+    },
+    {
+      label: "Roles",
+      content: "Roles",
+    },
+  ];
   const [deleteModal, setDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openCreateRole, setOpenCreateRole] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [openPermissionModal, setOpenPermissionModal] = useState(false);
+
+  const openPermission = () => {
+    setOpenCreateRole(false);
+    setOpenPermissionModal(true);
+  };
 
   const permissions = [
     {
@@ -140,7 +183,15 @@ const RolesTable = ({ title }) => {
         title={"Create Role"}
         width="666"
       >
-        <CreateRolesModal />
+        <CreateRolesModal openPermission={openPermission} />
+      </CenterModal>
+      <CenterModal
+        open={openPermissionModal}
+        setOpen={setOpenPermissionModal}
+        width="955"
+        title="Customize Permissions"
+      >
+        <DataTabs data={data} />
       </CenterModal>
 
       <TableContainer>

@@ -173,3 +173,17 @@ export const StyledTabs = styled.div`
       margin: 15px 0 15px 0;
     `}
 `;
+
+export const Head = styled.div`
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .Search {
+    width: 265px;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  padding-top: 26px;
+`;
