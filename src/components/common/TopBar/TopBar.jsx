@@ -80,9 +80,9 @@ const TopBar = () => {
               <Image src={line} alt="line" />
             </div>
             <Link
-              href="/"
+              href="https://cake.webevis.com/"
               className={
-                router === "/" ? "textField textField-home" : "textField"
+                router === "" ? "textField textField-home" : "textField"
               }
             >
               <MdStorefront />
