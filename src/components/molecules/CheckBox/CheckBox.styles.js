@@ -39,8 +39,8 @@ export const StyledCheckBox = styled.div`
       position: absolute;
       right: 50%;
       top: 50%;
-      width: 4px;
-      height: 10px;
+      width: 6px;
+      height: 12px;
       border: solid #fff;
       border-width: 0 2px 2px 0;
       margin: -1px -1px 0 -1px;
