@@ -23,6 +23,7 @@ import successIcon from "../../../_assets/successIcon.png";
 import Switch from "@/components/molecules/Switch";
 import DataTabs from "@/components/molecules/DataTabs";
 import PermissionHead from "../PremissionsHead";
+import { set } from "date-fns";
 
 const RolesTable = ({ title }) => {
   const data = [
@@ -175,7 +176,12 @@ const RolesTable = ({ title }) => {
         title={"Edit Role"}
         width="666"
       >
-        <EditRolesModal />
+        <EditRolesModal
+          openPermission={() => {
+            setOpenEditModal(false);
+            setOpenPermissionModal(true);
+          }}
+        />
       </CenterModal>
       <CenterModal
         open={openCreateRole}
