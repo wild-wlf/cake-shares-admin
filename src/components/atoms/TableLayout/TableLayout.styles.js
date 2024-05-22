@@ -57,6 +57,19 @@ export const StyledTableLayout = styled.div`
       }
     }
 
+    ${({ filterBlock }) =>
+      filterBlock &&
+      css`
+        @media only screen and (max-width: 768px) {
+          .actions {
+            flex-direction: column;
+            button {
+              width: 100%;
+            }
+          }
+        }
+      `}
+
     .icon-div {
       display: flex;
       justify-content: center;
@@ -64,6 +77,7 @@ export const StyledTableLayout = styled.div`
       height: 40px;
       background-color: rgba(246, 248, 250, 1);
       border-radius: 50px;
+      cursor: pointer;
     }
 
     /* @media (max-width: 992px) {
@@ -72,7 +86,7 @@ export const StyledTableLayout = styled.div`
         height: 35px !important;
       }
     } */
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 1200px) {
       flex-direction: column;
       align-items: center;
       .item {

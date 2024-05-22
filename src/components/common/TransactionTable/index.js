@@ -110,6 +110,7 @@ const TransactionTable = () => {
           btnText="Download Statement"
           btnType="download"
           btnImg={downloadIcon}
+          filterBlock
           openModal={openModal}
         >
           <Table

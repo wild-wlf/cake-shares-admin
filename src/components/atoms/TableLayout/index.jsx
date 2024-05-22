@@ -29,6 +29,7 @@ function TableLayout({
   btnText,
   btnImg,
   btnWidth,
+  filterBlock,
   iconImg,
   openModal,
   setResetFilter = () => {},
@@ -52,6 +53,7 @@ function TableLayout({
       <StyledTableLayout
         noNegativeMargin={noNegativeMargin}
         noPagination={noPagination}
+        filterBlock={filterBlock}
       >
         <div className="head">
           {tableHeading && (
@@ -81,12 +83,12 @@ function TableLayout({
                 onClick={openModal}
               >
                 {btnText}
-                <Image src={btnImg} />
+                {btnImg && <Image src={btnImg} alt="btnImg" />}
               </Button>
             )}
             {iconImg && (
-              <div className="icon-div">
-                <Image src={iconImg} />
+              <div className="icon-div" onClick={openModal}>
+                <Image src={iconImg} alt="iconImg" />
               </div>
             )}
           </div>

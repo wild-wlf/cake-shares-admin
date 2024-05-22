@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { styles } from "../../atoms/Input/Input.styles";
@@ -10,6 +10,13 @@ export const StyledDateRange = styled(DatePicker)`
     if ($suffix) return "2.5rem";
     return "2rem";
   }};
+  ${({ inline }) =>
+    inline &&
+    css`
+      .react-datepicker {
+        box-shadow: none !important;
+      }
+    `};
 `;
 
 export const ButtonHolder = styled.div`

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  .ProfilePicture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+  }
   .Heading {
     padding: 26px 0;
     font-size: 20px;
@@ -35,4 +41,3 @@ export const Container = styled.div`
     }
   }
 `;
-

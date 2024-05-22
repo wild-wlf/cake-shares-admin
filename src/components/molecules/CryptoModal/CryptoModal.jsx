@@ -1,9 +1,9 @@
 import React from "react";
-import { Container } from "./CryptoMOdalStyles";
 import Select from "@/components/atoms/Select";
 import Form, { useForm } from "../Form";
 import { ButtonContainer } from "@/components/common/MyWallet/WalletStyles";
 import Button from "@/components/atoms/Button";
+import { Container } from "./CryptoMOdalStyles";
 
 const CryptoModal = ({ walletLinkModal }) => {
   const cryptoWalletNames = [
