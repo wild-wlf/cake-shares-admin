@@ -1,20 +1,22 @@
 import React from 'react';
-
+import { RxCrossCircled } from 'react-icons/rx';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
+import { IoWarningOutline, IoCheckmarkSharp } from 'react-icons/io5';
 import { StyledIcon } from './AlertIcon.styles';
 
 function AlertIcon({ $type }) {
   const iconType = () => {
     switch ($type) {
       case 'error':
-        return 'error_outline';
-      case 'info-red':
-        return 'info';
+        return <RxCrossCircled />;
+      case 'info':
+        return <IoMdInformationCircleOutline />;
       case 'warning':
-        return 'warning';
+        return <IoWarningOutline />;
       case 'success':
-        return 'check_circle_outline';
+        return <IoCheckmarkSharp />;
       default:
-        return 'info';
+        return <IoMdInformationCircleOutline />;
     }
   };
   return (

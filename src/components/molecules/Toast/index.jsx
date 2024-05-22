@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { toast } from 'react-toastify';
-import AlertIcon from '../../atoms/AlertIcon';
-import { StyledAlert, Message } from './Toast.styles';
+import { toast } from "react-toastify";
+import AlertIcon from "../../atoms/AlertIcon";
+import { StyledAlert, Message } from "./Toast.styles";
 
 function Toast({ type, message, ...props }) {
   return toast(
@@ -13,9 +13,9 @@ function Toast({ type, message, ...props }) {
       </StyledAlert>
     </>,
     {
-      position: toast.POSITION.TOP_RIGTH,
+      position: "top-right",
       hideProgressBar: true,
-    },
+    }
   );
 }
 

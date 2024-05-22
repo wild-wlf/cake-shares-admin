@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "env-cmd -e development next dev -p 3004",
+    "build": "env-cmd -e production next build",
+    "start": "env-cmd -e production next start -p 3005",
     "lint": "next lint"
   },
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.2.0",
     "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^3.6.0",
+    "env-cmd": "^10.1.0",
     "highcharts": "^11.4.1",
     "highcharts-react-official": "^3.2.1",
     "next": "14.1.4",
@@ -33,6 +34,7 @@
     "sharp": "^0.33.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.8",
+    "use-context-hook": "^2.0.5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
