@@ -100,8 +100,7 @@ const UsersTable = () => {
             className="btn edit"
             onClick={() => {
               setOpenEditUser(true);
-            }}
-          >
+            }}>
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
         </li>
@@ -111,8 +110,7 @@ const UsersTable = () => {
             className="btn file"
             onClick={() => {
               setOpenPassword(true);
-            }}
-          >
+            }}>
             <Image src={PasswordImg} alt="Password Img" />
           </button>
         </li>
@@ -123,8 +121,7 @@ const UsersTable = () => {
             className="btn delete"
             onClick={() => {
               setOpenDeleteUser(true);
-            }}
-          >
+            }}>
             <Image src={DeleteIcon} alt="delete" />
           </button>
         </li>
@@ -153,8 +150,7 @@ const UsersTable = () => {
         open={openSuccessModal}
         setOpen={setOpenSuccessModal}
         headImage={successIcon}
-        width="543"
-      >
+        width="543">
         <ModalText>User Deleted Successfully!</ModalText>
       </CenterModal>
 
@@ -162,8 +158,7 @@ const UsersTable = () => {
         open={openDeleteUser}
         setOpen={setOpenDeleteUser}
         headImage={InfoIcon}
-        width="543"
-      >
+        width="543">
         <DeleteUserModal
           closeDeleteModal={() => {
             setOpenDeleteUser(false);
@@ -179,8 +174,7 @@ const UsersTable = () => {
         open={openEditUser}
         setOpen={setOpenEditUser}
         title={"Edit User"}
-        width="666"
-      >
+        width="666">
         <EditUserModal />
       </CenterModal>
 
@@ -188,8 +182,7 @@ const UsersTable = () => {
         open={openCreateUser}
         setOpen={setOpenCreateUser}
         title={"Create User"}
-        width="666"
-      >
+        width="666">
         <CreateUserModal />
       </CenterModal>
 
@@ -197,8 +190,7 @@ const UsersTable = () => {
         open={openPassword}
         setOpen={setOpenPassword}
         title={"Update Password"}
-        width="666"
-      >
+        width="666">
         <UpdatePasswordModal />
       </CenterModal>
 
@@ -212,12 +204,10 @@ const UsersTable = () => {
           placeholder="Search User"
           openModal={() => {
             setOpenCreateUser(true);
-          }}
-        >
+          }}>
           <Table
             width={1024}
             rowsData={product_rows}
-            // loading={admins_loading}
             columnNames={columnNamess}
             noPadding
           />
