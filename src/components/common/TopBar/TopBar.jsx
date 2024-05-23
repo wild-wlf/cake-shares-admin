@@ -21,9 +21,14 @@ import { FaWallet } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ProfileMenu from "@/components/molecules/ProfileMenu/ProfileMenu";
+import { AuthContext } from "@/context/authContext";
+import { useContextHook } from "use-context-hook";
 
 const TopBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { user, isLoggedIn } = useContextHook(AuthContext, (v) => ({
+    user: v.user,
+    isLoggedIn: v.isLoggedIn,
+  }));
   const [sideNav, setSideNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [notifications, setNotifications] = useState(false);
@@ -71,7 +76,12 @@ const TopBar = () => {
             <div className="profile">
               <Image src={line} alt="line" />
               <div className="profile-details">
-                <Image src={profile} width={40} height={40} alt="profile" />
+                <Image
+                  src={user?.profilePicture || profile}
+                  width={40}
+                  height={40}
+                  alt="profile"
+                />
                 <div className="user-details">
                   <span>Guest Mode</span>
                   <span className="sub">Guest Mode</span>
@@ -139,8 +149,8 @@ const TopBar = () => {
                     setOpenProfile(!openProfile);
                   }}
                 >
-                  <Image src={profile} alt="profile" />
-                  Alex
+                  <Image src={user?.profilePicture} width={25} height={25} alt="profile" />
+                  {user?.fullName}
                   <MdArrowDropDown />
                 </Button>
                 <ProfileMenu />

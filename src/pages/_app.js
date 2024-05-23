@@ -20,6 +20,9 @@ import { useRouter } from "next/router";
 import { AuthContextProvider } from "@/context/authContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCookie } from "@/helpers/common";
+import { SocketContextProvider } from "@/context/socketContext";
+import Layout from "@/components/molecules/Layout";
 
 export const StyledToastContainer = styled(ToastContainer)`
   z-index: 99999;
@@ -45,56 +48,43 @@ export const StyledToastContainer = styled(ToastContainer)`
 `;
 
 export default function App({ Component, pageProps }) {
-  // const [userType, setUserType] = useState(null);
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (router.query.type) {
-  //     setUserType(router.query.type);
-  //   }
-  // }, [router.query.type]);
-
+  const userInfo = JSON.parse(
+    getCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE)
+  );
   const GlobalStyles = createGlobalStyle`
   ${Variables}
   ${Styling}
   ${HelperClasses}
 `;
 
-  const pathname = usePathname();
-  // console.log(pathname);
-  console.log(router.query, "start");
-
   return (
     <>
       <AuthContextProvider>
-        <KycContextProvider>
-          <GlobalStyles />
-          {/* {userType === "buyer" && buyerPermission.includes(pathname) && ( */}
-          <>
-            <Component {...pageProps} />
-          </>
-          {/* )} */}
-          {/* {userType === "seller" &&
-          individualSellerPermission.includes(pathname) && (
-            <PageWrapper>
-              <Sidenav data={indivisualSellerNav} />
-              <Component {...pageProps} />
-            </PageWrapper>
-          )}
-        {userType === "company" &&
-          companySellerPermission.includes(pathname) && (
-            <PageWrapper>
-              <Sidenav data={companySellerNav} />
-              <Component {...pageProps} />
-            </PageWrapper>
-          )}
-        {userType === null && pathname === "/" && (
-          <>
-            <Component {...pageProps} />
-          </>
-        )} */}
-        </KycContextProvider>
-        <StyledToastContainer />
+        <SocketContextProvider>
+          <KycContextProvider>
+            <GlobalStyles />
+            <Layout>
+              {userInfo?.type === "Buyer" ? (
+                <Component {...pageProps} />
+              ) : userInfo?.type === "Seller" ? (
+                userInfo?.isIndividualSeller ? (
+                  <PageWrapper>
+                    <Sidenav data={indivisualSellerNav} />
+                    <Component {...pageProps} />
+                  </PageWrapper>
+                ) : (
+                  <PageWrapper>
+                    <Sidenav data={companySellerNav} />
+                    <Component {...pageProps} />
+                  </PageWrapper>
+                )
+              ) : (
+                <Component {...pageProps} />
+              )}
+            </Layout>
+          </KycContextProvider>
+          <StyledToastContainer />
+        </SocketContextProvider>
       </AuthContextProvider>
     </>
   );

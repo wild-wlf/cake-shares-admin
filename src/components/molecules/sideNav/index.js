@@ -10,8 +10,15 @@ import KycBuyerLevelOne from "@/components/atoms/KYC/KYCBuyer";
 import KycBuyerLevelTwo from "@/components/atoms/KYC/KYCBuyerTwo";
 import KYCBuyerThree from "@/components/atoms/KYC/KYCBuyerThree";
 import { KycContext } from "@/context/KycContext";
+import { AuthContext } from "@/context/authContext";
+import { useContextHook } from "use-context-hook";
+import { format } from "date-fns";
 
 const SideBar = ({ data }) => {
+  const { user, onLogout } = useContextHook(AuthContext, (v) => ({
+    user: v.user,
+    onLogout: v.onLogout,
+  }));
   const { pathname } = useRouter();
 
   const closeSideNav = () => {
@@ -65,48 +72,69 @@ const SideBar = ({ data }) => {
         </div>
 
         <LinkContainer>
-          {data.map((data, index) => {
-            return (
-              <NavLinks key={index}>
-                <li className="listHead">{data.name}</li>
-                {data.link.map((data, index) => {
-                  return (
-                    <li
-                      className={`NavItem ${
-                        pathname === `${data.navigation}` && "active"
-                      }`}
-                      key={index}
-                    >
-                      <Link className="Link" href={data.navigation}>
+          {data.map((data, index) => (
+            <NavLinks key={index}>
+              <li className="listHead">{data.name}</li>
+              {data.link.map((data, index) => (
+                <li
+                  className={`NavItem ${
+                    pathname === `${data.navigation}` && "active"
+                  }`}
+                  key={index}
+                >
+                  {data.name === "Log Out" ? (
+                    <>
+                      <Link className="Link" onClick={onLogout} href="">
                         <figure className="iconCon">
                           <Image
                             src={data.icon}
-                            width={15}
-                            height={15}
+                            width={18}
+                            height={18}
                             alt="icon"
                           />
                         </figure>
                         {data.name}
                       </Link>
-                    </li>
-                  );
-                })}
-              </NavLinks>
-            );
-          })}
+                    </>
+                  ) : (
+                    <Link className="Link" href={data.navigation}>
+                      <figure className="iconCon">
+                        <Image
+                          src={data.icon}
+                          width={18}
+                          height={18}
+                          alt="icon"
+                        />
+                      </figure>
+                      {data.name}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </NavLinks>
+          ))}
         </LinkContainer>
 
         <UserDet>
           <Image
-            src={SellerProfile}
+            src={user?.profilePicture || SellerProfile}
             height={40}
             width={40}
             alt="user-profile"
           />
           <div className="detailContainer">
-            <span className="userName">John Michel</span>
-            <span className="type">Induvial Seller</span>
-            <span className="date"> Member since Feb 15, 2024</span>
+            <span className="userName">{user?.fullName}</span>
+            <span className="type">
+              {user?.isIndividualSeller
+                ? "Individual Seller"
+                : "Company Seller"}
+            </span>
+            <span className="date">
+              Member since{" "}
+              {user?.created_at
+                ? format(new Date(user.created_at), "MMM d, yyyy")
+                : ""}
+            </span>
           </div>
         </UserDet>
       </Sidenav>

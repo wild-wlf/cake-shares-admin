@@ -33,6 +33,7 @@
     "react-webcam": "^7.2.0",
     "sharp": "^0.33.3",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
     "use-context-hook": "^2.0.5",
     "uuid": "^9.0.1"

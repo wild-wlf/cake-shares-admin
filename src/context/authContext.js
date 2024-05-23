@@ -21,6 +21,7 @@ export const AuthContextProvider = (props) => {
   const [loading_user, setLoadingUser] = useState(false);
   const [fetch_user, setFetchUser] = useState(false);
   const { cancellablePromise } = useCancellablePromise();
+  const [socketData, setSocketData] = useState(null);
   const [reFetch, setRefetch] = useState(false);
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [allowedPages, setAllowedPages] = useState(
@@ -48,12 +49,12 @@ export const AuthContextProvider = (props) => {
     } finally {
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
-      clearCookie("is_email_verified");
-      clearCookie("email");
+      clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
       await router.push("/sign-in");
-      Toast({ type: "success", message: "Logout Successfully" });
+      Toast({ type: "success", message: "Logged Out Successfully!" });
       setLoadingUser(false);
       setIsLoggedIn(false);
+      setUser({});
     }
   };
 
@@ -77,11 +78,21 @@ export const AuthContextProvider = (props) => {
               .map((p) => `${p.split(".")[0]}`)
           )
         );
+        setCookie(
+          process.env.NEXT_PUBLIC_USER_TYPE_COOKIE,
+          JSON.stringify({
+            type: res?.user?.type,
+            isIndividualSeller: res?.user?.isIndividualSeller,
+          })
+        );
+        const firstPage = res.permissions
+          .filter((p) => p.includes(".nav"))
+          .map((p) => `${p.split(".")[0]}`)[0];
 
         setLoadingUser(false);
-        setUser(res);
+        setUser(res?.user);
         if (publicPages.includes(router.pathname)) {
-          router.push("/dashboard");
+          router.push(firstPage);
         }
       })
       .catch((err) => {
@@ -119,6 +130,14 @@ export const AuthContextProvider = (props) => {
       }
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (socketData?.approved) {
+      setTimeout(() => {
+        getPermissions();
+      }, 1000);
+    }
+  }, [socketData]);
 
   const onLogin = async ({ username, password }) => {
     setLoadingUser(true);
@@ -296,6 +315,8 @@ export const AuthContextProvider = (props) => {
         setShowTokenModal,
         setLoading,
         hasPermission,
+        setSocketData,
+        socketData,
         allowedPages,
         showTokenModal,
         loading,

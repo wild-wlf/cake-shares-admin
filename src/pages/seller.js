@@ -5,12 +5,17 @@ import SellerDetailBar from "@/components/atoms/SellerDetailBar/SellerDetailBar"
 import PortfolioTable from "@/components/common/Portfolio/PortfolioTable";
 import SellerTopBar from "@/components/common/SellerTopBar/SellerTopBar";
 import handIcon from "../_assets/handIcon.png";
+import { useContextHook } from "use-context-hook";
+import { AuthContext } from "@/context/authContext";
 
-const seller = () => {
+const Seller = () => {
+  const { user } = useContextHook(AuthContext, (v) => ({
+    user: v.user,
+  }));
   return (
     <SellerContainer>
       <SellerTopBar
-        title={"Welcome Fostor!"}
+        title={`Welcome ${user?.fullName}!`}
         suffix={handIcon}
         tagLine={"Let's explore what's new with your product today!"}
       />
@@ -21,4 +26,4 @@ const seller = () => {
   );
 };
 
-export default seller;
+export default Seller;
