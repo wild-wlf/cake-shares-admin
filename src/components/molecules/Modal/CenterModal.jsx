@@ -16,6 +16,7 @@ const CenterModal = ({
   setIsEditing,
   title,
   headImage,
+  iscloseAble = true,
 }) => {
   // console.log(open);
   useEffect(() => {
@@ -39,10 +40,9 @@ const CenterModal = ({
   }, [open]);
 
   const handleClose = () => {
-    setIsEditing?.({
-      status: false,
-    });
-    setOpen(false);
+    if (iscloseAble) {
+      setOpen(false);
+    }
   };
   return (
     open && (
@@ -50,8 +50,10 @@ const CenterModal = ({
         open={open}
         onClick={handleClose}
         onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            handleClose();
+          if (iscloseAble) {
+            if (e.key === "Escape") {
+              handleClose();
+            }
           }
         }}
       >
@@ -70,14 +72,16 @@ const CenterModal = ({
           <Head>
             {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
-            <div
-              type="button"
-              className="closer"
-              onClick={handleClose}
-              tabIndex={0}
-            >
-              <MdOutlineClose size={25} className="Icon" />
-            </div>
+            {iscloseAble && (
+              <button
+                type="button"
+                className="closer"
+                onClick={handleClose}
+                tabIndex={0}
+              >
+                <Image src={close} alt="Close-Modal" />
+              </button>
+            )}
           </Head>
           {children}
         </ContentHolder>
