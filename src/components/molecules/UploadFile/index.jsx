@@ -16,7 +16,6 @@ import Image from "next/image";
 
 const UploadFile = ({
   bg,
-  onChange,
   disc = "File size must be less than 5MB in PDF, JPG, or PNG format.",
   title,
   uploadTitle = "Upload Image",
@@ -39,7 +38,7 @@ const UploadFile = ({
       const fileLength = file.size / (1024 * 1024);
       if (fileLength <= fileSize) {
         setUploaded(e.target.files[0]);
-        onChange({ target: { file } });
+        props.onChange(e.target.files[0]);
       } else {
         alert("file size exceeded");
       }
@@ -138,7 +137,8 @@ const UploadFile = ({
           onDragLeave={(event) => {
             event.preventDefault();
           }}
-          {...props}>
+          {...props}
+        >
           {({
             getRootProps,
             acceptedFile,
@@ -152,7 +152,8 @@ const UploadFile = ({
               css={`
                 padding: 38px;
               `}
-              className="labelButton">
+              className="labelButton"
+            >
               <div>
                 {acceptedFile ? (
                   <FileUploadBox>
@@ -170,7 +171,8 @@ const UploadFile = ({
                       }}
                       onMouseOut={(event) => {
                         event.preventDefault();
-                      }}>
+                      }}
+                    >
                       <Remove />
                     </RemoveBtn>
                   </FileUploadBox>

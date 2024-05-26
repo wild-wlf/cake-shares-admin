@@ -8,11 +8,62 @@ import { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import UploadFile from "@/components/molecules/UploadFile";
 import Form, { useForm } from "@/components/molecules/Form";
+import productService from "@/services/productService";
+import Toast from "@/components/molecules/Toast";
+import { useContextHook } from "use-context-hook";
+import { AuthContext } from "@/context/authContext";
+import { convertToFormData } from "@/helpers/common";
 
 const CreateNewProduct = () => {
+  const [media, setmedia] = useState([]);
+  const [amenities, setAmenities] = useState([
+    { amenitiesText: "" },
+    { amenitiesText: "" },
+    { amenitiesText: "" },
+  ]);
+  const { user } = useContextHook(AuthContext, (v) => ({
+    user: v.user,
+  }));
+  const addAmenities = () => {
+    if (amenities.length == 10) return;
+    setAmenities([...amenities, { amenitiesText: "" }]);
+  };
+  console.log(media);
+  console.log(user);
   const [form] = useForm();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log("e", e);
+    const obj = {
+      userId: user._id,
+      productName: e.productName,
+      investmentType: e.investmentType.value,
+      address: e.address,
+      deadline: e.deadline,
+      kycLevel: e.kycLevel.value,
+      description: e.productDescription,
+      investmentReason: e.whyInvest,
+      amenities: amenities,
+      media: media,
+      minimumBackers: e.minBackers,
+      maximumBackers: e.maxBackers,
+      currentBackers: 5,
+      assetValue: e.assetValue,
+      minimumInvestment: e.minInvestment,
+    };
+    console.log(obj);
+    const data = convertToFormData(obj);
+    try {
+      await productService.addProduct(data);
+      Toast({
+        type: "success",
+        message: "Product added successfully",
+      });
+    } catch (error) {
+      Toast({
+        type: "error",
+        message: error.message,
+      });
+    }
   };
 
   return (
@@ -113,18 +164,17 @@ const CreateNewProduct = () => {
           >
             <Select
               options={[
-                { label: "Level 0", value: "level0" },
-                { label: "Level 1", value: "level1" },
-                { label: "Level 2", value: "level2" },
+                { label: "Level 0", value: "0" },
+                { label: "Level 1", value: "1" },
+                { label: "Level 2", value: "2" },
               ]}
             />
           </Form.Item>
         </div>
         <div className="product-description">
           <div className="description-holder">
-            <span className="heading">Product Description</span>
             <Form.Item
-              type="text"
+              type="textarea"
               label="Product Description"
               name="productDescription"
               sm
@@ -141,13 +191,12 @@ const CreateNewProduct = () => {
                 },
               ]}
             >
-              <textarea />
+              <Field />
             </Form.Item>
           </div>
           <div className="description-holder">
-            <span className="heading">Why Invest in it?</span>
             <Form.Item
-              type="text"
+              type="textarea"
               label="Why Invest in it?"
               name="whyInvest"
               sm
@@ -164,138 +213,84 @@ const CreateNewProduct = () => {
                 },
               ]}
             >
-              <textarea placeholder="Enter Text" />
+              <Field />
             </Form.Item>
           </div>
         </div>
         <span className="heading">Upload Media</span>
         <div className="upload-image">
           <div className="upload">
-            <Form.Item
-              type="file"
-              name="media1"
-              sm
-              rounded
-              rules={[
-                {
-                  required: true,
-                  message: "Please upload media",
-                },
-              ]}
-            >
-              <UploadFile
-                id="firstImg"
-                bg
-                noMargin
-                disc="image should be up to 1mb only"
-                onChange={(e) => console.log(e)}
-              />
-            </Form.Item>
+            <UploadFile
+              id="firstImg"
+              bg
+              noMargin
+              disc="image should be up to 1mb only"
+              onChange={(e) => setmedia((prev) => [...prev, e])}
+            />
           </div>
           <div className="upload">
-            <Form.Item
-              type="file"
-              name="media2"
-              sm
-              rounded
-              rules={[
-                {
-                  // required: true,
-                  message: "Please upload media",
-                },
-              ]}
-            >
-              <UploadFile
-                id="SecondImg"
-                bg
-                noMargin
-                disc="image should be up to 1mb only"
-                onChange={(e) => console.log(e)}
-              />
-            </Form.Item>
+            <UploadFile
+              id="SecondImg"
+              bg
+              noMargin
+              disc="image should be up to 1mb only"
+              onChange={(e) => setmedia((prev) => [...prev, e])}
+            />
           </div>
           <div className="upload">
-            <Form.Item
-              type="file"
-              name="media3"
-              sm
-              rounded
-              rules={[
-                {
-                  // required: true,
-                  message: "Please upload media",
-                },
-              ]}
-            >
-              <UploadFile
-                id="thirdImg"
-                bg
-                noMargin
-                disc="image should be up to 1mb only"
-                onChange={(e) => console.log(e)}
-              />
-            </Form.Item>
+            <UploadFile
+              id="thirdImg"
+              bg
+              noMargin
+              disc="image should be up to 1mb only"
+              onChange={(e) => setmedia((prev) => [...prev, e])}
+            />
           </div>
         </div>
         <div className="add-amenities-holder">
           <span className="heading">Investment Info:</span>
           <div className="add-amenities">
             <span>You can add up to 10 amenities only!</span>
-            <div className="add-more">
+            <div className="add-more" onClick={addAmenities}>
               <IoAdd />
               <span>Add more</span>
             </div>
           </div>
           <div className="amenities">
-            <Form.Item
-              type="text"
-              name="amentity1"
-              sm
-              rounded
-              placeholder="Enter text"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter Amentity",
-                },
-                {
-                  pattern: /^.{0,40}$/,
-                  message: "Please enter a valid Amentity",
-                },
-              ]}
-            >
-              <Field noMargin />
-            </Form.Item>
-            <Form.Item
-              type="text"
-              name="amentity2"
-              sm
-              rounded
-              placeholder="Enter text"
-              rules={[
-                {
-                  pattern: /^.{0,40}$/,
-                  message: "Please enter a valid Amentity",
-                },
-              ]}
-            >
-              <Field noMargin />
-            </Form.Item>
-            <Form.Item
-              type="text"
-              name="amentity3"
-              sm
-              rounded
-              placeholder="Enter text"
-              rules={[
-                {
-                  pattern: /^.{0,40}$/,
-                  message: "Please enter a valid Amentity",
-                },
-              ]}
-            >
-              <Field noMargin />
-            </Form.Item>
+            {amenities.map((elem, ind) => (
+              <>
+                <Form.Item
+                  type="text"
+                  name={`amentity${ind}`}
+                  sm
+                  rounded
+                  placeholder="Enter text"
+                  value={amenities[ind].amenitiesText}
+                  onChange={(e) => {
+                    form.setFieldsValue({
+                      [`amentity${ind}`]: e.target.value,
+                    });
+                    setAmenities((prev) =>
+                      prev.map((item, i) =>
+                        i === ind ? { amenitiesText: e.target.value } : item
+                      )
+                    );
+                  }}
+                  rules={[
+                    {
+                      required: ind <= 3 ? true : false,
+                      message: "Please enter Amentity",
+                    },
+                    {
+                      pattern: /^.{0,40}$/,
+                      message: "Please enter a valid Amentity",
+                    },
+                  ]}
+                >
+                  <Field noMargin />
+                </Form.Item>
+              </>
+            ))}
           </div>
         </div>
         <span className="heading">Investment Info:</span>
