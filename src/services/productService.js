@@ -7,7 +7,7 @@ const STATUS = {
   ERROR: "error",
 };
 const productService = {
-  _url: `${process.env.NEXT_PUBLIC_USER_URL}/product`,
+  _url: `${process.env.NEXT_PUBLIC_PRODUCT_URL}`,
 
   async addProduct(payload) {
     let res = await Fetch.upload(

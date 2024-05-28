@@ -72,56 +72,56 @@ const PortfolioTable = ({ title }) => {
     setProductAdvertiseModal(false);
     setAdvertiseSuccessfulModal(true);
   };
-  const transactions = [
-    {
-      product: "Gov. Egypt Property",
-      investment_type: "Properties",
-      status: "Active",
-      backers_limit: "50",
-      amount_raised: "$40,256.000",
-      total_asset_value: "$40,256.000",
-    },
-    {
-      product: "Audi A8 Car",
-      investment_type: "Car",
-      status: "Completed",
-      backers_limit: "60",
-      amount_raised: "$40,256.000",
-      total_asset_value: "$40,256.000",
-    },
-    {
-      product: "Gov. Egypt Property",
-      investment_type: "Properties",
-      status: "Active",
-      backers_limit: "50",
-      amount_raised: "$0.000",
-      total_asset_value: "$40,256.000",
-    },
-    {
-      product: "Audi A8 Car",
-      investment_type: "Car",
-      status: "Completed",
-      backers_limit: "60",
-      amount_raised: "$40,256.000",
-      total_asset_value: "$40,256.000",
-    },
-    {
-      product: "Gov. Egypt Property",
-      investment_type: "Properties",
-      status: "Completed",
-      backers_limit: "60",
-      amount_raised: "$40,256.000",
-      total_asset_value: "$40,256.000",
-    },
-    {
-      product: "Audi A8 Car",
-      investment_type: "Car",
-      status: "Active",
-      backers_limit: "60",
-      amount_raised: "$40,256.000",
-      total_asset_value: "$40,256.000",
-    },
-  ];
+  // const transactions = [
+  //   {
+  //     product: "Gov. Egypt Property",
+  //     investment_type: "Properties",
+  //     status: "Active",
+  //     backers_limit: "50",
+  //     amount_raised: "$40,256.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  //   {
+  //     product: "Audi A8 Car",
+  //     investment_type: "Car",
+  //     status: "Completed",
+  //     backers_limit: "60",
+  //     amount_raised: "$40,256.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  //   {
+  //     product: "Gov. Egypt Property",
+  //     investment_type: "Properties",
+  //     status: "Active",
+  //     backers_limit: "50",
+  //     amount_raised: "$0.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  //   {
+  //     product: "Audi A8 Car",
+  //     investment_type: "Car",
+  //     status: "Completed",
+  //     backers_limit: "60",
+  //     amount_raised: "$40,256.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  //   {
+  //     product: "Gov. Egypt Property",
+  //     investment_type: "Properties",
+  //     status: "Completed",
+  //     backers_limit: "60",
+  //     amount_raised: "$40,256.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  //   {
+  //     product: "Audi A8 Car",
+  //     investment_type: "Car",
+  //     status: "Active",
+  //     backers_limit: "60",
+  //     amount_raised: "$40,256.000",
+  //     total_asset_value: "$40,256.000",
+  //   },
+  // ];
   console.log(selecteData);
   async function handelDeleteProduct() {
     await productService.deleteProduct(selecteData);
@@ -283,7 +283,7 @@ const PortfolioTable = ({ title }) => {
       </CenterModal>
 
       <TableContainer>
-        <Image src={TableStyle} className="tableStyle" alt="tableStyle" />
+        <Image src={TableStyle} className="tableStyle" alt="tableStyle" draggable="false"/>
         <TableLayout
           tableHeading={<ButtonsGroup title={title} />}
           placeholder="Search Product"
