@@ -62,107 +62,91 @@ const TopBar = () => {
     useContext(KycContext);
 
   return (
-    <>
-      <StyledTopBar>
-        <div className="logoWrapper">
-          <div className="layer" onClick={() => setSideNav(false)} />
-          <div className="closedNav" onClick={() => setSideNav(true)}>
-            <HiOutlineMenuAlt1 />
-          </div>
-          <NavLinks $active={sideNav}>
-            <div className="logo">
-              <Image src={logo} alt="logo" />
-            </div>
-            <div className="profile">
-              <Image src={line} alt="line" />
-              <div className="profile-details">
-                <Image
-                  src={user?.profilePicture || profile}
-                  width={40}
-                  height={40}
-                  alt="profile"
-                />
-                <div className="user-details">
-                  <span>Guest Mode</span>
-                  <span className="sub">Guest Mode</span>
-                </div>
+      <>
+          <StyledTopBar>
+              <div className="logoWrapper">
+                  <div className="layer" onClick={() => setSideNav(false)} />
+                  <div className="closedNav" onClick={() => setSideNav(true)}>
+                      <HiOutlineMenuAlt1 />
+                  </div>
+                  <NavLinks $active={sideNav}>
+                      <div className="logo">
+                          <Image src={logo} alt="logo" />
+                      </div>
+                      <div className="profile">
+                          <Image src={line} alt="line" />
+                          <div className="profile-details">
+                              <Image src={user?.profilePicture || profile} width={40} height={40} alt="profile" />
+                              <div className="user-details">
+                                  <span>Guest Mode</span>
+                                  <span className="sub">Guest Mode</span>
+                              </div>
+                          </div>
+                          <Image src={line} alt="line" />
+                      </div>
+                      <Link
+                          href="https://cake.webevis.com/"
+                          className={router === "" ? "textField textField-home" : "textField"}>
+                          <MdStorefront />
+                          <span>Marketplace</span>
+                      </Link>
+                  </NavLinks>
               </div>
-              <Image src={line} alt="line" />
-            </div>
-            <Link
-              href="https://cake.webevis.com/"
-              className={
-                router === "" ? "textField textField-home" : "textField"
-              }
-            >
-              <MdStorefront />
-              <span>Marketplace</span>
-            </Link>
-          </NavLinks>
-        </div>
 
-        <div className="actions">
-          {isLoggedIn ? (
-            <>
-              <div className="textfeildWrapper">
-                <div className="textFieldRight">
-                  <span className="heading">My Kyc Level</span>
-                  <span>{kycLevel - 1}</span>
-                </div>
-                <KycLevel level={kycLevel} bg />
-              </div>
-            </>
-          ) : (
-            ""
-          )}
+              <div className="actions">
+                  {isLoggedIn ? (
+                      <>
+                          <div className="textfeildWrapper">
+                              <div className="textFieldRight">
+                                  <span className="heading">My Kyc Level</span>
+                                  <span>{kycLevel - 1}</span>
+                              </div>
+                              <KycLevel level={user?.kycLevel ? 3 : 0} bg />
+                          </div>
+                      </>
+                  ) : (
+                      ""
+                  )}
 
-          <div
-            className="notification"
-            onClick={() => {
-              setNotifications(!notifications);
-            }}
-          >
-            <Image src={bell} alt="bell" className="bell" />
-            <div
-              className={
-                notifications
-                  ? "notificationWrapper-visible"
-                  : "notificationWrapper"
-              }
-            >
-              <Notifications />
-            </div>
-          </div>
+                  <div
+                      className="notification"
+                      onClick={() => {
+                          setNotifications(!notifications);
+                      }}>
+                      <Image src={bell} alt="bell" className="bell" />
+                      <div className={notifications ? "notificationWrapper-visible" : "notificationWrapper"}>
+                          <Notifications />
+                      </div>
+                  </div>
 
-          {isLoggedIn ? (
-            <>
-              <div className="wallet">
-                <FaWallet />
-                <span>My Wallet</span>
+                  {isLoggedIn ? (
+                      <>
+                          <div className="wallet">
+                              <FaWallet />
+                              <span>My Wallet</span>
+                          </div>
+                          <div className="buttonWrapper" ref={ProfileRef}>
+                              <Button
+                                  rounded
+                                  sm
+                                  btntype="new"
+                                  onClick={() => {
+                                      setOpenProfile(!openProfile);
+                                  }}>
+                                  <Image src={user?.profilePicture} width={25} height={25} alt="profile" />
+                                  {user?.fullName}
+                                  <MdArrowDropDown />
+                              </Button>
+                              <ProfileMenu />
+                          </div>
+                      </>
+                  ) : (
+                      ""
+                  )}
               </div>
-              <div className="buttonWrapper" ref={ProfileRef}>
-                <Button
-                  rounded
-                  sm
-                  btntype="new"
-                  onClick={() => {
-                    setOpenProfile(!openProfile);
-                  }}
-                >
-                  <Image src={user?.profilePicture} width={25} height={25} alt="profile" />
-                  {user?.fullName}
-                  <MdArrowDropDown />
-                </Button>
-                <ProfileMenu />
-              </div>
-            </>
-          ) : (
-            ""
-          )}
-        </div>
-        <ProfileMenu openProfile={openProfile} />
-      </StyledTopBar>
-    </>
+              <ProfileMenu openProfile={openProfile} />
+          </StyledTopBar>
+      </>
   );
 };
 
