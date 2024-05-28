@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ActionBtnList } from "@/components/atoms/ActionBtns/ActionBtns.styles";
 import Table from "@/components/molecules/Table";
 import TableLayout from "@/components/atoms/TableLayout";
@@ -25,10 +25,28 @@ import AdvertiseModal from "@/components/atoms/AdvertiseProductModal/AdvertiseMo
 import AdvertiseSuccessfulModal from "@/components/atoms/AdvertiseProductModal/AdvertiseSuccessfulModal";
 import CreateNewProduct from "../CreateNewProduct";
 import SelectRangeModal from "@/components/atoms/SelectRangeModal";
+import productService from "@/services/productService";
+import { useContextHook } from "use-context-hook";
+import { AuthContext } from "@/context/authContext";
 
 const PortfolioTable = ({ title }) => {
+  const { user, refetch } = useContextHook(AuthContext, (v) => ({
+    refetch: v.refetch,
+    user: v.user,
+  }));
+  const [searchQuery, setSearchQuery] = useState({
+    page: 1,
+    itemsPerPage: 10,
+  });
+  const { products_data, products_loading } = productService.GetAllProducts(
+    searchQuery,
+    fetch,
+    user._id
+  );
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
+  const [productData, setproductData] = useState([]);
+  const [selecteData, setSelecteData] = useState();
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [editProductModal, setEditProductModal] = useState(false);
   const [createProductModal, setCreateProductModal] = useState(false);
@@ -37,6 +55,7 @@ const PortfolioTable = ({ title }) => {
   const [deleteSuccessfulModal, setDeleteSuccessfulModal] = useState(false);
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] =
     useState(false);
+
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -103,6 +122,13 @@ const PortfolioTable = ({ title }) => {
       total_asset_value: "$40,256.000",
     },
   ];
+  console.log(selecteData);
+  async function handelDeleteProduct() {
+    await productService.deleteProduct(selecteData);
+    refetch();
+    setProductDeleteModal(false);
+    setDeleteSuccessfulModal(true);
+  }
 
   const actionBtns = (_) => (
     <>
@@ -120,7 +146,10 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn edit"
-            onClick={() => setEditProductModal(true)}
+            onClick={() => {
+              setEditProductModal(true);
+              setSelecteData(_);
+            }}
           >
             <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
           </button>
@@ -140,7 +169,10 @@ const PortfolioTable = ({ title }) => {
           <button
             type="button"
             className="btn delete"
-            onClick={() => setProductDeleteModal(true)}
+            onClick={() => {
+              setProductDeleteModal(true);
+              setSelecteData(_?._id);
+            }}
           >
             <Image src={DeleteIcon} alt="delete" />
           </button>
@@ -150,14 +182,14 @@ const PortfolioTable = ({ title }) => {
   );
 
   const { product_rows, totalItems } = useMemo(() => ({
-    product_rows: transactions?.map((transaction) => [
-      transaction.product || "------------",
-      transaction.investment_type || "------------",
-      transaction.status || "------------",
-      transaction.backers_limit || "------------",
-      transaction.amount_raised || "------------",
-      transaction.total_asset_value || "------------",
-      actionBtns(transaction),
+    product_rows: products_data.items?.map((data) => [
+      data.productName || "------------",
+      data.investmentType || "------------",
+      data.isVerified ? "Approve" : "Pending" || "------------",
+      data.maximumBackers || "------------",
+      data.minimumInvestment || "------------",
+      data.assetValue || "------------",
+      actionBtns(data),
     ]),
   }));
   const columnNamess = [
@@ -208,7 +240,10 @@ const PortfolioTable = ({ title }) => {
         title="Edit Product"
         width="900"
       >
-        <EditProductModal />
+        <EditProductModal
+          product={selecteData}
+          setEditProductModal={setEditProductModal}
+        />
       </CenterModal>
       <CenterModal
         open={productDeleteModal}
@@ -218,9 +253,7 @@ const PortfolioTable = ({ title }) => {
       >
         <DeleteModal
           closeDeleteModal={closeDeleteModal}
-          openSuccessfulModal={() => {
-            setProductDeleteModal(false), setDeleteSuccessfulModal(true);
-          }}
+          openSuccessfulModal={handelDeleteProduct}
         />
       </CenterModal>
       <CenterModal
@@ -262,7 +295,7 @@ const PortfolioTable = ({ title }) => {
           <Table
             width={1024}
             rowsData={product_rows}
-            // loading={admins_loading}
+            loading={products_loading}
             columnNames={columnNamess}
             noPadding
           />

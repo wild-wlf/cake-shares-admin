@@ -65,12 +65,7 @@ const Login = () => {
             <div className="formAction">
               <CheckBox label="Remember me" color />
             </div>
-            <Button
-              lg
-              block
-              htmlType={loading ? "button" : "submit"}
-              variant="dark"
-            >
+            <Button block htmlType={loading ? "button" : "submit"} type="green">
               Sign in
             </Button>
           </Form>

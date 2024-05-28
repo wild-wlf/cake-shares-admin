@@ -668,7 +668,14 @@ export const convertToFormData = (obj) => {
   const formData = new FormData();
 
   Object.keys(obj).forEach((key) => {
-    if (key === "amenities" && typeof obj[key] === "object") {
+    if (key === "images") {
+      obj.images.forEach((file, index) => {
+        formDataToSend.append(`images[${index}]`, file);
+      });
+    } else if (
+      key === "amenities" ||
+      (key === "media" && typeof obj[key] === "object")
+    ) {
       formData.append(key, JSON.stringify(obj[key]));
     } else {
       formData.append(key, obj[key]);

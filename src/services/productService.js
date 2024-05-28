@@ -1,5 +1,11 @@
+import { useEffect, useState } from "react";
 import { Fetch } from "../helpers/fetchWrapper";
-
+import { useCancellablePromise } from "@/helpers/promiseHandler";
+const STATUS = {
+  LOADING: "loading",
+  SUCCESS: "success",
+  ERROR: "error",
+};
 const productService = {
   _url: `${process.env.NEXT_PUBLIC_USER_URL}/product`,
 
@@ -14,9 +20,64 @@ const productService = {
       return res;
     }
     const { message } = await res.json();
-    throw new Error(message ?? "Something went wrong");
+    throw new Error(message ?? "Something Went Wrong");
   },
 
+  async getAllProducts({ page = 1, itemsPerPage = 10, status = "" }, id) {
+    let res = await Fetch.get(
+      `${this._url}/get-all-products/${id}?page=${page}&itemsPerPage=${itemsPerPage}&status=${status}`
+    );
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? "Something Went Wrong");
+  },
+  async updateProduct(id, payload) {
+    let res = await Fetch.upload(
+      `${this._url}/update-product/${id}`,
+      "PUT",
+      payload
+    );
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? "Something Went Wrong");
+  },
+  async deleteProduct(id) {
+    let res = await Fetch.delete(`${this._url}/delete-product/${id}`);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? "Something Went Wrong");
+  },
+  GetAllProducts(searchQuery, fetch, id) {
+    const [products, setProducts] = useState({
+      products: [],
+      totalItems: 0,
+    });
+    const { cancellablePromise } = useCancellablePromise();
+    const [productStatus, setProductStatus] = useState(STATUS.LOADING);
+    useEffect(() => {
+      setProductStatus(STATUS.LOADING);
+      cancellablePromise(this.getAllProducts(searchQuery, id))
+        .then((res) => {
+          setProducts(() => res);
+          setProductStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setProductStatus(STATUS.ERROR));
+    }, [searchQuery, fetch]);
+    return {
+      products_loading: productStatus === STATUS.LOADING,
+      products_error: productStatus === STATUS.ERROR,
+      products_data: products,
+    };
+  },
   //   async getCurrentAdmin() {
   //     let res = await Fetch.get(`${this._url}/me`);
   //     if (res.status >= 200 && res.status < 300) {

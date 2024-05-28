@@ -14,25 +14,30 @@ import { useContextHook } from "use-context-hook";
 import { AuthContext } from "@/context/authContext";
 import { convertToFormData } from "@/helpers/common";
 
-const CreateNewProduct = () => {
+const CreateNewProduct = ({ setCreateProductModal }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState([
-    { amenitiesText: "" },
-    { amenitiesText: "" },
-    { amenitiesText: "" },
-  ]);
+  const [amenities, setAmenities] = useState([""]);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const { user } = useContextHook(AuthContext, (v) => ({
     user: v.user,
   }));
   const addAmenities = () => {
     if (amenities.length == 10) return;
-    setAmenities([...amenities, { amenitiesText: "" }]);
+    setAmenities([...amenities, ""]);
   };
-  console.log(media);
-  console.log(user);
+
   const [form] = useForm();
+  const handleFileChange = (e, index) => {
+    const file = e.target.file;
+    setImages((prev) => {
+      const updatedImages = [...prev];
+      updatedImages[index] = file;
+      return updatedImages;
+    });
+  };
   const handleSubmit = async (e) => {
-    console.log("e", e);
     const obj = {
       userId: user._id,
       productName: e.productName,
@@ -43,26 +48,46 @@ const CreateNewProduct = () => {
       description: e.productDescription,
       investmentReason: e.whyInvest,
       amenities: amenities,
-      media: media,
+      media,
+      ...(images?.length > 0 && { images }),
       minimumBackers: e.minBackers,
       maximumBackers: e.maxBackers,
       currentBackers: 5,
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
     };
-    console.log(obj);
-    const data = convertToFormData(obj);
+    // console.log(obj);
+    const formDataToSend = new FormData();
+    Object.keys(obj).forEach((key) => {
+      if (key === "images") {
+        obj.images.forEach((file, index) => {
+          formDataToSend.append(`images[${index}]`, file);
+        });
+      } else if (
+        key === "media" ||
+        (key === "amenities" &&
+          (Array.isArray(obj[key]) || typeof obj[key] === "object"))
+      ) {
+        formDataToSend.append(key, JSON.stringify(obj[key]));
+      } else {
+        formDataToSend.append(key, obj[key]);
+      }
+    });
+    setLoading(true);
     try {
-      await productService.addProduct(data);
+      await productService.addProduct(formDataToSend);
       Toast({
         type: "success",
         message: "Product added successfully",
       });
+      setCreateProductModal(false);
+      setLoading(false);
     } catch (error) {
       Toast({
         type: "error",
         message: error.message,
       });
+      setLoading(false);
     }
   };
 
@@ -218,7 +243,25 @@ const CreateNewProduct = () => {
           </div>
         </div>
         <span className="heading">Upload Media</span>
+
         <div className="upload-image">
+          {Array.from({ length: 3 }).map((_, index) => {
+            return (
+              <div key={index} className="upload">
+                <UploadFile
+                  id={`media${index}`}
+                  name={`media${index}`}
+                  bg
+                  img={media[index]}
+                  noMargin
+                  disc="image should be up to 1mb only"
+                  onChange={(e) => handleFileChange(e, index)}
+                />
+              </div>
+            );
+          })}
+        </div>
+        {/* <div className="upload-image">
           <div className="upload">
             <UploadFile
               id="firstImg"
@@ -246,7 +289,7 @@ const CreateNewProduct = () => {
               onChange={(e) => setmedia((prev) => [...prev, e])}
             />
           </div>
-        </div>
+        </div> */}
         <div className="add-amenities-holder">
           <span className="heading">Investment Info:</span>
           <div className="add-amenities">
@@ -257,7 +300,7 @@ const CreateNewProduct = () => {
             </div>
           </div>
           <div className="amenities">
-            {amenities.map((elem, ind) => (
+            {amenities?.map((elem, ind) => (
               <>
                 <Form.Item
                   type="text"
@@ -265,20 +308,18 @@ const CreateNewProduct = () => {
                   sm
                   rounded
                   placeholder="Enter text"
-                  value={amenities[ind].amenitiesText}
+                  value={amenities[ind]}
                   onChange={(e) => {
                     form.setFieldsValue({
                       [`amentity${ind}`]: e.target.value,
                     });
                     setAmenities((prev) =>
-                      prev.map((item, i) =>
-                        i === ind ? { amenitiesText: e.target.value } : item
-                      )
+                      prev.map((item, i) => (i === ind ? e.target.value : item))
                     );
                   }}
                   rules={[
                     {
-                      required: ind <= 3 ? true : false,
+                      // required: ind <= 3 ? true : false,
                       message: "Please enter Amentity",
                     },
                     {
@@ -376,7 +417,15 @@ const CreateNewProduct = () => {
             <Field />
           </Form.Item>
         </div>
-        <Button type="primary" width="150px" sm rounded htmlType="submit">
+        <Button
+          type="primary"
+          width="150px"
+          sm
+          rounded
+          htmlType="submit"
+          loader={loading}
+          disabled={loading}
+        >
           Create Product
         </Button>
       </Form>
