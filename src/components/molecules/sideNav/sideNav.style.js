@@ -131,33 +131,46 @@ export const LinkContainer = styled.div`
 `;
 
 export const UserDet = styled.div`
-  max-width: 195px;
-  background-color: rgba(64, 143, 140, 0.3);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px 17px;
-  gap: 10px;
-  img {
-    border-radius: 50%;
-  }
-  .detailContainer {
+    max-width: 195px;
+    background-color: rgba(64, 143, 140, 0.3);
+    border-radius: 16px;
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .userName {
-    font-size: 14px;
-    font-weight: 400;
-  }
-  .type {
-    color: #408f8c;
-    font-size: 12px;
-    font-weight: 300;
-  }
-  .date {
-    font-size: 10px;
-    font-weight: 300;
-  }
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 17px;
+    gap: 10px;
+    .imageWrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        background-color: rgba(64, 143, 140, 0.3);
+        img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .detailContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .userName {
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .type {
+        color: #408f8c;
+        font-size: 12px;
+        font-weight: 300;
+    }
+    .date {
+        font-size: 10px;
+        font-weight: 300;
+    }
 `;

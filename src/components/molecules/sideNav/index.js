@@ -29,116 +29,73 @@ const SideBar = ({ data }) => {
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } =
     useContext(KycContext);
   return (
-    <>
-      {/* KYC MODAL */}
-      <CenterModal
-        zIndex={9999}
-        open={kyc1}
-        setOpen={setKyc1}
-        width="688"
-        title="Upgrade KYC"
-      >
-        <KycBuyerLevelOne setKycLevel={setKycLevel} setOpen={setKyc1} />
-      </CenterModal>
-      <CenterModal
-        zIndex={9999}
-        open={kyc2}
-        setOpen={setKyc2}
-        width="688"
-        title="Upgrade to KYC Level 2"
-      >
-        <KycBuyerLevelTwo setKycLevel={setKycLevel} setOpen={setKyc2} />
-      </CenterModal>
-      <CenterModal
-        zIndex={9999}
-        open={kyc3}
-        setOpen={setKyc3}
-        width="688"
-        title="Upgrade to KYC Level 3"
-      >
-        <KYCBuyerThree setKycLevel={setKycLevel} setOpen={setKyc3} />
-      </CenterModal>
-      {/* KYC MODAL */}
+      <>
+          {/* KYC MODAL */}
+          <CenterModal zIndex={9999} open={kyc1} setOpen={setKyc1} width="688" title="Upgrade KYC">
+              <KycBuyerLevelOne setKycLevel={setKycLevel} setOpen={setKyc1} />
+          </CenterModal>
+          <CenterModal zIndex={9999} open={kyc2} setOpen={setKyc2} width="688" title="Upgrade to KYC Level 2">
+              <KycBuyerLevelTwo setKycLevel={setKycLevel} setOpen={setKyc2} />
+          </CenterModal>
+          <CenterModal zIndex={9999} open={kyc3} setOpen={setKyc3} width="688" title="Upgrade to KYC Level 3">
+              <KYCBuyerThree setKycLevel={setKycLevel} setOpen={setKyc3} />
+          </CenterModal>
+          {/* KYC MODAL */}
 
-      <Sidenav>
-        <div
-          className="layer"
-          onClick={() => {
-            closeSideNav();
-          }}
-        />
-        <div className="nav-logo">
-          <Image src={logo} alt="logo" />
-        </div>
+          <Sidenav>
+              <div
+                  className="layer"
+                  onClick={() => {
+                      closeSideNav();
+                  }}
+              />
+              <div className="nav-logo">
+                  <Image src={logo} alt="logo" />
+              </div>
 
-        <LinkContainer>
-          {data.map((data, index) => (
-            <NavLinks key={index}>
-              <li className="listHead">{data.name}</li>
-              {data.link.map((data, index) => (
-                <li
-                  className={`NavItem ${
-                    pathname === `${data.navigation}` && "active"
-                  }`}
-                  key={index}
-                >
-                  {data.name === "Log Out" ? (
-                    <>
-                      <Link className="Link" onClick={onLogout} href="">
-                        <figure className="iconCon">
-                          <Image
-                            src={data.icon}
-                            width={18}
-                            height={18}
-                            alt="icon"
-                          />
-                        </figure>
-                        {data.name}
-                      </Link>
-                    </>
-                  ) : (
-                    <Link className="Link" href={data.navigation}>
-                      <figure className="iconCon">
-                        <Image
-                          src={data.icon}
-                          width={18}
-                          height={18}
-                          alt="icon"
-                        />
-                      </figure>
-                      {data.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </NavLinks>
-          ))}
-        </LinkContainer>
+              <LinkContainer>
+                  {data.map((data, index) => (
+                      <NavLinks key={index}>
+                          <li className="listHead">{data.name}</li>
+                          {data.link.map((data, index) => (
+                              <li className={`NavItem ${pathname === `${data.navigation}` && "active"}`} key={index}>
+                                  {data.name === "Log Out" ? (
+                                      <>
+                                          <Link className="Link" onClick={onLogout} href="">
+                                              <figure className="iconCon">
+                                                  <Image src={data.icon} width={18} height={18} alt="icon" />
+                                              </figure>
+                                              {data.name}
+                                          </Link>
+                                      </>
+                                  ) : (
+                                      <Link className="Link" href={data.navigation}>
+                                          <figure className="iconCon">
+                                              <Image src={data.icon} width={18} height={18} alt="icon" />
+                                          </figure>
+                                          {data.name}
+                                      </Link>
+                                  )}
+                              </li>
+                          ))}
+                      </NavLinks>
+                  ))}
+              </LinkContainer>
 
-        <UserDet>
-          <Image
-            src={user?.profilePicture || SellerProfile}
-            height={40}
-            width={40}
-            alt="user-profile"
-          />
-          <div className="detailContainer">
-            <span className="userName">{user?.fullName}</span>
-            <span className="type">
-              {user?.isIndividualSeller
-                ? "Individual Seller"
-                : "Company Seller"}
-            </span>
-            <span className="date">
-              Member since{" "}
-              {user?.created_at
-                ? format(new Date(user.created_at), "MMM d, yyyy")
-                : ""}
-            </span>
-          </div>
-        </UserDet>
-      </Sidenav>
-    </>
+              <UserDet>
+                  <figure className="imageWrapper">
+                      <Image src={user?.profilePicture || SellerProfile} height={40} width={40} alt="user-profile" />
+                  </figure>
+                  <div className="detailContainer">
+                      <span className="userName">{user?.fullName}</span>
+                      <span className="type">{user?.isIndividualSeller ? "Individual Seller" : "Company Seller"}</span>
+                      <span className="date">
+                          Member since {user?.created_at ? format(new Date(user.created_at), "MMM d, yyyy") : ""}
+                      </span>
+                  </div>
+              </UserDet>
+          </Sidenav>
+      </>
   );
 };
 
