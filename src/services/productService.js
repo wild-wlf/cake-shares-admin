@@ -1,7 +1,7 @@
 import { Fetch } from "../helpers/fetchWrapper";
 
 const productService = {
-  _url: `${process.env.NEXT_PUBLIC_USER_URL}/product`,
+  _url: `${process.env.NEXT_PUBLIC_USER_URL}`,
 
   async addProduct(payload) {
     let res = await Fetch.upload(

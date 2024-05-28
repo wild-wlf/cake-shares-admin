@@ -1,7 +1,7 @@
 import { Fetch } from "../helpers/fetchWrapper";
 
 const userService = {
-  _url: `${process.env.NEXT_PUBLIC_USER_URL}/user`,
+  _url: `${process.env.NEXT_PUBLIC_USER_URL}`,
 
   async login({ username = "", password = "" }) {
     let res = await Fetch.post(`${this._url}/login`, {
