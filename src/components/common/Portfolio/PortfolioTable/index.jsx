@@ -256,7 +256,7 @@ const PortfolioTable = ({title}) => {
             </CenterModal>
 
             <TableContainer>
-                <Image src={TableStyle} className="tableStyle" alt="tableStyle" />
+                <Image src={TableStyle} draggable="false" className="tableStyle" alt="tableStyle" />
                 <TableLayout
                     tableHeading={<ButtonsGroup title={title} />}
                     placeholder="Search Product"
