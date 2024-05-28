@@ -510,6 +510,27 @@ export const HelperClasses = css`
   .star-rating {
     font-size: 24px !important;
   }
+  .countrySelect {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    figure {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    img {
+      display: block;
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+    }
+  }
 `;
 
 export const PageWrapper = styled.div`
