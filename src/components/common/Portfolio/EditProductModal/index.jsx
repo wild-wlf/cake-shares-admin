@@ -18,56 +18,59 @@ import { AuthContext } from "@/context/authContext";
 import Toast from "@/components/molecules/Toast";
 
 const EditProductModal = ({ product, setEditProductModal }) => {
-  const { refetch } = useContextHook(AuthContext, (v) => ({
-    refetch: v.refetch,
-  }));
-  const [form] = useForm();
-  const [media, setMedia] = useState([]);
-  const [images, setImages] = useState([]);
+ const {user, refetch, fetch} = useContextHook(AuthContext, v => ({
+     refetch: v.refetch,
+     user: v.user,
+     fetch: v.fetch,
+ }));
+ const {products_data, products_loading} = productService.GetAllProducts(fetch);
 
-  const [amenities, setAmenities] = useState(product.amenities);
-  const handleSubmit = async (e) => {
-    const payload = {
-      ...e,
-      investmentType: e?.investmentType?.value,
-      kycLevel: e?.kycLevel.value,
-      media,
-      ...(images?.length > 0 && { images }),
-      amenities,
-    };
-    console.log(payload);
-    const formDataToSend = new FormData();
+ const [form] = useForm();
+ const [media, setMedia] = useState([]);
+ const [images, setImages] = useState([]);
 
-    Object.keys(payload).forEach((key) => {
-      if (key === "images") {
-        payload.images.forEach((file, index) => {
-          formDataToSend.append(`images[${index}]`, file);
-        });
-      } else if (
-        key === "media" ||
-        (key === "amenities" &&
-          (Array.isArray(payload[key]) || typeof payload[key] === "object"))
-      ) {
-        formDataToSend.append(key, JSON.stringify(payload[key]));
-      } else {
-        formDataToSend.append(key, payload[key]);
-      }
-    });
-    try {
-      await productService.updateProduct(product._id, formDataToSend);
-      refetch();
-      setEditProductModal(false);
-      Toast({
-        type: "success",
-        message: "Product updated successfully",
-      });
-    } catch (error) {
-      Toast({
-        type: "error",
-        message: error.message,
-      });
-    }
-  };
+ const [amenities, setAmenities] = useState(product.amenities);
+ const handleSubmit = async e => {
+     const payload = {
+         ...e,
+         investmentType: e?.investmentType?.value,
+         kycLevel: e?.kycLevel.value,
+         media,
+         ...(images?.length > 0 && {images}),
+         amenities,
+     };
+     console.log(payload);
+     const formDataToSend = new FormData();
+
+     Object.keys(payload).forEach(key => {
+         if (key === "images") {
+             payload.images.forEach((file, index) => {
+                 formDataToSend.append(`images[${index}]`, file);
+             });
+         } else if (
+             key === "media" ||
+             (key === "amenities" && (Array.isArray(payload[key]) || typeof payload[key] === "object"))
+         ) {
+             formDataToSend.append(key, JSON.stringify(payload[key]));
+         } else {
+             formDataToSend.append(key, payload[key]);
+         }
+     });
+     try {
+         await productService.updateProduct(product._id, formDataToSend);
+         Toast({
+             type: "success",
+             message: "Product updated successfully",
+         });
+         refetch();
+         setEditProductModal(false);
+     } catch (error) {
+         Toast({
+             type: "error",
+             message: error.message,
+         });
+     }
+ };
   const kycOptions = [
     { label: "Level 0", value: "0" },
     { label: "Level 1", value: "1" },
