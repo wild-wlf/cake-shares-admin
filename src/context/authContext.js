@@ -45,15 +45,15 @@ export const AuthContextProvider = props => {
     const onLogout = async () => {
         try {
             await userService.logout();
-        } finally {
+            setIsLoggedIn(false);
+
             clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
             clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
             clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
             await router.push("/sign-in");
             Toast({type: "success", message: "Logged Out Successfully!"});
-            setLoadingUser(false);
-            setIsLoggedIn(false);
-            setUser({});
+        } catch (error) {
+            console.error("Error during logout:", error);
         }
     };
 
@@ -120,13 +120,13 @@ export const AuthContextProvider = props => {
         }
     }, [isLoggedIn, permission]);
 
-    useEffect(() => {
-        if (socketData?.approved) {
-            setTimeout(() => {
-                getPermissions();
-            }, 1000);
-        }
-    }, [socketData]);
+    // useEffect(() => {
+    //     if (socketData?.approved) {
+    //         setTimeout(() => {
+    //             getPermissions();
+    //         }, 1000);
+    //     }
+    // }, [socketData]);
 
     const onLogin = async ({username, password}) => {
         setLoadingUser(true);
@@ -135,18 +135,20 @@ export const AuthContextProvider = props => {
             const res = await userService.login({
                 username,
                 password,
+                type: "Seller",
+                sellerType: true,
             });
 
             if (!res?.token) {
                 throw new Error(res?.message);
             }
 
-            setCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE, res.token);
-            router.push("/dashboard");
             setIsLoggedIn(true);
-            Toast({type: "success", message: "Logged In Successfully!"});
+            router.push("/dashboard");
+            setCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE, res.token);
             setLoadingUser(false);
             setLoading(false);
+            Toast({type: "success", message: "Logged In Successfully!"});
         } catch ({message}) {
             setIsLoggedIn(false);
             setLoadingUser(false);
@@ -281,7 +283,7 @@ export const AuthContextProvider = props => {
             }
             if (cookie === process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE) {
                 if (JSON.stringify(allowedPages) !== value && isLoggedIn) {
-                    getPermissions();
+                    // getPermissions();
                 }
             }
         }, 1000);
