@@ -9,8 +9,7 @@ import productImg3 from "../../../../_assets/product-img-3.png";
 import {daysLeft, formatDateWithSuffix} from "@/helpers/common";
 
 const ProductDetailModal = ({data}) => {
-    console.log(formatDateWithSuffix(data?.deadline));
-    console.log(daysLeft(data?.deadline));
+    console.log(data);
     const infoData = [
         {
             heading: "Product Name:",
@@ -30,7 +29,7 @@ const ProductDetailModal = ({data}) => {
         },
         {
             heading: "KYC Level:",
-            text: "Level 3 Required",
+            text: `Level ${data?.kycLevel} Required`,
         },
     ];
     const investmentData = [
@@ -66,11 +65,11 @@ const ProductDetailModal = ({data}) => {
     const productDescription = [
         {
             heading: "Product Description",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultricies et mi quis scelerisque. Integer vitae posuere est, nec mollis diam. Donec feugiat eu mauris sed rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam auctor gravida nulla. Curabitur eu congue augue.",
+            text: data?.description,
         },
         {
             heading: "Why Invest in it?",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultricies et mi quis scelerisque. Integer vitae posuere est, nec mollis diam. Donec feugiat eu mauris sed rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam auctor gravida nulla. Curabitur eu congue augue.",
+            text: data?.investmentReason,
         },
     ];
     return (
@@ -103,35 +102,21 @@ const ProductDetailModal = ({data}) => {
             <div className="product-media">
                 <span className="heading">Product Media:</span>
                 <div className="product-images">
-                    <div className="img-holder">
-                        <Image src={productImg1} alt="productImg1" />
-                    </div>
-                    <div className="img-holder">
-                        <Image src={productImg2} alt="productImg1" />
-                    </div>
-                    <div className="img-holder">
-                        <Image src={productImg3} alt="productImg1" />
-                    </div>
+                    {data?.media?.map((item, index) => (
+                        <div className="img-holder" key={index}>
+                            <Image src={item} alt="productImg1" width={319} height={191} />
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className="amenities-holder">
                 <span className="heading">Amenities:</span>
                 <div className="amenities">
-                    <div className="product-property">
-                        <span>Grade A Property</span>
-                    </div>
-                    <div className="product-property">
-                        <span>Grade A Property</span>
-                    </div>
-                    <div className="product-property">
-                        <span>Grade A Property</span>
-                    </div>
-                    <div className="product-property">
-                        <span>Premium Collection</span>
-                    </div>
-                    <div className="product-property">
-                        <span>Premium Collection</span>
-                    </div>
+                    {data?.amenities.map((item, index) => (
+                        <div className="product-property" key={index}>
+                            <span>{item}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className="product-info investment-info">

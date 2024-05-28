@@ -29,7 +29,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
  const [media, setMedia] = useState([]);
  const [images, setImages] = useState([]);
 
- const [amenities, setAmenities] = useState(product.amenities);
+  const [amenities, setAmenities] = useState(product.amenities);
  const handleSubmit = async e => {
      const payload = {
          ...e,
