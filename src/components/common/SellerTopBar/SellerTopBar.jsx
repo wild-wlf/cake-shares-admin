@@ -28,8 +28,9 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
         open={createProductModal}
         setOpen={setCreateProductModal}
         title="Create new Product"
-        width="900">
-        <CreateNewProduct />
+        width="900"
+      >
+        <CreateNewProduct setCreateProductModal={setCreateProductModal} />
       </CenterModal>
       <Container>
         <div className="barData">
@@ -37,7 +38,8 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             className="closedNav"
             onClick={() => {
               openSideNav();
-            }}>
+            }}
+          >
             <HiOutlineMenuAlt1 />
           </div>
           <div className="dataContainer">
@@ -61,7 +63,8 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             className="notification"
             onClick={() => {
               setNotifications(!notifications);
-            }}>
+            }}
+          >
             <Image src={bell} alt="bell" className="bell" />
             {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
             <div
@@ -69,7 +72,8 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
                 notifications
                   ? "notificationWrapper-visible"
                   : "notificationWrapper"
-              }>
+              }
+            >
               <Notifications />
             </div>
           </div>
@@ -79,7 +83,8 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             btntype="new"
             width={"150px"}
             height={"35px"}
-            onClick={() => setCreateProductModal(true)}>
+            onClick={() => setCreateProductModal(true)}
+          >
             Create New Product
           </Button>
         </div>

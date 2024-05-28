@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { ContentHolder, Head, StyledModal } from "./Modal.styles";
 import Image from "next/image";
+import { RxCross2 } from "react-icons/rx";
 
 const CenterModal = ({
   children,
@@ -79,7 +80,7 @@ const CenterModal = ({
                 onClick={handleClose}
                 tabIndex={0}
               >
-                <Image src={close} alt="Close-Modal" />
+                <RxCross2 />
               </button>
             )}
           </Head>
