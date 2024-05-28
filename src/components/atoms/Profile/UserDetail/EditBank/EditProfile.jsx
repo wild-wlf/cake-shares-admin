@@ -12,10 +12,10 @@ import ChangePassword from "../ChangePassword";
 import userService from "@/services/userService";
 import Toast from "@/components/molecules/Toast";
 import { useContextHook } from "use-context-hook";
-import { convertDateToISO } from "@/helpers/common";
 import CenterModal from "@/components/molecules/Modal/CenterModal";
 import { AuthContext } from "@/context/authContext";
 import Field from "@/components/atoms/Field";
+import { convertDateToISO } from "@/helpers/common";
 const EditProfile = ({ personalInfo, onClose }) => {
   console.log("edit", personalInfo);
   const [arr, setArr] = useState(countries);
@@ -61,7 +61,7 @@ const EditProfile = ({ personalInfo, onClose }) => {
     });
   }, []);
   async function handelSubmit(e) {
-    setLoading(true);
+    // setLoading(true);
     // console.log(e);
     const obj = {
       type: "personal",
@@ -72,8 +72,10 @@ const EditProfile = ({ personalInfo, onClose }) => {
         country: e.country.value,
         dob: convertDateToISO(e.dob),
       },
-    };
+    }
     try {
+    setLoading(true);
+
       await userService.update(obj, personalInfo.Id);
       setPermission(true);
       onClose();

@@ -270,5 +270,8 @@ export const daysLeft = dateObj => {
     // console.log(formatDistanceToNow(date));
     // return formatDistanceToNow(date, {addSuffix: false});
 };
-
+export const convertDateToISO = (dateStr) => {
+    const [day, month, year] = dateStr.split("/");
+    return `${year}-${month}-${day}`;
+  };
 
