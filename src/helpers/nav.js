@@ -51,7 +51,7 @@ export const indivisualSellerNav = [
     name: "System",
     link: [
       {
-        navigation: "/my-wallet",
+        navigation: "/wallet",
         name: "My Wallet",
         icon: navWalletIcon,
       },

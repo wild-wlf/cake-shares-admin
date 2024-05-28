@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { Fetch } from "../helpers/fetchWrapper";
-import { useCancellablePromise } from "@/helpers/promiseHandler";
+import {useEffect, useState} from "react";
+import {Fetch} from "../helpers/fetchWrapper";
+import {useCancellablePromise} from "@/helpers/promiseHandler";
 const STATUS = {
-  LOADING: "loading",
-  SUCCESS: "success",
-  ERROR: "error",
+    LOADING: "loading",
+    SUCCESS: "success",
+    ERROR: "error",
 };
 const productService = {
     _url: `${process.env.NEXT_PUBLIC_PRODUCT_URL}`,

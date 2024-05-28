@@ -2,10 +2,10 @@ import Profile from "@/components/atoms/Profile";
 import UserDetail from "@/components/atoms/Profile/UserDetail";
 import Categories from "@/components/atoms/categories";
 import SellerTopBar from "@/components/common/SellerTopBar/SellerTopBar";
-import { AuthContext } from "@/context/authContext";
-import { SellerContainer } from "@/styles/GlobalStyles.styles";
+import {AuthContext} from "@/context/authContext";
+import {SellerContainer} from "@/styles/GlobalStyles.styles";
 import React from "react";
-import { useContextHook } from "use-context-hook";
+import {useContextHook} from "use-context-hook";
 
 const ProfilePage = () => {
     const {user} = useContextHook(AuthContext, v => ({

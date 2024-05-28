@@ -1,4 +1,4 @@
-import { Fetch } from "../helpers/fetchWrapper";
+import {Fetch} from "../helpers/fetchWrapper";
 
 const userService = {
     _url: `${process.env.NEXT_PUBLIC_USER_URL}`,
