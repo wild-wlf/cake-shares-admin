@@ -85,6 +85,8 @@ export const AuthContextProvider = props => {
                 }
             })
             .catch(err => {
+                clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
+                clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
                 setLoadingUser(false);
                 Toast({
                     type: "error",
