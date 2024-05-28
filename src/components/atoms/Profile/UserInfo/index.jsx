@@ -20,8 +20,9 @@ import profile from "../../../../_assets/profileplaceHolder.jpg";
 import Toast from "@/components/molecules/Toast";
 
 const UserInfo = ({userImage}) => {
-    const {user} = useContextHook(AuthContext, v => ({
+    const {user, setPermission} = useContextHook(AuthContext, v => ({
         user: v.user,
+        setPermission: v.setPermission,
     }));
     console.log(user);
     const {kycLevel, setKycLevel, checkKycLevel} = useContext(KycContext);
@@ -41,7 +42,7 @@ const UserInfo = ({userImage}) => {
                     type: "success",
                     message: "profile updated successfully",
                 });
-                // setPermission(true);
+                setPermission(true);
             } catch (error) {
                 Toast({
                     type: "error",
