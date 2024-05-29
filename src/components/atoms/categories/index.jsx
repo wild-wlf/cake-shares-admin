@@ -36,72 +36,69 @@ const images = [
     id: "6",
   },
 ];
-const Categories = ({ title, arr = images }) => {
-  var settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: { slidesToShow: 3.5 },
-      },
-      {
-        breakpoint: 1100,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 1000,
-        settings: { slidesToShow: 2.5 },
-      },
-      {
-        breakpoint: 900,
-        settings: { slidesToShow: 2 },
-      },
-      // {
-      //   breakpoint: 768,
-      //   settings: { slidesToShow: 4 },
-      // },
-      // {
-      //   breakpoint: 700,
-      //   settings: { slidesToShow: 3.5 },
-      // },
-      // {
-      //   breakpoint: 600,
-      //   settings: { slidesToShow: 3 },
-      // },
-      // {
-      //   breakpoint: 510,
-      //   settings: { slidesToShow: 2.5 },
-      // },
-      // {
-      //   breakpoint: 430,
-      //   settings: { slidesToShow: 2 },
-      // },
-    ],
-  };
-
-  return (
-    <CategoriesWrapper image={arrowRight}>
-      <div className="title">
-        <span>{title}</span>
-      </div>
-      <div className="slider">
-        <Slider {...settings}>
-          {arr?.map((data, index) => (
-            <>
-              {/* <Link href={`/products/${data.id}`} key={index}> */}
-              <Card Cardimage={data.image} />
-              {/* </Link> */}
-            </>
-          ))}
-        </Slider>
-      </div>
-    </CategoriesWrapper>
-  );
+const Categories = ({title, arr = images, data}) => {
+    var settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {slidesToShow: 3.5},
+            },
+            {
+                breakpoint: 1100,
+                settings: {slidesToShow: 3},
+            },
+            {
+                breakpoint: 1000,
+                settings: {slidesToShow: 2.5},
+            },
+            {
+                breakpoint: 900,
+                settings: {slidesToShow: 2},
+            },
+            // {
+            //   breakpoint: 768,
+            //   settings: { slidesToShow: 4 },
+            // },
+            // {
+            //   breakpoint: 700,
+            //   settings: { slidesToShow: 3.5 },
+            // },
+            // {
+            //   breakpoint: 600,
+            //   settings: { slidesToShow: 3 },
+            // },
+            // {
+            //   breakpoint: 510,
+            //   settings: { slidesToShow: 2.5 },
+            // },
+            // {
+            //   breakpoint: 430,
+            //   settings: { slidesToShow: 2 },
+            // },
+        ],
+    };
+    return (
+        <CategoriesWrapper image={arrowRight}>
+            <div className="title">
+                <span>{title}</span>
+            </div>
+            <div className="slider">
+                <Slider {...settings}>
+                    {data?.map((item, index) => (
+                        <>
+                            <Card Cardimage={item.media[0] || Property} data={item} />
+                        </>
+                    ))}
+                </Slider>
+            </div>
+        </CategoriesWrapper>
+    );
 };
 
 export default Categories;

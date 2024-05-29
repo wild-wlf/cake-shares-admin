@@ -17,8 +17,8 @@ const KYCBuyerThree = ({ setOpen, setKycLevel }) => {
   const [step, setStep] = useState(1);
   const optionData = [{ label: "Buyer Level Two", value: "Buyer Level Two" }];
   function handelKycLevel() {
-    setOpen(false);
-    setKycLevel(4);
+      setOpen(false);
+      // setKycLevel(4);
   }
   return (
     <StyledKycBuyer>

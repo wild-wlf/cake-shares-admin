@@ -17,66 +17,64 @@ const Login = () => {
   }));
   const [form] = useForm();
   return (
-    <StyledLogin>
-      <div className="loginWrap">
-        <div className="logo">
-          <Image src={logo} alt="logo" />
-        </div>
-        <strong className="title">
-          Welcome Back! <br /> you have been missed.
-        </strong>
+      <StyledLogin>
+          <div className="loginWrap">
+              <div className="logo">
+                  <Image src={logo} alt="logo" />
+              </div>
+              <strong className="title">
+                  Welcome Back! <br /> you have been missed.
+              </strong>
 
-        <div className="formWrap">
-          <Form form={form} onSubmit={onLogin}>
-            <Form.Item
-              invert
-              type="text"
-              label="Username"
-              name="username"
-              sm
-              rounded
-              placeholder="jhondoe@gmail.com"
-              rules={[
-                {
-                  required: true,
-                  message: "Username is Required",
-                },
-              ]}
-            >
-              <Field invert />
-            </Form.Item>
-            <Form.Item
-              invert
-              type="password"
-              label="Password"
-              name="password"
-              sm
-              rounded
-              placeholder="****************"
-              rules={[
-                {
-                  required: true,
-                  message: "Password is Required",
-                },
-              ]}
-            >
-              <Field invert />
-            </Form.Item>
-            <div className="formAction">
-              <CheckBox label="Remember me" color />
-            </div>
-            <Button block htmlType={loading ? "button" : "submit"} type="green">
-              Sign in
-            </Button>
-          </Form>
-        </div>
-      </div>
-      <div className="loginBanner">
-        <div className="imageWrap">
-          <Image src={loginbanner} alt="loginbanner" />
-        </div>
-      </div>
-    </StyledLogin>
+              <div className="formWrap">
+                  <Form form={form} onSubmit={onLogin}>
+                      <Form.Item
+                          invert
+                          type="text"
+                          label="Username"
+                          name="username"
+                          sm
+                          rounded
+                          placeholder="jhondoe@gmail.com"
+                          rules={[
+                              {
+                                  required: true,
+                                  message: "Username is Required",
+                              },
+                          ]}>
+                          <Field invert />
+                      </Form.Item>
+                      <Form.Item
+                          invert
+                          type="password"
+                          label="Password"
+                          name="password"
+                          sm
+                          rounded
+                          placeholder="****************"
+                          rules={[
+                              {
+                                  required: true,
+                                  message: "Password is Required",
+                              },
+                          ]}>
+                          <Field invert />
+                      </Form.Item>
+                      <div className="formAction">
+                          <CheckBox label="Remember me" color />
+                      </div>
+                      <Button block htmlType={loading ? "button" : "submit"} type="green" md rounded>
+                          Sign in
+                      </Button>
+                  </Form>
+              </div>
+          </div>
+          <div className="loginBanner">
+              <div className="imageWrap">
+                  <Image src={loginbanner} alt="loginbanner" />
+              </div>
+          </div>
+      </StyledLogin>
   );
 };
 

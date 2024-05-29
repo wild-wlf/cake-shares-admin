@@ -5,8 +5,8 @@ import Button from "../../Button";
 
 const KycBuyerLevelOne = ({ setOpen, setKycLevel }) => {
   function handelKycLevel() {
-    setOpen(false);
-    setKycLevel(2);
+      setOpen(false);
+      // setKycLevel(2);
   }
   return (
     <StyledKycBuyer>
