@@ -3,10 +3,12 @@ import {Fetch} from "../helpers/fetchWrapper";
 const userService = {
     _url: `${process.env.NEXT_PUBLIC_USER_URL}`,
 
-    async login({username = "", password = ""}) {
+    async login({username = "", password = "", type = "", sellerType}) {
         let res = await Fetch.post(`${this._url}/login`, {
             username,
             password,
+            type,
+            sellerType,
         });
         if (res.status >= 200 && res.status < 300) {
             res = await res.json();
