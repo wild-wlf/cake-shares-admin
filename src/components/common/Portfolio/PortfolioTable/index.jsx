@@ -40,12 +40,11 @@ const PortfolioTable = ({title}) => {
         page: 1,
         itemsPerPage: 10,
         searchText: "",
-        type: "All",
+        type: "all",
         startDate: "",
         endDate: "",
     });
     console.log(searchQuery);
-
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const {products_data, products_loading} = productService.GetAllProducts(searchQuery, fetch);
@@ -184,7 +183,7 @@ const PortfolioTable = ({title}) => {
             </ActionBtnList>
         </>
     );
-
+    console.log(products_data);
     const {product_rows, totalItems} = useMemo(() => {
         const items = products_data.items || [];
         return {

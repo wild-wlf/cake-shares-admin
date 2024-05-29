@@ -81,10 +81,10 @@ const UserInfo = ({userImage}) => {
                 <div className="kycWrapper">
                     <div className="headingWrapper">
                         <strong className="headingText">My KYC Level</strong>
-                        <strong className="headingText">{kycLevel - 1}</strong>
+                        <strong className="headingText">{user?.kycLevel}</strong>
                     </div>
                     <div className="updgradeKyc">
-                        <KycLevel level={kycLevel} />
+                        <KycLevel level={user?.kycLevel + 1} />
                         <span className="discreption" onClick={checkKycLevel}>
                             Upgrade KYC
                         </span>

@@ -30,7 +30,7 @@ const ButtonsGroup = ({title = "", setSearchQuery}) => {
                             className={Tab === index ? "button active" : "button"}
                             onClick={() => {
                                 setTab(index);
-                                setSearchQuery(prev => ({...prev, type: item.text}));
+                                setSearchQuery(prev => ({...prev, type: item.text.toLowerCase()}));
                             }}>
                             {item.image}
                             {item.text}
