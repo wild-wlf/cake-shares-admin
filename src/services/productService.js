@@ -40,7 +40,7 @@ const productService = {
             products_data: products,
         };
     },
-    async getAllProducts({page = 1, itemsPerPage = 10, status = ""}) {
+    async getAllProducts({page = 1, itemsPerPage = 10, status = "", searchText = "", type = ""}) {
         let res = await Fetch.get(
             `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&status=${status}`
         );
