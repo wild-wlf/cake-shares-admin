@@ -17,36 +17,36 @@ function ReactDateRange({
   ...props
 }) {
   return (
-    <StyledDateRange
-      disabled={disabled}
-      excludeDateIntervals={excludeDateIntervals}
-      prefix={prefix}
-      suffix={suffix}
-      invalid={invalid || error}
-      renderCustomHeader={({
-        date,
-        changeYear,
-        changeMonth,
-        decreaseMonth,
-        increaseMonth,
-        prevMonthButtonDisabled,
-        nextMonthButtonDisabled,
-      }) => (
-        <DatePickerHeader
-          date={date}
-          changeYear={changeYear}
-          changeMonth={changeMonth}
-          decreaseMonth={decreaseMonth}
-          increaseMonth={increaseMonth}
-          prevMonthButtonDisabled={prevMonthButtonDisabled}
-          nextMonthButtonDisabled={nextMonthButtonDisabled}
-        />
-      )}
-      {...props}
-      onChange={(_) => {
-        onChange({ target: { value: _, name: props.name } });
-      }}
-    />
+      <StyledDateRange
+          disabled={disabled}
+          excludeDateIntervals={excludeDateIntervals}
+          prefix={prefix}
+          suffix={suffix}
+          invalid={invalid || error}
+          renderCustomHeader={({
+              date,
+              changeYear,
+              changeMonth,
+              decreaseMonth,
+              increaseMonth,
+              prevMonthButtonDisabled,
+              nextMonthButtonDisabled,
+          }) => (
+              <DatePickerHeader
+                  date={date}
+                  changeYear={changeYear}
+                  changeMonth={changeMonth}
+                  decreaseMonth={decreaseMonth}
+                  increaseMonth={increaseMonth}
+                  prevMonthButtonDisabled={prevMonthButtonDisabled}
+                  nextMonthButtonDisabled={nextMonthButtonDisabled}
+              />
+          )}
+          {...props}
+          onChange={_ => {
+              onChange({target: {value: _, name: props.name}});
+          }}
+      />
   );
 }
 
