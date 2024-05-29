@@ -275,3 +275,15 @@ export const convertDateToISO = (dateStr) => {
     return `${year}-${month}-${day}`;
   };
 
+
+ export const debounce = (func, delay) => {
+     let timeoutId;
+     return (...args) => {
+         if (timeoutId) {
+             clearTimeout(timeoutId);
+         }
+         timeoutId = setTimeout(() => {
+             func(...args);
+         }, delay);
+     };
+ };

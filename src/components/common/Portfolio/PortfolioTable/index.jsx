@@ -28,6 +28,7 @@ import SelectRangeModal from "@/components/atoms/SelectRangeModal";
 import productService from "@/services/productService";
 import {useContextHook} from "use-context-hook";
 import {AuthContext} from "@/context/authContext";
+import {format} from "date-fns";
 
 const PortfolioTable = ({title}) => {
     const {user, fetch, refetch} = useContextHook(AuthContext, v => ({
@@ -38,7 +39,14 @@ const PortfolioTable = ({title}) => {
     const [searchQuery, setSearchQuery] = useState({
         page: 1,
         itemsPerPage: 10,
+        searchText: "",
+        type: "all",
+        startDate: "",
+        endDate: "",
     });
+    console.log(searchQuery);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const {products_data, products_loading} = productService.GetAllProducts(searchQuery, fetch);
     const [open, setOpen] = useState(false);
     const [statementModal, setStatementModal] = useState(false);
@@ -175,7 +183,7 @@ const PortfolioTable = ({title}) => {
             </ActionBtnList>
         </>
     );
-
+    console.log(products_data);
     const {product_rows, totalItems} = useMemo(() => {
         const items = products_data.items || [];
         return {
@@ -203,7 +211,37 @@ const PortfolioTable = ({title}) => {
     return (
         <>
             <CenterModal open={open} setOpen={setOpen} width="666" padding={"30px"} title="Select Range">
-                <SelectRangeModal />
+                <SelectRangeModal
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={dates => {
+                        const [start, end] = dates?.target?.value;
+                        setStartDate(start);
+                        setEndDate(end);
+                    }}
+                    onApplyDate={() => {
+                        if (startDate && endDate) {
+                            setSearchQuery({
+                                ...searchQuery,
+                                startDate: format(new Date(startDate), "yyyy-MM-dd"),
+                                endDate: format(new Date(endDate), "yyyy-MM-dd"),
+                            });
+                            setOpen(false);
+                        }
+                    }}
+                    onClearDate={() => {
+                        setStartDate(null);
+                        setEndDate(null);
+                        if (startDate && endDate) {
+                            setSearchQuery({
+                                ...searchQuery,
+                                startDate: "",
+                                endDate: "",
+                            });
+                        }
+                    }}
+                    setOpen={setOpen}
+                />
             </CenterModal>
 
             <CenterModal
@@ -258,7 +296,10 @@ const PortfolioTable = ({title}) => {
             <TableContainer>
                 <Image src={TableStyle} draggable="false" className="tableStyle" alt="tableStyle" />
                 <TableLayout
-                    tableHeading={<ButtonsGroup title={title} />}
+                    onChangeFilters={e => {
+                        setSearchQuery(prev => ({...prev, searchText: e}));
+                    }}
+                    tableHeading={<ButtonsGroup title={title} setSearchQuery={setSearchQuery} />}
                     placeholder="Search Product"
                     btnWidth={"40px"}
                     btnType="download"

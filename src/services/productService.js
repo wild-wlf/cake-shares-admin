@@ -40,9 +40,17 @@ const productService = {
             products_data: products,
         };
     },
-    async getAllProducts({page = 1, itemsPerPage = 10, status = ""}) {
+    async getAllProducts({
+        page = 1,
+        itemsPerPage = 10,
+        status = "",
+        searchText = "",
+        type = "",
+        startDate = "",
+        endDate = "",
+    }) {
         let res = await Fetch.get(
-            `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&status=${status}`
+            `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&searchText=${searchText}&type=${type}&startDate=${startDate}&endDate=${endDate}`
         );
         if (res.status >= 200 && res.status < 300) {
             res = await res.json();

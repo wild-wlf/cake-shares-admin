@@ -13,11 +13,9 @@ import {AuthContext} from "@/context/authContext";
 import {useContextHook} from "use-context-hook";
 
 const SellerTopBar = ({title, tagLine, suffix}) => {
-    const {user, isLoggedIn} = useContextHook(AuthContext, v => ({
+    const {user} = useContextHook(AuthContext, v => ({
         user: v.user,
-        isLoggedIn: v.isLoggedIn,
     }));
-    console.log(user);
     const [notifications, setNotifications] = useState(false);
     const [createProductModal, setCreateProductModal] = useState(false);
 
