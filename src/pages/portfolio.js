@@ -1,18 +1,29 @@
 import PortfolioTable from "@/components/common/Portfolio/PortfolioTable";
 import SellerTopBar from "@/components/common/SellerTopBar/SellerTopBar";
-import { SellerContainer } from "@/styles/GlobalStyles.styles";
+import {AuthContext} from "@/context/authContext";
+import productService from "@/services/productService";
+import {SellerContainer} from "@/styles/GlobalStyles.styles";
 import React from "react";
+import {useContextHook} from "use-context-hook";
 
-const portfolio = () => {
-  return (
-    <SellerContainer>
-      <SellerTopBar
-        title={"My Portfolio"}
-        tagLine={"You have total 101 Products in your Portfolio right now!"}
-      />
-      <PortfolioTable />
-    </SellerContainer>
-  );
+const Portfolio = () => {
+    const {fetch} = useContextHook(AuthContext, v => ({
+        fetch: v.fetch,
+    }));
+    const {products_data, products_loading} = productService.GetAllProducts(fetch);
+
+    console.log("products_data", products_data?.items);
+    return (
+        <SellerContainer>
+            <SellerTopBar
+                title={"My Portfolio"}
+                tagLine={`You have total ${
+                    products_data?.items?.length ? products_data?.items.length : "0"
+                } Products in your Portfolio right now!`}
+            />
+            <PortfolioTable />
+        </SellerContainer>
+    );
 };
 
-export default portfolio;
+export default Portfolio;
