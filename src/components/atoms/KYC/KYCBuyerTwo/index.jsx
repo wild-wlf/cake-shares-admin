@@ -18,8 +18,8 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel }) => {
   const [step, setStep] = useState(1);
   const optionData = [{ label: "Buyer Level Two", value: "Buyer Level Two" }];
   function handelKycLevel() {
-    setOpen(false);
-    setKycLevel(3);
+      setOpen(false);
+      // setKycLevel(3);
   }
   // function handelSubmit(e) {
   //   console.log(e);
