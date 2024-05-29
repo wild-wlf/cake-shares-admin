@@ -8,9 +8,15 @@ import termsIcon from "../../../_assets/termsIcon.png";
 import ProfileMenuImage from "../../../_assets/ProfileMenuImage.png";
 import Image from "next/image";
 import CenterModal from "../Modal/CenterModal";
-import PrivacyPolicy from "../PrivacyPolicyModal/PrivacyPolicy";     
+import PrivacyPolicy from "../PrivacyPolicyModal/PrivacyPolicy";
+import { AuthContext } from "@/context/authContext";
+import { useContextHook } from "use-context-hook";
 
 const ProfileMenu = ({ openProfile }) => {
+  const { user, onLogout } = useContextHook(AuthContext, (v) => ({
+    user: v.user,
+    onLogout: v.onLogout,
+  }));
   const [open, setOpen] = useState();
   const [openTerms, setOpenTerms] = useState();
 
@@ -40,7 +46,7 @@ const ProfileMenu = ({ openProfile }) => {
         <div className="top">
           <div className="Dp">
             <Image
-              src={ProfileMenuImage}
+              src={user?.profilePicture || ProfileMenuImage}
               height={90}
               width={90}
               alt="Profile Picture"
@@ -48,7 +54,7 @@ const ProfileMenu = ({ openProfile }) => {
             />
           </div>
           <div className="Edit">
-            <h3>Alex</h3>
+            <h3>{user?.fullName}</h3>
             <h4>Buyer Account</h4>
           </div>
         </div>
@@ -104,7 +110,7 @@ const ProfileMenu = ({ openProfile }) => {
               src={LogOut}
               alt="Settings"
             />
-            <h5>Logout</h5>
+            <h5 onClick={onLogout}>Logout</h5>
           </div>
         </div>
       </ProfileSec>

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import Form from "@/components/molecules/Form/Form";
 
-export const StyledEditForm = styled.div`
+export const StyledEditForm = styled(Form)`
   padding-top: 30px;
   .combine-fields {
     display: grid;
@@ -12,14 +13,18 @@ export const StyledEditForm = styled.div`
     }
   }
   .fake-label {
-    display: inline-flex;
+    display: block;
     gap: 10px;
+    margin-top: 30px;
     margin-bottom: 15px;
     font-size: 16px;
     font-weight: 500;
     line-height: 20px;
     text-align: left;
     cursor: pointer;
+    img {
+      margin-left: 8px;
+    }
   }
   .subTitle {
     display: block;

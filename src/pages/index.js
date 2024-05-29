@@ -1,39 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import TopBar from "@/components/common/TopBar/TopBar";
-import MyWallet from "../components/common/MyWallet/MyWallet";
-import TransactionTable from "../components/common/TransactionTable";
-import DetailBar from "@/components/atoms/DetailBar";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { getCookie } from "@/helpers/common";
 
-const Buyer = () => {
-  // console.log(userType);
+const Home = () => {
+  const allowedPages = getCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
   const router = useRouter();
-  console.log(router.query.type, "start");
 
   useEffect(() => {
-    if (router.query.type) {
-      if (router.query.type === "buyer") {
-        console.log("inside");
-        router.push("/buyer");
-      } else if (
-        router.query.type === "seller" ||
-        router.query.type === "company"
-      ) {
-        router.push("/dashboard");
-      }
+    if (allowedPages) {
+      router.push(allowedPages[0]);
+    } else {
+      router.push("/sign-in");
     }
-    // console.log(router);
-  }, [router.query.type]);
-  console.log(router.query.type, "end");
-
-  return (
-    <>
-      {/* <TopBar />
-      <MyWallet />
-      <DetailBar />
-      <TransactionTable /> */}
-    </>
-  );
+  });
+  return <div></div>;
 };
 
-export default Buyer;
+export default Home;

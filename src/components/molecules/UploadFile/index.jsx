@@ -138,7 +138,8 @@ const UploadFile = ({
           onDragLeave={(event) => {
             event.preventDefault();
           }}
-          {...props}>
+          {...props}
+        >
           {({
             getRootProps,
             acceptedFile,
@@ -152,7 +153,8 @@ const UploadFile = ({
               css={`
                 padding: 38px;
               `}
-              className="labelButton">
+              className="labelButton"
+            >
               <div>
                 {acceptedFile ? (
                   <FileUploadBox>
@@ -170,7 +172,8 @@ const UploadFile = ({
                       }}
                       onMouseOut={(event) => {
                         event.preventDefault();
-                      }}>
+                      }}
+                    >
                       <Remove />
                     </RemoveBtn>
                   </FileUploadBox>
