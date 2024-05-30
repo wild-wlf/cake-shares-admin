@@ -23,7 +23,6 @@ import DeleteModal from "@/components/atoms/ProductDeleteModal/DeleteModal";
 import SuccessfulModal from "@/components/atoms/ProductDeleteModal/SuccessfulModal";
 import AdvertiseModal from "@/components/atoms/AdvertiseProductModal/AdvertiseModal";
 import AdvertiseSuccessfulModal from "@/components/atoms/AdvertiseProductModal/AdvertiseSuccessfulModal";
-import CreateNewProduct from "../CreateNewProduct";
 import SelectRangeModal from "@/components/atoms/SelectRangeModal";
 import productService from "@/services/productService";
 import {useContextHook} from "use-context-hook";
@@ -31,10 +30,9 @@ import {AuthContext} from "@/context/authContext";
 import {format} from "date-fns";
 
 const PortfolioTable = ({title}) => {
-    const {user, fetch, refetch} = useContextHook(AuthContext, v => ({
+    const {fetch, refetch} = useContextHook(AuthContext, v => ({
         fetch: v.fetch,
         refetch: v.refetch,
-        user: v.user,
     }));
     const [searchQuery, setSearchQuery] = useState({
         page: 1,
@@ -44,17 +42,14 @@ const PortfolioTable = ({title}) => {
         startDate: "",
         endDate: "",
     });
-    console.log(searchQuery);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const {products_data, products_loading} = productService.GetAllProducts(searchQuery, fetch);
     const [open, setOpen] = useState(false);
     const [statementModal, setStatementModal] = useState(false);
-    const [productData, setproductData] = useState([]);
     const [selecteData, setSelecteData] = useState();
     const [productDetailModal, setProductDetailModal] = useState(false);
     const [editProductModal, setEditProductModal] = useState(false);
-    const [createProductModal, setCreateProductModal] = useState(false);
     const [productDeleteModal, setProductDeleteModal] = useState(false);
     const [productAdvertiseModal, setProductAdvertiseModal] = useState(false);
     const [deleteSuccessfulModal, setDeleteSuccessfulModal] = useState(false);
@@ -65,10 +60,7 @@ const PortfolioTable = ({title}) => {
     const openModal = () => {
         setOpen(true);
     };
-    const openStatementModal = () => {
-        setStatementModal(true);
-        setOpen(false);
-    };
+
     const closeDeleteModal = () => {
         setProductDeleteModal(false);
     };
@@ -255,7 +247,7 @@ const PortfolioTable = ({title}) => {
             <CenterModal
                 open={productDetailModal}
                 setOpen={setProductDetailModal}
-                title="Gov. Egypt Property Detail"
+                title={`${selecteData?.productName} Property Detail`}
                 width="1030">
                 <ProductDetailModal data={selecteData} />
             </CenterModal>
