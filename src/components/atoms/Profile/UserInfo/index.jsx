@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { ProfileWrapper, StyledUserInfo } from "./UserInfo.styles";
+import React, {useContext, useState} from "react";
+import {ProfileWrapper, StyledUserInfo} from "./UserInfo.styles";
 
 import popular from "../../../../_assets/popular.svg";
 import PropertyIcon from "../../../../_assets/PropertyIcon.svg";
@@ -7,10 +7,10 @@ import VentureIcon from "../../../../_assets/VentureIcon.svg";
 import chatIcon from "../../../../_assets/chat-icon.svg";
 import Image from "next/image";
 import KycLevel from "../../KYC/KycLevel";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 import Button from "../../Button";
-import { MdEdit } from "react-icons/md";
-import { KycContext } from "@/context/KycContext";
+import {MdEdit} from "react-icons/md";
+import {KycContext} from "@/context/KycContext";
 import {useContextHook} from "use-context-hook";
 import {AuthContext} from "@/context/authContext";
 import {format} from "date-fns";
