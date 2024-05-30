@@ -6,25 +6,30 @@ import styled from 'styled-components';
 
 import { StyledLabel, RequiredAsterisk } from './Label.styles';
 
-function Label({ children, onlyRead, required, labelIcon, clear, labelReverse, onClear = () => {}, ...props }) {
-  return (
-    <>
-      <StyledLabel $onlyRead={onlyRead} labelIcon={labelIcon} $labelReverse={labelReverse} {...props}>
-        <div css="display: flex; justify-content: space-between;">
-          <div css="display: flex; align-items: center;">
-            {required ? <RequiredAsterisk>*</RequiredAsterisk> : ''}
-            {children}
-          </div>
-          {clear && (
-            <span css="color: var(--danger); cursor: pointer;" onClick={onClear}>
-              Clear
-            </span>
-          )}
-        </div>
-        {labelIcon && <span css="margin-left: 5px;">{labelIcon}</span>}
-      </StyledLabel>
-    </>
-  );
+function Label({children, onlyRead, required, labelIcon, clear, labelReverse, invert, onClear = () => {}, ...props}) {
+    return (
+        <>
+            <StyledLabel
+                $onlyRead={onlyRead}
+                labelIcon={labelIcon}
+                $labelReverse={labelReverse}
+                $invert={invert}
+                {...props}>
+                <div css="display: flex; justify-content: space-between;">
+                    <div css="display: flex; align-items: center;">
+                        {required ? <RequiredAsterisk>*</RequiredAsterisk> : ""}
+                        {children}
+                    </div>
+                    {clear && (
+                        <span css="color: var(--danger); cursor: pointer;" onClick={onClear}>
+                            Clear
+                        </span>
+                    )}
+                </div>
+                {labelIcon && <span css="margin-left: 5px;">{labelIcon}</span>}
+            </StyledLabel>
+        </>
+    );
 }
 
 export default Label;

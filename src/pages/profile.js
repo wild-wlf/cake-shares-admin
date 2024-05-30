@@ -13,17 +13,17 @@ const ProfilePage = () => {
         user: v.user,
     }));
     const {products_data, products_loading} = productService.GetAllProducts(fetch);
-
-    return (
-        <SellerContainer>
-            <SellerTopBar title={"Settings"} tagLine={"Here you can manage your Profile & Account Settings"} />
-            <Profile />
-            <div className="child-Wrapper">
-                <UserDetail userData={user} />
-                <Categories title="My Fully Funded Products" loading={products_loading} data={products_data} />
-            </div>
-        </SellerContainer>
-    );
+console.log(products_data);
+return (
+    <SellerContainer>
+        <SellerTopBar title={"Settings"} tagLine={"Here you can manage your Profile & Account Settings"} />
+        <Profile />
+        <div className="child-Wrapper">
+            <UserDetail userData={user} />
+            <Categories title="My Fully Funded Products" loading={products_loading} data={products_data?.items} />
+        </div>
+    </SellerContainer>
+);
 };
 
 export default ProfilePage;

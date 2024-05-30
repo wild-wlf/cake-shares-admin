@@ -59,9 +59,9 @@ export const AuthContextProvider = props => {
 
     const getPermissions = () => {
         // debugger
-        if (!isLoggedIn) return;
+        // if (!isLoggedIn) return;
         setLoadingUser(true);
-        if (!allowedPages) return;
+        // if (!allowedPages) return;
         cancellablePromise(userService.getCurrentAdmin())
             .then(res => {
                 setAllowedPages(res.permissions.filter(p => p.includes(".nav")).map(p => `${p.split(".")[0]}`));
@@ -146,7 +146,7 @@ export const AuthContextProvider = props => {
             }
 
             setIsLoggedIn(true);
-            router.push("/dashboard");
+            // router.push("/dashboard");
             setCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE, res.token);
             setLoadingUser(false);
             setLoading(false);
