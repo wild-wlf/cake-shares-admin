@@ -13,7 +13,6 @@ const ProfilePage = () => {
         user: v.user,
     }));
     const {products_data, products_loading} = productService.GetAllProducts(fetch);
-console.log(products_data);
 return (
     <SellerContainer>
         <SellerTopBar title={"Settings"} tagLine={"Here you can manage your Profile & Account Settings"} />

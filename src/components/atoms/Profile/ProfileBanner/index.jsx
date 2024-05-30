@@ -15,7 +15,6 @@ const ProfileBanner = ({title = "Master the World of NFT’s!", type = "Buyer"})
         setPermission: v.setPermission,
     }));
     const [bannerImg, setBannerImg] = useState(null);
-    console.log(user);
     const router = usePathname();
     async function handleBannerImg(e) {
         const file = e.target.files[0];

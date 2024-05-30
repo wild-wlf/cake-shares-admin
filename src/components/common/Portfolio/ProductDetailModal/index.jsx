@@ -43,11 +43,11 @@ const ProductDetailModal = ({data}) => {
         },
         {
             heading: "Minimum Backers:",
-            text: "01",
+            text: data?.minimumBackers,
         },
         {
             heading: "Maximum Backers:",
-            text: "20",
+            text: data?.maximumBackers,
         },
         {
             heading: "Annual Cost:",
@@ -55,11 +55,11 @@ const ProductDetailModal = ({data}) => {
         },
         {
             heading: "Min Investment:",
-            text: "$5,000",
+            text: `$${data?.minimumInvestment?.toLocaleString("en-US")}`,
         },
         {
             heading: "Total Asset Value",
-            text: "$2,000,000",
+            text: `$${data?.assetValue?.toLocaleString("en-US")}`,
         },
     ];
     const productDescription = [
