@@ -13,7 +13,7 @@ export const styles = css`
     font-family: "Outfit", sans-serif;
     transition: border var(--animation-speed) ease-in-out;
     color: var(--secondary-text-color);
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     font-weight: 500;
     border-radius: ${({$straight}) => ($straight ? "6px" : "60px")};

@@ -130,17 +130,17 @@ export const AuthContextProvider = props => {
     //     }
     // }, [socketData]);
 
-    const onLogin = async ({username, password}) => {
+    const onLogin = async ({username, password, sellerType}) => {
         setLoadingUser(true);
         setLoading(true);
+
         try {
             const res = await userService.login({
                 username,
                 password,
                 type: "Seller",
-                sellerType: true,
+                sellerType: sellerType.value,
             });
-
             if (!res?.token) {
                 throw new Error(res?.message);
             }

@@ -74,7 +74,7 @@ const UserDetail = ({userData}) => {
                         </div>
                         <div className="textWrap">
                             <strong className="title">Full Name</strong>
-                            <span>{personalInfo?.fullName}</span>
+                            <span>{personalInfo?.fullName || personalInfo.username}</span>
                         </div>
                     </div>
                     <div className="col-content">

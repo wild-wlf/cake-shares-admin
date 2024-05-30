@@ -66,7 +66,7 @@ const UserInfo = ({userImage}) => {
                     )}
                 </ProfileWrapper>
                 <div className="textWrapper">
-                    <strong className="name">{user?.fullName}</strong>
+                    <strong className="name">{user?.fullName || user?.username}</strong>
                     <div className="discreption">
                         <span className="active">CakeShare Seller </span>
                         <span className="addbefore">
