@@ -68,56 +68,6 @@ const PortfolioTable = ({title}) => {
         setProductAdvertiseModal(false);
         setAdvertiseSuccessfulModal(true);
     };
-    const transactions = [
-        {
-            product: "Gov. Egypt Property",
-            investment_type: "Properties",
-            status: "Active",
-            backers_limit: "50",
-            amount_raised: "$40,256.000",
-            total_asset_value: "$40,256.000",
-        },
-        {
-            product: "Audi A8 Car",
-            investment_type: "Car",
-            status: "Completed",
-            backers_limit: "60",
-            amount_raised: "$40,256.000",
-            total_asset_value: "$40,256.000",
-        },
-        {
-            product: "Gov. Egypt Property",
-            investment_type: "Properties",
-            status: "Active",
-            backers_limit: "50",
-            amount_raised: "$0.000",
-            total_asset_value: "$40,256.000",
-        },
-        {
-            product: "Audi A8 Car",
-            investment_type: "Car",
-            status: "Completed",
-            backers_limit: "60",
-            amount_raised: "$40,256.000",
-            total_asset_value: "$40,256.000",
-        },
-        {
-            product: "Gov. Egypt Property",
-            investment_type: "Properties",
-            status: "Completed",
-            backers_limit: "60",
-            amount_raised: "$40,256.000",
-            total_asset_value: "$40,256.000",
-        },
-        {
-            product: "Audi A8 Car",
-            investment_type: "Car",
-            status: "Active",
-            backers_limit: "60",
-            amount_raised: "$40,256.000",
-            total_asset_value: "$40,256.000",
-        },
-    ];
     async function handelDeleteProduct() {
         await productService.deleteProduct(selecteData);
         refetch();
@@ -175,13 +125,12 @@ const PortfolioTable = ({title}) => {
             </ActionBtnList>
         </>
     );
-    console.log(products_data);
     const {product_rows, totalItems} = useMemo(() => {
         const items = products_data.items || [];
         return {
             product_rows: items.map(data => [
                 data.productName || "------------",
-                data.investmentType || "------------",
+                data.investmentType?.name || "------------",
                 data.isVerified ? "Approve" : "Pending" || "------------",
                 data.maximumBackers || "------------",
                 data.minimumInvestment || "------------",

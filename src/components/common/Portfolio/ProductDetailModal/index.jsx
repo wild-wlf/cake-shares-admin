@@ -13,7 +13,7 @@ const ProductDetailModal = ({data}) => {
         },
         {
             heading: "Investment Type:",
-            text: data.investmentType,
+            text: data.investmentType?.name,
         },
         {
             heading: "Address:",
