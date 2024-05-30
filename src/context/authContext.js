@@ -278,9 +278,11 @@ export const AuthContextProvider = props => {
             });
         }
         listenCookieChange((value, cookie) => {
+            console.log("cookiedsfsd");
             if (cookie === process.env.NEXT_PUBLIC_TOKEN_COOKIE) {
                 if (!value) {
-                    // onLogout();
+                    onLogout();
+                    console.log("cookie");
                 }
             }
             if (cookie === process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE) {
