@@ -146,7 +146,7 @@ export const AuthContextProvider = props => {
             }
 
             setIsLoggedIn(true);
-            router.push("/dashboard");
+            // router.push("/dashboard");
             setCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE, res.token);
             setLoadingUser(false);
             setLoading(false);
