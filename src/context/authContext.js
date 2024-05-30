@@ -59,9 +59,9 @@ export const AuthContextProvider = props => {
 
     const getPermissions = () => {
         // debugger
-        if (!isLoggedIn) return;
+        // if (!isLoggedIn) return;
         setLoadingUser(true);
-        if (!allowedPages) return;
+        // if (!allowedPages) return;
         cancellablePromise(userService.getCurrentAdmin())
             .then(res => {
                 setAllowedPages(res.permissions.filter(p => p.includes(".nav")).map(p => `${p.split(".")[0]}`));
