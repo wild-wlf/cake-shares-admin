@@ -40,7 +40,6 @@ const Field = forwardRef(
             datePicker,
             clear,
             invert,
-
             labelReverse,
             radioBorder,
             labelColor,

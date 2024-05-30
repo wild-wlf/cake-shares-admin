@@ -5,7 +5,6 @@ import Heart from "../../../_assets/heart.svg";
 import ProgressBar from "@ramonak/react-progress-bar";
 
 const index = ({Cardimage, data}) => {
-    console.log(data);
     return (
         <CardWrapper>
             <div className="card">

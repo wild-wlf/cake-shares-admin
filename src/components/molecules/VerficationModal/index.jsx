@@ -17,29 +17,16 @@ const VerficationModal = ({ setOpen }) => {
     setOpen(false);
   };
   return (
-    <VerficationModalWrapper>
-      <Image
-        src={VerificationIcon}
-        alt="VerificationIcon"
-        className="VerificationIcon"
-      />
-      <span>
-        Your request is currently being processed, and you will receive a
-        notification within 48 hours.
-      </span>
-      <div className="btn-holder">
-        <Button
-          type="success"
-          color="success"
-          rounded
-          width="290"
-          onClick={logout}
-        >
-          Logout
-          <Image src={arrowImg} alt="arrow" />
-        </Button>
-      </div>
-    </VerficationModalWrapper>
+      <VerficationModalWrapper>
+          <Image src={VerificationIcon} alt="VerificationIcon" className="VerificationIcon" />
+          <span>Your request is currently being processed, and you will receive a notification within 48 hours.</span>
+          <div className="btn-holder">
+              <Button type="green" color="success" rounded width="290" onClick={logout} md>
+                  Logout
+                  <Image src={arrowImg} alt="arrow" />
+              </Button>
+          </div>
+      </VerficationModalWrapper>
   );
 };
 

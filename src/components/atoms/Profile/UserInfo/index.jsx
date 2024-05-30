@@ -24,7 +24,6 @@ const UserInfo = ({userImage}) => {
         user: v.user,
         setPermission: v.setPermission,
     }));
-    console.log(user);
     const {kycLevel, setKycLevel, checkKycLevel} = useContext(KycContext);
     const router = usePathname();
     const [profileImg, setProfileImg] = useState("");
@@ -67,7 +66,7 @@ const UserInfo = ({userImage}) => {
                     )}
                 </ProfileWrapper>
                 <div className="textWrapper">
-                    <strong className="name">{user?.fullName}</strong>
+                    <strong className="name">{user?.fullName || user?.username}</strong>
                     <div className="discreption">
                         <span className="active">CakeShare Seller </span>
                         <span className="addbefore">
@@ -80,14 +79,18 @@ const UserInfo = ({userImage}) => {
             {router == "/profile" ? (
                 <div className="kycWrapper">
                     <div className="headingWrapper">
-                        <strong className="headingText">My KYC Level</strong>
+                        <strong className="headingText">
+                            My KY{`${user?.sellerType === "Individual" ? "C" : "B"}`} Level
+                        </strong>
                         <strong className="headingText">{user?.kycLevel}</strong>
                     </div>
                     <div className="updgradeKyc">
                         <KycLevel level={user?.kycLevel + 1} />
-                        <span className="discreption" onClick={checkKycLevel}>
-                            Upgrade KYC
-                        </span>
+                        {!user?.kycRequestLevel && (
+                            <span className="discreption" onClick={checkKycLevel}>
+                                Upgrade KY{`${user?.sellerType === "Individual" ? "C" : "B"}`}
+                            </span>
+                        )}
                     </div>
                 </div>
             ) : (

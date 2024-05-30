@@ -1,5 +1,10 @@
 import styled from "styled-components";
-
+export const NoRecord = styled.div`
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 export const CategoriesWrapper = styled.div`
   .title {
     display: flex;
