@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoriesWrapper } from "./categories.style";
+import {CategoriesWrapper, NoRecord} from "./categories.style";
 import Slider from "react-slick";
 import Card from "../card";
 import "slick-carousel/slick/slick.css";
@@ -9,34 +9,35 @@ import Property from "../../../_assets/property.png";
 import Property2 from "../../../_assets/property2.png";
 import Property3 from "../../../_assets/property3.png";
 import Link from "next/link";
+import Loader from "../Loader";
 
 const images = [
-  {
-    image: Property,
-    id: "1",
-  },
-  {
-    id: "2",
-    image: Property2,
-  },
-  {
-    image: Property3,
-    id: "3",
-  },
-  {
-    image: Property,
-    id: "4",
-  },
-  {
-    image: Property2,
-    id: "5",
-  },
-  {
-    image: Property3,
-    id: "6",
-  },
+    {
+        image: Property,
+        id: "1",
+    },
+    {
+        id: "2",
+        image: Property2,
+    },
+    {
+        image: Property3,
+        id: "3",
+    },
+    {
+        image: Property,
+        id: "4",
+    },
+    {
+        image: Property2,
+        id: "5",
+    },
+    {
+        image: Property3,
+        id: "6",
+    },
 ];
-const Categories = ({title, arr = images, data}) => {
+const Categories = ({title, arr = images, data, loading = true}) => {
     var settings = {
         dots: false,
         infinite: false,
@@ -88,7 +89,20 @@ const Categories = ({title, arr = images, data}) => {
             <div className="title">
                 <span>{title}</span>
             </div>
-            <div className="slider">
+            {loading ? (
+                <Loader />
+            ) : data && data?.length > 0 ? (
+                <div className="slider">
+                    <Slider {...settings}>
+                        {data?.map((item, index) => (
+                            <Card Cardimage={item.media[0] || Property} data={item} key={index} />
+                        ))}
+                    </Slider>
+                </div>
+            ) : (
+                <NoRecord>No records found</NoRecord>
+            )}
+            {/* <div className="slider">
                 <Slider {...settings}>
                     {data?.map((item, index) => (
                         <>
@@ -96,7 +110,7 @@ const Categories = ({title, arr = images, data}) => {
                         </>
                     ))}
                 </Slider>
-            </div>
+            </div> */}
         </CategoriesWrapper>
     );
 };

@@ -10,9 +10,8 @@ const Portfolio = () => {
     const {fetch} = useContextHook(AuthContext, v => ({
         fetch: v.fetch,
     }));
-    const {products_data, products_loading} = productService.GetAllProducts(fetch);
+    const {products_data} = productService.GetAllProducts(fetch);
 
-    console.log("products_data", products_data?.items);
     return (
         <SellerContainer>
             <SellerTopBar

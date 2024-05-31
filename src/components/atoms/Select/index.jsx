@@ -21,109 +21,113 @@ const DropdownIndicator = props =>
   );
 
 function Select({
-  prefix,
-  suffix,
-  disabled,
-  invalid,
-  options,
-  label,
-  noMargin,
-  error,
-  rules,
-  clear,
-  async,
-  labelIcon,
-  ...props
+    prefix,
+    suffix,
+    disabled,
+    invalid,
+    options,
+    label,
+    noMargin,
+    error,
+    rules,
+    clear,
+    async,
+    labelIcon,
+    invert,
+    ...props
 }) {
-  const debouncedRef = React.useRef(0);
-  const loadOptions = async __ => {
-    const _options = await new Promise(resolve => {
-      debounce(value => {
-        debouncedRef.current += 1;
-        const LocalRef = debouncedRef.current;
-        setTimeout(() => {
-          if (LocalRef === debouncedRef.current) {
-            props.loadOptions(value).then(response => {
-              resolve(response);
-            });
-          }
-        }, 300);
-      }, 300)(__);
-    });
-    return _options;
-  };
-  return (
-    <StyledFormGroup $invalid={invalid || error} noMargin={noMargin}>
-      {label && (
-        <Label
-          labelIcon={labelIcon}
-          onClear={() => {
-            props?.onChange?.({
-              target: {
-                value: options && options[0],
-                name: props.name ?? '',
-              },
-            });
-          }}
-          required={rules?.filter(({ required }) => required).length}
-          clear={clear}>
-          {label}
-        </Label>
-      )}
-      <InputHolder>
-        {prefix && (
-          <InputIcon disabled={disabled} prefix={prefix} invalid={invalid || error}>
-            {prefix}
-          </InputIcon>
-        )}
-        {async ? (
-          <StyledSelectAsync
-            {...props}
-            $prefix={prefix}
-            $suffix={suffix}
-            options={options}
-            disabled={disabled}
-            classNamePrefix="react-select"
-            loadOptions={loadOptions}
-            error={error}
-            components={{ DropdownIndicator, IndicatorSeparator: () => null }}
-            onChange={value => {
-              props?.onChange?.({
-                target: {
-                  value,
-                  name: props.name,
-                },
-              });
-            }}
-          />
-        ) : (
-          <StyledSelect
-            {...props}
-            $prefix={prefix}
-            $suffix={suffix}
-            options={options}
-            classNamePrefix="react-select"
-            error={error}
-            components={{ DropdownIndicator, IndicatorSeparator: () => null }}
-            onChange={value => {
-              props?.onChange?.({
-                target: {
-                  value,
-                  name: props.name,
-                },
-              });
-            }}
-          />
-        )}
-      </InputHolder>
+    const debouncedRef = React.useRef(0);
+    const loadOptions = async __ => {
+        const _options = await new Promise(resolve => {
+            debounce(value => {
+                debouncedRef.current += 1;
+                const LocalRef = debouncedRef.current;
+                setTimeout(() => {
+                    if (LocalRef === debouncedRef.current) {
+                        props.loadOptions(value).then(response => {
+                            resolve(response);
+                        });
+                    }
+                }, 300);
+            }, 300)(__);
+        });
+        return _options;
+    };
+    return (
+        <StyledFormGroup $invalid={invalid || error} noMargin={noMargin}>
+            {label && (
+                <Label
+                    $invert={invert}
+                    labelIcon={labelIcon}
+                    onClear={() => {
+                        props?.onChange?.({
+                            target: {
+                                value: options && options[0],
+                                name: props.name ?? "",
+                            },
+                        });
+                    }}
+                    required={rules?.filter(({required}) => required).length}
+                    clear={clear}>
+                    {label}
+                </Label>
+            )}
+            <InputHolder>
+                {prefix && (
+                    <InputIcon disabled={disabled} prefix={prefix} invalid={invalid || error}>
+                        {prefix}
+                    </InputIcon>
+                )}
+                {async ? (
+                    <StyledSelectAsync
+                        {...props}
+                        $invert={invert}
+                        $prefix={prefix}
+                        $suffix={suffix}
+                        options={options}
+                        disabled={disabled}
+                        classNamePrefix="react-select"
+                        loadOptions={loadOptions}
+                        error={error}
+                        components={{DropdownIndicator, IndicatorSeparator: () => null}}
+                        onChange={value => {
+                            props?.onChange?.({
+                                target: {
+                                    value,
+                                    name: props.name,
+                                },
+                            });
+                        }}
+                    />
+                ) : (
+                    <StyledSelect
+                        {...props}
+                        $invert={invert}
+                        $prefix={prefix}
+                        $suffix={suffix}
+                        options={options}
+                        classNamePrefix="react-select"
+                        error={error}
+                        components={{DropdownIndicator, IndicatorSeparator: () => null}}
+                        onChange={value => {
+                            props?.onChange?.({
+                                target: {
+                                    value,
+                                    name: props.name,
+                                },
+                            });
+                        }}
+                    />
+                )}
+            </InputHolder>
 
-      {error && (
-        <Error id={`${props.name}Error`} role="alert">
-          {error}
-        </Error>
-      )}
-    </StyledFormGroup>
-  );
+            {error && (
+                <Error id={`${props.name}Error`} role="alert">
+                    {error}
+                </Error>
+            )}
+        </StyledFormGroup>
+    );
 }
 
 export default Select;

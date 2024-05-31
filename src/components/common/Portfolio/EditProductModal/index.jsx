@@ -1,92 +1,111 @@
-import React, { useEffect, useState } from "react";
-import { StyledEditProductModal } from "./EditProductModal.styles";
-import Field from "@/components/molecules/Field";
-import Select from "@/components/atoms/Select";
-import productImg1 from "../../../../_assets/product-img-1.png";
-import productImg2 from "../../../../_assets/product-img-2.png";
-import productImg3 from "../../../../_assets/product-img-3.png";
-import Image from "next/image";
-import Button from "@/components/atoms/Button";
-import { IoAdd } from "react-icons/io5";
-import UploadFile from "@/components/molecules/UploadFile";
-import Form, { useForm } from "@/components/molecules/Form";
-import { format } from "date-fns";
-import { StyledCreateNewProduct } from "../CreateNewProduct/CreateNewProduct.styles";
-import productService from "@/services/productService";
-import { useContextHook } from "use-context-hook";
-import { AuthContext } from "@/context/authContext";
-import Toast from "@/components/molecules/Toast";
+import React, { useEffect, useState, useMemo } from 'react';
+import { StyledEditProductModal } from './EditProductModal.styles';
+import Field from '@/components/molecules/Field';
+import Select from '@/components/atoms/Select';
+import productImg1 from '../../../../_assets/product-img-1.png';
+import productImg2 from '../../../../_assets/product-img-2.png';
+import productImg3 from '../../../../_assets/product-img-3.png';
+import Image from 'next/image';
+import Button from '@/components/atoms/Button';
+import { IoAdd } from 'react-icons/io5';
+import UploadFile from '@/components/molecules/UploadFile';
+import Form, { useForm } from '@/components/molecules/Form';
+import { format } from 'date-fns';
+import { StyledCreateNewProduct } from '../CreateNewProduct/CreateNewProduct.styles';
+import productService from '@/services/productService';
+import { useContextHook } from 'use-context-hook';
+import { AuthContext } from '@/context/authContext';
+import Toast from '@/components/molecules/Toast';
+import categoryService from '@/services/categoryService';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
- const {user, refetch, fetch} = useContextHook(AuthContext, v => ({
-     refetch: v.refetch,
-     user: v.user,
-     fetch: v.fetch,
- }));
- const {products_data, products_loading} = productService.GetAllProducts(fetch);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
+    refetch: v.refetch,
+    user: v.user,
+    fetch: v.fetch,
+  }));
 
- const [form] = useForm();
- const [media, setMedia] = useState([]);
- const [images, setImages] = useState([]);
+  const { categories_data } = categoryService.GetAllCategories(
+    {
+      getAll: true,
+    },
+    fetch,
+  );
+
+  const categoriesOptions = useMemo(() => {
+    return categories_data?.items
+      ?.filter(item => item?.status !== 'Inactive')
+      ?.map(ele => ({
+        value: ele?._id,
+        label: ele?.name,
+      }));
+  }, [categories_data?.items]);
+
+  const [form] = useForm();
+  const [media, setMedia] = useState([]);
+  const [images, setImages] = useState([]);
 
   const [amenities, setAmenities] = useState(product.amenities);
- const handleSubmit = async e => {
-     const payload = {
-         ...e,
-         investmentType: e?.investmentType?.value,
-         kycLevel: e?.kycLevel.value,
-         media,
-         ...(images?.length > 0 && {images}),
-         amenities,
-     };
-     console.log(payload);
-     const formDataToSend = new FormData();
+  const handleSubmit = async e => {
+    const payload = {
+      ...e,
+      investmentType: e?.investmentType?.value,
+      kycLevel: e?.kycLevel.value,
+      media,
+      ...(images?.length > 0 && { images }),
+      amenities,
+    };
+    const formDataToSend = new FormData();
 
-     Object.keys(payload).forEach(key => {
-         if (key === "images") {
-             payload.images.forEach((file, index) => {
-                 formDataToSend.append(`images[${index}]`, file);
-             });
-         } else if (
-             key === "media" ||
-             (key === "amenities" && (Array.isArray(payload[key]) || typeof payload[key] === "object"))
-         ) {
-             formDataToSend.append(key, JSON.stringify(payload[key]));
-         } else {
-             formDataToSend.append(key, payload[key]);
-         }
-     });
-     try {
-         await productService.updateProduct(product._id, formDataToSend);
-         Toast({
-             type: "success",
-             message: "Product updated successfully",
-         });
-         refetch();
-         setEditProductModal(false);
-     } catch (error) {
-         Toast({
-             type: "error",
-             message: error.message,
-         });
-     }
- };
+    Object.keys(payload).forEach(key => {
+      if (key === 'images') {
+        payload.images.forEach((file, index) => {
+          formDataToSend.append(`images[${index}]`, file);
+        });
+      } else if (
+        key === 'media' ||
+        (key === 'amenities' && (Array.isArray(payload[key]) || typeof payload[key] === 'object'))
+      ) {
+        formDataToSend.append(key, JSON.stringify(payload[key]));
+      } else {
+        formDataToSend.append(key, payload[key]);
+      }
+    });
+    try {
+      setIsLoading(true);
+      await productService.updateProduct(product._id, formDataToSend);
+      Toast({
+        type: 'success',
+        message: 'Product updated successfully',
+      });
+      refetch();
+      setEditProductModal(false);
+    } catch (error) {
+      Toast({
+        type: 'error',
+        message: error.message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const kycOptions = [
-    { label: "Level 0", value: "0" },
-    { label: "Level 1", value: "1" },
-    { label: "Level 2", value: "2" },
+    { label: 'Level 0', value: '0' },
+    { label: 'Level 1', value: '1' },
+    { label: 'Level 2', value: '2' },
   ];
   const investmentOptions = [
-    { label: "Properties", value: "properties" },
-    { label: "Vehicles", value: "vehicles" },
+    { label: 'Properties', value: 'properties' },
+    { label: 'Vehicles', value: 'vehicles' },
   ];
 
   const addAmenity = () => {
-    setAmenities([...amenities, ""]);
+    setAmenities([...amenities, '']);
   };
   const handleFileChange = (e, index) => {
     const file = e.target.file;
-    setImages((prev) => {
+    setImages(prev => {
       const updatedImages = [...prev];
       updatedImages[index] = file;
       return updatedImages;
@@ -96,15 +115,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   useEffect(() => {
     form.setFieldsValue({
       productName: product?.productName,
-      // investmentType: product?.investmentType,
-      investmentType: investmentOptions.find(
-        (ele) => ele.value === product.investmentType
-      ),
+      investmentType:
+        categoriesOptions && categoriesOptions?.find(({ value }) => product?.investmentType?._id === value),
       address: product?.address,
-      deadline: format(product?.deadline, "yyyy-MM-dd"),
-      kycLevel: kycOptions.find(
-        (ele) => ele.value === product.kycLevel.toString()
-      ),
+      deadline: format(product?.deadline, 'yyyy-MM-dd'),
+      kycLevel: kycOptions.find(ele => ele.value === product.kycLevel.toString()),
       description: product.description,
       investmentReason: product.investmentReason,
       minBackers: product.minimumBackers,
@@ -126,7 +141,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       });
       return field;
     });
-  }, [product]);
+  }, [product, categoriesOptions]);
 
   return (
     <StyledCreateNewProduct>
@@ -143,31 +158,30 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Product Name",
+                message: 'Please enter Product Name',
               },
               {
                 pattern: /^.{0,40}$/,
-                message: "Please enter a valid Product Name",
+                message: 'Please enter a valid Product Name',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
           <Form.Item
-            type="text"
             label="Investment Type"
             name="investmentType"
+            options={categoriesOptions}
             sm
             rounded
+            isSearchable
             placeholder="Investment Type"
             rules={[
               {
                 required: true,
-                message: "Please enter Investment Type",
+                message: 'Please enter Investment Type',
               },
-            ]}
-          >
-            <Select options={investmentOptions} />
+            ]}>
+            <Select />
           </Form.Item>
 
           <Form.Item
@@ -180,14 +194,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Address",
+                message: 'Please enter Address',
               },
               {
                 pattern: /^.{0,256}$/,
-                message: "Please enter a valid Address",
+                message: 'Please enter a valid Address',
               },
-            ]}
-          >
+            ]}>
             <Field label="Address" />
           </Form.Item>
           <Form.Item
@@ -199,10 +212,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Deadline",
+                message: 'Please enter Deadline',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
           <Form.Item
@@ -215,10 +227,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter KYC Level",
+                message: 'Please enter KYC Level',
               },
-            ]}
-          >
+            ]}>
             <Select options={kycOptions} />
           </Form.Item>
         </div>
@@ -233,14 +244,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               rules={[
                 {
                   required: true,
-                  message: "Please enter Product Description",
+                  message: 'Please enter Product Description',
                 },
                 {
                   pattern: /^.{0,256}$/,
-                  message: "Product Description must be between 0 to 256",
+                  message: 'Product Description must be between 0 to 256',
                 },
-              ]}
-            >
+              ]}>
               <Field />
             </Form.Item>
           </div>
@@ -255,14 +265,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               rules={[
                 {
                   required: true,
-                  message: "Please enter Description",
+                  message: 'Please enter Description',
                 },
                 {
                   pattern: /^.{0,256}$/,
-                  message: "Description must be between 0 to 256",
+                  message: 'Description must be between 0 to 256',
                 },
-              ]}
-            >
+              ]}>
               <Field />
             </Form.Item>
           </div>
@@ -279,7 +288,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   img={media[index]}
                   noMargin
                   disc="image should be up to 1mb only"
-                  onChange={(e) => handleFileChange(e, index)}
+                  onChange={e => handleFileChange(e, index)}
                 />
               </div>
             );
@@ -306,11 +315,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   rounded
                   value={amenity}
                   placeholder="Enter text"
-                  onChange={(e) => {
+                  onChange={e => {
                     form.setFieldsValue({
                       [`amenity${index}`]: e.target.value,
                     });
-                    setAmenities((prev) => {
+                    setAmenities(prev => {
                       const updatedAmenities = [...prev];
                       updatedAmenities[index] = e.target.value;
                       return updatedAmenities;
@@ -319,14 +328,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   rules={[
                     {
                       required: true,
-                      message: "Please enter Amentity",
+                      message: 'Please enter Amentity',
                     },
                     {
                       pattern: /^.{0,40}$/,
-                      message: "Please enter a valid Amentity",
+                      message: 'Please enter a valid Amentity',
                     },
-                  ]}
-                >
+                  ]}>
                   <Field noMargin />
                 </Form.Item>
               ))}
@@ -344,14 +352,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Minimum Backers Limit",
+                message: 'Please enter Minimum Backers Limit',
               },
               {
                 pattern: /^.{0,2}$/,
-                message: "Please enter a valid Backers Limit",
+                message: 'Please enter a valid Backers Limit',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
           <Form.Item
@@ -364,14 +371,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Maximum Backers Limit",
+                message: 'Please enter Maximum Backers Limit',
               },
               {
                 pattern: /^.{0,2}$/,
-                message: "Please enter a valid Backers Limit",
+                message: 'Please enter a valid Backers Limit',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
           <Form.Item
@@ -384,14 +390,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Total Asset Value",
+                message: 'Please enter Total Asset Value',
               },
               {
                 pattern: /^.{0,8}$/,
-                message: "Please enter a valid Backers Limit",
+                message: 'Please enter a valid Backers Limit',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
           <Form.Item
@@ -404,18 +409,17 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter Minimum Investment Value",
+                message: 'Please enter Minimum Investment Value',
               },
               {
                 pattern: /^.{0,8}$/,
-                message: "Please enter a valid Minimum Investment",
+                message: 'Please enter a valid Minimum Investment',
               },
-            ]}
-          >
+            ]}>
             <Field />
           </Form.Item>
         </div>
-        <Button width="150px" rounded htmlType="submit" type="green" md>
+        <Button width="150px" loader={isLoading} rounded htmlType="submit" type="green" md>
           Save Changes
         </Button>
       </Form>

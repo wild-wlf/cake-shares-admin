@@ -27,6 +27,15 @@ const userService = {
         const {message} = await res.json();
         throw new Error(message ?? "Something went wrong");
     },
+    async updateKyc(payload) {
+        let res = await Fetch.post(`${this._url}/request-kyc`, payload);
+        if (res.status >= 200 && res.status < 300) {
+            res = await res.json();
+            return res;
+        }
+        const {message} = await res.json();
+        throw new Error(message ?? "Something went wrong");
+    },
     async uploadMedia(payload, id) {
         let res = await Fetch.upload(`${this._url}/update-chunk-info/${id}`, "PUT", payload);
         if (res.status >= 200 && res.status < 300) {

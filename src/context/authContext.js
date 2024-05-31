@@ -44,13 +44,12 @@ export const AuthContextProvider = props => {
 
     const onLogout = async () => {
         try {
-            await userService.logout();
             setIsLoggedIn(false);
-
             clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
             clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
             clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
-            await router.push("/sign-in");
+            router.push("/sign-in");
+            await userService.logout();
             Toast({type: "success", message: "Logged Out Successfully!"});
         } catch (error) {
             console.error("Error during logout:", error);
@@ -130,17 +129,17 @@ export const AuthContextProvider = props => {
     //     }
     // }, [socketData]);
 
-    const onLogin = async ({username, password}) => {
+    const onLogin = async ({username, password, sellerType}) => {
         setLoadingUser(true);
         setLoading(true);
+
         try {
             const res = await userService.login({
                 username,
                 password,
                 type: "Seller",
-                sellerType: true,
+                sellerType: sellerType.value,
             });
-
             if (!res?.token) {
                 throw new Error(res?.message);
             }
@@ -278,9 +277,11 @@ export const AuthContextProvider = props => {
             });
         }
         listenCookieChange((value, cookie) => {
+            console.log("cookiedsfsd");
             if (cookie === process.env.NEXT_PUBLIC_TOKEN_COOKIE) {
                 if (!value) {
-                    // onLogout();
+                    onLogout();
+                    console.log("cookie");
                 }
             }
             if (cookie === process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE) {

@@ -1,15 +1,11 @@
 import React from "react";
-import { StyledProductDetailModal } from "./ProductDetailModal.styles";
+import {StyledProductDetailModal} from "./ProductDetailModal.styles";
 import Button from "@/components/atoms/Button";
 import bellIcon from "../../../../_assets/bell-icon.svg";
 import Image from "next/image";
-import productImg1 from "../../../../_assets/product-img-1.png";
-import productImg2 from "../../../../_assets/product-img-2.png";
-import productImg3 from "../../../../_assets/product-img-3.png";
 import {daysLeft, formatDateWithSuffix} from "@/helpers/common";
 
 const ProductDetailModal = ({data}) => {
-    console.log(data);
     const infoData = [
         {
             heading: "Product Name:",
@@ -17,7 +13,7 @@ const ProductDetailModal = ({data}) => {
         },
         {
             heading: "Investment Type:",
-            text: data.investmentType,
+            text: data.investmentType?.name,
         },
         {
             heading: "Address:",
@@ -35,31 +31,31 @@ const ProductDetailModal = ({data}) => {
     const investmentData = [
         {
             heading: "Return Rate (%):",
-            text: "30%",
+            text: "0%",
         },
         {
             heading: "Funding Ratio:",
-            text: "56%",
+            text: "0%",
         },
         {
             heading: "Minimum Backers:",
-            text: "01",
+            text: data?.minimumBackers,
         },
         {
             heading: "Maximum Backers:",
-            text: "20",
+            text: data?.maximumBackers,
         },
         {
             heading: "Annual Cost:",
-            text: "$2,000",
+            text: "$0.00",
         },
         {
             heading: "Min Investment:",
-            text: "$5,000",
+            text: `$${data?.minimumInvestment?.toLocaleString("en-US")}`,
         },
         {
             heading: "Total Asset Value",
-            text: "$2,000,000",
+            text: `$${data?.assetValue?.toLocaleString("en-US")}`,
         },
     ];
     const productDescription = [

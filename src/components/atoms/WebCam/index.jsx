@@ -37,13 +37,13 @@ const WebCam = ({ handelKycLevel }) => {
   const [url, setUrl] = useState(null);
 
   const capturePhoto = useCallback(async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setUrl(imageSrc);
-    console.log("here");
+      const imageSrc = webcamRef.current.getScreenshot();
+      setUrl(imageSrc);
+      // console.log("here");
   }, [webcamRef]);
 
-  const onUserMedia = (e) => {
-    console.log(e);
+  const onUserMedia = e => {
+      // console.log(e);
   };
   return (
     <StyledFormGroup>
