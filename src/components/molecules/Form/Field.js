@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // eslint-disable-next-line no-unused-vars
-import FieldContext from "./FieldContext";
+import FieldContext from './FieldContext';
 
 export default class Field extends Component {
   // eslint-disable-next-line react/static-property-placement
@@ -21,7 +21,7 @@ export default class Field extends Component {
 
   onStoreChange = (prevStore, curStore) => {
     const { shouldUpdate } = this.props;
-    if (typeof shouldUpdate === "function") {
+    if (typeof shouldUpdate === 'function') {
       if (shouldUpdate(prevStore, curStore)) {
         this.forceUpdate();
       }
@@ -34,11 +34,16 @@ export default class Field extends Component {
     const { name, children, ...rest } = this.props;
     const { getFieldValue, setFieldsValue, getFieldError } = this.context;
     return {
-      error: getFieldError(name) ?? "",
+      error: getFieldError(name) ?? '',
       ...rest,
-      value: getFieldValue(name) ?? "",
-      onChange: (event) => {
-        const newValue = event.target.value ?? "";
+      value: getFieldValue(name) ?? '',
+      onChange: event => {
+        let newValue;
+        if (event instanceof File) {
+          newValue = event;
+        } else {
+          newValue = event.target.value ?? '';
+        }
         setFieldsValue({ [name]: newValue });
       },
     };

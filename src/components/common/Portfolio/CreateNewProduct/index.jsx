@@ -13,6 +13,7 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { convertToFormData } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
+import UploadField from '../../../atoms/Field';
 
 const CreateNewProduct = ({ setCreateProductModal }) => {
   const [media, setmedia] = useState([]);
@@ -252,32 +253,52 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
         <span className="heading">Upload Media</span>
 
         <div className="upload-image">
-          {Array.from({ length: 3 }).map((_, index) => {
-            return (
-              <div key={index} className="upload">
-                <UploadFile
-                  id={`media${index}`}
-                  name={`media${index}`}
-                  bg
-                  img={media[index]}
-                  noMargin
-                  disc="image should be up to 1mb only"
-                  onChange={e => handleFileChange(e, index)}
-                />
-              </div>
-            );
-          })}
+          <div className="upload">
+            <Form.Item
+              rounded
+              name="media1"
+              rules={[{ required: true, message: 'Please upload a video!' }]}>
+              <UploadField
+                type="file"
+                accept="video/mp4"
+                uploadTitle="Upload an Video"
+                disc="Please upload a file in mp4 format"
+                onChange={e => handleFileChange(e, index)}
+              />
+            </Form.Item>
+          </div>
+          <div className="upload">
+            <Form.Item
+              rounded
+              name="media2"
+              rules={[{ required: true, message: 'Please upload an image!' }]}>
+              <UploadField
+                type="file"
+                accept="image/jpeg, image/jpg, image/png"
+                uploadTitle="Upload an Image"
+                onChange={e => handleFileChange(e, index)}
+                disc="Please upload an image in JPEG, JPG or PNG format"
+
+              />
+            </Form.Item>
+          </div>
+          <div className="upload">
+            <Form.Item
+              rounded
+              name="media3"
+              rules={[{ required: true, message: 'Please upload an image!' }]}>
+              <UploadField
+                type="file"
+                accept="image/jpeg, image/jpg, image/png"
+                uploadTitle="Upload an Image"
+                disc="Please upload an image in JPEG, JPG or PNG format"
+                onChange={e => handleFileChange(e, index)}
+              />
+            </Form.Item>
+          </div>
         </div>
         {/* <div className="upload-image">
-          <div className="upload">
-            <UploadFile
-              id="firstImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
+         
           <div className="upload">
             <UploadFile
               id="SecondImg"

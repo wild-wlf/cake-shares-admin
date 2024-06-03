@@ -15,6 +15,7 @@ import Input from "../Input";
 import FakeInput from "../FakeInput";
 import FakeLabel from "../FakeLabel";
 import InputIcon from "../InputIcon";
+import UploadFile from "@/components/molecules/UploadFile";
 const defaultProps = {
   type: "text",
 };
@@ -175,8 +176,8 @@ const Field = forwardRef(
                   prefix={prefix}
                   $invalid={invalid || error}
                 />
-              ) : type === "chooseFile" ? (
-                <ChooseFile {...inputProps} />
+              ) : type === "file" ? (
+                <UploadFile {...inputProps} $invalid={invalid || error} />
               ) : (
                 <>
                   {/* any other input type */}
