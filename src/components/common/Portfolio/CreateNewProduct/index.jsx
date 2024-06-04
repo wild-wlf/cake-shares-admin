@@ -14,6 +14,7 @@ import { AuthContext } from '@/context/authContext';
 import { convertToFormData } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 const CreateNewProduct = ({ setCreateProductModal }) => {
   const [media, setmedia] = useState([]);
@@ -109,7 +110,17 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       setLoading(false);
     }
   };
-
+  const [searchValue, setSearchValue] = useState(''); // For Google Map Search Field
+  const libraries = ['places'];
+  const handlePlaceSelect = place => {
+    if (place.geometry && place.geometry.location) {
+      const newMarkerPosition = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      };
+      setSearchValue(place.formatted_address);
+    }
+  };
   return (
     <StyledCreateNewProduct>
       <Form form={form} onSubmit={handleSubmit}>
@@ -150,26 +161,37 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
             ]}>
             <Select />
           </Form.Item>
-
-          <Form.Item
-            type="text"
-            label="Address"
-            name="address"
-            sm
-            rounded
-            placeholder="Please enter address"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter Address',
-              },
-              {
-                pattern: /^.{0,256}$/,
-                message: 'Please enter a valid Address',
-              },
-            ]}>
-            <Field label="Address" />
-          </Form.Item>
+          <div>
+            <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
+              <Autocomplete
+                className="map-list"
+                onLoad={autocomplete =>
+                  autocomplete.addListener('place_changed', () => handlePlaceSelect(autocomplete.getPlace()))
+                }>
+                <Form.Item
+                  type="text"
+                  label="Address"
+                  name="address"
+                  sm
+                  rounded
+                  placeholder="Please enter address"
+                  value={searchValue}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter Address',
+                    },
+                    {
+                      pattern: /^.{0,256}$/,
+                      message: 'Please enter a valid Address',
+                    },
+                  ]}
+                  onChange={e => setSearchValue(e.target.value)}>
+                  <Field />
+                </Form.Item>
+              </Autocomplete>
+            </LoadScript>
+          </div>
           <Form.Item
             type="date"
             label="Deadline"
@@ -254,10 +276,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
 
         <div className="upload-image">
           <div className="upload">
-            <Form.Item
-              rounded
-              name="media1"
-              rules={[{ required: true, message: 'Please upload a video!' }]}>
+            <Form.Item rounded name="media1" rules={[{ required: true, message: 'Please upload a video!' }]}>
               <UploadField
                 type="file"
                 accept="video/mp4"
@@ -268,25 +287,18 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
             </Form.Item>
           </div>
           <div className="upload">
-            <Form.Item
-              rounded
-              name="media2"
-              rules={[{ required: true, message: 'Please upload an image!' }]}>
+            <Form.Item rounded name="media2" rules={[{ required: true, message: 'Please upload an image!' }]}>
               <UploadField
                 type="file"
                 accept="image/jpeg, image/jpg, image/png"
                 uploadTitle="Upload an Image"
                 onChange={e => handleFileChange(e, index)}
                 disc="Please upload an image in JPEG, JPG or PNG format"
-
               />
             </Form.Item>
           </div>
           <div className="upload">
-            <Form.Item
-              rounded
-              name="media3"
-              rules={[{ required: true, message: 'Please upload an image!' }]}>
+            <Form.Item rounded name="media3" rules={[{ required: true, message: 'Please upload an image!' }]}>
               <UploadField
                 type="file"
                 accept="image/jpeg, image/jpg, image/png"
