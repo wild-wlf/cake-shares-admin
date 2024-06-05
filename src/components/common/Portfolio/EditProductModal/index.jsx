@@ -17,9 +17,12 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import Toast from '@/components/molecules/Toast';
 import categoryService from '@/services/categoryService';
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState(''); // For Google Map Search Field
+
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
     user: v.user,
@@ -141,8 +144,18 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       });
       return field;
     });
+    setSearchValue(product?.address);
   }, [product, categoriesOptions]);
 
+  const libraries = ['places'];
+  const handlePlaceSelect = place => {
+    if (place.geometry && place.geometry.location) {
+      setSearchValue(place.name?.concat(` ${place.formatted_address}`));
+      form.setFieldsValue({
+        address: place.name?.concat(` ${place.formatted_address}`),
+      });
+    }
+  };
   return (
     <StyledCreateNewProduct>
       <Form form={form} onSubmit={handleSubmit}>
@@ -184,7 +197,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             <Select />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             type="text"
             label="Address"
             name="address"
@@ -202,7 +215,43 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               },
             ]}>
             <Field label="Address" />
-          </Form.Item>
+          </Form.Item> */}
+          <div>
+            <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
+              <Autocomplete
+                className="map-list"
+                onLoad={autocomplete =>
+                  autocomplete.addListener('place_changed', () => handlePlaceSelect(autocomplete.getPlace()))
+                }>
+                <Form.Item
+                  type="text"
+                  label="Address"
+                  name="address"
+                  sm
+                  rounded
+                  placeholder="Please enter address"
+                  value={searchValue}
+                  onChange={e => {
+                    form.setFieldsValue({
+                      address: e.target.value,
+                    });
+                    setSearchValue(e.target.value);
+                  }}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter Address',
+                    },
+                    {
+                      pattern: /^.{0,256}$/,
+                      message: 'Please enter a valid Address',
+                    },
+                  ]}>
+                  <Field />
+                </Form.Item>
+              </Autocomplete>
+            </LoadScript>
+          </div>
           <Form.Item
             type="date"
             label="Deadline"
