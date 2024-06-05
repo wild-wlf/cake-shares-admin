@@ -1,66 +1,76 @@
-import React, {useContext, useEffect, useState} from "react";
-import {StyledKycBuyer} from "./KycBuyer.styles";
-import UploadFile from "@/components/molecules/UploadFile";
-import Button from "../../Button";
-import Toast from "@/components/molecules/Toast";
-import {KycContext} from "@/context/KycContext";
+import React, { useContext, useEffect, useState } from 'react';
+import { StyledKycBuyer } from './KycBuyer.styles';
+import UploadFile from '@/components/molecules/UploadFile';
+import Button from '../../Button';
+import Toast from '@/components/molecules/Toast';
+import { KycContext } from '@/context/KycContext';
+import Field from '@/components/molecules/Field';
+import { useForm } from '@/components/molecules/Form';
+import Form from '@/components/molecules/Form/Form';
 
-const KycBuyerLevelOne = ({setOpen, setKycLevel}) => {
-    const {setKyc2} = useContext(KycContext);
-    const [isSelected, setIsSelected] = useState({
-        frontside: true,
-        backSide: true,
-    });
-    const [files, setFiles] = useState({
-        frontside: null,
-        backSide: null,
-    });
-    function handelKycLevel() {
-        if (!isSelected.frontside && !isSelected.backSide) {
-            setOpen(false);
-            setKyc2(true);
-        } else if (isSelected.frontside || isSelected.backSide) {
-            Toast({
-                type: "error",
-                message: "Passport images are required",
-            });
-        }
+const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
+  const { setKyc2 } = useContext(KycContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [form] = useForm();
+
+  const onSubmit = data => {
+    try {
+      setIsLoading(true);
+      setKycData(prev => ({
+        ...prev,
+        ...data,
+      }));
+      setOpen(false);
+      setKyc2(true);
+    } catch (error) {
+      Toast({
+        type: 'error',
+        message,
+      });
+    } finally {
+      setIsLoading(false);
     }
-    console.log(isSelected, files);
-    return (
-        <StyledKycBuyer>
-            <span className="kycdiscreption">ID Proof Info:</span>
-            <label htmlFor="" className="fakelabel">
-                Upload ID
-            </label>
-            <div className="combineField">
-                <UploadFile
-                    name="front side"
-                    uploadTitle="Upload Front Side of Passport"
-                    onChange={e => {
-                        if (e) {
-                            setFiles(prev => ({...prev, frontside: e}));
-                            setIsSelected(prev => ({...prev, frontside: false}));
-                        }
-                    }}
-                />
-                <UploadFile
-                    name="back side"
-                    uploadTitle="Upload Back Side of Passport"
-                    onChange={e => {
-                        if (e) {
-                            setFiles(prev => ({...prev, backSide: e}));
-                            setIsSelected(prev => ({...prev, backSide: false}));
-                        }
-                    }}
-                    id="back"
-                />
-            </div>
-            <Button rounded md btntype="primary" width="214" htmlType="submit" onClick={handelKycLevel}>
-                Complete Verification
-            </Button>
-        </StyledKycBuyer>
-    );
+  };
+  return (
+    <StyledKycBuyer>
+      <Form form={form} onSubmit={onSubmit}>
+        <span className="kycdiscreption">ID Proof Info:</span>
+        <label htmlFor="" className="fakelabel">
+          Upload ID
+        </label>
+        <div className="combineField">
+          <Form.Item
+            rounded
+            name="passportImageFront"
+            rules={[{ required: true, message: 'Please Upload Front Side of Passport Image!' }]}>
+            <Field
+              type="file"
+              fileSize="5"
+              accept="image/jpeg, image/jpg, image/png, application/pdf"
+              uploadTitle="Upload Front Side of Passport"
+              onChange={e => console.log(e)}
+            />
+          </Form.Item>
+          <Form.Item
+            rounded
+            name="passportImageBack"
+            rules={[{ required: true, message: 'Please Upload Back Side of Passport Image!' }]}>
+            <Field
+              type="file"
+              fileSize="5"
+              accept="image/jpeg, image/jpg, image/png, application/pdf"
+              uploadTitle="Upload Back Side of Passport"
+              onChange={e => console.log(e)}
+              id="back"
+            />
+          </Form.Item>
+        </div>
+        <Button rounded md btntype="primary" width="214" htmlType="submit">
+          Complete Verification
+        </Button>
+      </Form>
+    </StyledKycBuyer>
+  );
 };
 
 export default KycBuyerLevelOne;

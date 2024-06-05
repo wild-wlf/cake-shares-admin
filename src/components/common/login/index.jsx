@@ -85,7 +85,7 @@ const Login = () => {
             <div className="formAction">
               <CheckBox label="Remember me" color />
             </div>
-            <Button block htmlType={loading ? 'button' : 'submit'} type="green" md rounded>
+            <Button block htmlType={loading ? 'button' : 'submit'} loader={loading} type="green" md rounded>
               Sign in
             </Button>
           </Form>

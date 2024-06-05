@@ -1,22 +1,15 @@
 /* eslint-disable react/display-name */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
-import PropTypes from "prop-types";
-import {
-  StyledWebCam,
-  WebCamHolder,
-  CaptureButton,
-  RefreshButton,
-  ImgPreview,
-  ImageWrapper,
-} from "./WebCam.styles";
+import PropTypes from 'prop-types';
+import { StyledWebCam, WebCamHolder, CaptureButton, RefreshButton, ImgPreview, ImageWrapper } from './WebCam.styles';
 // import Alert from "../Alert";
 // import Tooltip from "../../atoms/Tooltip";
-import { Error } from "../../molecules/Field/Field.styles";
-import { StyledFormGroup } from "../../../styles/helpers.styles";
-import Button from "../Button";
-import Image from "next/image";
-import { FaRedoAlt } from "react-icons/fa";
+import { Error } from '../../molecules/Field/Field.styles';
+import { StyledFormGroup } from '../../../styles/helpers.styles';
+import Button from '../Button';
+import Image from 'next/image';
+import { FaRedoAlt } from 'react-icons/fa';
 const propTypes = {
   onClick: PropTypes.func,
   value: PropTypes.string,
@@ -30,20 +23,20 @@ const propTypes = {
 };
 const videoConstraints = {
   width: 300,
-  facingMode: "environment",
+  facingMode: 'environment',
 };
-const WebCam = ({ handelKycLevel }) => {
+const WebCam = ({ handelKycLevel, isLoading }) => {
   const webcamRef = useRef(null);
   const [url, setUrl] = useState(null);
 
   const capturePhoto = useCallback(async () => {
-      const imageSrc = webcamRef.current.getScreenshot();
-      setUrl(imageSrc);
-      // console.log("here");
+    const imageSrc = webcamRef.current.getScreenshot();
+    setUrl(imageSrc);
+    // console.log("here");
   }, [webcamRef]);
 
   const onUserMedia = e => {
-      // console.log(e);
+    // console.log(e);
   };
   return (
     <StyledFormGroup>
@@ -63,13 +56,7 @@ const WebCam = ({ handelKycLevel }) => {
               videoConstraints={videoConstraints}
               onUserMedia={onUserMedia}
             />
-            <Button
-              rounded
-              sm
-              btntype="primary"
-              width="214"
-              onClick={capturePhoto}
-            >
+            <Button rounded sm btntype="primary" width="214" onClick={capturePhoto}>
               Continue
             </Button>
           </>
@@ -82,30 +69,15 @@ const WebCam = ({ handelKycLevel }) => {
               </ImageWrapper>
             </div>
 
-            <Button
-              className={"undoButton"}
-              rounded
-              sm
-              btntype="primary"
-              onClick={() => setUrl(null)}
-            >
+            <Button className={'undoButton'} rounded sm btntype="primary" onClick={() => setUrl(null)}>
               <FaRedoAlt />
             </Button>
           </>
         )}
       </WebCamHolder>
       {url && (
-        <Button
-          rounded
-          sm
-          btntype="primary"
-          width="214"
-          onClick={handelKycLevel}
-        >
+        <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={() => handelKycLevel(url)}>
           Save
-          {/* <Tooltip title="Recapture Selfie">
-              <i className="icon-refresh" />
-            </Tooltip> */}
         </Button>
       )}
       {/* {error && <Error role="alert">{error}</Error>} */}
