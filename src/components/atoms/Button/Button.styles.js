@@ -118,6 +118,9 @@ export const StyledButton = styled.button`
         if (btntype === "cancel") {
             return "1.5px solid #dadada";
         }
+        if (btntype === "white") {
+            return "1.5px solid #dadada";
+        }
     }};
 
     transition: 0.3s all ease-in-out;
