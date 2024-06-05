@@ -34,12 +34,12 @@ const UploadFile = ({
   const [uploaded, setUploaded] = useState('');
   function handelChange(e) {
     const file = e.target.files[0];
-    const acceptableExtensions = accept.split(',').map(ext => ext.trim());
-    if (!acceptableExtensions.includes(file.type)) {
+    const acceptableExtensions = accept?.split(',')?.map(ext => ext.trim());
+    if (!acceptableExtensions?.includes(file?.type)) {
       const extensions = acceptableExtensions
-        .map(ext => ext.split('/')[1].toUpperCase())
-        .join(', ')
-        .replace(/,(?=[^,]*$)/, ' and');
+        ?.map(ext => ext.split('/')[1]?.toUpperCase())
+        ?.join(', ')
+        ?.replace(/,(?=[^,]*$)/, ' and');
 
       Toast({
         type: 'error',
