@@ -13,6 +13,8 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { convertToFormData } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
+import UploadField from '../../../atoms/Field';
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 const CreateNewProduct = ({ setCreateProductModal }) => {
   const [media, setmedia] = useState([]);
@@ -49,7 +51,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
 
   const [form] = useForm();
   const handleFileChange = (e, index) => {
-    const file = e.target.file;
+    const file = e;
     setImages(prev => {
       const updatedImages = [...prev];
       updatedImages[index] = file;
@@ -108,7 +110,16 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       setLoading(false);
     }
   };
-
+  const [searchValue, setSearchValue] = useState(''); // For Google Map Search Field
+  const libraries = ['places'];
+  const handlePlaceSelect = place => {
+    if (place.geometry && place.geometry.location) {
+      setSearchValue(place.name?.concat(` ${place.formatted_address}`));
+      form.setFieldsValue({
+        address: place.name?.concat(` ${place.formatted_address}`),
+      });
+    }
+  };
   return (
     <StyledCreateNewProduct>
       <Form form={form} onSubmit={handleSubmit}>
@@ -149,26 +160,45 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
             ]}>
             <Select />
           </Form.Item>
-
-          <Form.Item
-            type="text"
-            label="Address"
-            name="address"
-            sm
-            rounded
-            placeholder="Please enter address"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter Address',
-              },
-              {
-                pattern: /^.{0,256}$/,
-                message: 'Please enter a valid Address',
-              },
-            ]}>
-            <Field label="Address" />
-          </Form.Item>
+          <div>
+            <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
+              <Autocomplete
+                className="map-list"
+                onLoad={autocomplete =>
+                  autocomplete.addListener('place_changed', () => {
+                    handlePlaceSelect(autocomplete.getPlace());
+                    // console.log(autocomplete.getPlace());
+                  })
+                }>
+                <Form.Item
+                  type="text"
+                  label="Address"
+                  name="address"
+                  sm
+                  rounded
+                  placeholder="Please enter address"
+                  value={searchValue}
+                  onChange={e => {
+                    form.setFieldsValue({
+                      address: e.target.value,
+                    });
+                    setSearchValue(e.target.value);
+                  }}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter Address',
+                    },
+                    {
+                      pattern: /^.{0,256}$/,
+                      message: 'Please enter a valid Address',
+                    },
+                  ]}>
+                  <Field />
+                </Form.Item>
+              </Autocomplete>
+            </LoadScript>
+          </div>
           <Form.Item
             type="date"
             label="Deadline"
