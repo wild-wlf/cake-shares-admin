@@ -70,6 +70,7 @@ function Pagination(props) {
         <Input
           type="number"
           className="page-input"
+          disabled={lastPage === 1}
           value={inputCurrentPage}
           onKeyPress={onKeyPress}
           onChange={(event) => {

@@ -225,6 +225,10 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter KYC Level',
               },
+              {
+                transform: value => value > user?.kycLevel,
+                message: 'Your KYC level must be upgraded to create a product of a higher KYC level.',
+              },
             ]}>
             <Select
               options={[
