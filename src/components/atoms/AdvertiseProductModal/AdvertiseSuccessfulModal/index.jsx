@@ -1,11 +1,11 @@
-import React from "react";
-import { AdvertiseSuccessfulModalWrapper } from "./AdvertiseSuccessfulModal.style";
+import React from 'react';
+import { AdvertiseSuccessfulModalWrapper } from './AdvertiseSuccessfulModal.style';
 
-const AdvertiseSuccessfulModal = () => {
+const AdvertiseSuccessfulModal = ({ advertisedDays }) => {
   return (
     <AdvertiseSuccessfulModalWrapper>
       <h2>Product Advertised Successful!</h2>
-      <span>Your product has been successfully advertised for 03 days.</span>
+      <span>Your product has been successfully advertised for {advertisedDays} days.</span>
     </AdvertiseSuccessfulModalWrapper>
   );
 };

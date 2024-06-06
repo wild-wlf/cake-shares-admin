@@ -292,3 +292,5 @@ export const bas64toFile = async (dataUrl, fileName) => {
   const blob = await res.blob();
   return new File([blob], fileName, { type: 'image/jpg' });
 };
+
+export const formatNumber = number => new Intl.NumberFormat().format(number);

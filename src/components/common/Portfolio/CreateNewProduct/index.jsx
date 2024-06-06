@@ -382,10 +382,6 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Minimum Backers Limit',
               },
-              {
-                pattern: /^.{0,2}$/,
-                message: 'Please enter a valid Backers Limit',
-              },
             ]}>
             <Field />
           </Form.Item>
@@ -400,10 +396,6 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
               {
                 required: true,
                 message: 'Please enter Maximum Backers Limit',
-              },
-              {
-                pattern: /^.{0,2}$/,
-                message: 'Please enter a valid Backers Limit',
               },
             ]}>
             <Field />
@@ -420,10 +412,6 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Total Asset Value',
               },
-              {
-                pattern: /^.{0,8}$/,
-                message: 'Please enter a valid Backers Limit',
-              },
             ]}>
             <Field />
           </Form.Item>
@@ -438,10 +426,6 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
               {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
-              },
-              {
-                pattern: /^.{0,8}$/,
-                message: 'Please enter a valid Minimum Investment',
               },
             ]}>
             <Field />
