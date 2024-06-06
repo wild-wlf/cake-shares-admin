@@ -21,6 +21,10 @@ export const AdvertiseModalWrapper = styled.div`
       color: rgba(78, 97, 153, 1);
     }
   }
+  .btnWrapper{
+    display: flex;
+    gap: 6px;
+  }
   @media only screen and (max-width: 576px) {
     .desc {
       font-size: 16px;
