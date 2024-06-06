@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, DataContainer } from './SellerbarStyles';
 import Image from 'next/image';
 import { KycContext } from '../../../context/KycContext';
@@ -19,12 +19,27 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   const [notifications, setNotifications] = useState(false);
   const [createProductModal, setCreateProductModal] = useState(false);
 
+  const [fetchNotifications, setfetchNotifications] = useState(false);
+
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
 
   const openSideNav = () => {
     document.body.classList.toggle('sideNav-active');
     document.body.style.overflow = 'hidden';
   };
+
+  useEffect(() => {
+    const handleSellerNotification = () => {
+      setfetchNotifications(_ => !_);
+    };
+
+    window.addEventListener('seller_notification', handleSellerNotification);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('seller_notification', handleSellerNotification);
+    };
+  }, []);
 
   return (
     <>
@@ -65,7 +80,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             <Image src={bell} alt="bell" className="bell" />
             {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
             <div className={notifications ? 'notificationWrapper-visible' : 'notificationWrapper'}>
-              <Notifications />
+              <Notifications fetchNotifications={fetchNotifications} />
             </div>
           </div>
           <Button rounded sm btntype="new" width={'150px'} height={'35px'} onClick={() => setCreateProductModal(true)}>
