@@ -21,13 +21,14 @@ const UploadFile = ({
   title,
   uploadTitle = 'Upload Image',
   label = true,
-  fileSize = 2,
+  fileSize = 5,
   accept = 'image/jpeg, image/jpg, image/png',
   type = 'img',
   csv,
   icon,
   img = '',
   id = 'upload',
+  noMargin,
   ...props
 }) => {
   const { CSVReader } = useCSVReader();
@@ -91,7 +92,7 @@ const UploadFile = ({
   }, [img]);
 
   return (
-    <StyledUploadFile $bg={bg}>
+    <StyledUploadFile $bg={bg} $noMargin={noMargin}>
       {label && <span className="label-text">{title}</span>}
       {type === 'img' && (
         <label htmlFor={id} className="labelButton">
