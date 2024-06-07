@@ -104,9 +104,24 @@ const UploadFile = ({
             </span>
           )}
           {uploaded && typeof uploaded === 'string' ? (
-            <Image src={uploaded} alt="img" width={250} height={300} />
+            uploaded.endsWith('.mp4') ? (
+              <video width={319} height={191} autoPlay>
+                <source src={uploaded} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <Image src={uploaded} alt="img" width={250} height={300} />
+            )
           ) : (
-            uploaded && <Image src={URL.createObjectURL(uploaded)} alt="img" width={250} height={300} />
+            uploaded &&
+            (uploaded.type.startsWith('video/') ? (
+              <video width={319} height={191} autoPlay>
+                <source src={URL.createObjectURL(uploaded)} type={uploaded.type} />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <Image src={URL.createObjectURL(uploaded)} alt="img" width={250} height={300} />
+            ))
           )}
         </label>
       )}

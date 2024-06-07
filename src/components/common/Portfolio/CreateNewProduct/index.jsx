@@ -11,7 +11,6 @@ import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import { convertToFormData, validateFutureDate } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
@@ -225,8 +224,8 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Please enter Deadline',
               },
               {
-                transform: value => validateFutureDate(value) === false,
-                message: 'Deadline must be 1 day',
+                transform: value => new Date(value).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0),
+                message: 'Deadline Cannot be in the Past!',
               },
             ]}>
             <Field />
@@ -320,7 +319,8 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  // img={media[index]}
+                  uploadTitle="Upload Image/Video"
+                  accept="image/jpeg, image/jpg, image/png, video/mp4"
                   noMargin
                   disc="File size must be less than 1MB in  JPG, or PNG format."
                   onChange={e => {
@@ -333,61 +333,12 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                       return updatedImages;
                     });
                   }}>
-                  {/* <UploadFile
-                    id={`media${index}`}
-                    name={`media${index}`}
-                    bg
-                    img={media[index]}
-                    noMargin
-                    disc="image should be up to 1mb only"
-                    onChange={e => handleFileChange(e, index)}
-                  /> */}
                   <Field />
                 </Form.Item>
               </div>
-              // <div key={index} className="upload">
-              //   <UploadFile
-              //     id={`media${index}`}
-              //     name={`media${index}`}
-              //     bg
-              //     img={media[index]}
-              //     noMargin
-              //     disc="image should be up to 1mb only"
-              //     onChange={e => handleFileChange(e, index)}
-              //   />
-              // </div>
             );
           })}
         </div>
-        {/* <div className="upload-image">
-          <div className="upload">
-            <UploadFile
-              id="firstImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-          <div className="upload">
-            <UploadFile
-              id="SecondImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-          <div className="upload">
-            <UploadFile
-              id="thirdImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-        </div> */}
         <div className="add-amenities-holder">
           <span className="heading">Investment Info:</span>
           <div className="add-amenities">

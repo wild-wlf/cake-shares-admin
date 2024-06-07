@@ -18,7 +18,6 @@ import { AuthContext } from '@/context/authContext';
 import Toast from '@/components/molecules/Toast';
 import categoryService from '@/services/categoryService';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
-import { validateFutureDate } from '@/helpers/common';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -210,26 +209,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             ]}>
             <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
-
-          {/* <Form.Item
-            type="text"
-            label="Address"
-            name="address"
-            sm
-            rounded
-            placeholder="Please enter address"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter Address',
-              },
-              {
-                pattern: /^.{0,256}$/,
-                message: 'Please enter a valid Address',
-              },
-            ]}>
-            <Field label="Address" />
-          </Form.Item> */}
           <div>
             <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
               <Autocomplete
@@ -278,8 +257,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Deadline',
               },
               {
-                transform: value => validateFutureDate(value) === false,
-                message: 'Deadline must be 1 day',
+                transform: value => new Date(value).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0),
+                message: 'Deadline Cannot be in the Past!',
               },
             ]}>
             <Field />
@@ -357,20 +336,18 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   sm
                   rounded
                   placeholder="Enter Text"
+                  accept="image/jpeg, image/jpg, image/png, video/mp4"
                   rules={[
                     {
                       required: true,
-                      message: 'Please enter Description',
-                    },
-                    {
-                      pattern: /^.{0,256}$/,
-                      message: 'Description must be between 0 to 256',
+                      message: 'Please Upload Media!',
                     },
                   ]}
                   id={`media${index}`}
                   name={`media${index}`}
                   img={media[index]}
                   noMargin
+                  uploadTitle="Upload Image/Video"
                   disc="image should be up to 1mb only"
                   onChange={e => {
                     form.setFieldsValue({
@@ -388,29 +365,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             );
           })}
         </div>
-        {/* <Form.Item
-          type="img"
-          sm
-          rounded
-          placeholder="Enter Text"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter Description',
-            },
-            {
-              pattern: /^.{0,256}$/,
-              message: 'Description must be between 0 to 256',
-            },
-          ]}
-          id={`media${index}`}
-          name={`media${index}`}
-          img={media[index]}
-          noMargin
-          disc="image should be up to 1mb only">
-          <Field />
-        </Form.Item> */}
-
         <div className="add-amenities-holder">
           <span className="heading">Amenities</span>
           <div className="add-amenities">
