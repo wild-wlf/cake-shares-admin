@@ -31,7 +31,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
 
   const { categories_data } = categoryService.GetAllCategories(
     {
-      getAll: true,
+      itemsPerPage: 10,
     },
     fetch,
   );
@@ -98,10 +98,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     { label: 'Level 1', value: '1' },
     { label: 'Level 2', value: '2' },
   ];
-  const investmentOptions = [
-    { label: 'Properties', value: 'properties' },
-    { label: 'Vehicles', value: 'vehicles' },
-  ];
 
   const addAmenity = () => {
     setAmenities([...amenities, '']);
@@ -118,8 +114,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   useEffect(() => {
     form.setFieldsValue({
       productName: product?.productName,
-      investmentType:
-        categoriesOptions && categoriesOptions?.find(({ value }) => product?.investmentType?._id === value),
+      investmentType: categoriesOptions
+        ? categoriesOptions?.find(({ value }) => product?.investmentType?._id === value)
+        : { label: product?.investmentType?.name, value: product?.investmentType?._id },
       address: product?.address,
       deadline: format(product?.deadline, 'yyyy-MM-dd'),
       kycLevel: kycOptions.find(ele => ele.value === product.kycLevel.toString()),
@@ -146,6 +143,19 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     });
     setSearchValue(product?.address);
   }, [product, categoriesOptions]);
+
+  const loadInvestmentTypeOptions = async searchText => {
+    try {
+      let options = [];
+      const response = await categoryService.getAllCategories({
+        searchText,
+      });
+      options = response?.items?.map(_ => ({ value: _?._id, label: _?.name }));
+      return options;
+    } catch (error) {
+      return [];
+    }
+  };
 
   const libraries = ['places'];
   const handlePlaceSelect = place => {
@@ -183,7 +193,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
           <Form.Item
             label="Investment Type"
             name="investmentType"
-            options={categoriesOptions}
+            defaultOptions={categoriesOptions}
             sm
             rounded
             isSearchable
@@ -194,7 +204,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Investment Type',
               },
             ]}>
-            <Select />
+            <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
 
           {/* <Form.Item
