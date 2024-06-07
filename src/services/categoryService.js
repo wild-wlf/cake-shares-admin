@@ -27,7 +27,7 @@ const categoryService = {
           setCategoryStatus(STATUS.SUCCESS);
         })
         .catch(() => setCategoryStatus(STATUS.ERROR));
-    }, [searchQuery?.getAll ? JSON.stringify(searchQuery) : searchQuery, fetch]);
+    }, [searchQuery?.itemsPerPage ? JSON.stringify(searchQuery) : searchQuery, fetch]);
     return {
       categories_loading: categoryStatus === STATUS.LOADING,
       categories_error: categoryStatus === STATUS.ERROR,

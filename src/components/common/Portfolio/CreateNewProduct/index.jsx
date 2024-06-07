@@ -30,7 +30,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
 
   const { categories_data } = categoryService.GetAllCategories(
     {
-      getAll: true,
+      itemsPerPage: 10,
     },
     fetch,
   );
@@ -58,6 +58,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       return updatedImages;
     });
   };
+
   const handleSubmit = async e => {
     const obj = {
       userId: user._id,
@@ -110,7 +111,20 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       setLoading(false);
     }
   };
-  const [searchValue, setSearchValue] = useState(''); // For Google Map Search Field
+
+  const loadInvestmentTypeOptions = async searchText => {
+    try {
+      let options = [];
+      const response = await categoryService.getAllCategories({
+        searchText,
+      });
+      options = response?.items?.map(_ => ({ value: _?._id, label: _?.name }));
+      return options;
+    } catch (error) {
+      return [];
+    }
+  };
+  const [searchValue, setSearchValue] = useState('');
   const libraries = ['places'];
   const handlePlaceSelect = place => {
     if (place.geometry && place.geometry.location) {
@@ -147,7 +161,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           <Form.Item
             label="Investment Type"
             name="investmentType"
-            options={categoriesOptions}
+            defaultOptions={categoriesOptions}
             sm
             rounded
             isSearchable
@@ -158,7 +172,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Please enter Investment Type',
               },
             ]}>
-            <Select />
+            <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
           <div>
             <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
