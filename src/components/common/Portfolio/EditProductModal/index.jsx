@@ -456,8 +456,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^.{0,8}$/,
-                message: 'Please enter a valid Backers Limit',
+                pattern: /^[1-9]\d*$/,
+                message: 'Asset Value must be greater than zero',
               },
             ]}>
             <Field />
@@ -475,8 +475,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Minimum Investment Value',
               },
               {
-                pattern: /^.{0,8}$/,
-                message: 'Please enter a valid Minimum Investment',
+                pattern: /^[1-9]\d*$/,
+                message: 'Minimum Investment must be greater than zero',
               },
             ]}>
             <Field />

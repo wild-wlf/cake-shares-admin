@@ -18,7 +18,7 @@ import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 const CreateNewProduct = ({ setCreateProductModal }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['']);
+  const [amenities, setAmenities] = useState(['','','']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +45,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
   }, [categories_data?.items]);
 
   const addAmenities = () => {
-    if (amenities.length == 10) return;
+    if (amenities.length == 20) return;
     setAmenities([...amenities, '']);
   };
 
@@ -152,11 +152,11 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Please enter Product Name',
               },
               {
-                pattern: /^.{0,40}$/,
-                message: 'Please enter a valid Product Name',
+                pattern: /^.{3,40}$/,
+                message: 'Minimum character length of product name is 3',
               },
             ]}>
-            <Field />
+            <Field maxLength={40}/>
           </Form.Item>
           <Form.Item
             label="Investment Type"
@@ -268,11 +268,11 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^.{0,256}$/,
-                  message: 'Product Description must be between 0 to 256',
+                  pattern: /^.{10,1000}$/,
+                  message: 'Minimum character length of product description is 10',
                 },
               ]}>
-              <Field />
+              <Field maxLength={1000}/>
             </Form.Item>
           </div>
           <div className="description-holder">
@@ -289,11 +289,11 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^.{0,256}$/,
-                  message: 'Description must be between 0 to 256',
+                  pattern: /^.{10,1000}$/,
+                  message: 'Minimum character length of description is 10',
                 },
               ]}>
-              <Field />
+              <Field maxLength={1000}/>
             </Form.Item>
           </div>
         </div>
@@ -346,9 +346,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           </div>
         </div> */}
         <div className="add-amenities-holder">
-          <span className="heading">Investment Info:</span>
+          <span className="heading">Amenities:</span>
           <div className="add-amenities">
-            <span>You can add up to 10 amenities only!</span>
+            <span>You can add up to 20 amenities only!</span>
             <div className="add-more" onClick={addAmenities}>
               <IoAdd />
               <span>Add more</span>
@@ -372,7 +372,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   }}
                   rules={[
                     {
-                      // required: ind <= 3 ? true : false,
+                      required: ind <= 2 ? true : false,
                       message: 'Please enter Amentity',
                     },
                     {
@@ -400,8 +400,12 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Minimum Backers Limit',
               },
+              {
+                pattern: /^(0?[1-9]|[1-9][0-9])$/,
+                message: 'Please enter a valid limit between 1 and 99',
+              },
             ]}>
-            <Field />
+            <Field maxLength={3}/>
           </Form.Item>
           <Form.Item
             type="number"
@@ -415,6 +419,15 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Maximum Backers Limit',
               },
+              {
+                pattern: /^(0?[1-9]|[1-9][0-9])$/,
+                message: 'Please enter a valid limit between 1 and 99',
+              },
+              {
+                transform: (value) =>
+                  value < +form.getFieldValue("minBackers"),
+                message: "Maximun backers cannot be less than minimum backers!",
+              }
             ]}>
             <Field />
           </Form.Item>
@@ -430,6 +443,11 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Total Asset Value',
               },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: 'Asset Value must be greater than zero',
+              },
+          
             ]}>
             <Field />
           </Form.Item>
@@ -445,6 +463,15 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
               },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: 'Minimum Investment must be greater than zero',
+              },
+              {
+                transform: (value) =>
+                  value > +form.getFieldValue("assetValue"),
+                message: "Minimum investment cannot be greater than asset value!",
+              }
             ]}>
             <Field />
           </Form.Item>

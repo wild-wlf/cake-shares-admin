@@ -46,12 +46,13 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
           name="bankName"
           placeholder="Bank of England"
           rules={[
-            { required: true },
+            { required: true, message: 'Please enter bank name' },
             {
-              message: 'Maximum Character Length is 256',
+              pattern: /^.{3,30}$/,
+              message: 'Please enter a valid bank name',
             },
           ]}>
-          <Field />
+          <Field maxLength={30} />
         </Form.Item>
         <div className="combineFields">
           <Form.Item
@@ -60,25 +61,31 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
             name="accountHolder"
             placeholder="Alex Mertiz"
             rules={[
-              { required: true },
+              { required: true, message: "Please enter account holder's name" },
               {
-                message: 'Maximum Character Length is 256',
+                pattern: /^.{3,30}$/,
+                message: "Please enter a valid account holder's name",
+              },
+              {
+                pattern: /^[a-zA-Z]+$/,
+                message: 'Please enter a valid name (without special characters and digits)',
               },
             ]}>
-            <Field />
+            <Field maxLength={30} />
           </Form.Item>
           <Form.Item
-            type="num"
+            type="number"
             label="Account Number"
             name="accountNumber"
             placeholder="35402755003895"
             rules={[
-              { required: true },
+              { required: true, message: 'Please enter account number' },
               {
-                message: 'Maximum Character Length is 256',
+                pattern: /^.[0-9]{8,34}$/,
+                message: "Please enter a valid account number",
               },
             ]}>
-            <Field />
+            <Field maxLength={34}/>
           </Form.Item>
         </div>
 
