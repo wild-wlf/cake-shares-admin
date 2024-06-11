@@ -18,7 +18,7 @@ import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['','','']);
+  const [amenities, setAmenities] = useState(['', '', '']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -152,7 +152,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Minimum character length of product name is 3',
               },
             ]}>
-            <Field maxLength={40}/>
+            <Field maxLength={40} />
           </Form.Item>
           <Form.Item
             label="Investment Type"
@@ -268,7 +268,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Minimum character length of product description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
           <div className="description-holder">
@@ -289,7 +289,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Minimum character length of description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
         </div>
@@ -342,11 +342,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
           </div>
         </div> */}
         <div className="add-amenities-holder">
-<<<<<<< HEAD
           <span className="heading">Amenities</span>
-=======
-          <span className="heading">Amenities:</span>
->>>>>>> 299343fa749236aca2e888f130ea5615e9171507
           <div className="add-amenities">
             <span>You can add up to 20 amenities only!</span>
             <div className="add-more" onClick={addAmenities}>
@@ -405,7 +401,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
             ]}>
-            <Field maxLength={3}/>
+            <Field maxLength={3} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -424,10 +420,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
               {
-                transform: (value) =>
-                  value < +form.getFieldValue("minBackers"),
-                message: "Maximun backers cannot be less than minimum backers!",
-              }
+                transform: value => value < +form.getFieldValue('minBackers'),
+                message: 'Maximun backers cannot be less than minimum backers!',
+              },
             ]}>
             <Field />
           </Form.Item>
@@ -447,7 +442,6 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset Value must be greater than zero',
               },
-          
             ]}>
             <Field />
           </Form.Item>
@@ -468,10 +462,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Minimum Investment must be greater than zero',
               },
               {
-                transform: (value) =>
-                  value > +form.getFieldValue("assetValue"),
-                message: "Minimum investment cannot be greater than asset value!",
-              }
+                transform: value => value > +form.getFieldValue('assetValue'),
+                message: 'Minimum investment cannot be greater than asset value!',
+              },
             ]}>
             <Field />
           </Form.Item>
