@@ -56,7 +56,6 @@ const PortfolioTable = ({ title }) => {
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
-
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {

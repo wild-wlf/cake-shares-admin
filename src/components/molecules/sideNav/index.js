@@ -13,12 +13,15 @@ import { KycContext } from '@/context/KycContext';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import { format } from 'date-fns';
+import KycLevel from '@/components/atoms/KYC/KycLevel';
 
 const SideBar = ({ data }) => {
-  const { user, onLogout } = useContextHook(AuthContext, v => ({
+  const { user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
     user: v.user,
     onLogout: v.onLogout,
+    isLoggedIn: v.isLoggedIn,
   }));
+  console.log(user);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
   const closeSideNav = () => {
@@ -97,16 +100,31 @@ const SideBar = ({ data }) => {
         </LinkContainer>
 
         <UserDet>
-          <figure className="imageWrapper">
-            <Image src={user?.profilePicture || SellerProfile} height={40} width={40} alt="user-profile" />
-          </figure>
-          <div className="detailContainer">
-            <span className="userName">{user?.fullName}</span>
-            <span className="type">{user?.isIndividualSeller ? 'Individual Seller' : 'Company Seller'}</span>
-            <span className="date">
-              Member since {user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : ''}
-            </span>
+          <div className="user-info">
+            <figure className="imageWrapper">
+              <Image src={user?.profilePicture || SellerProfile} height={40} width={40} alt="user-profile" />
+            </figure>
+            <div className="detailContainer">
+              <span className="userName">{user?.fullName}</span>
+              <span className="type">{user?.isIndividualSeller ? 'Individual Seller' : 'Company Seller'}</span>
+              <span className="date">
+                Member since {user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : ''}
+              </span>
+            </div>
           </div>
+          {isLoggedIn ? (
+            <>
+              <div className="textfeildWrapper">
+                <div className="textFieldRight">
+                  <span className="heading">My Kyc Level</span>
+                  <span>{kycLevel - 1}</span>
+                </div>
+                <KycLevel level={user?.kycLevel + 1} bg />
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </UserDet>
       </Sidenav>
     </>
