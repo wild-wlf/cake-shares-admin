@@ -207,7 +207,7 @@ const PortfolioTable = ({ title }) => {
       <CenterModal
         open={productDetailModal}
         setOpen={setProductDetailModal}
-        title={`${selecteData?.productName} Property Detail`}
+        title={`${selecteData?.productName} Detail`}
         width="1030">
         <ProductDetailModal data={selecteData} />
       </CenterModal>

@@ -95,33 +95,37 @@ const ProductDetailModal = ({ data }) => {
           </div>
         ))}
       </div>
-      <div className="product-media">
-        <span className="heading">Product Media:</span>
-        <div className="product-images">
-          {data?.media?.map((item, index) =>
-            item ? (
-              item.endsWith('.mp4') ? (
-                <video key={index} width={319} height={191} autoPlay>
-                  <source src={item} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ) : (
-                <Image key={index} src={item} alt="productImg1" width={319} height={191} />
-              )
-            ) : null,
-          )}
+      {data?.media && data?.media?.length > 0 && (
+        <div className="product-media">
+          <span className="heading">Product Media:</span>
+          <div className="product-images">
+            {data?.media?.map((item, index) =>
+              item ? (
+                item.endsWith('.mp4') ? (
+                  <video key={index} width={319} height={191} autoPlay>
+                    <source src={item} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <Image key={index} src={item} alt="productImg1" width={319} height={191} />
+                )
+              ) : null,
+            )}
+          </div>
         </div>
-      </div>
-      <div className="amenities-holder">
-        <span className="heading">Amenities:</span>
-        <div className="amenities">
-          {data?.amenities.map((item, index) => (
-            <div className="product-property" key={index}>
-              <span>{item}</span>
-            </div>
-          ))}
+      )}
+      {data?.amenities && data?.amenities?.length > 0 && (
+        <div className="amenities-holder">
+          <span className="heading">Amenities:</span>
+          <div className="amenities">
+            {data?.amenities.map((item, index) => (
+              <div className="product-property" key={index}>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="product-info investment-info">
         {investmentData?.map((item, index) => (
           <div className="col" key={index}>

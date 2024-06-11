@@ -2,13 +2,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { StyledEditProductModal } from './EditProductModal.styles';
 import Field from '@/components/molecules/Field';
 import Select from '@/components/atoms/Select';
-import productImg1 from '../../../../_assets/product-img-1.png';
-import productImg2 from '../../../../_assets/product-img-2.png';
-import productImg3 from '../../../../_assets/product-img-3.png';
-import Image from 'next/image';
 import Button from '@/components/atoms/Button';
 import { IoAdd } from 'react-icons/io5';
-import UploadFile from '@/components/molecules/UploadFile';
+import { RxCrossCircled } from 'react-icons/rx';
 import Form, { useForm } from '@/components/molecules/Form';
 import { format } from 'date-fns';
 import { StyledCreateNewProduct } from '../CreateNewProduct/CreateNewProduct.styles';
@@ -102,9 +98,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     { label: 'Level 2', value: '2' },
   ];
 
-  const addAmenity = () => {
-    setAmenities([...amenities, '']);
-  };
+  const addAmenity = () => setAmenities([...amenities, '']);
+
+  const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
+
   const handleFileChange = (e, index) => {
     const file = e.target.file;
     setImages(prev => {
@@ -340,7 +337,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please Upload Media!',
+                      message: 'Please Upload Product Media!',
                     },
                   ]}
                   id={`media${index}`}
@@ -348,7 +345,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   img={media[index]}
                   noMargin
                   uploadTitle="Upload Image/Video"
-                  disc="image should be up to 1mb only"
+                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
                   onChange={e => {
                     form.setFieldsValue({
                       [`media${index}`]: e,
@@ -367,13 +364,15 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         </div>
         <div className="add-amenities-holder">
           <span className="heading">Amenities</span>
-          <div className="add-amenities">
-            <span>You can add up to 10 amenities only!</span>
-            <div onClick={addAmenity} className="add-more">
-              <IoAdd />
-              <span>Add more</span>
+          {amenities && amenities?.length < 10 && (
+            <div className="add-amenities">
+              <span>You can add up to 10 amenities only!</span>
+              <div onClick={addAmenity} className="add-more">
+                <IoAdd />
+                <span>Add more</span>
+              </div>
             </div>
-          </div>
+          )}
           <div className="amenities">
             {amenities &&
               amenities.length > 0 &&
@@ -386,6 +385,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   rounded
                   value={amenity}
                   placeholder="Enter text"
+                  noMargin
+                  suffix={<RxCrossCircled />}
+                  onClickSuffix={() => removeAmenity(index)}
                   onChange={e => {
                     form.setFieldsValue({
                       [`amenity${index}`]: e.target.value,
@@ -403,10 +405,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                     },
                     {
                       pattern: /^.{0,40}$/,
-                      message: 'Please enter a valid Amentity',
+                      message: 'Maximum Character Length is 40',
                     },
                   ]}>
-                  <Field noMargin />
+                  <Field />
                 </Form.Item>
               ))}
           </div>

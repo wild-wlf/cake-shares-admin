@@ -32,13 +32,13 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData }) => {
       console.log('PAYLOAD: ', payload);
       const formDataToSend = new FormData();
       Object.keys(payload).forEach(key => {
-        if (key === 'bankDetails' && typeof payload[key] === 'object') {
+        if ((key === 'bankDetails' || key === 'ownerDetails') && typeof payload[key] === 'object') {
           formDataToSend.append(key, JSON.stringify(payload[key]));
         } else {
           formDataToSend.append(key, payload[key]);
         }
       });
-        await kycService.requestKyc(formDataToSend);
+      // await kycService.requestKyc(formDataToSend);
       Toast({
         type: 'success',
         message: `KYC Requested Successfully!`,

@@ -9,6 +9,7 @@ import CenterModal from '../Modal/CenterModal';
 import KycBuyerLevelOne from '@/components/atoms/KYC/KYCBuyer';
 import KycBuyerLevelTwo from '@/components/atoms/KYC/KYCBuyerTwo';
 import KYCBuyerThree from '@/components/atoms/KYC/KYCBuyerThree';
+import KycBuyerLevelZero from '@/components/atoms/KYC/KYCBuyerZero';
 import { KycContext } from '@/context/KycContext';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
@@ -26,10 +27,18 @@ const SideBar = ({ data }) => {
     document.body.style.overflow = 'auto';
   };
 
-  const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
+  const { kycLevel, setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
   return (
     <>
       {/* KYC MODAL */}
+      <CenterModal
+        zIndex={9999}
+        open={kyc0}
+        setOpen={setKyc0}
+        width="688"
+        title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
+        <KycBuyerLevelZero setKycLevel={setKycLevel} setOpen={setKyc0} setKycData={setKycData} />
+      </CenterModal>
       <CenterModal
         zIndex={9999}
         open={kyc1}

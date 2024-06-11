@@ -4,8 +4,7 @@ import Field from '@/components/molecules/Field';
 import Select from '@/components/atoms/Select';
 import Button from '@/components/atoms/Button';
 import { IoAdd } from 'react-icons/io5';
-import { FaCalendarAlt } from 'react-icons/fa';
-import UploadFile from '@/components/molecules/UploadFile';
+import { RxCrossCircled } from 'react-icons/rx';
 import Form, { useForm } from '@/components/molecules/Form';
 import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
@@ -43,10 +42,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       }));
   }, [categories_data?.items]);
 
-  const addAmenities = () => {
-    if (amenities.length == 10) return;
-    setAmenities([...amenities, '']);
-  };
+  const addAmenities = () => setAmenities([...amenities, '']);
+
+  const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
 
   const [form] = useForm();
   const handleFileChange = (e, index) => {
@@ -314,7 +312,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   rules={[
                     {
                       required: true,
-                      message: 'product image required',
+                      message: 'Please Upload Product Media!',
                     },
                   ]}
                   id={`media${index}`}
@@ -322,7 +320,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   uploadTitle="Upload Image/Video"
                   accept="image/jpeg, image/jpg, image/png, video/mp4"
                   noMargin
-                  disc="File size must be less than 1MB in  JPG, or PNG format."
+                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
                   onChange={e => {
                     form.setFieldsValue({
                       [`media${index}`]: e,
@@ -341,13 +339,15 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
         </div>
         <div className="add-amenities-holder">
           <span className="heading">Investment Info:</span>
-          <div className="add-amenities">
-            <span>You can add up to 10 amenities only!</span>
-            <div className="add-more" onClick={addAmenities}>
-              <IoAdd />
-              <span>Add more</span>
+          {amenities && amenities?.length < 10 && (
+            <div className="add-amenities">
+              <span>You can add up to 10 amenities only!</span>
+              <div className="add-more" onClick={addAmenities}>
+                <IoAdd />
+                <span>Add more</span>
+              </div>
             </div>
-          </div>
+          )}
           <div className="amenities">
             {amenities?.map((elem, ind) => (
               <>
@@ -358,6 +358,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   rounded
                   placeholder="Enter text"
                   value={amenities[ind]}
+                  noMargin
+                  suffix={<RxCrossCircled />}
+                  onClickSuffix={() => removeAmenity(ind)}
                   onChange={e => {
                     form.setFieldsValue({
                       [`amentity${ind}`]: e.target.value,
@@ -366,12 +369,12 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   }}
                   rules={[
                     {
-                      // required: ind <= 3 ? true : false,
+                      required: true,
                       message: 'Please enter Amentity',
                     },
                     {
                       pattern: /^.{0,40}$/,
-                      message: 'Please enter a valid Amentity',
+                      message: 'Maximum Character Length is 40',
                     },
                   ]}>
                   <Field noMargin />
