@@ -16,7 +16,7 @@ import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
-const CreateNewProduct = ({ setCreateProductModal }) => {
+const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
   const [amenities, setAmenities] = useState(['']);
   const [images, setImages] = useState([]);
@@ -96,13 +96,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
     setLoading(true);
     try {
       await productService.addProduct(formDataToSend);
-      Toast({
-        type: 'success',
-        message: 'Product added successfully',
-      });
       refetch();
-      setCreateProductModal(false);
       setLoading(false);
+      handleCreateProduct();
     } catch (error) {
       Toast({
         type: 'error',
@@ -346,7 +342,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           </div>
         </div> */}
         <div className="add-amenities-holder">
-          <span className="heading">Investment Info:</span>
+          <span className="heading">Amenities</span>
           <div className="add-amenities">
             <span>You can add up to 10 amenities only!</span>
             <div className="add-more" onClick={addAmenities}>

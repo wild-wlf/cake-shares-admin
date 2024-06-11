@@ -11,6 +11,8 @@ import CenterModal from '@/components/molecules/Modal/CenterModal';
 import CreateNewProduct from '../Portfolio/CreateNewProduct';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
+import SuccessModal from '@/components/molecules/SuccessModal/SuccessModal';
+import successImage from '../../../_assets/successIcon.png';
 
 const SellerTopBar = ({ title, tagLine, suffix }) => {
   const { user } = useContextHook(AuthContext, v => ({
@@ -18,10 +20,15 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   }));
   const [notifications, setNotifications] = useState(false);
   const [createProductModal, setCreateProductModal] = useState(false);
-
+  const [successModal, setSuccessModal] = useState(false);
   const [fetchNotifications, setfetchNotifications] = useState(false);
 
   const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
+
+  function handleCreateProduct() {
+    setSuccessModal(true);
+    setCreateProductModal(false);
+  }
 
   const openSideNav = () => {
     document.body.classList.toggle('sideNav-active');
@@ -44,7 +51,14 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   return (
     <>
       <CenterModal open={createProductModal} setOpen={setCreateProductModal} title="Create new Product" width="900">
-        <CreateNewProduct setCreateProductModal={setCreateProductModal} />
+        <CreateNewProduct handleCreateProduct={handleCreateProduct} />
+      </CenterModal>
+      <CenterModal
+        open={successModal}
+        setOpen={setSuccessModal}
+        title={<Image src={successImage} alt="successImage" />}
+        width="500">
+        <SuccessModal heading="Product Created Successfully!" />
       </CenterModal>
       <Container>
         <div className="barData">
