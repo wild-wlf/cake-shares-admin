@@ -13,7 +13,12 @@ import { formatNumber } from '@/helpers/common';
 import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 
-const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, product, setAdvertisedDays }) => {
+const AdvertiseModal = ({
+  handleAdvertiseModal,
+  setProductAdvertiseModal,
+  product,
+  setAdvertisedDays,
+}) => {
   const { user, setPermission, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     setPermission: v.setPermission,

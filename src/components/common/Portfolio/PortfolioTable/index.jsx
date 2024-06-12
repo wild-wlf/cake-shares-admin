@@ -69,6 +69,7 @@ const PortfolioTable = ({ title }) => {
   const handleAdvertiseModal = () => {
     setProductAdvertiseModal(false);
     setAdvertiseSuccessfulModal(true);
+    setProductDetailModal?.(false);
   };
   async function handelDeleteProduct() {
     await productService.deleteProduct(selecteData);
@@ -207,9 +208,13 @@ const PortfolioTable = ({ title }) => {
       <CenterModal
         open={productDetailModal}
         setOpen={setProductDetailModal}
-        title={`${selecteData?.productName} Property Detail`}
+        title={`${selecteData?.productName} Detail`}
         width="1030">
-        <ProductDetailModal data={selecteData} />
+        <ProductDetailModal
+          data={selecteData}
+          setSelectedProduct={setSelectedProduct}
+          setProductAdvertiseModal={setProductAdvertiseModal}
+        />
       </CenterModal>
 
       <CenterModal open={editProductModal} setOpen={setEditProductModal} title="Edit Product" width="900">
@@ -240,6 +245,7 @@ const PortfolioTable = ({ title }) => {
           setProductAdvertiseModal={setProductAdvertiseModal}
           product={selectedProduct}
           setAdvertisedDays={setAdvertisedDays}
+          setProductDetailModal={setProductDetailModal}
         />
       </CenterModal>
       <CenterModal

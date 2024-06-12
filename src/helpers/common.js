@@ -296,23 +296,4 @@ export const bas64toFile = async (dataUrl, fileName) => {
 export const formatNumber = number => new Intl.NumberFormat().format(number);
 
 
-export const validateFutureDate = inputDate => {
-  // Parse the input date
-  let userDate = new Date(inputDate);
-  if (isNaN(userDate)) {
-    return 'Invalid date format. Please enter a valid date.';
-  }
-
-  // Get the current date
-  let today = new Date();
-  today.setHours(0, 0, 0, 0); // Set time to midnight to compare only the date part
-
-  // Compare the dates
-  if (userDate > today) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 
