@@ -360,7 +360,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   placeholder="Enter text"
                   value={amenities[ind]}
                   noMargin
-                  suffix={<RxCrossCircled />}
+                  suffix={<RxCrossCircled size={14} />}
                   onClickSuffix={() => removeAmenity(ind)}
                   onChange={e => {
                     form.setFieldsValue({

@@ -14,6 +14,7 @@ import { AuthContext } from '@/context/authContext';
 import Toast from '@/components/molecules/Toast';
 import categoryService from '@/services/categoryService';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
+import { validateAmenity } from '@/helpers/common';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +46,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [media, setMedia] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [amenities, setAmenities] = useState(product.amenities);
+  const [amenities, setAmenities] = useState();
   const handleSubmit = async data => {
     const { media0, media1, media2, ...e } = data;
     const payload = {
@@ -91,7 +92,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     }
   };
 
-  console.log('Images: ', images);
   const kycOptions = [
     { label: 'Level 0', value: '0' },
     { label: 'Level 1', value: '1' },
@@ -110,7 +110,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       return updatedImages;
     });
   };
-  // console.log(product.investmentType);
   useEffect(() => {
     form.setFieldsValue({
       productName: product?.productName,
@@ -386,7 +385,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   value={amenity}
                   placeholder="Enter text"
                   noMargin
-                  suffix={<RxCrossCircled />}
+                  suffix={<RxCrossCircled size={14} />}
                   onClickSuffix={() => removeAmenity(index)}
                   onChange={e => {
                     form.setFieldsValue({
@@ -404,11 +403,16 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                       message: 'Please enter Amentity',
                     },
                     {
-                      pattern: /^.{0,40}$/,
-                      message: 'Maximum Character Length is 40',
+                      pattern: /^.{3,20}$/,
+                      message: 'Please enter a valid amenity',
+                    },
+                    {
+                      transform: value =>
+                        amenities.length !== product?.amenities.length && validateAmenity(value, amenities) === true,
+                      message: 'Amenity already added!',
                     },
                   ]}>
-                  <Field />
+                  <Field noMargin maxLength={20} />
                 </Form.Item>
               ))}
           </div>
