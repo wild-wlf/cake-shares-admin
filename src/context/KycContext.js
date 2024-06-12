@@ -8,17 +8,21 @@ export const KycContextProvider = ({ children }) => {
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
   }));
-  const [kycLevel, setKycLevel] = useState(1);
+  const [kycLevel, setKycLevel] = useState(user?.sellerType === 'Company' ? 0 : 1);
   useEffect(() => {
     setKycLevel(user?.kycLevel ? user.kycLevel + 1 : 1);
   }, []);
 
+  const [kyc0, setKyc0] = useState(false);
   const [kyc1, setKyc1] = useState(false);
   const [kyc2, setKyc2] = useState(false);
   const [kyc3, setKyc3] = useState(false);
 
   function checkKycLevel() {
-    if (kycLevel == 1) {
+    console.log(user?.sellerType === 'Company');
+    if (user?.sellerType === 'Company') {
+      setKyc0(true);
+    } else if (kycLevel == 1) {
       setKyc1(true);
     } else if (kycLevel == 2) {
       setKyc2(true);
@@ -29,6 +33,8 @@ export const KycContextProvider = ({ children }) => {
   const contextValue = {
     kycLevel,
     setKycLevel,
+    kyc0,
+    setKyc0,
     kyc1,
     setKyc1,
     kyc2,
