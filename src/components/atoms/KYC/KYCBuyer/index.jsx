@@ -66,7 +66,7 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
           </Form.Item>
         </div>
         <Button rounded md btntype="primary" width="214" htmlType="submit">
-          Complete Verification
+          Continue
         </Button>
       </Form>
     </StyledKycBuyer>

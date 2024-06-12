@@ -110,7 +110,7 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
           {selected && (
             <div className="budget-desc">
               For a {selected} day{selected > 1 ? 's' : ''} ad campaign, the estimated cost would be{' '}
-              <span>${estimatedCost}</span>.
+              <span>${estimatedCost}.00</span>.
             </div>
           )}
           <div className="btnWrapper">

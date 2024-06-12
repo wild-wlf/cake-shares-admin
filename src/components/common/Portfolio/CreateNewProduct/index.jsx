@@ -225,7 +225,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
           </Form.Item>
           <Form.Item
             type="text"
-            label="KYC Level"
+            label="KYC/KYB Level"
             name="kycLevel"
             sm
             rounded

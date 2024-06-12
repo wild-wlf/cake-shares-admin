@@ -133,17 +133,28 @@ const PortfolioTable = ({ title }) => {
       </ActionBtnList>
     </>
   );
+  const getStatus = data => {
+    if (data.valueRaised === data.assetValue) {
+      return <span className="product-status-complete">Completed</span>;
+    } else if (data.isVerified === true) {
+      return <span className="product-status-active">Active</span>;
+    } else if (data.isVerified === false) {
+      return <span className="product-status-new">New</span>;
+    } else {
+      return '------------';
+    }
+  };
   const { product_rows, totalCount } = useMemo(() => {
     const items = products_data.items || [];
     return {
       product_rows: items.map(data => [
         data.productName || '------------',
         data.investmentType?.name || '------------',
-        data.isVerified ? 'Approved' : 'Pending' || '------------',
+        getStatus(data),
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
-        formatNumber(data.minimumInvestment) ?? 0 ?? '------------',
-        formatNumber(data.valueRaised) ?? 0 ?? '------------',
-        formatNumber(data.assetValue) ?? 0 ?? '------------',
+        `$ ${formatNumber(data.minimumInvestment)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.valueRaised)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
       totalCount: items.length,
