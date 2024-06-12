@@ -11,7 +11,7 @@ import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import { convertToFormData } from '@/helpers/common';
+import { convertToFormData, validateFutureDate } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
@@ -77,7 +77,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
     };
-    // console.log(obj);
+    console.log(obj);
     const formDataToSend = new FormData();
     Object.keys(obj).forEach(key => {
       if (key === 'images') {
@@ -224,6 +224,10 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 required: true,
                 message: 'Please enter Deadline',
               },
+              {
+                transform: value => validateFutureDate(value) === false,
+                message: 'Deadline must be 1 day',
+              },
             ]}>
             <Field />
           </Form.Item>
@@ -302,17 +306,56 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index} className="upload">
-                <UploadFile
+              <div className="upload" key={index}>
+                <Form.Item
+                  type="img"
+                  sm
+                  rounded
+                  placeholder="Enter Text"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'product image required',
+                    },
+                  ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  bg
-                  img={media[index]}
+                  // img={media[index]}
                   noMargin
-                  disc="image should be up to 1mb only"
-                  onChange={e => handleFileChange(e, index)}
-                />
+                  disc="File size must be less than 1MB in  JPG, or PNG format."
+                  onChange={e => {
+                    form.setFieldsValue({
+                      [`media${index}`]: e,
+                    });
+                    setImages(prev => {
+                      const updatedImages = [...prev];
+                      updatedImages[index] = e;
+                      return updatedImages;
+                    });
+                  }}>
+                  {/* <UploadFile
+                    id={`media${index}`}
+                    name={`media${index}`}
+                    bg
+                    img={media[index]}
+                    noMargin
+                    disc="image should be up to 1mb only"
+                    onChange={e => handleFileChange(e, index)}
+                  /> */}
+                  <Field />
+                </Form.Item>
               </div>
+              // <div key={index} className="upload">
+              //   <UploadFile
+              //     id={`media${index}`}
+              //     name={`media${index}`}
+              //     bg
+              //     img={media[index]}
+              //     noMargin
+              //     disc="image should be up to 1mb only"
+              //     onChange={e => handleFileChange(e, index)}
+              //   />
+              // </div>
             );
           })}
         </div>

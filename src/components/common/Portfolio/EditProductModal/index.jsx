@@ -18,6 +18,7 @@ import { AuthContext } from '@/context/authContext';
 import Toast from '@/components/molecules/Toast';
 import categoryService from '@/services/categoryService';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
+import { validateFutureDate } from '@/helpers/common';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +51,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [images, setImages] = useState([]);
 
   const [amenities, setAmenities] = useState(product.amenities);
-  const handleSubmit = async e => {
+  const handleSubmit = async data => {
+    const { media0, media1, media2, ...e } = data;
     const payload = {
       ...e,
       investmentType: e?.investmentType?.value,
@@ -93,6 +95,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       setIsLoading(false);
     }
   };
+
+  console.log('Images: ', images);
   const kycOptions = [
     { label: 'Level 0', value: '0' },
     { label: 'Level 1', value: '1' },
@@ -273,6 +277,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 required: true,
                 message: 'Please enter Deadline',
               },
+              {
+                transform: value => validateFutureDate(value) === false,
+                message: 'Deadline must be 1 day',
+              },
             ]}>
             <Field />
           </Form.Item>
@@ -343,20 +351,66 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index} className="upload">
-                <UploadFile
+              <div className="upload" key={index}>
+                <Form.Item
+                  type="img"
+                  sm
+                  rounded
+                  placeholder="Enter Text"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter Description',
+                    },
+                    {
+                      pattern: /^.{0,256}$/,
+                      message: 'Description must be between 0 to 256',
+                    },
+                  ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  bg
                   img={media[index]}
                   noMargin
                   disc="image should be up to 1mb only"
-                  onChange={e => handleFileChange(e, index)}
-                />
+                  onChange={e => {
+                    form.setFieldsValue({
+                      [`media${index}`]: e,
+                    });
+                    setImages(prev => {
+                      const updatedImages = [...prev];
+                      updatedImages[index] = e;
+                      return updatedImages;
+                    });
+                  }}>
+                  <Field />
+                </Form.Item>
               </div>
             );
           })}
         </div>
+        {/* <Form.Item
+          type="img"
+          sm
+          rounded
+          placeholder="Enter Text"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter Description',
+            },
+            {
+              pattern: /^.{0,256}$/,
+              message: 'Description must be between 0 to 256',
+            },
+          ]}
+          id={`media${index}`}
+          name={`media${index}`}
+          img={media[index]}
+          noMargin
+          disc="image should be up to 1mb only">
+          <Field />
+        </Form.Item> */}
+
         <div className="add-amenities-holder">
           <span className="heading">Amenities</span>
           <div className="add-amenities">
