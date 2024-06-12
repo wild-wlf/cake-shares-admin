@@ -14,12 +14,15 @@ import { KycContext } from '@/context/KycContext';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import { format } from 'date-fns';
+import SuccessIcon from '../../../_assets/successIcon.png';
+import SuccessfulModal from '@/components/atoms/ProductDeleteModal/SuccessfulModal';
 
 const SideBar = ({ data }) => {
   const { user, onLogout } = useContextHook(AuthContext, v => ({
     user: v.user,
     onLogout: v.onLogout,
   }));
+  const [successfullModal, setSuccessfullModal] = useState(false);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
   const closeSideNav = () => {
@@ -30,6 +33,13 @@ const SideBar = ({ data }) => {
   const { kycLevel, setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
   return (
     <>
+      <CenterModal
+        open={successfullModal}
+        setOpen={setSuccessfullModal}
+        title={<Image src={SuccessIcon} alt="SuccessIcon" />}
+        width="543">
+        <SuccessfulModal title={'KYC Requested Successfully!'} />
+      </CenterModal>
       {/* KYC MODAL */}
       <CenterModal
         zIndex={9999}
@@ -61,7 +71,7 @@ const SideBar = ({ data }) => {
         setOpen={setKyc3}
         width="688"
         title={`Upgrade to KY${user?.sellerType === 'Individual' ? 'C' : 'B'} Level 3`}>
-        <KYCBuyerThree setKycLevel={setKycLevel} setOpen={setKyc3} kycData={kycData} />
+        <KYCBuyerThree setKycLevel={setKycLevel} setOpen={setKyc3} kycData={kycData} setSuccessfullModal={setSuccessfullModal} />
       </CenterModal>
       {/* KYC MODAL */}
 

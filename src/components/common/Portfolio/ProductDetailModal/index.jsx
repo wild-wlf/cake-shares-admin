@@ -5,7 +5,7 @@ import bellIcon from '../../../../_assets/bell-icon.svg';
 import Image from 'next/image';
 import { daysLeft, formatDateWithSuffix } from '@/helpers/common';
 
-const ProductDetailModal = ({ data }) => {
+const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct }) => {
   const infoData = [
     {
       heading: 'Product Name:',
@@ -72,10 +72,20 @@ const ProductDetailModal = ({ data }) => {
     <StyledProductDetailModal>
       <div className="head">
         <span className="heading">Product Info:</span>
-        <Button type="primary" width="300" rounded sm>
-          <Image src={bellIcon} alt="bellIcon" />
-          Product Advertised
-        </Button>
+        {data && !data?.isAdvertised && data?.isVerified && (
+          <Button
+            onClick={() => {
+              setProductAdvertiseModal(true);
+              setSelectedProduct(data);
+            }}
+            type="primary"
+            width="300"
+            rounded
+            sm>
+            <Image src={bellIcon} alt="bellIcon" />
+            Product Advertisement
+          </Button>
+        )}
       </div>
       <div className="product-info">
         {infoData?.map((item, index) => (

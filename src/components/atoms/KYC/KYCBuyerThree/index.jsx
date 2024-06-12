@@ -12,7 +12,7 @@ import Toast from '@/components/molecules/Toast';
 import kycService from '@/services/kycService';
 import { bas64toFile } from '@/helpers/common';
 
-const KYCBuyerThree = ({ setOpen, setKycLevel, kycData }) => {
+const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfullModal }) => {
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { user, setPermission } = useContextHook(AuthContext, v => ({
@@ -29,7 +29,6 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData }) => {
         personalImage,
         ...kycData,
       };
-      console.log('PAYLOAD: ', payload);
       const formDataToSend = new FormData();
       Object.keys(payload).forEach(key => {
         if ((key === 'bankDetails' || key === 'ownerDetails') && typeof payload[key] === 'object') {
@@ -38,11 +37,8 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData }) => {
           formDataToSend.append(key, payload[key]);
         }
       });
-      // await kycService.requestKyc(formDataToSend);
-      Toast({
-        type: 'success',
-        message: `KYC Requested Successfully!`,
-      });
+      await kycService.requestKyc(formDataToSend);
+      setSuccessfullModal(true);
       setOpen(false);
       setPermission(prev => !prev);
     } catch ({ message }) {

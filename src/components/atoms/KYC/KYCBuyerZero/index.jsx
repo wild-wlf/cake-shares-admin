@@ -14,10 +14,11 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
 
   function onSubmit(data) {
     try {
+      const { ...ownerDetails } = data;
       setIsLoading(true);
       setKycData(prev => ({
         ...prev,
-        ownerDetails: data,
+        ownerDetails,
       }));
       setKyc1(true);
       setOpen(false);
@@ -71,15 +72,23 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
             name="ownerFullName"
             placeholder="John Doe"
             rules={[
-              { required: true, message: 'Owner Full Name is Required!' },
               {
-                message: 'Maximum Character Length is 256',
+                required: true,
+                message: 'Full Name is Required',
+              },
+              {
+                min: 2,
+                message: 'Full Name should be at least 2 characters.',
+              },
+              {
+                max: 64,
+                message: 'Full Name should not exceed 64 characters.',
               },
             ]}>
             <Field />
           </Form.Item>
           <Form.Item
-            type="tel"
+            type="number"
             label="Owner Phone Number"
             name="ownerPhoneNumber"
             placeholder="+1 123 456 789"
