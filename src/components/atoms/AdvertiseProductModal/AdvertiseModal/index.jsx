@@ -13,12 +13,7 @@ import { formatNumber } from '@/helpers/common';
 import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 
-const AdvertiseModal = ({
-  handleAdvertiseModal,
-  setProductAdvertiseModal,
-  product,
-  setAdvertisedDays,
-}) => {
+const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, product, setAdvertisedDays }) => {
   const { user, setPermission, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     setPermission: v.setPermission,
@@ -115,7 +110,7 @@ const AdvertiseModal = ({
           {selected && (
             <div className="budget-desc">
               For a {selected} day{selected > 1 ? 's' : ''} ad campaign, the estimated cost would be{' '}
-              <span>${estimatedCost}.00</span>.
+              <span>{estimatedCost ? `$ ${estimatedCost}.00` : 0}</span>
             </div>
           )}
           <div className="btnWrapper">

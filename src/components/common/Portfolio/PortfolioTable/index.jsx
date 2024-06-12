@@ -27,7 +27,7 @@ import productService from '@/services/productService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { format } from 'date-fns';
-import { formatNumber } from '@/helpers/common';
+import { formatNumber, getStatus } from '@/helpers/common';
 
 const PortfolioTable = ({ title }) => {
   const { fetch, refetch } = useContextHook(AuthContext, v => ({
@@ -134,17 +134,7 @@ const PortfolioTable = ({ title }) => {
       </ActionBtnList>
     </>
   );
-  const getStatus = data => {
-    if (data.valueRaised === data.assetValue) {
-      return <span className="product-status-complete">Completed</span>;
-    } else if (data.isVerified === true) {
-      return <span className="product-status-active">Active</span>;
-    } else if (data.isVerified === false) {
-      return <span className="product-status-new">New</span>;
-    } else {
-      return '------------';
-    }
-  };
+
   const { product_rows, totalCount } = useMemo(() => {
     const items = products_data.items || [];
     return {
