@@ -294,3 +294,6 @@ export const bas64toFile = async (dataUrl, fileName) => {
 };
 
 export const formatNumber = number => new Intl.NumberFormat().format(number);
+
+
+

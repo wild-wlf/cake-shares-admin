@@ -2,13 +2,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { StyledEditProductModal } from './EditProductModal.styles';
 import Field from '@/components/molecules/Field';
 import Select from '@/components/atoms/Select';
-import productImg1 from '../../../../_assets/product-img-1.png';
-import productImg2 from '../../../../_assets/product-img-2.png';
-import productImg3 from '../../../../_assets/product-img-3.png';
-import Image from 'next/image';
 import Button from '@/components/atoms/Button';
 import { IoAdd } from 'react-icons/io5';
-import UploadFile from '@/components/molecules/UploadFile';
+import { RxCrossCircled } from 'react-icons/rx';
 import Form, { useForm } from '@/components/molecules/Form';
 import { format } from 'date-fns';
 import { StyledCreateNewProduct } from '../CreateNewProduct/CreateNewProduct.styles';
@@ -50,7 +46,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [images, setImages] = useState([]);
 
   const [amenities, setAmenities] = useState(product.amenities);
-  const handleSubmit = async e => {
+  const handleSubmit = async data => {
+    const { media0, media1, media2, ...e } = data;
     const payload = {
       ...e,
       investmentType: e?.investmentType?.value,
@@ -93,15 +90,18 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       setIsLoading(false);
     }
   };
+
+  console.log('Images: ', images);
   const kycOptions = [
     { label: 'Level 0', value: '0' },
     { label: 'Level 1', value: '1' },
     { label: 'Level 2', value: '2' },
   ];
 
-  const addAmenity = () => {
-    setAmenities([...amenities, '']);
-  };
+  const addAmenity = () => setAmenities([...amenities, '']);
+
+  const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
+
   const handleFileChange = (e, index) => {
     const file = e.target.file;
     setImages(prev => {
@@ -206,26 +206,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             ]}>
             <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
-
-          {/* <Form.Item
-            type="text"
-            label="Address"
-            name="address"
-            sm
-            rounded
-            placeholder="Please enter address"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter Address',
-              },
-              {
-                pattern: /^.{0,256}$/,
-                message: 'Please enter a valid Address',
-              },
-            ]}>
-            <Field label="Address" />
-          </Form.Item> */}
           <div>
             <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
               <Autocomplete
@@ -272,6 +252,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               {
                 required: true,
                 message: 'Please enter Deadline',
+              },
+              {
+                transform: value => new Date(value).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0),
+                message: 'Deadline Cannot be in the Past!',
               },
             ]}>
             <Field />
@@ -343,29 +327,52 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index} className="upload">
-                <UploadFile
+              <div className="upload" key={index}>
+                <Form.Item
+                  type="img"
+                  sm
+                  rounded
+                  placeholder="Enter Text"
+                  accept="image/jpeg, image/jpg, image/png, video/mp4"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please Upload Product Media!',
+                    },
+                  ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  bg
                   img={media[index]}
                   noMargin
-                  disc="image should be up to 1mb only"
-                  onChange={e => handleFileChange(e, index)}
-                />
+                  uploadTitle="Upload Image/Video"
+                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
+                  onChange={e => {
+                    form.setFieldsValue({
+                      [`media${index}`]: e,
+                    });
+                    setImages(prev => {
+                      const updatedImages = [...prev];
+                      updatedImages[index] = e;
+                      return updatedImages;
+                    });
+                  }}>
+                  <Field />
+                </Form.Item>
               </div>
             );
           })}
         </div>
         <div className="add-amenities-holder">
           <span className="heading">Amenities</span>
-          <div className="add-amenities">
-            <span>You can add up to 10 amenities only!</span>
-            <div onClick={addAmenity} className="add-more">
-              <IoAdd />
-              <span>Add more</span>
+          {amenities && amenities?.length < 10 && (
+            <div className="add-amenities">
+              <span>You can add up to 10 amenities only!</span>
+              <div onClick={addAmenity} className="add-more">
+                <IoAdd />
+                <span>Add more</span>
+              </div>
             </div>
-          </div>
+          )}
           <div className="amenities">
             {amenities &&
               amenities.length > 0 &&
@@ -378,6 +385,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   rounded
                   value={amenity}
                   placeholder="Enter text"
+                  noMargin
+                  suffix={<RxCrossCircled />}
+                  onClickSuffix={() => removeAmenity(index)}
                   onChange={e => {
                     form.setFieldsValue({
                       [`amenity${index}`]: e.target.value,
@@ -395,10 +405,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                     },
                     {
                       pattern: /^.{0,40}$/,
-                      message: 'Please enter a valid Amentity',
+                      message: 'Maximum Character Length is 40',
                     },
                   ]}>
-                  <Field noMargin />
+                  <Field />
                 </Form.Item>
               ))}
           </div>

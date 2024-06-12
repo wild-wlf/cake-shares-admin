@@ -61,14 +61,17 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
             name="accountHolder"
             placeholder="Alex Mertiz"
             rules={[
-              { required: true, message: "Please enter account holder's name" },
               {
-                pattern: /^.{3,30}$/,
-                message: "Please enter a valid account holder's name",
+                required: true,
+                message: 'Account Holder Name is Required',
               },
               {
-                pattern: /^[a-zA-Z]+$/,
-                message: 'Please enter a valid name (without special characters and digits)',
+                min: 2,
+                message: 'Account Holder Name should be at least 2 characters.',
+              },
+              {
+                max: 64,
+                message: 'Account Holder Name should not exceed 64 characters.',
               },
             ]}>
             <Field maxLength={30} />
@@ -85,7 +88,7 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
                 message: 'Please enter a valid account number',
               },
             ]}>
-            <Field maxLength={34} />
+            <Field />
           </Form.Item>
         </div>
 
@@ -95,14 +98,13 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
         <Form.Item
           rounded
           name="residenceProofImage"
+          type="img"
+          document
+          fileSize="5"
+          accept="image/jpeg, image/jpg, image/png, application/pdf"
+          uploadTitle="Upload a copy of bills, bank statement"
           rules={[{ required: true, message: 'Please Upload Residence Proof!' }]}>
-          <Field
-            type="file"
-            fileSize="5"
-            accept="image/jpeg, image/jpg, image/png, application/pdf"
-            uploadTitle="Upload a copy of bills, bank statement"
-            onChange={e => console.log(e)}
-          />
+          <Field />
         </Form.Item>
 
         <Button rounded md btntype="primary" loader={isLoading} width="214" htmlType="submit">
