@@ -339,7 +339,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           })}
         </div>
         <div className="add-amenities-holder">
-          <span className="heading">Investment Info:</span>
+          <span className="heading">Amenities:</span>
           {amenities && amenities?.length < 10 && (
             <div className="add-amenities">
               <span>You can add up to 10 amenities only!</span>
