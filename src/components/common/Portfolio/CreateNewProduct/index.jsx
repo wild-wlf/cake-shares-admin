@@ -342,11 +342,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
           </div>
         </div> */}
         <div className="add-amenities-holder">
-<<<<<<< HEAD
-          <span className="heading">Amenities</span>
-=======
           <span className="heading">Amenities:</span>
->>>>>>> 299343fa749236aca2e888f130ea5615e9171507
           <div className="add-amenities">
             <span>You can add up to 20 amenities only!</span>
             <div className="add-more" onClick={addAmenities}>

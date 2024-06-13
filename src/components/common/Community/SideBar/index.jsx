@@ -1,129 +1,77 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledSideBar } from './SideBar.styles';
 import CommunityGroup from '../CommunityGroup';
 import userImg01 from '../../../../_assets/user-image-01.png';
-import userImg02 from '../../../../_assets/user-image-02.png';
-import userImg03 from '../../../../_assets/user-image-03.png';
+import notificationService from '@/services/notificationservice';
+import { useContextHook } from 'use-context-hook';
+import { AuthContext } from '@/context/authContext';
+import { updateCurrentConversations } from '@/helpers/chatHandlers';
 
-const SideBar = () => {
-  const [tab, setTab] = useState(1);
-  const [groupActive, setGroupActive] = useState(null);
-  function handleGroupActive(index) {
-    setGroupActive(index);
-  }
-  function handleTabs(index) {
-    setTab(index);
-  }
-  const groupData = [
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-      messageCounter: 3,
-      type: 'private',
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-      messageCounter: 2,
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-      type: 'private',
-      messageCounter: 9,
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-      type: 'private',
-      messageCounter: 7,
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-      type: 'private',
-      messageCounter: 4,
-    },
-    {
-      image1: userImg01,
-      image2: userImg02,
-      image3: userImg03,
-      title: 'Egypt Gov. Pro pro',
-      text: 'You, Logan & 33 33',
-      time: '20 min ago',
-    },
-  ];
+const SideBar = ({ handleChoseChatDetails, chosenChatDetails }) => {
+  const { user, fetch } = useContextHook(AuthContext, v => ({
+    user: v.user,
+    fetch: v.fetch,
+  }));
+  const [conversations, setConversations] = useState([]);
+
+  const { conversations_loading, conversations_data } = notificationService.GetAllConversations(
+    { page: 1, itemsPerPage: 10 },
+    fetch,
+  );
+
+  useEffect(() => {
+    if (conversations_data?.conversations?.length > 0) {
+      setConversations(conversations_data?.conversations);
+    }
+  }, [conversations_data]);
+
+  useEffect(() => {
+    window.addEventListener('direct_chat_history', event => {
+      updateCurrentConversations({
+        ...event.detail,
+        setConversations,
+      });
+    });
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('direct_chat_history', () => {});
+    };
+  }, [chosenChatDetails?.conversationId]);
+
+  const getReceiverInfo = participants => {
+    const receiver = participants.find(_ => _?._id !== user?._id);
+    return {
+      username: receiver?.fullName ? receiver?.fullName : receiver?.username,
+      profilePicture: receiver?.profilePicture ? receiver?.profilePicture : userImg01,
+      _id: receiver?._id,
+    };
+  };
 
   return (
     <StyledSideBar>
-      <div className="tabs-holder">
-        <div className={tab === 1 ? 'tab active' : 'tab'} onClick={() => handleTabs(1)}>
-          <span>All Conversations</span>
-        </div>
-        <div className={tab === 2 ? 'tab active' : 'tab'} onClick={() => handleTabs(2)}>
-          <span>Starred</span>
-        </div>
-      </div>
       <div className="group-holder">
-        {groupData?.map((item, index) => (
-          <CommunityGroup
-            key={index}
-            type={item?.type}
-            image1={item?.image1}
-            image2={item?.image2}
-            image3={item?.image3}
-            title={item?.title}
-            text={item?.text}
-            time={item?.time}
-            messageCounter={item?.messageCounter}
-            groupActive={groupActive === index}
-            onClick={() => handleGroupActive(index)}
-          />
-        ))}
+        {conversations_loading
+          ? 'Loading...'
+          : conversations?.map((item, index) => (
+              <CommunityGroup
+                key={index}
+                type="private"
+                image1={getReceiverInfo(item?.participants)?.profilePicture}
+                title={getReceiverInfo(item?.participants)?.username}
+                text={item?.lastMessage?.content ?? null}
+                time={item?.updated_at}
+                messageCounter={chosenChatDetails ? 0 : item?.unreadCount ?? 0}
+                groupActive={chosenChatDetails?.conversationId === item?._id}
+                onClick={() => {
+                  handleChoseChatDetails({
+                    conversationId: item?._id,
+                    author: user._id,
+                    receiver: getReceiverInfo(item?.participants)?._id,
+                  });
+                }}
+              />
+            ))}
       </div>
     </StyledSideBar>
   );

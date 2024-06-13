@@ -21,7 +21,6 @@ const SideBar = ({ data }) => {
     onLogout: v.onLogout,
     isLoggedIn: v.isLoggedIn,
   }));
-  console.log(user);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
   const closeSideNav = () => {
