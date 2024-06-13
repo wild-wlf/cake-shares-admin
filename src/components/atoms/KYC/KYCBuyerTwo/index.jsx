@@ -37,7 +37,7 @@ const KycBuyerLevelTwo = ({ setOpen, setKycLevel, setKycData }) => {
   return (
     <StyledKycBuyer>
       <div className="twoCol">
-        <span className="kycdiscreption">Verification required. Please provide some details.</span>
+        <span className="description">Bank Info:</span>
       </div>
       <Form form={form} onSubmit={onSubmit}>
         <Form.Item

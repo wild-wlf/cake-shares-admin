@@ -14,13 +14,15 @@ import { KycContext } from '@/context/KycContext';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import { format } from 'date-fns';
+import KycLevel from '@/components/atoms/KYC/KycLevel';
 import SuccessIcon from '../../../_assets/successIcon.png';
 import SuccessfulModal from '@/components/atoms/ProductDeleteModal/SuccessfulModal';
 
 const SideBar = ({ data }) => {
-  const { user, onLogout } = useContextHook(AuthContext, v => ({
+  const { user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
     user: v.user,
     onLogout: v.onLogout,
+    isLoggedIn: v.isLoggedIn,
   }));
   const [successfullModal, setSuccessfullModal] = useState(false);
   const [kycData, setKycData] = useState();
@@ -71,7 +73,12 @@ const SideBar = ({ data }) => {
         setOpen={setKyc3}
         width="688"
         title={`Upgrade to KY${user?.sellerType === 'Individual' ? 'C' : 'B'} Level 3`}>
-        <KYCBuyerThree setKycLevel={setKycLevel} setOpen={setKyc3} kycData={kycData} setSuccessfullModal={setSuccessfullModal} />
+        <KYCBuyerThree
+          setKycLevel={setKycLevel}
+          setOpen={setKyc3}
+          kycData={kycData}
+          setSuccessfullModal={setSuccessfullModal}
+        />
       </CenterModal>
       {/* KYC MODAL */}
 
@@ -116,16 +123,31 @@ const SideBar = ({ data }) => {
         </LinkContainer>
 
         <UserDet>
-          <figure className="imageWrapper">
-            <Image src={user?.profilePicture || SellerProfile} height={40} width={40} alt="user-profile" />
-          </figure>
-          <div className="detailContainer">
-            <span className="userName">{user?.fullName}</span>
-            <span className="type">{user?.isIndividualSeller ? 'Individual Seller' : 'Company Seller'}</span>
-            <span className="date">
-              Member since {user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : ''}
-            </span>
+          <div className="user-info">
+            <figure className="imageWrapper">
+              <Image src={user?.profilePicture || SellerProfile} height={40} width={40} alt="user-profile" />
+            </figure>
+            <div className="detailContainer">
+              <span className="userName">{user?.fullName}</span>
+              <span className="type">{user?.isIndividualSeller ? 'Individual Seller' : 'Company Seller'}</span>
+              <span className="date">
+                Member since {user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : ''}
+              </span>
+            </div>
           </div>
+          {isLoggedIn ? (
+            <>
+              <div className="textfeildWrapper">
+                <div className="textFieldRight">
+                  <span className="heading">My Kyc Level</span>
+                  <span>{kycLevel}</span>
+                </div>
+                <KycLevel level={user?.kycLevel + 1} bg />
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </UserDet>
       </Sidenav>
     </>

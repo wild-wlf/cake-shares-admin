@@ -304,6 +304,18 @@ export const validateAmenity = (e, arr) => {
   }
   console.log('false');
 
-      return false;
-
+  return false;
+};
+export const getStatus = data => {
+  if (data.valueRaised === data.assetValue) {
+    return <span className="product-status-complete">Completed</span>;
+  }
+  if (data.isVerified) {
+    return <span className="product-status-active">Active</span>;
+  }
+  if (!data.isVerified) {
+    return <span className="product-status-new">New</span>;
+  } else {
+    return '------------';
+  }
 };

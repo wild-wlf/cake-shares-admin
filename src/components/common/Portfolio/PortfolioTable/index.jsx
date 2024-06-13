@@ -27,7 +27,7 @@ import productService from '@/services/productService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { format } from 'date-fns';
-import { formatNumber } from '@/helpers/common';
+import { formatNumber, getStatus } from '@/helpers/common';
 
 const PortfolioTable = ({ title }) => {
   const { fetch, refetch } = useContextHook(AuthContext, v => ({
@@ -56,7 +56,6 @@ const PortfolioTable = ({ title }) => {
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
-
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -135,17 +134,18 @@ const PortfolioTable = ({ title }) => {
       </ActionBtnList>
     </>
   );
+
   const { product_rows, totalCount } = useMemo(() => {
     const items = products_data.items || [];
     return {
       product_rows: items.map(data => [
         data.productName || '------------',
         data.investmentType?.name || '------------',
-        data.isVerified ? 'Approved' : 'Pending' || '------------',
+        getStatus(data),
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
-        formatNumber(data.minimumInvestment) ?? 0 ?? '------------',
-        formatNumber(data.valueRaised) ?? 0 ?? '------------',
-        formatNumber(data.assetValue) ?? 0 ?? '------------',
+        `$ ${formatNumber(data.minimumInvestment)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.valueRaised)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
       totalCount: items.length,

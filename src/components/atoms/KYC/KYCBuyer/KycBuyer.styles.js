@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledKycBuyer = styled.div`
   max-width: 688px;
@@ -11,12 +11,21 @@ export const StyledKycBuyer = styled.div`
     font-size: 14px;
     line-height: 18px;
     font-weight: 300;
-    margin: 25px 0;
+    padding: 20px 0;
     @media screen and (min-width: 768px) {
       font-size: 20px;
       line-height: 24px;
     }
   }
+
+  .description {
+    display: block;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+    padding: 10px 0 20px 0;
+  }
+
   .fakelabel {
     display: block;
     margin-bottom: 15px;
@@ -28,7 +37,7 @@ export const StyledKycBuyer = styled.div`
     padding-left: 10px;
     &::before {
       position: absolute;
-      content: "*";
+      content: '*';
       top: 0;
       left: 0;
       font-size: 14px;
@@ -85,7 +94,7 @@ export const StepWrapper = styled.div`
   justify-content: space-between;
   position: relative;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     height: 2px;
     left: 0;
@@ -93,12 +102,12 @@ export const StepWrapper = styled.div`
     background: #d9d9d9;
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     height: 2px;
     left: 0;
     right: 0;
-    width: ${({ $width }) => $width * 50 + "%"};
+    width: ${({ $width }) => $width * 50 + '%'};
     background: var(--secondary-50);
   }
 `;
@@ -106,6 +115,6 @@ export const Step = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 14px;
-  background: ${({ $bg }) => ($bg ? "var(--secondary-50)" : "#D9D9D9")};
+  background: ${({ $bg }) => ($bg ? 'var(--secondary-50)' : '#D9D9D9')};
   z-index: 5;
 `;
