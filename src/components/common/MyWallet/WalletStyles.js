@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledContainer = styled.div`
   width: 100%;
@@ -11,25 +11,8 @@ export const StyledContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .textContainer {
-    width: 100%;
-    padding: 40px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .title {
-      font-size: 34px;
-      font-weight: 500;
-    }
-  }
-  @media (max-width: 530px) {
-    padding: 0px 20px;
-    .textContainer {
-      .title {
-        font-size: 28px;
-        font-weight: 500;
-      }
+    padding: 20px 0 40px 0;
+    @media (max-width: 530px) {
       .credit {
         h1 {
           font-size: 28px;

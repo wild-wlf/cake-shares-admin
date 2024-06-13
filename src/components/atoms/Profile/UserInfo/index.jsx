@@ -24,6 +24,7 @@ const UserInfo = ({ userImage }) => {
     user: v.user,
     setPermission: v.setPermission,
   }));
+
   const { kycLevel, setKycLevel, checkKycLevel } = useContext(KycContext);
   const router = usePathname();
   const [profileImg, setProfileImg] = useState('');
@@ -68,7 +69,7 @@ const UserInfo = ({ userImage }) => {
         <div className="textWrapper">
           <strong className="name">{user?.fullName || user?.username}</strong>
           <div className="discreption">
-            <span className="active">CakeShare Seller </span>
+            <span className="active">{user?.sellerType || 'CakeShare'} Seller </span>
             <span className="addbefore">
               {' '}
               Member since {user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : ''}

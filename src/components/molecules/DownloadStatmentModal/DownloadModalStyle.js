@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   padding-top: 26px;
@@ -28,6 +28,9 @@ export const DateContainer = styled.div`
 
 export const MailContainer = styled.div`
   padding-bottom: 26px;
+  display: flex;
+  justify-content: space-between;
+  .wrapper {
+    width: 48%;
+  }
 `;
-
-

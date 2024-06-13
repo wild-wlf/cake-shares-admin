@@ -38,7 +38,10 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfullModal }) =
         }
       });
       await kycService.requestKyc(formDataToSend);
-      setSuccessfullModal(true);
+      Toast({
+        type: 'success',
+        message: `KYC Requested Successfully!`,
+      });
       setOpen(false);
       setPermission(prev => !prev);
     } catch ({ message }) {
@@ -53,7 +56,7 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfullModal }) =
   return (
     <StyledKycBuyer>
       <div className="twoCol">
-        <span className="kycdiscreption">Biometric Verification required.</span>
+        <span className="description">Facial Info:</span>
       </div>
       <label htmlFor="" className="fakelabel">
         Facial Recognition

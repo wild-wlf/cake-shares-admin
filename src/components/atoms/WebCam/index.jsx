@@ -10,6 +10,8 @@ import { StyledFormGroup } from '../../../styles/helpers.styles';
 import Button from '../Button';
 import Image from 'next/image';
 import { FaRedoAlt } from 'react-icons/fa';
+import { useContextHook } from 'use-context-hook';
+import { AuthContext } from '@/context/authContext';
 const propTypes = {
   onClick: PropTypes.func,
   value: PropTypes.string,
@@ -27,6 +29,9 @@ const videoConstraints = {
 };
 const WebCam = ({ handelKycLevel, isLoading }) => {
   const webcamRef = useRef(null);
+  const { user } = useContextHook(AuthContext, v => ({
+    user: v.user,
+  }));
   const [url, setUrl] = useState(null);
 
   const capturePhoto = useCallback(async () => {
@@ -57,7 +62,7 @@ const WebCam = ({ handelKycLevel, isLoading }) => {
               onUserMedia={onUserMedia}
             />
             <Button rounded sm btntype="primary" width="214" onClick={capturePhoto}>
-              Continue
+              {user?.sellerType === 'Individual' ? 'Submit' : 'Continue'}
             </Button>
           </>
         )}

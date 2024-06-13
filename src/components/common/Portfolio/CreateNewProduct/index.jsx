@@ -14,9 +14,9 @@ import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
-const CreateNewProduct = ({ setCreateProductModal }) => {
+const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['','','']);
+  const [amenities, setAmenities] = useState(['', '', '']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -93,13 +93,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
     setLoading(true);
     try {
       await productService.addProduct(formDataToSend);
-      Toast({
-        type: 'success',
-        message: 'Product added successfully',
-      });
       refetch();
-      setCreateProductModal(false);
       setLoading(false);
+      handleCreateProduct();
     } catch (error) {
       Toast({
         type: 'error',
@@ -153,7 +149,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Minimum character length of product name is 3',
               },
             ]}>
-            <Field maxLength={40}/>
+            <Field maxLength={40} />
           </Form.Item>
           <Form.Item
             label="Investment Type"
@@ -230,7 +226,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           </Form.Item>
           <Form.Item
             type="text"
-            label="KYC Level"
+            label="KYC/KYB Level"
             name="kycLevel"
             sm
             rounded
@@ -273,7 +269,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   message: 'Minimum character length of product description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
           <div className="description-holder">
@@ -294,7 +290,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                   message: 'Minimum character length of description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
         </div>
@@ -402,7 +398,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
             ]}>
-            <Field maxLength={3}/>
+            <Field maxLength={3} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -421,10 +417,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
               {
-                transform: (value) =>
-                  value < +form.getFieldValue("minBackers"),
-                message: "Maximun backers cannot be less than minimum backers!",
-              }
+                transform: value => value < +form.getFieldValue('minBackers'),
+                message: 'Maximun backers cannot be less than minimum backers!',
+              },
             ]}>
             <Field />
           </Form.Item>
@@ -444,7 +439,6 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset Value must be greater than zero',
               },
-          
             ]}>
             <Field />
           </Form.Item>
@@ -465,10 +459,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
                 message: 'Minimum Investment must be greater than zero',
               },
               {
-                transform: (value) =>
-                  value > +form.getFieldValue("assetValue"),
-                message: "Minimum investment cannot be greater than asset value!",
-              }
+                transform: value => value > +form.getFieldValue('assetValue'),
+                message: 'Minimum investment cannot be greater than asset value!',
+              },
             ]}>
             <Field />
           </Form.Item>
