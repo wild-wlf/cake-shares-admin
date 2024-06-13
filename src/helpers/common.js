@@ -294,3 +294,28 @@ export const bas64toFile = async (dataUrl, fileName) => {
 };
 
 export const formatNumber = number => new Intl.NumberFormat().format(number);
+
+export const validateAmenity = (e, arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === e) {
+      console.log('true');
+      return true;
+    }
+  }
+  console.log('false');
+
+  return false;
+};
+export const getStatus = data => {
+  if (data.valueRaised === data.assetValue) {
+    return <span className="product-status-complete">Completed</span>;
+  }
+  if (data.isVerified) {
+    return <span className="product-status-active">Active</span>;
+  }
+  if (!data.isVerified) {
+    return <span className="product-status-new">New</span>;
+  } else {
+    return '------------';
+  }
+};

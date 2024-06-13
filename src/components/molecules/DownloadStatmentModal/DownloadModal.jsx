@@ -92,7 +92,7 @@ const DownloadModal = ({ openNext }) => {
                 ]}>
                 <Select
                   options={
-                    user?.isVerified == true
+                    user?.isVerified
                       ? products_data?.items?.map(item => ({ label: item.productName, value: item.productName }))
                       : []
                   }

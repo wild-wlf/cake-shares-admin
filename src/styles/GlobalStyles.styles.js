@@ -181,6 +181,15 @@ export const Styling = css`
       }
     }
   }
+  .product-status-new{
+    color: #408F8C;
+  }
+  .product-status-active{
+    color: #419400 ;
+  }
+  .product-status-complete{
+    color: var(--primary);
+  }
   .chat-holder{
     display: flex;
     gap: 20px;

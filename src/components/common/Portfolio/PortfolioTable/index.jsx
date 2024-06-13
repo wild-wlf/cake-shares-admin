@@ -27,7 +27,7 @@ import productService from '@/services/productService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { format } from 'date-fns';
-import { formatNumber } from '@/helpers/common';
+import { formatNumber, getStatus } from '@/helpers/common';
 
 const PortfolioTable = ({ title }) => {
   const { fetch, refetch } = useContextHook(AuthContext, v => ({
@@ -68,6 +68,7 @@ const PortfolioTable = ({ title }) => {
   const handleAdvertiseModal = () => {
     setProductAdvertiseModal(false);
     setAdvertiseSuccessfulModal(true);
+    setProductDetailModal?.(false);
   };
   async function handelDeleteProduct() {
     await productService.deleteProduct(selecteData);
@@ -133,17 +134,18 @@ const PortfolioTable = ({ title }) => {
       </ActionBtnList>
     </>
   );
+
   const { product_rows, totalCount } = useMemo(() => {
     const items = products_data.items || [];
     return {
       product_rows: items.map(data => [
         data.productName || '------------',
         data.investmentType?.name || '------------',
-        data.isVerified ? 'Approved' : 'Pending' || '------------',
+        getStatus(data),
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
-        formatNumber(data.minimumInvestment) ?? 0 ?? '------------',
-        formatNumber(data.valueRaised) ?? 0 ?? '------------',
-        formatNumber(data.assetValue) ?? 0 ?? '------------',
+        `$ ${formatNumber(data.minimumInvestment)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.valueRaised)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
       totalCount: items.length,
@@ -206,9 +208,13 @@ const PortfolioTable = ({ title }) => {
       <CenterModal
         open={productDetailModal}
         setOpen={setProductDetailModal}
-        title={`${selecteData?.productName} Property Detail`}
+        title={`${selecteData?.productName} Detail`}
         width="1030">
-        <ProductDetailModal data={selecteData} />
+        <ProductDetailModal
+          data={selecteData}
+          setSelectedProduct={setSelectedProduct}
+          setProductAdvertiseModal={setProductAdvertiseModal}
+        />
       </CenterModal>
 
       <CenterModal open={editProductModal} setOpen={setEditProductModal} title="Edit Product" width="900">
@@ -239,6 +245,7 @@ const PortfolioTable = ({ title }) => {
           setProductAdvertiseModal={setProductAdvertiseModal}
           product={selectedProduct}
           setAdvertisedDays={setAdvertisedDays}
+          setProductDetailModal={setProductDetailModal}
         />
       </CenterModal>
       <CenterModal

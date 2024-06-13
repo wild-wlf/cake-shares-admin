@@ -4,21 +4,20 @@ import Field from '@/components/molecules/Field';
 import Select from '@/components/atoms/Select';
 import Button from '@/components/atoms/Button';
 import { IoAdd } from 'react-icons/io5';
-import { FaCalendarAlt } from 'react-icons/fa';
-import UploadFile from '@/components/molecules/UploadFile';
+import { RxCrossCircled } from 'react-icons/rx';
 import Form, { useForm } from '@/components/molecules/Form';
 import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import { convertToFormData } from '@/helpers/common';
 import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
+import { validateAmenity } from '@/helpers/common';
 
 const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['','','']);
+  const [amenities, setAmenities] = useState(['', '', '']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -44,10 +43,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       }));
   }, [categories_data?.items]);
 
-  const addAmenities = () => {
-    if (amenities.length == 20) return;
-    setAmenities([...amenities, '']);
-  };
+  const addAmenities = () => setAmenities([...amenities, '']);
+
+  const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
 
   const [form] = useForm();
   const handleFileChange = (e, index) => {
@@ -77,7 +75,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
     };
-    // console.log(obj);
+    console.log(obj);
     const formDataToSend = new FormData();
     Object.keys(obj).forEach(key => {
       if (key === 'images') {
@@ -152,7 +150,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Minimum character length of product name is 3',
               },
             ]}>
-            <Field maxLength={40}/>
+            <Field maxLength={40} />
           </Form.Item>
           <Form.Item
             label="Investment Type"
@@ -220,12 +218,16 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 required: true,
                 message: 'Please enter Deadline',
               },
+              {
+                transform: value => new Date(value).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0),
+                message: 'Deadline Cannot be in the Past!',
+              },
             ]}>
             <Field />
           </Form.Item>
           <Form.Item
             type="text"
-            label="KYC Level"
+            label="KYC/KYB Level"
             name="kycLevel"
             sm
             rounded
@@ -268,7 +270,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Minimum character length of product description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
           <div className="description-holder">
@@ -289,7 +291,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Minimum character length of description is 10',
                 },
               ]}>
-              <Field maxLength={1000}/>
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
         </div>
@@ -298,58 +300,51 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index} className="upload">
-                <UploadFile
+              <div className="upload" key={index}>
+                <Form.Item
+                  type="img"
+                  sm
+                  rounded
+                  placeholder="Enter Text"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please Upload Product Media!',
+                    },
+                  ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  bg
-                  img={media[index]}
+                  uploadTitle="Upload Image/Video"
+                  accept="image/jpeg, image/jpg, image/png, video/mp4"
                   noMargin
-                  disc="image should be up to 1mb only"
-                  onChange={e => handleFileChange(e, index)}
-                />
+                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
+                  onChange={e => {
+                    form.setFieldsValue({
+                      [`media${index}`]: e,
+                    });
+                    setImages(prev => {
+                      const updatedImages = [...prev];
+                      updatedImages[index] = e;
+                      return updatedImages;
+                    });
+                  }}>
+                  <Field />
+                </Form.Item>
               </div>
             );
           })}
         </div>
-        {/* <div className="upload-image">
-          <div className="upload">
-            <UploadFile
-              id="firstImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-          <div className="upload">
-            <UploadFile
-              id="SecondImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-          <div className="upload">
-            <UploadFile
-              id="thirdImg"
-              bg
-              noMargin
-              disc="image should be up to 1mb only"
-              onChange={(e) => setmedia((prev) => [...prev, e])}
-            />
-          </div>
-        </div> */}
         <div className="add-amenities-holder">
           <span className="heading">Amenities:</span>
-          <div className="add-amenities">
-            <span>You can add up to 20 amenities only!</span>
-            <div className="add-more" onClick={addAmenities}>
-              <IoAdd />
-              <span>Add more</span>
+          {amenities && amenities?.length < 10 && (
+            <div className="add-amenities">
+              <span>You can add up to 10 amenities only!</span>
+              <div className="add-more" onClick={addAmenities}>
+                <IoAdd />
+                <span>Add more</span>
+              </div>
             </div>
-          </div>
+          )}
           <div className="amenities">
             {amenities?.map((elem, ind) => (
               <>
@@ -360,6 +355,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   rounded
                   placeholder="Enter text"
                   value={amenities[ind]}
+                  noMargin
+                  suffix={<RxCrossCircled size={14} />}
+                  onClickSuffix={() => removeAmenity(ind)}
                   onChange={e => {
                     form.setFieldsValue({
                       [`amentity${ind}`]: e.target.value,
@@ -368,15 +366,19 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   }}
                   rules={[
                     {
-                      required: ind <= 2 ? true : false,
+                      required: true,
                       message: 'Please enter Amentity',
                     },
                     {
-                      pattern: /^.{0,40}$/,
-                      message: 'Please enter a valid Amentity',
+                      pattern: /^.{3,20}$/,
+                      message: 'Please enter a valid amenity',
+                    },
+                    {
+                      transform: value => validateAmenity(value, amenities) === true,
+                      message: 'Amenity already added!',
                     },
                   ]}>
-                  <Field noMargin />
+                  <Field noMargin maxLength={20} />
                 </Form.Item>
               </>
             ))}
@@ -401,7 +403,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
             ]}>
-            <Field maxLength={3}/>
+            <Field maxLength={3} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -420,10 +422,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter a valid limit between 1 and 99',
               },
               {
-                transform: (value) =>
-                  value < +form.getFieldValue("minBackers"),
-                message: "Maximun backers cannot be less than minimum backers!",
-              }
+                transform: value => value < +form.getFieldValue('minBackers'),
+                message: 'Maximun backers cannot be less than minimum backers!',
+              },
             ]}>
             <Field />
           </Form.Item>
@@ -443,7 +444,6 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset Value must be greater than zero',
               },
-          
             ]}>
             <Field />
           </Form.Item>
@@ -464,10 +464,9 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Minimum Investment must be greater than zero',
               },
               {
-                transform: (value) =>
-                  value > +form.getFieldValue("assetValue"),
-                message: "Minimum investment cannot be greater than asset value!",
-              }
+                transform: value => value > +form.getFieldValue('assetValue'),
+                message: 'Minimum investment cannot be greater than asset value!',
+              },
             ]}>
             <Field />
           </Form.Item>

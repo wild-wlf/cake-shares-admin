@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyledKycBuyer } from './KycBuyer.styles';
-import UploadFile from '@/components/molecules/UploadFile';
 import Button from '../../Button';
 import Toast from '@/components/molecules/Toast';
 import { KycContext } from '@/context/KycContext';
@@ -42,31 +41,29 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
           <Form.Item
             rounded
             name="passportImageFront"
+            type="img"
+            document
+            fileSize="5"
+            accept="image/jpeg, image/jpg, image/png, application/pdf"
+            uploadTitle="Upload Front Side of Passport"
             rules={[{ required: true, message: 'Please Upload Front Side of Passport Image!' }]}>
-            <Field
-              type="file"
-              fileSize="5"
-              accept="image/jpeg, image/jpg, image/png, application/pdf"
-              uploadTitle="Upload Front Side of Passport"
-              onChange={e => console.log(e)}
-            />
+            <Field />
           </Form.Item>
           <Form.Item
             rounded
             name="passportImageBack"
+            type="img"
+            document
+            fileSize="5"
+            accept="image/jpeg, image/jpg, image/png, application/pdf"
+            uploadTitle="Upload Back Side of Passport"
+            id="back"
             rules={[{ required: true, message: 'Please Upload Back Side of Passport Image!' }]}>
-            <Field
-              type="file"
-              fileSize="5"
-              accept="image/jpeg, image/jpg, image/png, application/pdf"
-              uploadTitle="Upload Back Side of Passport"
-              onChange={e => console.log(e)}
-              id="back"
-            />
+            <Field />
           </Form.Item>
         </div>
         <Button rounded md btntype="primary" width="214" htmlType="submit">
-          Complete Verification
+          Continue
         </Button>
       </Form>
     </StyledKycBuyer>
