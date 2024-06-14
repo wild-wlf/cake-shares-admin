@@ -99,17 +99,16 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             <KycLevel level={user?.kycLevel + 1} bg />
           </div>
           <div
-            // className={`notification ${isBadge && 'bukhari'}`}
-            className={`notification `}
+            className={`notification ${isBadge && 'message'}`}
             onClick={() => {
               setNotifications(!notifications);
               handleReadAllNotification();
             }}>
-            <Image src={bell} alt="bell" className="bell" />
+            <Image src={bell} alt="bell" />
             {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
-            <div className={notifications ? 'notificationWrapper-visible' : 'notificationWrapper'}>
-              <Notifications fetchNotifications={fetchNotifications} setIsBadge={setIsBadge} />
-            </div>
+          </div>
+          <div className={notifications ? 'notificationWrapper-visible' : 'notificationWrapper'}>
+            <Notifications fetchNotifications={fetchNotifications} setIsBadge={setIsBadge} />
           </div>
           <Button rounded sm btntype="new" width={'150px'} height={'35px'} onClick={() => setCreateProductModal(true)}>
             Create New Product
