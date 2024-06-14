@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyledSideBar } from './SideBar.styles';
 import CommunityGroup from '../CommunityGroup';
-import userImg01 from '../../../../_assets/user-image-01.png';
+import profileplaceHolder from '../../../../_assets/profileplaceHolder.jpg';
 import notificationService from '@/services/notificationservice';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { updateCurrentConversations } from '@/helpers/chatHandlers';
 
-const SideBar = ({ handleChoseChatDetails, chosenChatDetails }) => {
+const SideBar = ({ handleChoseChatDetails, chosenChatDetails, onlineUsers }) => {
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     fetch: v.fetch,
@@ -43,7 +43,7 @@ const SideBar = ({ handleChoseChatDetails, chosenChatDetails }) => {
     const receiver = participants.find(_ => _?._id !== user?._id);
     return {
       username: receiver?.fullName ? receiver?.fullName : receiver?.username,
-      profilePicture: receiver?.profilePicture ? receiver?.profilePicture : userImg01,
+      profilePicture: receiver?.profilePicture ? receiver?.profilePicture : profileplaceHolder,
       _id: receiver?._id,
     };
   };
@@ -57,6 +57,7 @@ const SideBar = ({ handleChoseChatDetails, chosenChatDetails }) => {
               <CommunityGroup
                 key={index}
                 type="private"
+                isOnline={onlineUsers?.find(_ => _?.id === getReceiverInfo(item?.participants)?._id)}
                 image1={getReceiverInfo(item?.participants)?.profilePicture}
                 title={getReceiverInfo(item?.participants)?.username}
                 text={item?.lastMessage?.content ?? null}
@@ -68,6 +69,8 @@ const SideBar = ({ handleChoseChatDetails, chosenChatDetails }) => {
                     conversationId: item?._id,
                     author: user._id,
                     receiver: getReceiverInfo(item?.participants)?._id,
+                    profilePicture: getReceiverInfo(item?.participants)?.profilePicture,
+                    username: getReceiverInfo(item?.participants)?.username,
                   });
                 }}
               />

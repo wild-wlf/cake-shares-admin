@@ -4,14 +4,14 @@ import Image from 'next/image';
 // import { FaStar } from 'react-icons/fa';
 import { format } from 'date-fns';
 
-const CommunityGroup = ({ groupActive, onClick, type, image1, image2, image3, title, text, time, messageCounter }) => {
+const CommunityGroup = ({ groupActive, onClick, type, image1, image2, image3, title, text, time, messageCounter,isOnline }) => {
   // const [star, setStar] = useState(false);
   // function handleStarToggle() {
   //   setStar(!star);
   // }
 
   return (
-    <StyledCommunityGroup $groupActive={groupActive} onClick={onClick} $type={type}>
+    <StyledCommunityGroup $groupActive={groupActive} onClick={onClick} $type={type} $isOnline={isOnline}>
       <div className="all-images">
         <div className="image-holder img1">
           <Image src={image1} alt="userImg01" />
