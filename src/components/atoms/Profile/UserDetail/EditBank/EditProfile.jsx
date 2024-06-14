@@ -97,7 +97,7 @@ const EditProfile = ({ personalInfo, onClose }) => {
   return (
     <>
       <CenterModal open={changePassword} setOpen={setChangePassword} width={663} title="Change Password">
-        <ChangePassword />
+        <ChangePassword setOpen={setChangePassword} />
       </CenterModal>
       <StyledEditForm form={form} onSubmit={handelSubmit}>
         <div className="combine-fields">

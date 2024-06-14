@@ -15,9 +15,9 @@ import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import { validateAmenity } from '@/helpers/common';
 
-const CreateNewProduct = ({ setCreateProductModal }) => {
+const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['']);
+  const [amenities, setAmenities] = useState(['', '', '']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -94,13 +94,9 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
     setLoading(true);
     try {
       await productService.addProduct(formDataToSend);
-      Toast({
-        type: 'success',
-        message: 'Product added successfully',
-      });
       refetch();
-      setCreateProductModal(false);
       setLoading(false);
+      handleCreateProduct();
     } catch (error) {
       Toast({
         type: 'error',
@@ -231,7 +227,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
           </Form.Item>
           <Form.Item
             type="text"
-            label="KYC Level"
+            label="KYC/KYB Level"
             name="kycLevel"
             sm
             rounded
