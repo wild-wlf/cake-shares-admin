@@ -13,6 +13,7 @@ import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import SuccessModal from '@/components/molecules/SuccessModal/SuccessModal';
 import successImage from '../../../_assets/successIcon.png';
+import notificationService from '@/services/notificationservice';
 
 const SellerTopBar = ({ title, tagLine, suffix }) => {
   const { user } = useContextHook(AuthContext, v => ({
@@ -22,8 +23,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   const [createProductModal, setCreateProductModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [fetchNotifications, setfetchNotifications] = useState(false);
-
-  const { kycLevel, setKycLevel, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
+  const [isBadge, setIsBadge] = useState(false);
 
   function handleCreateProduct() {
     setSuccessModal(true);
@@ -33,6 +33,18 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   const openSideNav = () => {
     document.body.classList.toggle('sideNav-active');
     document.body.style.overflow = 'hidden';
+  };
+
+  const handleReadAllNotification = async () => {
+    try {
+      const response = await notificationService.readAllNotifications();
+
+      if (response.success) {
+        setfetchNotifications(_ => !_);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -87,14 +99,16 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             <KycLevel level={user?.kycLevel + 1} bg />
           </div>
           <div
-            className="notification"
+            // className={`notification ${isBadge && 'bukhari'}`}
+            className={`notification `}
             onClick={() => {
               setNotifications(!notifications);
+              handleReadAllNotification();
             }}>
             <Image src={bell} alt="bell" className="bell" />
             {/* <Image src={bellWhite} alt="bell" className="bell-white" /> */}
             <div className={notifications ? 'notificationWrapper-visible' : 'notificationWrapper'}>
-              <Notifications fetchNotifications={fetchNotifications} />
+              <Notifications fetchNotifications={fetchNotifications} setIsBadge={setIsBadge} />
             </div>
           </div>
           <Button rounded sm btntype="new" width={'150px'} height={'35px'} onClick={() => setCreateProductModal(true)}>

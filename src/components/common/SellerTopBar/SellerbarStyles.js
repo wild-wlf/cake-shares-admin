@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -40,6 +40,19 @@ export const Container = styled.div`
     align-items: center;
     gap: 10px;
 
+    .bukhari {
+      position: relative;
+      &::before {
+        position: absolute;
+        content: '';
+        top: -2px;
+        width: 10px;
+        height: 10px;
+        background: red;
+        border-radius: 10px;
+        right: 0;
+      }
+    }
     .notification {
       display: flex;
       padding: 8px 10px;
@@ -62,23 +75,27 @@ export const Container = styled.div`
       transform: translateY(0);
       opacity: 1;
       max-width: 432px;
+      width: 100%;
       position: absolute;
-      top: 70px;
-      right: 30px;
+      top: 60px;
+      right: 54px;
       transform: translateY(50px);
       transition: 0.4s;
     }
     .notificationWrapper {
       max-width: 432px;
+      width: 100%;
       position: absolute;
       top: 20px;
-      right: 0px;
+      right: 54px;
+
       padding-top: 64px;
       visibility: hidden;
       transform: translateY(50px);
       opacity: 0;
       transition: 0.4s;
     }
+
     .textField {
       display: flex;
       width: 100%;
@@ -89,7 +106,7 @@ export const Container = styled.div`
       gap: 8px;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         height: 1px;
         width: 0;
@@ -107,7 +124,7 @@ export const Container = styled.div`
       }
     }
     .textField::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
