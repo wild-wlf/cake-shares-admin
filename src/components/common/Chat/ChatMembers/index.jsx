@@ -1,33 +1,32 @@
 import React from 'react';
 import { ChatMembersWrapper } from './ChatMembers.style';
-import ProfilePic from '../../../../_assets/seller-img.png';
+import profileplaceHolder from '../../../../_assets/profileplaceHolder.jpg';
 import Image from 'next/image';
 import { HiOutlineStatusOffline } from 'react-icons/hi';
-
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 
 const ChatMembers = () => {
   const arr = [
     {
-      image: ProfilePic,
+      image: profileplaceHolder,
       name: 'Logan Paulson',
       type: 'Buyer',
       online: true,
     },
     {
-      image: ProfilePic,
+      image: profileplaceHolder,
       name: 'John Doe',
       type: 'Individual Seller',
       online: true,
     },
     {
-      image: ProfilePic,
+      image: profileplaceHolder,
       name: 'Steve Smith',
       type: 'Buyer',
       online: false,
     },
     {
-      image: ProfilePic,
+      image: profileplaceHolder,
       name: 'Alex Hales',
       type: 'Company Seller',
       online: true,

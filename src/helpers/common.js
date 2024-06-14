@@ -301,8 +301,34 @@ export const validateAmenity = (e, arr) => {
       return true;
     }
   }
-
   return false;
+};
+
+export const checkAge = birthdate => {
+  let birthDate = new Date(birthdate);
+  if (isNaN(birthDate)) {
+    return 'Invalid date format. Please enter a valid date.';
+  }
+
+  let today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let monthDifference = today.getMonth() - birthDate.getMonth();
+  let dayDifference = today.getDate() - birthDate.getDate();
+
+  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+    age--;
+  }
+
+  // Check if age is at least 18
+  if (age >= 18) {
+    return true;
+  } else {
+    return false;
+    console.log('false');
+
+    return false;
+  }
 };
 export const getStatus = data => {
   if (data.valueRaised === data.assetValue) {
