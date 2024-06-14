@@ -15,8 +15,8 @@
         "activityBarBadge.background": "#FFFFFF",
         "activityBarBadge.foreground": "#A87676",
         "sash.hoverBorder": "#0095f8",
-        "statusBarItem.remoteBackground": "#A87676",
-        "statusBarItem.remoteForeground": "#FFFFFF",
+        "statusBarItem.remoteBackground": "#FFFFFF",
+        "statusBarItem.remoteForeground": "#0095f8",
         "commandCenter.border": "#FFFFFF"
     },
     "git.ignoreLimitWarning": true,

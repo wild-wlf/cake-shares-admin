@@ -12,7 +12,7 @@ import Toast from '@/components/molecules/Toast';
 import kycService from '@/services/kycService';
 import { bas64toFile } from '@/helpers/common';
 
-const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfullModal }) => {
+const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfulModal }) => {
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { user, setPermission } = useContextHook(AuthContext, v => ({

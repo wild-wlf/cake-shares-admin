@@ -24,7 +24,7 @@ const SideBar = ({ data }) => {
     onLogout: v.onLogout,
     isLoggedIn: v.isLoggedIn,
   }));
-  const [successfullModal, setSuccessfullModal] = useState(false);
+  const [successfulModal, setSuccessfulModal] = useState(false);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
   const closeSideNav = () => {
@@ -36,8 +36,8 @@ const SideBar = ({ data }) => {
   return (
     <>
       <CenterModal
-        open={successfullModal}
-        setOpen={setSuccessfullModal}
+        open={successfulModal}
+        setOpen={setSuccessfulModal}
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
         width="543">
         <SuccessfulModal title={'KYC Requested Successfully!'} />
@@ -77,7 +77,7 @@ const SideBar = ({ data }) => {
           setKycLevel={setKycLevel}
           setOpen={setKyc3}
           kycData={kycData}
-          setSuccessfullModal={setSuccessfullModal}
+          setSuccessfulModal={setSuccessfulModal}
         />
       </CenterModal>
       {/* KYC MODAL */}
