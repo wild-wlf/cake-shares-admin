@@ -17,7 +17,7 @@ import { validateAmenity } from '@/helpers/common';
 
 const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
-  const [amenities, setAmenities] = useState(['', '', '']);
+  const [amenities, setAmenities] = useState(['']);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -314,17 +314,23 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   ]}
                   id={`media${index}`}
                   name={`media${index}`}
-                  uploadTitle="Upload Image/Video"
-                  accept="image/jpeg, image/jpg, image/png, video/mp4"
+                  uploadTitle={index === 0 ? 'Upload Image/Video' : 'Upload Image'}
+                  accept={
+                    index === 0 ? 'image/jpeg, image/jpg, image/png, video/mp4' : 'image/jpeg, image/jpg, image/png'
+                  }
                   noMargin
-                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
+                  disc={
+                    index === 0
+                      ? 'File size must be less than 1MB in JPG, JPEG, PNG or MP4 format.'
+                      : 'File size must be less than 1MB in JPG, JPEG, PNG '
+                  }
                   onChange={e => {
                     form.setFieldsValue({
                       [`media${index}`]: e,
                     });
                     setImages(prev => {
                       const updatedImages = [...prev];
-                      updatedImages[index] = e;
+                      updatedImages[index] = e.target.file;
                       return updatedImages;
                     });
                   }}>
