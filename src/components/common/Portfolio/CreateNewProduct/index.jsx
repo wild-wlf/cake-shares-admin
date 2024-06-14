@@ -299,7 +299,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
             </Form.Item>
           </div>
         </div>
-        <span className="heading">Upload Media</span>
+        <span className="heading">Upload Media:</span>
 
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
@@ -446,10 +446,10 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
               },
               {
                 pattern: /^[1-9]\d*$/,
-                message: 'Asset Value must be greater than zero',
+                message: 'Asset value must be whole number (greater than zero)',
               },
             ]}>
-            <Field />
+            <Field maxLength={10}/>
           </Form.Item>
           <Form.Item
             type="number"
@@ -465,7 +465,7 @@ const CreateNewProduct = ({ setCreateProductModal }) => {
               },
               {
                 pattern: /^[1-9]\d*$/,
-                message: 'Minimum Investment must be greater than zero',
+                message: 'Minimum investment must be whole number (greater than zero)',
               },
               {
                 transform: value => value > +form.getFieldValue('assetValue'),

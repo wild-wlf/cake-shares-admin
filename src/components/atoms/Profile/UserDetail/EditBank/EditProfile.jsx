@@ -15,7 +15,7 @@ import { useContextHook } from 'use-context-hook';
 import CenterModal from '@/components/molecules/Modal/CenterModal';
 import { AuthContext } from '@/context/authContext';
 import Field from '@/components/atoms/Field';
-import { convertDateToISO } from '@/helpers/common';
+import { checkAge, convertDateToISO } from '@/helpers/common';
 const EditProfile = ({ personalInfo, onClose }) => {
   const [arr, setArr] = useState(countries);
   const [loading, setLoading] = useState(false);
@@ -109,13 +109,13 @@ const EditProfile = ({ personalInfo, onClose }) => {
             rounded
             placeholder="Alex Mertiz"
             rules={[
-              { required: true },
+              { required: true, message: 'Please enter Full Name' },
               {
-                pattern: /^.{0,40}$/,
-                message: 'Maximum Character Length is 256',
+                pattern: /^.[a-zA-Z ]{3,40}$/,
+                message: 'Please enter a valid full name',
               },
             ]}>
-            <Field />
+            <Field maxLength={40} />
           </Form.Item>
           <Form.Item
             type="text"
@@ -125,13 +125,24 @@ const EditProfile = ({ personalInfo, onClose }) => {
             rounded
             placeholder="alex123"
             rules={[
-              { required: true },
               {
-                pattern: /^.{0,40}$/,
-                message: 'Maximum Character Length is 256',
+                required: true,
+                message: 'Please enter username',
+              },
+              {
+                pattern: /^.{5,20}$/,
+                message: 'Minimum character length is 5',
+              },
+              {
+                pattern: /^(?!.*\s)[a-zA-Z0-9_-]+$/,
+                message: 'Please enter a valid username (no spaces, letters, numbers, underscores, and hyphens only)',
+              },
+              {
+                pattern: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9_-]+$/,
+                message: 'Username must be a combination of characters and digits',
               },
             ]}>
-            <Field />
+            <Field maxLength={20} />
           </Form.Item>
           <Form.Item
             type="text"
@@ -175,11 +186,11 @@ const EditProfile = ({ personalInfo, onClose }) => {
               });
             }}
             rules={[
-              { required: true },
+              { required: true, message: 'Birthdate is required' },
 
               {
-                pattern: /^.{0,40}$/,
-                message: 'Maximum Character Length is 256',
+                transform: value => checkAge(value) === false,
+                message: 'Age must be 18',
               },
             ]}>
             <Field />
