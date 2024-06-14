@@ -7,6 +7,7 @@ export const NotificationsHolder = styled.div`
   padding: 25px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .holder {
+    width: 100%;
     padding: 14px 0;
     border-bottom: 1px solid var(--gray-150);
     &:nth-child(1) {
@@ -35,7 +36,7 @@ export const NotificationsHolder = styled.div`
         .date {
           position: relative;
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             top: 50%;
             transform: translateY(-50%);

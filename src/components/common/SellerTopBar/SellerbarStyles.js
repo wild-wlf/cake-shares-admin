@@ -40,7 +40,7 @@ export const Container = styled.div`
     align-items: center;
     gap: 10px;
 
-    .bukhari {
+    .message {
       position: relative;
       &::before {
         position: absolute;
@@ -81,6 +81,7 @@ export const Container = styled.div`
       right: 54px;
       transform: translateY(50px);
       transition: 0.4s;
+      z-index: 5;
     }
     .notificationWrapper {
       max-width: 432px;
@@ -88,7 +89,7 @@ export const Container = styled.div`
       position: absolute;
       top: 20px;
       right: 54px;
-
+      z-index: 5;
       padding-top: 64px;
       visibility: hidden;
       transform: translateY(50px);
