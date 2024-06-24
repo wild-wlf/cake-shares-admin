@@ -5,6 +5,7 @@ import ChatMedia from './ChatMedia';
 import { RiMenu3Fill } from 'react-icons/ri';
 import ChatFooter from './ChatFooter';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import Pole from './Pole';
 
 const Chat = ({ userInfo, type }) => {
   console.log('userInfo', userInfo);
@@ -66,6 +67,7 @@ const Chat = ({ userInfo, type }) => {
               />
             ))}
           </div>
+          <Pole type="send" />
         </ChatBody>
         <ChatFooter />
       </div>

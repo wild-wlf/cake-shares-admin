@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { MdOutlineClose } from "react-icons/md";
-import { ContentHolder, Head, StyledModal } from "./Modal.styles";
-import Image from "next/image";
-import { RxCross2 } from "react-icons/rx";
+import React, { useEffect } from 'react';
+import { MdOutlineClose } from 'react-icons/md';
+import { ContentHolder, Head, StyledModal } from './Modal.styles';
+import Image from 'next/image';
+import { RxCross2 } from 'react-icons/rx';
 
 const CenterModal = ({
   children,
@@ -22,11 +22,11 @@ const CenterModal = ({
   // console.log(open);
   useEffect(() => {
     const disableScroll = () => {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     };
 
     const enableScroll = () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     };
 
     if (open) {
@@ -50,14 +50,13 @@ const CenterModal = ({
       <StyledModal
         open={open}
         onClick={handleClose}
-        onKeyDown={(e) => {
+        onKeyDown={e => {
           if (iscloseAble) {
-            if (e.key === "Escape") {
+            if (e.key === 'Escape') {
               handleClose();
             }
           }
-        }}
-      >
+        }}>
         <ContentHolder
           bg={bg}
           padding={padding}
@@ -67,20 +66,14 @@ const CenterModal = ({
           desktopTop={desktopTop}
           role="dialog"
           aria-modal="true"
-          onClick={(e) => e.stopPropagation()}
-          tabIndex={-1}
-        >
+          onClick={e => e.stopPropagation()}
+          tabIndex={-1}>
           <Head>
             {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
             {iscloseAble && (
-              <button
-                type="button"
-                className="closer"
-                onClick={handleClose}
-                tabIndex={0}
-              >
-                <RxCross2 />
+              <button type="button" className="closer" onClick={handleClose} tabIndex={0}>
+                <RxCross2 className="Icon" />
               </button>
             )}
           </Head>
