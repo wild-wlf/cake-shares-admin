@@ -10,8 +10,9 @@ import userService from '@/services/userService';
 import Toast from '@/components/molecules/Toast';
 
 const ChangePassword = ({ setOpen }) => {
-  const { user } = useContextHook(AuthContext, v => ({
+  const { user, onLogout } = useContextHook(AuthContext, v => ({
     user: v.user,
+    onLogout: v.onLogout,
   }));
   const [form] = useForm();
   async function handelSubmit(e) {
@@ -21,6 +22,7 @@ const ChangePassword = ({ setOpen }) => {
         newPassword: e.new_Password,
       };
       await userService.updatePassword(obj, user?._id);
+      onLogout();
       Toast({ type: 'success', message: 'Password Updated!' });
       setOpen(false);
     } catch (error) {
