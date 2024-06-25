@@ -35,46 +35,47 @@ export const StyledToastContainer = styled(ToastContainer)`
     }
 `;
 
-export default function App({Component, pageProps}) {
-    const userInfo = JSON.parse(getCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE));
-    const GlobalStyles = createGlobalStyle`
+export default function App({ Component, pageProps }) {
+  //   prompt();
+  const userInfo = JSON.parse(getCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE));
+  const GlobalStyles = createGlobalStyle`
   ${Variables}
   ${Styling}
   ${HelperClasses}
 `;
-    return (
-        <>
-            <AuthContextProvider>
-                <SocketContextProvider>
-                    <KycContextProvider>
-                        <GlobalStyles />
-                        {pageProps?.statusCode === 404 ? (
-                            <Component {...pageProps} />
-                        ) : (
-                            <Layout>
-                                {userInfo?.type === "Buyer" ? (
-                                    <Component {...pageProps} />
-                                ) : userInfo?.type === "Seller" ? (
-                                    userInfo?.isIndividualSeller ? (
-                                        <PageWrapper>
-                                            <Sidenav data={indivisualSellerNav} />
-                                            <Component {...pageProps} />
-                                        </PageWrapper>
-                                    ) : (
-                                        <PageWrapper>
-                                            <Sidenav data={companySellerNav} />
-                                            <Component {...pageProps} />
-                                        </PageWrapper>
-                                    )
-                                ) : (
-                                    <Component {...pageProps} />
-                                )}
-                            </Layout>
-                        )}
-                    </KycContextProvider>
-                    <StyledToastContainer />
-                </SocketContextProvider>
-            </AuthContextProvider>
-        </>
-    );
+  return (
+    <>
+      <AuthContextProvider>
+        <SocketContextProvider>
+          <KycContextProvider>
+            <GlobalStyles />
+            {pageProps?.statusCode === 404 ? (
+              <Component {...pageProps} />
+            ) : (
+              <Layout>
+                {userInfo?.type === 'Buyer' ? (
+                  <Component {...pageProps} />
+                ) : userInfo?.type === 'Seller' ? (
+                  userInfo?.isIndividualSeller ? (
+                    <PageWrapper>
+                      <Sidenav data={indivisualSellerNav} />
+                      <Component {...pageProps} />
+                    </PageWrapper>
+                  ) : (
+                    <PageWrapper>
+                      <Sidenav data={companySellerNav} />
+                      <Component {...pageProps} />
+                    </PageWrapper>
+                  )
+                ) : (
+                  <Component {...pageProps} />
+                )}
+              </Layout>
+            )}
+          </KycContextProvider>
+          <StyledToastContainer />
+        </SocketContextProvider>
+      </AuthContextProvider>
+    </>
+  );
 }
