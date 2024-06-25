@@ -15,6 +15,22 @@ export const connectionWithSocketServer = token => {
   socket.on('connect', () => {
     console.log('User Connected');
   });
+
+  socket.on('online-users', data => {
+    const { onlineUsers } = data;
+    window.dispatchEvent(new CustomEvent('online_users', { detail: [...onlineUsers] }));
+  });
+
+  socket.on('direct-chat-history', data => {
+    if (socket && data) {
+      window.dispatchEvent(new CustomEvent('direct_chat_history', { detail: { ...data } }));
+    }
+  });
+
+  socket.on('seen-message-response', data => {
+    window.dispatchEvent(new CustomEvent('seen_message_response', { detail: { ...data } }));
+  });
+
   socket.on('userUpdated', data => {
     onUserUpdated(data);
   });
@@ -29,3 +45,15 @@ export const connectionWithSocketServer = token => {
 };
 
 export const socketServer = () => socket;
+
+export const sendDirectMessage = data => {
+  if (socket && data) {
+    socket.emit('direct-message', data);
+  }
+};
+
+export const setSeenMessage = data => {
+  if (data && socket) {
+    socket?.emit('get-seen-message', data);
+  }
+};

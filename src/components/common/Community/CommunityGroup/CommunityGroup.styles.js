@@ -24,12 +24,29 @@ export const StyledCommunityGroup = styled.div`
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 3px;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: ${({ $isOnline }) => ($isOnline ? 'var(--green)' : 'var(--gray-2)')};
+        display: none;
+      }
+
       ${({ $type }) =>
         $type === 'private' &&
         css`
           width: 100%;
           height: 100%;
+          position: relative;
+          &::after {
+            display: block;
+          }
+
           &.img2,
           &.img3 {
             display: none;
@@ -39,6 +56,7 @@ export const StyledCommunityGroup = styled.div`
         display: block;
         width: 100%;
         height: auto;
+        border-radius: 50%;
         object-fit: cover;
       }
     }

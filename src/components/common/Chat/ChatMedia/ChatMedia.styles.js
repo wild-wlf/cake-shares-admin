@@ -51,6 +51,7 @@ export const StyledChatMedia = styled.div`
       font-weight: 300;
       line-height: 16px;
       text-align: center;
+
       .image-warp {
         width: 80px;
         margin: 0 auto 15px;
@@ -59,8 +60,45 @@ export const StyledChatMedia = styled.div`
         background: #313131;
         display: flex;
         align-items: flex-start;
-        overflow: hidden;
+        position: relative;
+
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+
+        &.online {
+          &::after {
+            background: var(--green);
+          }
+        }
+
+        &.offline {
+          &::after {
+            background: var(--gray);
+          }
+        }
+
+        &.buyer {
+          &::after {
+            display: none;
+          }
+        }
       }
+
       .userName {
         display: block;
         margin-bottom: 6px;

@@ -1,40 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChatBody, ChatWrapper } from './Chat.style';
 import ChatMessage from './ChatMessage';
-import ChatMedia from './ChatMedia';
 import { RiMenu3Fill } from 'react-icons/ri';
 import ChatFooter from './ChatFooter';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
 import Pole from './Pole';
+import { AuthContext } from '@/context/authContext';
+import { useContextHook } from 'use-context-hook';
+import notificationService from '@/services/notificationservice';
+import { updateDirectChatHistoryIfActive } from '@/helpers/chatHandlers';
 
-const Chat = ({ userInfo, type }) => {
-  console.log('userInfo', userInfo);
-  const chatMessages = [
+const Chat = ({ chosenChatDetails }) => {
+  const [chatMessages, setChatMessages] = useState([]);
+  const { user, fetch } = useContextHook(AuthContext, v => ({
+    user: v.user,
+    fetch: v.fetch,
+  }));
+  const chatBoxRef = useRef(null);
+
+  const { messages_loading, messages_data } = notificationService.GetAllConversationMessages(
     {
-      text: 'There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration',
-      time: 'Yesterday, 12:29 PM',
+      page: 1,
+      itemsPerPage: 10,
+      author: user?._id,
+      receiver: chosenChatDetails?.receiver,
+      conversationId: chosenChatDetails?.conversationId ?? '',
     },
-    {
-      text: 'The Points of Using Lorem Ipsum',
-      time: 'Yesterday, 12:29 PM',
-    },
-    {
-      text: 'The Points of Using Lorem Ipsum The Points of Using Lorem Ipsum',
-      time: 'Yesterday, 12:29 PM',
-    },
-    {
-      text: 'The Points of Using Lorem Ipsum The Points of Using Lorem Ipsum',
-      time: 'Yesterday, 12:29 PM',
-    },
-    {
-      text: 'The Points of Using Lorem Ipsum The Points of Using Lorem Ipsum',
-      time: 'Yesterday, 12:29 PM',
-    },
-    {
-      text: 'The Points of Using Lorem Ipsum The Points of Using Lorem Ipsum',
-      time: 'Yesterday, 12:29 PM',
-    },
-  ];
+    fetch,
+    chosenChatDetails,
+  );
+
+  useEffect(() => {
+    if (messages_data?.messages?.length > 0) {
+      setChatMessages(messages_data?.messages?.reverse());
+    }
+  }, [messages_data]);
+
+  const handleScrollToBottom = () => {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  };
+
+  useEffect(() => {
+    if (chatMessages?.length > 0) {
+      handleScrollToBottom();
+    }
+  }, [chatMessages?.length]);
+
+  useEffect(() => {
+    window.addEventListener('direct_chat_history', event => {
+      updateDirectChatHistoryIfActive({
+        ...event.detail,
+        user,
+        receiverId: chosenChatDetails?.receiver,
+        setChatMessages,
+      });
+      handleScrollToBottom();
+    });
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('direct_chat_history', () => {});
+    };
+  }, [user, chosenChatDetails]);
 
   return (
     <ChatWrapper>
@@ -44,32 +71,24 @@ const Chat = ({ userInfo, type }) => {
         <HiOutlineMenuAlt2 size={30} />
       </div>
       <div className="chatWrapper">
-        <ChatBody>
-          <div className="messages-holder">
-            {chatMessages?.map((item, index) => (
-              <ChatMessage
-                key={index}
-                type="send"
-                message={item.text}
-                time={index === chatMessages.length - 1 && item?.time}
-                showImage={index === chatMessages.length - 1}
-              />
-            ))}
-          </div>
-          <div className="messages-holder">
-            {chatMessages?.map((item, index) => (
-              <ChatMessage
-                key={index}
-                type="seen"
-                message={item.text}
-                time={index === chatMessages.length - 1 && item?.time}
-                showImage={index === chatMessages.length - 1}
-              />
-            ))}
-          </div>
+        <ChatBody ref={chatBoxRef}>
+          {messages_loading
+            ? 'Loading...'
+            : chatMessages?.map((item, index) => (
+                <ChatMessage
+                  key={index}
+                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                  message={item.content}
+                  time={item?.created_at}
+                  readBy={item?.readBy?.includes(chosenChatDetails?.receiver)}
+                  messageId={item?._id}
+                  receiverId={chosenChatDetails?.receiver}
+                  // showImage={index === chatMessages.length - 1}
+                />
+              ))}
           <Pole type="send" />
         </ChatBody>
-        <ChatFooter />
+        <ChatFooter chosenChatDetails={chosenChatDetails} />
       </div>
       <div className="hamburger" onClick={() => document.body.classList.toggle('chat-sidebar-active')}>
         <RiMenu3Fill size={30} />

@@ -183,11 +183,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Product Name',
               },
               {
-                pattern: /^.{0,40}$/,
-                message: 'Please enter a valid Product Name',
+                pattern: /^.{3,40}$/,
+                message: 'Minimum character length of product name is 3',
               },
             ]}>
-            <Field />
+            <Field maxLength={40} />
           </Form.Item>
           <Form.Item
             label="Investment Type"
@@ -293,11 +293,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^.{0,256}$/,
-                  message: 'Product Description must be between 0 to 256',
+                  pattern: /^.{10,1000}$/,
+                  message: 'Minimum character length of product description is 10',
                 },
               ]}>
-              <Field />
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
           <div className="description-holder">
@@ -314,15 +314,15 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^.{0,256}$/,
-                  message: 'Description must be between 0 to 256',
+                  pattern: /^.{10,1000}$/,
+                  message: 'Minimum character length of description is 10',
                 },
               ]}>
-              <Field />
+              <Field maxLength={1000} />
             </Form.Item>
           </div>
         </div>
-        <span className="heading">Upload Media</span>
+        <span className="heading">Upload Media:</span>
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
@@ -332,7 +332,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   sm
                   rounded
                   placeholder="Enter Text"
-                  accept="image/jpeg, image/jpg, image/png, video/mp4"
                   rules={[
                     {
                       required: true,
@@ -343,15 +342,22 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   name={`media${index}`}
                   img={media[index]}
                   noMargin
-                  uploadTitle="Upload Image/Video"
-                  disc="File size must be less than 1MB in JPG, JPEG, PNG or MP4 format."
+                  uploadTitle={index === 0 ? 'Upload Image/Video' : 'Upload Image'}
+                  accept={
+                    index === 0 ? 'image/jpeg, image/jpg, image/png, video/mp4' : 'image/jpeg, image/jpg, image/png'
+                  }
+                  disc={
+                    index === 0
+                      ? 'File size must be less than 1MB in JPG, JPEG, PNG or MP4 format.'
+                      : 'File size must be less than 1MB in JPG, JPEG, PNG '
+                  }
                   onChange={e => {
                     form.setFieldsValue({
                       [`media${index}`]: e,
                     });
                     setImages(prev => {
                       const updatedImages = [...prev];
-                      updatedImages[index] = e;
+                      updatedImages[index] = e.target.file;
                       return updatedImages;
                     });
                   }}>
@@ -362,7 +368,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
           })}
         </div>
         <div className="add-amenities-holder">
-          <span className="heading">Amenities</span>
+          <span className="heading">Amenities:</span>
           {amenities && amenities?.length < 10 && (
             <div className="add-amenities">
               <span>You can add up to 10 amenities only!</span>
@@ -432,8 +438,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^.{0,2}$/,
-                message: 'Please enter a valid Backers Limit',
+                pattern: /^(0?[1-9]|[1-9][0-9])$/,
+                message: 'Minimum backers limit must be a whole number between 1 and 99',
               },
             ]}>
             <Field />
@@ -451,8 +457,12 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Maximum Backers Limit',
               },
               {
-                pattern: /^.{0,2}$/,
-                message: 'Please enter a valid Backers Limit',
+                pattern: /^(0?[1-9]|[1-9][0-9])$/,
+                message: 'Maximum backers limit must be a whole number between 1 and 99',
+              },
+              {
+                transform: value => value < +form.getFieldValue('minBackers'),
+                message: 'Maximun backers cannot be less than minimum backers!',
               },
             ]}>
             <Field />
@@ -471,10 +481,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               },
               {
                 pattern: /^[1-9]\d*$/,
-                message: 'Asset Value must be greater than zero',
+                message: 'Asset value must be whole number (greater than zero)',
               },
             ]}>
-            <Field />
+            <Field maxLength={10}/>
           </Form.Item>
           <Form.Item
             type="number"
@@ -490,7 +500,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               },
               {
                 pattern: /^[1-9]\d*$/,
-                message: 'Minimum Investment must be greater than zero',
+                message: 'Minimum investment must be whole number (greater than zero)',
+              },
+              {
+                transform: value => value > +form.getFieldValue('assetValue'),
+                message: 'Minimum investment cannot be greater than asset value!',
               },
             ]}>
             <Field />

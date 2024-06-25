@@ -6,6 +6,7 @@ export const StyledSideBar = styled.div`
   background: rgba(64, 143, 140, 0.1);
   padding: 20px 22px;
   border-radius: 30px 0px 0px 0px;
+  overflow: hidden;
   cursor: pointer;
 
   @media (max-width: 1199px) {
@@ -31,6 +32,7 @@ export const StyledSideBar = styled.div`
     margin: 0 -22px;
     padding: 0 22px;
   }
+
   .tabs-holder {
     width: 100%;
     max-width: 290px;

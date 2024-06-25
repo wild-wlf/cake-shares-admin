@@ -9,7 +9,7 @@ export const ChatFooterWrapper = styled.footer`
   .input-wrapper {
     width: 100%;
     height: 40px;
-    padding: 10px 17px;
+    padding: 7px 17px 5px 17px;
     border-radius: 60px;
     border: 1px solid rgba(205, 205, 205, 1);
     display: flex;
@@ -31,6 +31,8 @@ export const ChatFooterWrapper = styled.footer`
         outline: none;
         max-width: 800px;
         width: 100%;
+        margin-top: -10px;
+        height: 35px;
       }
     }
     .icons-div {
@@ -39,13 +41,10 @@ export const ChatFooterWrapper = styled.footer`
     }
   }
   .send-icon {
+    min-width: 40px;
     width: 40px;
     height: 40px;
     background: rgba(64, 143, 140, 0.2);
     border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
   }
 `;
