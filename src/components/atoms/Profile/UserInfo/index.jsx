@@ -28,8 +28,25 @@ const UserInfo = ({ userImage }) => {
   const { kycLevel, setKycLevel, checkKycLevel } = useContext(KycContext);
   const router = usePathname();
   const [profileImg, setProfileImg] = useState('');
-  async function handelProfileImage(e) {
+
+  async function handelProfileImage(e, accept) {
     const file = e.target.files[0];
+    if (!file) return;
+
+    const acceptableExtensions = accept.split(',').map(ext => ext.trim());
+    if (!acceptableExtensions?.includes(file?.type)) {
+      const extensions = acceptableExtensions
+        .map(ext => ext.split('/')[1].toUpperCase())
+        .join(', ')
+        .replace(/,(?=[^,]*$)/, ' and');
+
+      Toast({
+        type: 'error',
+        message: `Image Must be in ${extensions} format!`,
+      });
+      return;
+    }
+
     if (file) {
       let obj = {
         type: 'picture',
@@ -56,7 +73,12 @@ const UserInfo = ({ userImage }) => {
     <StyledUserInfo>
       <div className="userInfo">
         <ProfileWrapper>
-          <input type="file" id="bannerImg" accept=".png , .jpg" onChange={handelProfileImage} />
+          <input
+            type="file"
+            id="bannerImg"
+            accept="image/jpeg, image/jpg, image/png"
+            onChange={e => handelProfileImage(e, 'image/jpeg, image/jpg, image/png')}
+          />
           <span className="rounded-icon">
             <MdEdit color="var(--white)" size={26} />
           </span>

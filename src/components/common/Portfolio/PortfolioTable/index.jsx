@@ -11,6 +11,7 @@ import ButtonsGroup from '@/components/atoms/ButtonsGroup';
 import CalenderIcon from '../../../../_assets/calander.svg';
 import { MdModeEditOutline } from 'react-icons/md';
 import DeleteIcon from '../../../../_assets/delete.svg';
+import DeleteDisabledIcon from '../../../../_assets/delete-disabled.svg';
 import SpeakerIcon from '../../../../_assets/speaker.svg';
 import FileIcon from '../../../../_assets/file.svg';
 import TableStyle from '../../../../_assets/table-style.jpg';
@@ -122,13 +123,14 @@ const PortfolioTable = ({ title }) => {
 
         <li>
           <button
+            disabled={_?.isAdvertised}
             type="button"
             className="btn delete"
             onClick={() => {
               setProductDeleteModal(true);
               setSelecteData(_?._id);
             }}>
-            <Image src={DeleteIcon} alt="delete" />
+            <Image src={_?.isAdvertised ? DeleteDisabledIcon : DeleteIcon} alt="delete" />
           </button>
         </li>
       </ActionBtnList>

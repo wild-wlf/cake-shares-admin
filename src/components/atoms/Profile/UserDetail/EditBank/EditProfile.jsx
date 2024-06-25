@@ -122,6 +122,7 @@ const EditProfile = ({ personalInfo, onClose }) => {
             label="Username"
             name="username"
             sm
+            disabled
             rounded
             placeholder="alex123"
             rules={[
