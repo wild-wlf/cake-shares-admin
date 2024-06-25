@@ -83,7 +83,7 @@ const Login = () => {
               <Field invert />
             </Form.Item>
             <div className="formAction">
-              <CheckBox label="Remember me" color />
+              <CheckBox label="Remember me" type="checkbox" color />
             </div>
             <Button block htmlType={loading ? 'button' : 'submit'} loader={loading} type="green" md rounded>
               Sign in

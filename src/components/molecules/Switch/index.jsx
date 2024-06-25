@@ -1,5 +1,5 @@
-import React from "react";
-import { ToggleSwitchStyle } from "./Switch.styles";
+import React from 'react';
+import { ToggleSwitchStyle } from './Switch.styles';
 
 const Switch = ({ value, label, ...props }) => {
   return (

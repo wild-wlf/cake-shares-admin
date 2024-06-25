@@ -4,6 +4,7 @@ import ChatMessage from './ChatMessage';
 import { RiMenu3Fill } from 'react-icons/ri';
 import ChatFooter from './ChatFooter';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import Pole from './Pole';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import notificationService from '@/services/notificationservice';
@@ -85,6 +86,7 @@ const Chat = ({ chosenChatDetails }) => {
                   // showImage={index === chatMessages.length - 1}
                 />
               ))}
+          <Pole type="send" />
         </ChatBody>
         <ChatFooter chosenChatDetails={chosenChatDetails} />
       </div>
