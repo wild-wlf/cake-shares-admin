@@ -34,14 +34,11 @@ function DataTabs({
             rounded
             sm
             name="search"
-            placeholder={"Search Permission Groups"}
+            placeholder={'Search Permission Groups'}
             suffix={<CiSearch className="icon" />}
           />
         </div>
-        <Switch
-          onChange={(e) => console.log(e)}
-          label="Select All Group Permissions"
-        />
+        <Switch onChange={e => console.log(e)} label="Select All Group Permissions" />
       </Head>
       <StyledTabs verticalTabs={verticalTabs}>
         <Wrap uploadBtn verticalTabs={verticalTabs}>
@@ -52,12 +49,8 @@ function DataTabs({
                 key={tab.label}
                 onClick={() => {
                   setActiveTab(index);
-                }}
-              >
-                <StyledTab
-                  active={activeTab === index}
-                  verticalTabs={verticalTabs}
-                >
+                }}>
+                <StyledTab active={activeTab === index} verticalTabs={verticalTabs}>
                   {tab.label}
                 </StyledTab>
               </TabBtn>
@@ -65,11 +58,7 @@ function DataTabs({
           </StyledTabList>
           {uploadBtn ?? uploadBtn}
         </Wrap>
-        <StyledTabPanels
-          verticalTabs={verticalTabs}
-          $noBorder={noBorder}
-          $noOverflow={noOverflow}
-        >
+        <StyledTabPanels verticalTabs={verticalTabs} $noBorder={noBorder} $noOverflow={noOverflow}>
           {data?.map((tab, index) => (
             <StyledTabPanel key={tab.label} active={activeTab === index}>
               {activeTab === index && tab?.content}
@@ -78,7 +67,7 @@ function DataTabs({
         </StyledTabPanels>
       </StyledTabs>
       <ButtonContainer>
-        <Button rounded width={"170px"} height={"40px"} sm btntype={"primary"}>
+        <Button rounded width={'170px'} height={'40px'} sm btntype={'primary'}>
           Save Changes
         </Button>
       </ButtonContainer>

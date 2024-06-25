@@ -38,7 +38,12 @@ export default class Field extends Component {
       ...rest,
       value: getFieldValue(name) ?? '',
       onChange: event => {
-        const newValue = event.target.value ?? '';
+        let newValue;
+        if (event.target.file && event.target.file instanceof File) {
+          newValue = event.target.file;
+        } else {
+          newValue = event.target.value ?? '';
+        }
         setFieldsValue({ [name]: newValue });
       },
     };
