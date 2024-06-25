@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const StyledSideBar = styled.div`
   width: 100%;
-  max-width: 320px;
+  max-width: 330px;
   background: rgba(64, 143, 140, 0.1);
   padding: 20px 22px;
   border-radius: 30px 0px 0px 0px;
@@ -34,7 +34,8 @@ export const StyledSideBar = styled.div`
   }
 
   .tabs-holder {
-    max-width: 280px;
+    width: 100%;
+    max-width: 290px;
     background-color: var(--white);
     display: flex;
     margin: 0 auto;
