@@ -71,7 +71,8 @@ export const updateCurrentConversations = data => {
 
       if (conversationIndex > -1) {
         existingCons.splice(conversationIndex, 1);
-        existingCons.unshift(con);
+        const { unreadCount, lastMessage, ...rest } = con;
+        existingCons.unshift({ ...rest, unreadCount: unreadCount + 1, lastMessage: message });
       }
     }
 

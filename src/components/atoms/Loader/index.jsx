@@ -1,9 +1,9 @@
-import React from "react";
-import { LoaderStyled, LoaderWrap } from "./Loader.styles";
+import React from 'react';
+import { LoaderStyled, LoaderWrap } from './Loader.styles';
 
-const Loader = () => {
+const Loader = ({ noHeight  }) => {
   return (
-    <LoaderWrap>
+    <LoaderWrap $noHeight={noHeight}>
       <LoaderStyled />
     </LoaderWrap>
   );
