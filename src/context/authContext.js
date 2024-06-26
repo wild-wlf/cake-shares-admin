@@ -43,14 +43,15 @@ export const AuthContextProvider = props => {
   ];
 
   const onLogout = async () => {
+    if (!isLoggedIn) return;
     try {
-      setIsLoggedIn(false);
+      setIsLoggedIn(prev => !prev);
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
       router.push('/sign-in');
-      await userService.logout();
       Toast({ type: 'success', message: 'Logged Out Successfully!' });
+      await userService.logout();
     } catch (error) {
       console.error('Error during logout:', error);
     }
@@ -277,7 +278,6 @@ export const AuthContextProvider = props => {
       });
     }
     listenCookieChange((value, cookie) => {
-      console.log('cookiedsfsd');
       if (cookie === process.env.NEXT_PUBLIC_TOKEN_COOKIE) {
         if (!value) {
           onLogout();

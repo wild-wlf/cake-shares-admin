@@ -1,18 +1,16 @@
-import React from "react";
-import { StyledCheckBox } from "./CheckBox.styles";
+import React from 'react';
+import { StyledCheckBox } from './CheckBox.styles';
 
-const CheckBox = ({ label }) => {
+const CheckBox = ({ label, type, color }) => {
   return (
-      <StyledCheckBox>
-          <div className="custom-checkbox">
-              <input id={label} type="checkbox" value={label} />
-          </div>
-          {label && (
-              <label className="labelTitle" htmlFor={label}>
-                  {label}
-              </label>
-          )}
-      </StyledCheckBox>
+    <StyledCheckBox $type={type} $color={color}>
+      <input id={label} type="checkbox" value={label} />
+      {label && (
+        <label className="labelTitle" htmlFor={label}>
+          {label}
+        </label>
+      )}
+    </StyledCheckBox>
   );
 };
 

@@ -139,8 +139,8 @@ const SideBar = ({ data }) => {
             <>
               <div className="textfeildWrapper">
                 <div className="textFieldRight">
-                  <span className="heading">My Kyc Level</span>
-                  <span>{kycLevel}</span>
+                  <span className="heading">My KY{`${user?.sellerType === 'Individual' ? 'C' : 'B'}`} Level</span>
+                  <span>{user?.kycLevel}</span>
                 </div>
                 <KycLevel level={user?.kycLevel + 1} bg />
               </div>

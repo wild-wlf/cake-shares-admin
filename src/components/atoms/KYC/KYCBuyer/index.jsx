@@ -39,6 +39,7 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
         </label>
         <div className="combineField">
           <Form.Item
+            noMargin
             rounded
             name="passportImageFront"
             type="img"
@@ -50,6 +51,7 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
             <Field />
           </Form.Item>
           <Form.Item
+            noMargin
             rounded
             name="passportImageBack"
             type="img"
