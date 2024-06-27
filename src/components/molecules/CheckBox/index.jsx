@@ -1,15 +1,22 @@
 import React from 'react';
 import { StyledCheckBox } from './CheckBox.styles';
 
-const CheckBox = ({ label, type, color }) => {
+const CheckBox = ({ type = 'checkbox', label, fieldName, className, onChange, checked, color, value = '', name }) => {
+  function handelChange(e) {
+    const isChecked = e.target.checked;
+    onChange({ fieldName, isChecked });
+  }
   return (
-    <StyledCheckBox $type={type} $color={color}>
-      <input id={label} type="checkbox" value={label} />
-      {label && (
-        <label className="labelTitle" htmlFor={label}>
-          {label}
-        </label>
-      )}
+    <StyledCheckBox $type={type} className={className} $color={color}>
+      <input
+        type={type}
+        id={fieldName}
+        onChange={handelChange}
+        checked={checked}
+        value={value}
+        name={name ?? fieldName}
+      />
+      <label htmlFor={fieldName}>{label}</label>
     </StyledCheckBox>
   );
 };

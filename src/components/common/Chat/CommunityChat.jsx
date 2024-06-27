@@ -5,13 +5,14 @@ import ChatMessage from './ChatMessage';
 import { RiMenu3Fill } from 'react-icons/ri';
 import ChatFooter from './ChatFooter';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import Pole from './Pole';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import notificationService from '@/services/notificationservice';
-import { updateDirectChatHistoryIfActive } from '@/helpers/chatHandlers';
 import Loader from '@/components/atoms/Loader';
+import { updateChatIfActive } from '@/helpers/comMsgHandlers';
 
-const Chat = ({ chosenChatDetails }) => {
+const ComChat = ({ chosenComDetails }) => {
   const [chatMessages, setChatMessages] = useState([]);
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -21,17 +22,15 @@ const Chat = ({ chosenChatDetails }) => {
   const [searchQuery, setSearchQuery] = useState({
     page: 1,
     itemsPerPage: 10,
-    author: user?._id,
-    receiver: chosenChatDetails?.receiver,
-    conversationId: chosenChatDetails?.conversationId ?? '',
+    conversationId: chosenComDetails?.conversationId ?? '',
   });
   const [chatLoading, setChatLoading] = useState(true);
   const [moreMsgLoading, setMoreMsgLoading] = useState(false);
 
-  const { messages_loading, messages_data } = notificationService.GetAllConversationMessages(
+  const { messages_loading, messages_data } = notificationService.GetAllCommunityConversationMessages(
     searchQuery,
     fetch,
-    chosenChatDetails,
+    chosenComDetails,
   );
 
   useEffect(() => {
@@ -58,11 +57,10 @@ const Chat = ({ chosenChatDetails }) => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('direct_chat_history', event => {
-      updateDirectChatHistoryIfActive({
+    window.addEventListener('com_message_history', event => {
+      updateChatIfActive({
         ...event.detail,
         user,
-        receiverId: chosenChatDetails?.receiver,
         setChatMessages,
       });
       handleScrollToBottom();
@@ -70,9 +68,9 @@ const Chat = ({ chosenChatDetails }) => {
 
     // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener('direct_chat_history', () => {});
+      window.removeEventListener('com_message_history', () => {});
     };
-  }, [user, chosenChatDetails]);
+  }, [chosenComDetails?.conversationId, user]);
 
   const onScrolledToTop = e => {
     if (e.target.scrollTop === 0 && chatMessages?.length < messages_data?.totalItems && messages_data?.totalItems > 0) {
@@ -103,20 +101,37 @@ const Chat = ({ chosenChatDetails }) => {
               <Loader />
             </div>
           ) : (
-            chatMessages?.map((item, index) => (
-              <ChatMessage
-                key={index}
-                type={item?.author?._id === user?._id ? 'seen' : 'send'}
-                message={item.content}
-                time={item?.created_at}
-                readBy={item?.readBy?.includes(chosenChatDetails?.receiver)}
-                messageId={item?._id}
-                receiverId={chosenChatDetails?.receiver}
-              />
-            ))
+            chatMessages?.map((item, index) =>
+              item?.isPool ? (
+                <Pole
+                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                  time={item?.created_at}
+                  key={index}
+                  question={item?.pool?.question}
+                  options={item?.pool?.options}
+                  allow_multiple={item?.pool?.allow_multiple}
+                  receivers={item?.receivers}
+                  showImage={item?.author?.profilePicture}
+                  readBy={item?.readBy?.length >= item?.receivers?.length}
+                  messageId={item?._id}
+                />
+              ) : (
+                <ChatMessage
+                  key={index}
+                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                  message={item.content}
+                  time={item?.created_at}
+                  readBy={item?.readBy?.length >= item?.receivers?.length}
+                  messageId={item?._id}
+                  receivers={item?.receivers}
+                  showImage={item?.author?.profilePicture}
+                  group
+                />
+              ),
+            )
           )}
         </ChatBody>
-        <ChatFooter chosenChatDetails={chosenChatDetails} type="private" />
+        <ChatFooter chosenComDetails={chosenComDetails} type="community" />
       </div>
       <div className="hamburger" onClick={() => document.body.classList.toggle('chat-sidebar-active')}>
         <RiMenu3Fill size={30} />
@@ -125,4 +140,4 @@ const Chat = ({ chosenChatDetails }) => {
   );
 };
 
-export default Chat;
+export default ComChat;

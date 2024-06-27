@@ -49,7 +49,7 @@ const notificationService = {
           setNotificationStatus(STATUS.SUCCESS);
         })
         .catch(() => setNotificationStatus(STATUS.ERROR));
-    }, [searchQuery?.page, searchQuery?.itemsPerPage, fetch]);
+    }, [searchQuery?.page, searchQuery?.itemsPerPage, searchQuery?.type, fetch]);
     return {
       conversations_loading: notificationStatus === STATUS.LOADING,
       conversations_error: notificationStatus === STATUS.ERROR,
@@ -91,6 +91,32 @@ const notificationService = {
     };
   },
 
+  GetAllCommunityConversationMessages(searchQuery, fetch) {
+    const [messages, setMessages] = useState({
+      messages: [],
+      totalItems: 0,
+    });
+    const { cancellablePromise } = useCancellablePromise();
+    const [notificationStatus, setNotificationStatus] = useState(STATUS.LOADING);
+    useEffect(() => {
+      setNotificationStatus(STATUS.LOADING);
+      cancellablePromise(this.getAllCommunityConversationMessages(searchQuery))
+        .then(res => {
+          setMessages({
+            messages: res.items,
+            totalItems: res.totalItems,
+          });
+          setNotificationStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setNotificationStatus(STATUS.ERROR));
+    }, [searchQuery?.page, searchQuery?.itemsPerPage, searchQuery?.conversationId, fetch]);
+    return {
+      messages_loading: notificationStatus === STATUS.LOADING,
+      messages_error: notificationStatus === STATUS.ERROR,
+      messages_data: messages,
+    };
+  },
+
   async getAllNotifications({ page = 1, itemsPerPage = 10 }) {
     let res = await Fetch.get(`${this._url}/notification?page=${page}&itemsPerPage=${itemsPerPage}`);
     if (res.status >= 200 && res.status < 300) {
@@ -113,8 +139,10 @@ const notificationService = {
     throw new Error(message ?? 'Something Went Wrong');
   },
 
-  async getAllConversations({ page = 1, itemsPerPage = 10 }) {
-    let res = await Fetch.get(`${this._url}/get-all-conversations?page=${page}&itemsPerPage=${itemsPerPage}`);
+  async getAllConversations({ page = 1, itemsPerPage = 10, type = '' }) {
+    let res = await Fetch.get(
+      `${this._url}/get-all-conversations?page=${page}&itemsPerPage=${itemsPerPage}&type=${type}`,
+    );
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
       return res;
@@ -125,6 +153,18 @@ const notificationService = {
 
   async readAllNotifications() {
     let res = await Fetch.get(`${this._url}/read-all-notification`);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something Went Wrong');
+  },
+
+  async getAllCommunityConversationMessages({ page = 1, itemsPerPage = 10, conversationId = '' }) {
+    let res = await Fetch.get(
+      `${this._url}/get-com-conversation-messages?page=${page}&itemsPerPage=${itemsPerPage}&conversationId=${conversationId}`,
+    );
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
       return res;

@@ -7,7 +7,6 @@ export const StyledSideBar = styled.div`
   padding: 20px 22px;
   border-radius: 30px 0px 0px 0px;
   overflow: hidden;
-  cursor: pointer;
 
   @media (max-width: 1199px) {
     position: absolute;

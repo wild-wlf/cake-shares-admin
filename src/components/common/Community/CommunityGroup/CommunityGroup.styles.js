@@ -80,7 +80,8 @@ export const StyledCommunityGroup = styled.div`
     max-width: 125px;
 
     .title,
-    .text {
+    .text,
+    .community-title {
       display: block;
       font-weight: 500;
       white-space: nowrap;

@@ -9,6 +9,7 @@ import Head from 'next/head';
 const PrivateChat = () => {
   const [chosenChatDetails, setChosenChatDetails] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [totalConversations, setTotalConversations] = useState(0);
 
   const handleChoseChatDetails = details => {
     setChosenChatDetails(details);
@@ -25,6 +26,10 @@ const PrivateChat = () => {
     };
   }, []);
 
+  const handleGetTotalConversations = total => {
+    setTotalConversations(total);
+  };
+
   return (
     <div>
       <Head>
@@ -32,17 +37,24 @@ const PrivateChat = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <SellerContainer>
-        <SellerTopBar title={'Private Chat'} tagLine="You have total 101 chats in your private chat right now!" />
+        <SellerTopBar
+          title={'Private Chat'}
+          tagLine={`You have total ${totalConversations} chat${
+            totalConversations?.length > 1 ? 's' : ''
+          } in your private chat right now!`}
+        />
         <div className="chat-holder">
           <SideBar
             handleChoseChatDetails={handleChoseChatDetails}
             chosenChatDetails={chosenChatDetails}
             onlineUsers={onlineUsers}
+            handleGetTotalConversations={handleGetTotalConversations}
+            type="private"
           />
           {chosenChatDetails && (
             <>
               <Chat chosenChatDetails={chosenChatDetails} />
-              <ChatMedia onlineUsers={onlineUsers} chosenChatDetails={chosenChatDetails} />
+              <ChatMedia onlineUsers={onlineUsers} chosenChatDetails={chosenChatDetails} type="private" />
             </>
           )}
         </div>

@@ -4,10 +4,10 @@ export const StyledPole = styled.div`
   position: relative;
   max-width: 273px;
   padding: 18px 13px;
-  margin-left: ${({ $type }) => ($type === 'send' ? 'auto' : '')};
+  margin-left: ${({ $type }) => ($type === 'seen' ? 'auto' : '')};
 
   ${({ $type }) =>
-    $type === 'send'
+    $type === 'seen'
       ? css`
           border-radius: 10px 0 10px 10px;
           background: var(--green);
@@ -17,14 +17,25 @@ export const StyledPole = styled.div`
           border-radius: 10px 10px 10px 0;
           background-color: rgba(78, 97, 153, 0.1);
           color: var(--base-text-color);
+          margin-left: 40px;
         `}
+  .head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 10px;
+    position: relative;
+
+    button {
+      color: ${({ $type }) => ($type === 'seen' ? 'var(--white)' : 'var(--green)')};
+    }
+  }
   .pole_title {
     display: block;
-    margin-bottom: 10px;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
-    text-align: left;
   }
 
   .isMulti {
@@ -57,19 +68,19 @@ export const StyledPole = styled.div`
         ? css`
             right: 13px;
             .icon {
-              /* display: none; */
+              display: none;
             }
           `
         : css`
             right: 0;
           `}
   }
-  button {
+  .view-votes {
     width: 100%;
     text-align: center;
     padding-top: 14px;
     ${({ $type }) =>
-      $type === 'send'
+      $type === 'seen'
         ? css`
             border-top: 1px solid rgba(255, 255, 255, 0.2);
           `
@@ -77,7 +88,7 @@ export const StyledPole = styled.div`
             border-top: 1px solid var(--base-text-color);
           `}
     ${({ $type }) =>
-      $type === 'send'
+      $type === 'seen'
         ? css`
             color: var(--white);
           `
@@ -95,6 +106,24 @@ export const StyledPole = styled.div`
       position: absolute;
       top: 0;
       right: 0;
+    }
+  }
+
+  .img-holder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: -35px;
+    display: ${({ $type }) => ($type === 'send' ? 'block' : 'none')};
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
     }
   }
 `;
