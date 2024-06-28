@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyledKycBuyer } from '../KYCBuyer/KycBuyer.styles';
 import Button from '../../Button';
 import { useForm } from '@/components/molecules/Form';
@@ -7,10 +7,21 @@ import Field from '@/components/molecules/Field';
 import Toast from '@/components/molecules/Toast';
 import { KycContext } from '@/context/KycContext';
 
-const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
+const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData, kycData }) => {
   const [form] = useForm();
   const { setKyc1 } = useContext(KycContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (kycData) {
+      form.setFieldsValue({
+        businessName: kycData?.ownerDetails?.businessName,
+        businessEmail: kycData?.ownerDetails?.businessEmail,
+        ownerFullName: kycData?.ownerDetails?.ownerFullName,
+        ownerPhoneNumber: kycData?.ownerDetails?.ownerPhoneNumber,
+      });
+    }
+  }, [kycData, form]);
 
   function onSubmit(data) {
     try {
@@ -46,11 +57,10 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
             placeholder="Foster Agency"
             rules={[
               { required: true, message: 'Business Name is Required!' },
-              {
-                message: 'Maximum Character Length is 256',
-              },
-            ]}>
-            <Field />
+              { minLength: 3, message: 'Business Name should be at least 3 characters.' },
+              { maxLength: 30, message: 'Business Name should not exceed 30 characters.' },
+              ]}>
+            <Field maxLength={30} />
           </Form.Item>
           <Form.Item
             type="email"
@@ -72,20 +82,13 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
             name="ownerFullName"
             placeholder="John Doe"
             rules={[
-              {
-                required: true,
-                message: 'Full Name is Required',
-              },
-              {
-                min: 2,
-                message: 'Full Name should be at least 2 characters.',
-              },
-              {
-                max: 64,
-                message: 'Full Name should not exceed 64 characters.',
-              },
-            ]}>
-            <Field />
+              { required: true, message: 'Full Name is Required' },
+              { minLength: 3, message: 'Full Name should be at least 3 characters.' },
+              { pattern: /^[a-zA-Z\s]*$/, message: 'Only alphabets are allowed' },
+              { maxLength: 20, message: 'Full Name should not exceed 20 characters.' },
+            ]}
+          >
+            <Field maxLength={20} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -94,9 +97,7 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData }) => {
             placeholder="+1 123 456 789"
             rules={[
               { required: true, message: 'Owner Phone Number is Required!' },
-              {
-                message: 'Maximum Character Length is 256',
-              },
+              { pattern: /^[0-9+]{1,15}$/, message: 'Phone Number length should not exceed 15 characters.' },
             ]}>
             <Field />
           </Form.Item>

@@ -44,7 +44,7 @@ const SellerWallet = () => {
             <PieChart
               // graphData={pieData}
               title="Best Selling Products"
-              amount="0"
+              amount="$0"
               timeFrame="year"
               sm={true}
             />

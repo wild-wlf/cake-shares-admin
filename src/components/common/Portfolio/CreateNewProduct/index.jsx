@@ -398,15 +398,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             name="minBackers"
             sm
             rounded
-            placeholder="01"
+            placeholder="09"
             rules={[
               {
                 required: true,
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(0?[1-9]|[1-9][0-9])$/,
-                message: 'Please enter a valid limit between 1 and 99',
+                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
+                message: 'Please enter a valid limit between 9 and 999',
               },
             ]}>
             <Field maxLength={3} />
@@ -423,9 +423,13 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 required: true,
                 message: 'Please enter Maximum Backers Limit',
               },
+              // {
+              //   pattern: /^(0?[1-9]|[1-9][0-9])$/,
+              //   message: 'Please enter a valid limit between 1 and 99',
+              // },
               {
-                pattern: /^(0?[1-9]|[1-9][0-9])$/,
-                message: 'Please enter a valid limit between 1 and 99',
+                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
+                message: 'Please enter a valid limit between 9 and 999',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
@@ -447,11 +451,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
+                pattern: /^[1-9][0-9]{0,3}$/,
+                message: 'Please enter a valid value up to 4 digits',
+              },
+              {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset value must be whole number (greater than zero)',
               },
             ]}>
-            <Field maxLength={10}/>
+            <Field  />
           </Form.Item>
           <Form.Item
             type="number"
@@ -464,6 +472,10 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,3}$/,
+                message: 'Please enter a valid value up to 4 digits',
               },
               {
                 pattern: /^[1-9]\d*$/,

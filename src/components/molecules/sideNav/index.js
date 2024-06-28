@@ -17,6 +17,7 @@ import { format } from 'date-fns';
 import KycLevel from '@/components/atoms/KYC/KycLevel';
 import SuccessIcon from '../../../_assets/successIcon.png';
 import SuccessfulModal from '@/components/atoms/ProductDeleteModal/SuccessfulModal';
+import KycBuyerLevelFour from '@/components/atoms/KYC/KYCBuyer4';
 
 const SideBar = ({ data }) => {
   const { user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
@@ -32,7 +33,9 @@ const SideBar = ({ data }) => {
     document.body.style.overflow = 'auto';
   };
 
-  const { kycLevel, setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3 } = useContext(KycContext);
+  console.log(kycData);
+  const { kycLevel, setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3, kyc4, setKyc4 } =
+    useContext(KycContext);
   return (
     <>
       <CenterModal
@@ -42,6 +45,7 @@ const SideBar = ({ data }) => {
         width="543">
         <SuccessfulModal title={'KYC Requested Successfully!'} />
       </CenterModal>
+
       {/* KYC MODAL */}
       <CenterModal
         zIndex={9999}
@@ -49,37 +53,70 @@ const SideBar = ({ data }) => {
         setOpen={setKyc0}
         width="688"
         title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
-        <KycBuyerLevelZero setKycLevel={setKycLevel} setOpen={setKyc0} setKycData={setKycData} />
+        <KycBuyerLevelZero setKycLevel={setKycLevel} setOpen={setKyc0} setKycData={setKycData} kycData={kycData} />
       </CenterModal>
+
       <CenterModal
         zIndex={9999}
         open={kyc1}
         setOpen={setKyc1}
         width="688"
         title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
-        <KycBuyerLevelOne setKycLevel={setKycLevel} setOpen={setKyc1} setKycData={setKycData} />
+        <KycBuyerLevelOne
+          setKycLevel={setKycLevel}
+          setOpen={setKyc1}
+          setKycData={setKycData}
+          kycData={kycData}
+          setKyc0={setKyc0}
+        />
       </CenterModal>
+
       <CenterModal
         zIndex={9999}
         open={kyc2}
         setOpen={setKyc2}
         width="688"
-        title={`Upgrade to KY${user?.sellerType === 'Individual' ? 'C' : 'B'} Level 2`}>
-        <KycBuyerLevelTwo setKycLevel={setKycLevel} setOpen={setKyc2} setKycData={setKycData} />
+        title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
+        <KycBuyerLevelTwo
+          setKycLevel={setKycLevel}
+          setOpen={setKyc2}
+          setKycData={setKycData}
+          kycData={kycData}
+          setKyc1={setKyc1}
+        />
       </CenterModal>
+
       <CenterModal
         zIndex={9999}
         open={kyc3}
         setOpen={setKyc3}
         width="688"
-        title={`Upgrade to KY${user?.sellerType === 'Individual' ? 'C' : 'B'} Level 3`}>
+        title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
         <KYCBuyerThree
           setKycLevel={setKycLevel}
           setOpen={setKyc3}
           kycData={kycData}
           setSuccessfulModal={setSuccessfulModal}
+          setKyc2={setKyc2}
+          setKycData={setKycData}
         />
       </CenterModal>
+
+      <CenterModal
+        zIndex={9999}
+        open={kyc4}
+        setOpen={setKyc4}
+        width="688"
+        title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
+        <KycBuyerLevelFour
+          setKycLevel={setKycLevel}
+          setOpen={setKyc4}
+          setKycData={setKycData}
+          kycData={kycData}
+          setKyc3={setKyc3}
+        />
+      </CenterModal>
+
       {/* KYC MODAL */}
 
       <Sidenav>

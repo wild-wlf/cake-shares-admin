@@ -6,11 +6,22 @@ import { KycContext } from '@/context/KycContext';
 import Field from '@/components/molecules/Field';
 import { useForm } from '@/components/molecules/Form';
 import Form from '@/components/molecules/Form/Form';
+import { IoIosArrowRoundBack } from 'react-icons/io';
 
-const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
+const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData, kycData, setKyc0 }) => {
   const { setKyc2 } = useContext(KycContext);
   const [isLoading, setIsLoading] = useState(false);
   const [form] = useForm();
+
+  useEffect(() => {
+    if (kycData?.passportImageFront) {
+      form.setFieldsValue({
+        passportImageFront: kycData?.passportImageFront,
+        passportImageBack: kycData?.passportImageBack,
+      });
+    }
+  }, [kycData, form]);
+ 
 
   const onSubmit = data => {
     try {
@@ -32,6 +43,15 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
   };
   return (
     <StyledKycBuyer>
+      <div className="back-icon">
+        <IoIosArrowRoundBack
+          onClick={() => {
+            setKyc0(true);
+            setOpen(false);
+          }}
+          size={45}
+        />
+      </div>
       <Form form={form} onSubmit={onSubmit}>
         <span className="kycdiscreption">ID Proof Info:</span>
         <label htmlFor="" className="fakelabel">
@@ -43,10 +63,13 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
             rounded
             name="passportImageFront"
             type="img"
-            document
+            img={kycData?.passportImageFront || ''}
+             document
             fileSize="5"
             accept="image/jpeg, image/jpg, image/png, application/pdf"
             uploadTitle="Upload Front Side of Passport"
+
+            
             rules={[{ required: true, message: 'Please Upload Front Side of Passport Image!' }]}>
             <Field />
           </Form.Item>
@@ -56,6 +79,7 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData }) => {
             name="passportImageBack"
             type="img"
             document
+            img={kycData?.passportImageBack || ''}
             fileSize="5"
             accept="image/jpeg, image/jpg, image/png, application/pdf"
             uploadTitle="Upload Back Side of Passport"

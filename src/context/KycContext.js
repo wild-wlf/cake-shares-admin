@@ -17,6 +17,7 @@ export const KycContextProvider = ({ children }) => {
   const [kyc1, setKyc1] = useState(false);
   const [kyc2, setKyc2] = useState(false);
   const [kyc3, setKyc3] = useState(false);
+  const [kyc4, setKyc4] = useState(false);
 
   function checkKycLevel() {
     console.log(user?.sellerType === 'Company');
@@ -28,6 +29,8 @@ export const KycContextProvider = ({ children }) => {
       setKyc2(true);
     } else if (kycLevel == 3) {
       setKyc3(true);
+    } else if (kycLevel == 4 && user?.sellerType === 'Company') {
+      setKyc4(true);
     }
   }
   const contextValue = {
@@ -41,6 +44,8 @@ export const KycContextProvider = ({ children }) => {
     setKyc2,
     kyc3,
     setKyc3,
+    kyc4,
+    setKyc4,
     checkKycLevel,
   };
   return <KycContext.Provider value={contextValue}>{children}</KycContext.Provider>;

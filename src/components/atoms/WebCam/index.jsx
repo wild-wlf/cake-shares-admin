@@ -27,21 +27,46 @@ const videoConstraints = {
   width: 300,
   facingMode: 'environment',
 };
-const WebCam = ({ handelKycLevel, isLoading }) => {
+const WebCam = ({ handelKycLevel, isLoading, setIsLoading, bas64toFile, setKycData, kycData, setKyc4, setOpen }) => {
   const webcamRef = useRef(null);
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
   }));
-  const [url, setUrl] = useState(null);
+
+  const [url, setUrl] = useState(kycData?.personalImgUrl);
 
   const capturePhoto = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setUrl(imageSrc);
+
     // console.log("here");
   }, [webcamRef]);
 
   const onUserMedia = e => {
     // console.log(e);
+  };
+
+  const handleEvent = async () => {
+    setIsLoading(true);
+    try {
+      const personalImage = await bas64toFile(url, `${user?.fullName}_personalImage`);
+
+      if (personalImage) {
+        setKycData(prev => ({
+          ...prev,
+          personalImage,
+          personalImgUrl: url,
+        }));
+
+        if (!isLoading) {
+          setKyc4(true);
+          setOpen(false);
+        }
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <StyledFormGroup>
@@ -81,7 +106,7 @@ const WebCam = ({ handelKycLevel, isLoading }) => {
         )}
       </WebCamHolder>
       {url && (
-        <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={() => handelKycLevel(url)}>
+        <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={handleEvent}>
           Save
         </Button>
       )}
