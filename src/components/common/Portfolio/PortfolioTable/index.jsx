@@ -150,7 +150,7 @@ const PortfolioTable = ({ title }) => {
         `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
-      totalCount: items.length,
+      totalCount: items.totalItems,
     };
   }, [products_data]);
   const columnNamess = [
@@ -261,8 +261,15 @@ const PortfolioTable = ({ title }) => {
       <TableContainer>
         <Image src={TableStyle} draggable="false" className="tableStyle" alt="tableStyle" />
         <TableLayout
-          onChangeFilters={e => {
-            setSearchQuery(prev => ({ ...prev, searchText: e }));
+          // onChangeFilters={e => {
+          //   setSearchQuery(prev => ({ ...prev, searchText: e }));
+          // }}
+          onChangeFilters={filters => {
+            setSearchQuery(_ => ({
+              ..._,
+              searchText: filters,
+              ...filters,
+            }));
           }}
           currentPage={searchQuery.page}
           totalCount={totalCount}

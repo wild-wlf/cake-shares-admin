@@ -28,8 +28,10 @@ function Pagination(props) {
   useEffect(() => {
     setInputCurrentPage(currentPage);
   }, [currentPage]);
+ 
   const onNext = () => {
-    // onPageChange(currentPage + 1);
+
+    onPageChange(currentPage + 1);
     setInputCurrentPage(currentPage + 1);
   };
 
@@ -52,6 +54,7 @@ function Pagination(props) {
   const lastPage = paginationRange
     ? paginationRange[paginationRange?.length - 1]
     : 1;
+   
   return (
     <PaginationList css={customCss}>
       <PaginationButton

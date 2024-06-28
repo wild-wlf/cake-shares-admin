@@ -63,6 +63,20 @@ class FormStore {
             error.message = error.hasError ? rule.message ?? `${name} is required` : '';
           }
           break;
+          case 'minLength':
+            if (typeof value === 'string') {
+              error.hasError = value.length < rule.minLength;
+            } else {
+              error.hasError = value < rule.minLength;
+            }
+            error.message = error.hasError ? rule.message ?? `Value must be greater than ${rule.min}` : '';
+            break;
+          case 'maxLength':
+            if (typeof value === 'string') {
+              error.hasError = value.length > rule.maxLength;
+            } else {
+              error.hasError = value > rule.maxLength;
+            }
         case 'min':
           if (Number.isNaN(value)) error.hasError = value.length < rule.min;
           else error.hasError = value < rule.min;

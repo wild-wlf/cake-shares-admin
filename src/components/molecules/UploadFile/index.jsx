@@ -74,6 +74,8 @@ const UploadFile = ({
     }
     return '';
   };
+
+  console.log(uploaded)
   const getFileName = () => {
     if (uploaded) {
       const fileNameParts = uploaded.name.split('.');
