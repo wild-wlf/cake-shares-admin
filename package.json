@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "env-cmd -e development next dev -p 3004",
+    "build:staging": "env-cmd -e staging next build",
+    "start:staging": "env-cmd -e staging next start -p 3005",
     "build": "env-cmd -e production next build",
     "start": "env-cmd -e production next start -p 3005",
     "lint": "next lint"
