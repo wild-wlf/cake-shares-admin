@@ -6,6 +6,7 @@ export const StyledCommunityGroup = styled.div`
   gap: 10px;
   padding: 10px 22px;
   margin: 0 -22px;
+  cursor: pointer;
 
   ${({ $groupActive }) =>
     $groupActive &&

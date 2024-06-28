@@ -157,7 +157,7 @@ const SideBar = ({
                     handleChoseChatDetails({
                       conversationId: item?._id,
                       author: user._id,
-                      receiver: getReceiverInfo()?._id,
+                      receiver: getReceiverInfo(item?.participants)?._id,
                       profilePicture: getReceiverInfo(item?.participants)?.profilePicture,
                       username: getReceiverInfo(item?.participants)?.username,
                     });
