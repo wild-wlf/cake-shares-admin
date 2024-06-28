@@ -15,6 +15,7 @@ function Toast({ type, message, ...props }) {
     {
       position: 'top-right',
       hideProgressBar: true,
+      autoClose: 2000,
     },
   );
 }

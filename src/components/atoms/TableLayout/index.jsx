@@ -119,7 +119,7 @@ function TableLayout({
                             totalCount={totalCount}
                             pageSize={pageSize}
                             // onPageChange={_ => onChangeFilters({ page: _ })}
-                            // onPageChange={_ => onChangeFilters({ filter: filterState.filter, page: _ })}
+                             onPageChange={_ => onChangeFilters({ filter: filterState.filter, page: _ })}
                         />
                     </div>
                 </div>
