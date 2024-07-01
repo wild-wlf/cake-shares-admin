@@ -16,8 +16,15 @@ import SuccessIcon from '../../../_assets/successIcon.png';
 import CardModal from '@/components/molecules/CreditCardModal/CardModal.jsx';
 import CryptoModal from '@/components/molecules/CryptoModal/CryptoModal';
 import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal';
+import {useContextHook} from "use-context-hook";
+import {AuthContext} from "@/context/authContext";
 
 const MyWallet = () => {
+
+  const {user} = useContextHook(AuthContext, v => ({
+    user: v.user,
+}));
+
   const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
   const ary2 = [0, 200, 300, 6000, 500, 1000, 500, 5000, 1000, 8000, 200, 5000, 5200, 5500, 5700, 5720, 5880];
   const pieData = [
@@ -241,7 +248,8 @@ const MyWallet = () => {
         <div className="btnDiv">
           <div className="credit">
             <span>Total Credit:</span> <br />
-            <h1>$35,265.00</h1>
+            {/* <h1>$35,265.00</h1> */}
+            <h1>{'$'+user?.wallet}</h1>
           </div>
           <Button width={'142px'} height={'40px'} rounded sm btntype="primary" onClick={() => openModal()}>
             Top Up Wallet
