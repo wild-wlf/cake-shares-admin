@@ -14,6 +14,7 @@ import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import { validateAmenity } from '@/helpers/common';
+import UploadImg from '@/components/molecules/UploadImg';
 
 const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
@@ -459,7 +460,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Asset value must be whole number (greater than zero)',
               },
             ]}>
-            <Field  />
+            <Field />
           </Form.Item>
           <Form.Item
             type="number"

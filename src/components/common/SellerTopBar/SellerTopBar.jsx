@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Container, DataContainer } from './SellerbarStyles';
 import Image from 'next/image';
 import { KycContext } from '../../../context/KycContext';
@@ -24,6 +24,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
   const [successModal, setSuccessModal] = useState(false);
   const [fetchNotifications, setfetchNotifications] = useState(false);
   const [isBadge, setIsBadge] = useState(false);
+  const notificationsRef = useRef(null);
 
   function handleCreateProduct() {
     setSuccessModal(true);
@@ -59,6 +60,18 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
       window.removeEventListener('seller_notification', handleSellerNotification);
     };
   }, []);
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setNotifications(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [notificationsRef]);
 
   return (
     <>
@@ -99,6 +112,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
             <KycLevel level={user?.kycLevel + 1} bg />
           </div>
           <div
+            ref={notificationsRef}
             className={`notification ${isBadge && 'message'}`}
             onClick={() => {
               setNotifications(!notifications);
