@@ -20,6 +20,8 @@ import SuccessfulModal from '@/components/atoms/ProductDeleteModal/SuccessfulMod
 import KycBuyerLevelFour from '@/components/atoms/KYC/KYCBuyer4';
 
 const SideBar = ({ data }) => {
+  const [text, setText] = useState(null);
+  const [title, setTitle] = useState(null);
   const { user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
     user: v.user,
     onLogout: v.onLogout,
@@ -43,7 +45,7 @@ const SideBar = ({ data }) => {
         setOpen={setSuccessfulModal}
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
         width="543">
-        <SuccessfulModal title={'KYC Requested Successfully!'} />
+        <SuccessfulModal title={title ||'KYC Requested Successfully!'} text={text || ''} />
       </CenterModal>
 
       {/* KYC MODAL */}
@@ -97,25 +99,34 @@ const SideBar = ({ data }) => {
           setOpen={setKyc3}
           kycData={kycData}
           setSuccessfulModal={setSuccessfulModal}
+          setTitle= {setTitle}
+          setText={setText}
           setKyc2={setKyc2}
           setKycData={setKycData}
         />
       </CenterModal>
 
-      <CenterModal
-        zIndex={9999}
-        open={kyc4}
-        setOpen={setKyc4}
-        width="688"
-        title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
-        <KycBuyerLevelFour
-          setKycLevel={setKycLevel}
+      {user.sellerType === 'Company' ? (
+        <CenterModal
+          zIndex={9999}
+          open={kyc4}
           setOpen={setKyc4}
-          setKycData={setKycData}
-          kycData={kycData}
-          setKyc3={setKyc3}
-        />
-      </CenterModal>
+          width="688"
+          title={`Upgrade KY${user?.sellerType === 'Individual' ? 'C' : 'B'}`}>
+          <KycBuyerLevelFour
+            setKycLevel={setKycLevel}
+            setOpen={setKyc4}
+            setKycData={setKycData}
+            kycData={kycData}
+            setKyc3={setKyc3}
+            setSuccessfulModal={setSuccessfulModal}
+            setTitle= {setTitle}
+            setText={setText}
+          />
+        </CenterModal>
+      ) : (
+        ''
+      )}
 
       {/* KYC MODAL */}
 

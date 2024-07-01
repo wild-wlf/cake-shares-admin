@@ -12,7 +12,16 @@ import kycService from '@/services/kycService';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 
-const KycBuyerLevelFour = ({ setOpen, setKycLevel, setKycData, kycData, setKyc3 }) => {
+const KycBuyerLevelFour = ({
+  setOpen,
+  setKycLevel,
+  setKycData,
+  kycData,
+  setKyc3,
+  setSuccessfulModal,
+  setText,
+  setTitle,
+}) => {
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { user, setPermission } = useContextHook(AuthContext, v => ({
@@ -50,10 +59,15 @@ const KycBuyerLevelFour = ({ setOpen, setKycLevel, setKycData, kycData, setKyc3 
       });
 
       await kycService.requestKyc(formDataToSend);
-      Toast({
-        type: 'success',
-        message: `KYC Requested Successfully!`,
-      });
+      setSuccessfulModal(true);
+      setText(
+        `Congratulations! Your KYB verification is complete. Now you're ready to unlock the full potential of CakeShares Platform and start adding & managing your products.`,
+      );
+      setTitle('KYB Upgraded Successful!');
+      // Toast({
+      //   type: 'success',
+      //   message: `KYC Requested Successfully!`,
+      // });
       setOpen(false);
       setPermission(prev => !prev);
     } catch ({ message }) {

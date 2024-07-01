@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Step, StepWrapper, StepWrapperContainar, StyledKycBuyer } from '../KYCBuyer/KycBuyer.styles';
 import UploadFile from '@/components/molecules/UploadFile';
 import Button from '../../Button';
@@ -13,7 +13,16 @@ import kycService from '@/services/kycService';
 import { bas64toFile } from '@/helpers/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { KycContext } from '@/context/KycContext';
-const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfulModal, setKyc2, setKycData }) => {
+const KYCBuyerThree = ({
+  setOpen,
+  setKycLevel,
+  kycData,
+  setSuccessfulModal,
+  setKyc2,
+  setKycData,
+  setText,
+  setTitle,
+}) => {
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { setKyc4 } = useContext(KycContext);
@@ -30,40 +39,47 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfulModal, setK
     }
   }, [kycData, form]);
 
-  // async function handelKycLevel(imageSrc) {
-  //   try {
-  //     const personalImage = await bas64toFile(imageSrc, `${user?.fullName}_personalImage`);
-  //     setIsLoading(true);
-  //     const payload = {
-  //       userId: user?._id,
-  //       kycRequestLevel: 3,
-  //       personalImage,
-  //       ...kycData,
-  //     };
-  //     const formDataToSend = new FormData();
-  //     Object.keys(payload).forEach(key => {
-  //       if ((key === 'bankDetails' || key === 'ownerDetails') && typeof payload[key] === 'object') {
-  //         formDataToSend.append(key, JSON.stringify(payload[key]));
-  //       } else {
-  //         formDataToSend.append(key, payload[key]);
-  //       }
-  //     });
-  //     await kycService.requestKyc(formDataToSend);
-  //     Toast({
-  //       type: 'success',
-  //       message: `KYC Requested Successfully!`,
-  //     });
-  //     setOpen(false);
-  //     setPermission(prev => !prev);
-  //   } catch ({ message }) {
-  //     Toast({
-  //       type: 'error',
-  //       message,
-  //     });
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
+  async function handelKycLevel(imageSrc) {
+    try {
+      const personalImage = await bas64toFile(imageSrc, `${user?.fullName}_personalImage`);
+      setIsLoading(true);
+      const payload = {
+        userId: user?._id,
+        kycRequestLevel: 3,
+        personalImage,
+        taxNumber: '',
+
+        ...kycData,
+      };
+      const formDataToSend = new FormData();
+      Object.keys(payload).forEach(key => {
+        if ((key === 'bankDetails' || key === 'ownerDetails') && typeof payload[key] === 'object') {
+          formDataToSend.append(key, JSON.stringify(payload[key]));
+        } else {
+          formDataToSend.append(key, payload[key]);
+        }
+      });
+      await kycService.requestKyc(formDataToSend);
+      setSuccessfulModal(true);
+      setText(
+        `Congratulations! Your KYC verification is complete. Now you're ready to unlock the full potential of CakeShares Platform and start adding & managing your products.`,
+      );
+      setTitle('KYC Upgraded Successful!');
+      // Toast({
+      //   type: 'success',
+      //   message: `KYC Requested Successfully!`,
+      // });
+      setOpen(false);
+      setPermission(prev => !prev);
+    } catch ({ message }) {
+      Toast({
+        type: 'error',
+        message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <StyledKycBuyer>
       <div className="back-icon">
@@ -81,16 +97,20 @@ const KYCBuyerThree = ({ setOpen, setKycLevel, kycData, setSuccessfulModal, setK
       <label htmlFor="" className="fakelabel">
         Facial Recognition
       </label>
-      <WebCam
-        setKyc4={setKyc4}
-        setOpen={setOpen}
-        setKycData={setKycData}
-        kycData={kycData}
-        // handelKycLevel={handelKycLevel}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        bas64toFile={bas64toFile}
-      />
+      {user.sellerType === 'Individual' ? (
+        <WebCam handelKycLevel={handelKycLevel} isLoading={isLoading} />
+      ) : (
+        <WebCam
+          setKyc4={setKyc4}
+          setOpen={setOpen}
+          setKycData={setKycData}
+          kycData={kycData}
+          // handelKycLevel={handelKycLevel}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          bas64toFile={bas64toFile}
+        />
+      )}
     </StyledKycBuyer>
   );
 };

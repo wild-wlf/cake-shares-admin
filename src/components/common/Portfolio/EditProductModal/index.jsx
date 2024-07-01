@@ -51,6 +51,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     const { media0, media1, media2, ...e } = data;
     const payload = {
       ...e,
+      minimumBackers: e.minBackers,
+      maximumBackers: e.maxBackers,
       investmentType: e?.investmentType?.value,
       kycLevel: e?.kycLevel.value,
       media,
@@ -438,8 +440,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(0?[1-9]|[1-9][0-9])$/,
-                message: 'Minimum backers limit must be a whole number between 1 and 99',
+                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
+                message: 'Please enter a valid limit between 9 and 999',
               },
             ]}>
             <Field />
@@ -457,8 +459,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Maximum Backers Limit',
               },
               {
-                pattern: /^(0?[1-9]|[1-9][0-9])$/,
-                message: 'Maximum backers limit must be a whole number between 1 and 99',
+                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
+                message: 'Please enter a valid limit between 9 and 999',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
@@ -480,6 +482,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
+                pattern: /^[1-9][0-9]{0,3}$/,
+                message: 'Please enter a valid value up to 4 digits',
+              },
+              {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset value must be whole number (greater than zero)',
               },
@@ -497,6 +503,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,3}$/,
+                message: 'Please enter a valid value up to 4 digits',
               },
               {
                 pattern: /^[1-9]\d*$/,

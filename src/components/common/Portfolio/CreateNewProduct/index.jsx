@@ -75,7 +75,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
     };
-    console.log(obj);
+  
     const formDataToSend = new FormData();
     Object.keys(obj).forEach(key => {
       if (key === 'images') {

@@ -68,6 +68,7 @@ const WebCam = ({ handelKycLevel, isLoading, setIsLoading, bas64toFile, setKycDa
       setIsLoading(false);
     }
   };
+ 
   return (
     <StyledFormGroup>
       {/* <Alert
@@ -105,11 +106,17 @@ const WebCam = ({ handelKycLevel, isLoading, setIsLoading, bas64toFile, setKycDa
           </>
         )}
       </WebCamHolder>
-      {url && (
-        <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={handleEvent}>
-          Save
-        </Button>
-      )}
+      {url &&
+        (user?.sellerType === 'Individual' ? (
+          <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={() => handelKycLevel(url)}>
+            Save
+          </Button>
+        ) : (
+          <Button rounded sm loader={isLoading} btntype="primary" width="214" onClick={handleEvent}>
+            Save 
+          </Button>
+        ))}
+
       {/* {error && <Error role="alert">{error}</Error>} */}
     </StyledFormGroup>
   );
