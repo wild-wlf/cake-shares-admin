@@ -1,7 +1,6 @@
 import React from 'react';
 import DetailBar from '@/components/atoms/DetailBar';
 import MyWallet from '@/components/common/MyWallet/MyWallet';
-import handIcon from '../_assets/handIcon.png';
 import TransactionTable from '../components/common/TransactionTable';
 import { SellerContainer } from '@/styles/GlobalStyles.styles';
 import SellerTopBar from '@/components/common/SellerTopBar/SellerTopBar';
