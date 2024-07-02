@@ -23,7 +23,6 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
   const [isLoading, setIsLoading] = useState(false);
   const [selected, setSelected] = useState(null);
   const [generalInfoModal, setGeneralInfoModal] = useState(false);
-  const [currentValue, setcurrentValue] = useState();
   const [estimatedCost, setEstimatedCost] = useState();
   const arr = [
     { label: '1 Day', value: 1 },

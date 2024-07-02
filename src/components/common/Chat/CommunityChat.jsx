@@ -34,6 +34,10 @@ const ComChat = ({ chosenComDetails }) => {
   );
 
   useEffect(() => {
+    setSearchQuery(prev => ({ ...prev, ['conversationId']: chosenComDetails?.conversationId }));
+  }, [chosenComDetails?.conversationId]);
+
+  useEffect(() => {
     if (messages_data?.messages?.length > 0) {
       setChatMessages(prev => [...messages_data?.messages, ...prev]);
       setMoreMsgLoading(false);

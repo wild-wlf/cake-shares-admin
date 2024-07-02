@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ButtonsGroupWrapper = styled.div`
   display: flex;
@@ -10,6 +10,7 @@ export const ButtonsGroupWrapper = styled.div`
     background-color: rgba(249, 250, 251, 1);
     border-radius: 50px;
     padding: 2px 0px 2px 2px;
+    gap: 5px;
   }
   h1 {
     font-size: 22px;

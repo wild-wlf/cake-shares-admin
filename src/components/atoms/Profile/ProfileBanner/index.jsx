@@ -9,7 +9,7 @@ import { convertToFormData } from '@/helpers/common';
 import Toast from '@/components/molecules/Toast';
 import userService from '@/services/userService';
 
-const ProfileBanner = ({ title = 'Master the World of NFT’s!', type = 'Buyer' }) => {
+const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
   const { user, setPermission } = useContextHook(AuthContext, v => ({
     user: v.user,
     setPermission: v.setPermission,

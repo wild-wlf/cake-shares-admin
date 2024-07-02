@@ -29,7 +29,7 @@ const Login = () => {
 
         <div className="formWrap">
           <Form form={form} onSubmit={onLogin}>
-            <Form.Item
+            {/* <Form.Item
               type="text"
               label="Seller Type"
               name="sellerType"
@@ -49,7 +49,7 @@ const Login = () => {
                   { label: 'Company Seller', value: 'Company' },
                 ]}
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               invert
               type="text"

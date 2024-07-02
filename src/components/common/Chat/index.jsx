@@ -33,6 +33,13 @@ const Chat = ({ chosenChatDetails }) => {
     fetch,
     chosenChatDetails,
   );
+  useEffect(() => {
+    setSearchQuery(prev => ({
+      ...prev,
+      ['conversationId']: chosenChatDetails?.conversationId,
+      ['receiver']: chosenChatDetails?.receiver,
+    }));
+  }, [chosenChatDetails?.conversationId, chosenChatDetails?.receiver]);
 
   useEffect(() => {
     if (messages_data?.messages?.length > 0) {

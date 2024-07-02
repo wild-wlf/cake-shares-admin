@@ -46,23 +46,19 @@ export const AuthContextProvider = props => {
     if (!isLoggedIn) return;
     try {
       await userService.logout();
-      setIsLoggedIn(prev => !prev);
+      setIsLoggedIn(false);
+      router.push('/sign-in');
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
-      router.push('/sign-in');
       Toast({ type: 'success', message: 'Logged Out Successfully!' });
-      
     } catch (error) {
       console.error('Error during logout:', error);
     }
   };
 
   const getPermissions = () => {
-    // debugger
-    // if (!isLoggedIn) return;
     setLoadingUser(true);
-    // if (!allowedPages) return;
     cancellablePromise(userService.getCurrentAdmin())
       .then(res => {
         setAllowedPages(res.permissions.filter(p => p.includes('.nav')).map(p => `${p.split('.')[0]}`));
@@ -124,14 +120,14 @@ export const AuthContextProvider = props => {
   }, [isLoggedIn, permission]);
 
   useEffect(() => {
-    if (socketData?.approved && isLoggedIn ) {
+    if (socketData?.approved && isLoggedIn) {
       setTimeout(() => {
         getPermissions();
       }, 1000);
     }
-  }, [socketData,isLoggedIn]);
+  }, [socketData]);
 
-  const onLogin = async ({ username, password, sellerType }) => {
+  const onLogin = async ({ username, password }) => {
     setLoadingUser(true);
     setLoading(true);
 
@@ -140,14 +136,12 @@ export const AuthContextProvider = props => {
         username,
         password,
         type: 'Seller',
-        sellerType: sellerType.value,
       });
       if (!res?.token) {
         throw new Error(res?.message);
       }
 
       setIsLoggedIn(true);
-      // router.push("/dashboard");
       setCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE, res.token);
       setLoadingUser(false);
       setLoading(false);
@@ -255,17 +249,17 @@ export const AuthContextProvider = props => {
    */
   useEffect(() => {
     function listenCookieChange(callback, interval) {
-      let old_bap_token = getCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
+      let old_token = getCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       let old_allowed = getCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
       startTransition(() => {
         setInterval(() => {
           const new_bap_token = getCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
           const new_allowed = getCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
-          if (new_bap_token !== old_bap_token) {
+          if (new_bap_token !== old_token) {
             try {
               callback(new_bap_token, process.env.NEXT_PUBLIC_TOKEN_COOKIE);
             } finally {
-              old_bap_token = new_bap_token;
+              old_token = new_bap_token;
             }
           }
           if (new_allowed !== old_allowed) {
