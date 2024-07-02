@@ -152,7 +152,7 @@ const Field = forwardRef(
                     suffix
                     css="cursor: pointer"
                     onClick={() => setIsRevealPwd(prevState => !prevState)}>
-                    {isRevealPwd ? <FaEyeSlash /> : <FaEye />}
+                    {isRevealPwd ? <FaEye /> : <FaEyeSlash />}
                   </InputIcon>
                 </>
               ) : type === 'datepicker' ? (
