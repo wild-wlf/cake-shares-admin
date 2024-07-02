@@ -65,6 +65,7 @@ export const Container = styled.div`
       font-weight: 400;
       line-height: 17px;
       cursor: pointer;
+
       z-index: 1;
       .bell-white {
         display: none;
@@ -82,6 +83,10 @@ export const Container = styled.div`
       transform: translateY(50px);
       transition: 0.4s;
       z-index: 1;
+      max-height: 400px;
+      overflow-y: auto;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      border-radius: 20px;
     }
     .notificationWrapper {
       max-width: 432px;
@@ -93,7 +98,12 @@ export const Container = styled.div`
       visibility: hidden;
       transform: translateY(50px);
       opacity: 0;
-      transition: 0.4s;
+      transition: 0.4s all;
+      z-index: 1;
+      max-height: 400px;
+      overflow-y: auto;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      border-radius: 20px;
     }
 
     .textField {
