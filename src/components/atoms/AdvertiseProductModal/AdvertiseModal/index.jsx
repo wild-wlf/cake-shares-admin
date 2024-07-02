@@ -14,9 +14,9 @@ import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 
 const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, product, setAdvertisedDays }) => {
-  const { user, setPermission, refetch } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
-    setPermission: v.setPermission,
+
     refetch: v.refetch,
   }));
   const [form] = useForm();
@@ -51,7 +51,6 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
       await productService.advertiseProduct(payload);
       setAdvertisedDays(duration?.value);
       handleAdvertiseModal();
-      setPermission(true);
       refetch();
     } catch ({ message }) {
       Toast({

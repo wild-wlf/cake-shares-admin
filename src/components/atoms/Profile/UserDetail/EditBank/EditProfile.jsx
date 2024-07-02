@@ -6,7 +6,6 @@ import { useForm } from '@/components/molecules/Form';
 import { countries } from '@/components/Constant';
 import Image from 'next/image';
 import Select from '@/components/atoms/Select';
-import { MdModeEdit } from 'react-icons/md';
 import Password from '../../../../../_assets/changePassword.svg';
 import ChangePassword from '../ChangePassword';
 import userService from '@/services/userService';
@@ -16,6 +15,7 @@ import CenterModal from '@/components/molecules/Modal/CenterModal';
 import { AuthContext } from '@/context/authContext';
 import Field from '@/components/atoms/Field';
 import { checkAge, convertDateToISO } from '@/helpers/common';
+
 const EditProfile = ({ personalInfo, onClose }) => {
   const [arr, setArr] = useState(countries);
   const [loading, setLoading] = useState(false);
@@ -24,9 +24,10 @@ const EditProfile = ({ personalInfo, onClose }) => {
   const [dob, setDob] = useState(
     `${personalInfo?.dob.slice(6, 10)}-${personalInfo?.dob.slice(3, 5)}-${personalInfo?.dob.slice(0, 2)}`,
   );
-  const { setPermission } = useContextHook(AuthContext, v => ({
-    setPermission: v.setPermission,
+  const { refetch } = useContextHook(AuthContext, v => ({
+    refetch: v.refetch,
   }));
+
   function handelChange(value = 'PK') {
     const newArr = arr.map((elem, index) => ({
       ...elem,
@@ -77,7 +78,8 @@ const EditProfile = ({ personalInfo, onClose }) => {
       setLoading(true);
 
       await userService.update(obj, personalInfo.Id);
-      setPermission(true);
+
+      refetch();
       onClose();
       Toast({
         type: 'success',
