@@ -1,31 +1,41 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const NotificationsHolder = styled.div`
+  max-width: 432px;
   width: 100%;
-  border-radius: 20px;
   background: var(--white);
   padding: 25px;
+  border-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
   .holder {
+    max-width: 432px;
     width: 100%;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--gray-150);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(240, 242, 243, 1);
+    margin-bottom: 15px;
+
     &:nth-child(1) {
       padding-top: 0;
     }
     &:nth-last-child(1) {
       border: 0;
       padding-bottom: 0;
+      margin-bottom: 0;
     }
   }
-  .notification {
+  .notifications {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
+    border: 0;
+    margin-bottom: 15px;
+    background-color: var(--white);
+
     .content {
       display: flex;
-      gap: 10px;
+      align-items: center;
+      gap: 15px;
       color: var(--matte-black);
       .heading {
         font-weight: 600;
@@ -51,8 +61,8 @@ export const NotificationsHolder = styled.div`
     .tag {
       padding: 5px 10px;
       border-radius: 60px;
-      color: var(--success);
-      background: rgba(76, 175, 80, 0.1);
+      color: rgba(64, 143, 140, 1);
+      background: rgba(64, 143, 140, 0.1);
     }
   }
   .text {
@@ -60,6 +70,9 @@ export const NotificationsHolder = styled.div`
     font-size: 14px;
     line-height: 18px;
     color: var(--matte-black);
+  }
+  @media only screen and (min-width: 420px) {
+    border-radius: 20px;
   }
 `;
 export const ImageHolder = styled.div`

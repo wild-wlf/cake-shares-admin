@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledTopBar = styled.header`
   position: relative;
@@ -41,7 +41,7 @@ export const StyledTopBar = styled.header`
     gap: 8px;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       height: 1px;
       width: 0;
@@ -59,7 +59,7 @@ export const StyledTopBar = styled.header`
     }
   }
   .textField::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -104,10 +104,13 @@ export const StyledTopBar = styled.header`
     opacity: 1;
     max-width: 432px;
     position: absolute;
-    top: 30px;
+    top: 50px;
     right: 0px;
     transform: translateY(50px);
     transition: 0.4s;
+    z-index: 1;
+    max-height: 400px;
+    overflow-y: auto;
   }
   .notificationWrapper {
     max-width: 432px;
@@ -223,8 +226,7 @@ export const NavLinks = styled.div`
     left: 0;
     z-index: 9;
     transition: all 0.4s ease-in-out;
-    transform: ${({ $active }) =>
-      $active ? "translateX(0%)" : "translateX(-100%)"};
+    transform: ${({ $active }) => ($active ? 'translateX(0%)' : 'translateX(-100%)')};
     .profile {
       padding-top: 30px;
       padding-bottom: 20px;

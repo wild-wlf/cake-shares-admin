@@ -77,19 +77,18 @@ export const Container = styled.div`
       max-width: 432px;
       width: 100%;
       position: absolute;
-      top: 60px;
-      right: 54px;
+      top: 50px;
+      right: 0px;
       transform: translateY(50px);
       transition: 0.4s;
-      z-index: 5;
+      z-index: 1;
     }
     .notificationWrapper {
       max-width: 432px;
       width: 100%;
       position: absolute;
       top: 20px;
-      right: 54px;
-      z-index: 5;
+      right: 0px;
       padding-top: 64px;
       visibility: hidden;
       transform: translateY(50px);
