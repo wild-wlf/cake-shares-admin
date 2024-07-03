@@ -36,7 +36,7 @@ const CommunityGroup = ({
 
       <div className="community-name">
         {type === 'private' && <span className="title">{title}</span>}
-        {type === 'community' && (
+        {(type === 'community' || type === 'stake') && (
           <div className="community-title">
             <span>You, </span>
             {title}

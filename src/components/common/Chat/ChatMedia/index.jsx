@@ -31,7 +31,7 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
         <ChatMembers chosenComDetails={chosenComDetails} user={user} onlineUsers={onlineUsers} />
       </CenterModal>
       <StyledChatMedia>
-        <strong className="title">{type === 'community' ? 'Chat Members' : 'Private Chat'}</strong>
+        <strong className="title">{type === 'community' || type === 'stake' ? 'Chat Members' : 'Private Chat'}</strong>
         <div className="chat-between">
           {type === 'private' && (
             <div className="col">
@@ -46,7 +46,7 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
             </div>
           )}
 
-          {type === 'community' && (
+          {(type === 'community' || type === 'stake') && (
             <div className="col">
               <div className="image-warp buyer">
                 <Image
@@ -61,7 +61,7 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
             </div>
           )}
 
-          {type === 'community' && (
+          {(type === 'community' || type === 'stake') && (
             <div className="community-col">
               <div className="images-wrapper">
                 {getThreeParticipants()?.map((item, index) => {
