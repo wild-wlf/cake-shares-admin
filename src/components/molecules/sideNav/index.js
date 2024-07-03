@@ -27,17 +27,19 @@ const SideBar = ({ data }) => {
     onLogout: v.onLogout,
     isLoggedIn: v.isLoggedIn,
   }));
+
   const [successfulModal, setSuccessfulModal] = useState(false);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
+
   const closeSideNav = () => {
     document.body.classList.toggle('sideNav-active');
     document.body.style.overflow = 'auto';
   };
 
-  console.log(kycData);
-  const { kycLevel, setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3, kyc4, setKyc4 } =
+  const { setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3, kyc4, setKyc4 } =
     useContext(KycContext);
+
   return (
     <>
       <CenterModal
@@ -45,7 +47,7 @@ const SideBar = ({ data }) => {
         setOpen={setSuccessfulModal}
         title={<Image src={SuccessIcon} alt="SuccessIcon" />}
         width="543">
-        <SuccessfulModal title={title ||'KYC Requested Successfully!'} text={text || ''} />
+        <SuccessfulModal title={title || 'KYC Requested Successfully!'} text={text || ''} />
       </CenterModal>
 
       {/* KYC MODAL */}
@@ -99,7 +101,7 @@ const SideBar = ({ data }) => {
           setOpen={setKyc3}
           kycData={kycData}
           setSuccessfulModal={setSuccessfulModal}
-          setTitle= {setTitle}
+          setTitle={setTitle}
           setText={setText}
           setKyc2={setKyc2}
           setKycData={setKycData}
@@ -120,7 +122,7 @@ const SideBar = ({ data }) => {
             kycData={kycData}
             setKyc3={setKyc3}
             setSuccessfulModal={setSuccessfulModal}
-            setTitle= {setTitle}
+            setTitle={setTitle}
             setText={setText}
           />
         </CenterModal>

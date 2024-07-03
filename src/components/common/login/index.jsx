@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Form, { useForm } from '@/components/molecules/Form';
 import { useContextHook } from 'use-context-hook';
@@ -9,7 +9,6 @@ import CheckBox from '@/components/molecules/CheckBox';
 import logo from '../../../_assets/logocakeShare.svg';
 import loginbanner from '../../../_assets/loginBanner.png';
 import { StyledLogin } from './Login.styles';
-import Select from '@/components/atoms/Select';
 
 const Login = () => {
   const { onLogin, loading } = useContextHook(AuthContext, v => ({
@@ -29,27 +28,6 @@ const Login = () => {
 
         <div className="formWrap">
           <Form form={form} onSubmit={onLogin}>
-            {/* <Form.Item
-              type="text"
-              label="Seller Type"
-              name="sellerType"
-              sm
-              rounded
-              placeholder="Select Type"
-              invert
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter a valid Seller Type',
-                },
-              ]}>
-              <Select
-                options={[
-                  { label: 'Individual Seller', value: 'Individual' },
-                  { label: 'Company Seller', value: 'Company' },
-                ]}
-              />
-            </Form.Item> */}
             <Form.Item
               invert
               type="text"

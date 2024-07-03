@@ -24,9 +24,9 @@ const KycBuyerLevelFour = ({
 }) => {
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setPermission } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
-    setPermission: v.setPermission,
+    refetch: v.refetch,
   }));
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const KycBuyerLevelFour = ({
       //   message: `KYC Requested Successfully!`,
       // });
       setOpen(false);
-      setPermission(prev => !prev);
+      refetch();
     } catch ({ message }) {
       Toast({
         type: 'error',

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unreachable */
 import React, { useState, useEffect, startTransition } from 'react';
 import { createContextHook } from 'use-context-hook';
@@ -18,7 +19,6 @@ export const AuthContextProvider = props => {
   const [user, setUser] = useState({});
   const [loading_user, setLoadingUser] = useState(false);
   const [fetch_user, setFetchUser] = useState(false);
-  const [permission, setPermission] = useState(false);
   const { cancellablePromise } = useCancellablePromise();
   const [socketData, setSocketData] = useState(null);
   const [reFetch, setRefetch] = useState(false);
@@ -43,7 +43,6 @@ export const AuthContextProvider = props => {
   ];
 
   const onLogout = async () => {
-    if (!isLoggedIn) return;
     try {
       await userService.logout();
       setIsLoggedIn(false);
@@ -91,33 +90,31 @@ export const AuthContextProvider = props => {
         });
       });
   };
-  /**
-   * @description - This function is used to fetch the user details from the server
-   */
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     getPermissions();
-  //   }
-  //   // listen to event
-  //   window.addEventListener("FETCH_ADMIN_ROLE", () => {
-  //     getPermissions();
-  //   });
-  //   return () => {
-  //     window.removeEventListener("FETCH_ADMIN_ROLE", () => {
-  //       getPermissions();
-  //     });
-  //   };
-  // }, [isLoggedIn, fetch_user]);
 
   useEffect(() => {
-    if (isLoggedIn || permission) {
+    if (isLoggedIn) {
       getPermissions();
-    } else if (!isLoggedIn) {
-      if (privatePages.includes(router.pathname)) {
-        router.push('/sign-in');
-      }
     }
-  }, [isLoggedIn, permission]);
+    // listen to event
+    window.addEventListener('FETCH_ADMIN_ROLE', () => {
+      getPermissions();
+    });
+    return () => {
+      window.removeEventListener('FETCH_ADMIN_ROLE', () => {
+        getPermissions();
+      });
+    };
+  }, [isLoggedIn, fetch_user, reFetch]);
+
+  // useEffect(() => {
+  //   if (isLoggedIn || permission) {
+  //     getPermissions();
+  //   } else if (!isLoggedIn) {
+  //     if (privatePages.includes(router.pathname)) {
+  //       router.push('/sign-in');
+  //     }
+  //   }
+  // }, [isLoggedIn, permission]);
 
   useEffect(() => {
     if (socketData?.approved && isLoggedIn) {
@@ -155,96 +152,6 @@ export const AuthContextProvider = props => {
   };
 
   /**
-   * @description - If the User is Logged in we start listning to the socket
-   *
-   */
-  //   useEffect(() => {
-  //     const startListening = () => {
-  //       const socket = webSocketConnection.reOpen();
-  //       socket.addEventListener("message", (event) => {
-  //         const data = JSON.parse(event.data);
-  //         const sound = new Audio(
-  //           "https://plastk.s3.ca-central-1.amazonaws.com/mp3_file/jim_notification.mp3"
-  //         );
-  //         window.dispatchEvent(new Event("mousemove"));
-  //         sound.play();
-  //         Toast({
-  //           type: "info",
-  //           message: data.message
-  //             ? `Received: ${data.message}`
-  //             : "Updates Received From Admin",
-  //         });
-  //         switch (data.type) {
-  //           case "LOG_OUT":
-  //             onLogout();
-  //             break;
-  //           default:
-  //             window.dispatchEvent(new Event(data.type));
-  //             break;
-  //         }
-  //       });
-  //       socket.addEventListener("close", (e) => {
-  //         if (e.reason !== "reopening")
-  //           setTimeout(() => {
-  //             if (isLoggedIn) {
-  //               startListening();
-  //             } else {
-  //               router.push("/");
-  //               webSocketConnection.close();
-  //             }
-  //           }, 5000);
-  //       });
-  //     };
-
-  //     if (isLoggedIn) {
-  //       startListening();
-  //     } else {
-  //       router.push("/");
-  //       webSocketConnection.close();
-  //     }
-  //   }, [isLoggedIn]);
-
-  // useEffect(() => {
-  //   const startListening = () => {
-  //     const socket = webSocketConnection.reOpen();
-  //     socket.addEventListener("message", (event) => {
-  //       const data = JSON.parse(event.data);
-  //       const sound = new Audio(
-  //         "https://plastk.s3.ca-central-1.amazonaws.com/mp3_file/jim_notification.mp3"
-  //       );
-  //       window.dispatchEvent(new Event("mousemove"));
-  //       sound.play();
-  //       Toast({
-  //         type: "info",
-  //         message: data.message
-  //           ? `Received: ${data.message}`
-  //           : "Updates Received From Admin",
-  //       });
-  //       switch (data.type) {
-  //         case "LOG_OUT":
-  //           onLogout();
-  //           break;
-  //         default:
-  //           window.dispatchEvent(new Event(data.type));
-  //           break;
-  //       }
-  //     });
-  //     socket.addEventListener("close", (e) => {
-  //       if (e.reason !== "reopening")
-  //         setTimeout(() => {
-  //           if (isLoggedIn) {
-  //             startListening();
-  //           }
-  //         }, 5000);
-  //     });
-  //   };
-  //   if (isLoggedIn) startListening();
-  //   else {
-  //     webSocketConnection.close();
-  //   }
-  // }, [isLoggedIn]);
-
-  /**
    * @description - If someone tries to temper with the cookies we take the appropriate action
    */
   useEffect(() => {
@@ -276,7 +183,7 @@ export const AuthContextProvider = props => {
       if (cookie === process.env.NEXT_PUBLIC_TOKEN_COOKIE) {
         if (!value) {
           onLogout();
-          console.log('cookie');
+          // console.log('cookie');
         }
       }
       if (cookie === process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE) {
@@ -308,8 +215,7 @@ export const AuthContextProvider = props => {
         fetch: reFetch,
         user,
         setUser,
-        setPermission,
-        // loading_user,
+        getPermissions,
       }}>
       {props.children}
     </AuthContext.Provider>

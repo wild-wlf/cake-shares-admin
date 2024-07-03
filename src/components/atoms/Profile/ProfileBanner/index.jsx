@@ -10,9 +10,9 @@ import Toast from '@/components/molecules/Toast';
 import userService from '@/services/userService';
 
 const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
-  const { user, setPermission } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
-    setPermission: v.setPermission,
+    refetch: v.refetch,
   }));
   const [bannerImg, setBannerImg] = useState(null);
   const router = usePathname();
@@ -52,7 +52,7 @@ const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
         type: 'success',
         message: 'profile updated successfully',
       });
-      setPermission(true);
+      refetch();
     } catch (error) {
       Toast({
         type: 'error',

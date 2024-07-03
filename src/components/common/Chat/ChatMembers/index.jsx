@@ -12,7 +12,7 @@ const ChatMembers = ({ chosenComDetails, user, onlineUsers }) => {
         ?.map((data, index) => (
           <div key={index}>
             <div className="infoWrapper">
-              <Image src={data?.profilePicture || profileplaceHolder} alt="profilePic" />
+              <Image src={data?.profilePicture || profileplaceHolder} alt="profilePic" height={100} width={100} />
               <div className="info">
                 <h6>{data?.fullName || data?.username}</h6>
                 <span>Buyer</span>

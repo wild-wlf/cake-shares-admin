@@ -60,7 +60,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
     <StyledPole $type={type}>
       {type === 'send' && (
         <figure className="img-holder">
-          <Image src={showImage || Pic} alt="user-pic" />
+          <Image src={showImage || Pic} alt="user-pic" height={20} width={20} />
         </figure>
       )}
       <div className="head">
@@ -76,7 +76,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
       </div>
       {allow_multiple && (
         <div className="isMulti">
-          <Image src={checkImage} alt="Checkbox" />
+          <Image src={checkImage} alt="Checkbox" height={20} width={20} />
           <span>Select Multiple</span>
         </div>
       )}

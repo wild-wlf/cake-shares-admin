@@ -26,9 +26,9 @@ const KYCBuyerThree = ({
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { setKyc4 } = useContext(KycContext);
-  const { user, setPermission } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
-    setPermission: v.setPermission,
+    refetch: v.refetch,
   }));
 
   useEffect(() => {
@@ -65,12 +65,8 @@ const KYCBuyerThree = ({
         `Congratulations! Your KYC verification is complete. Now you're ready to unlock the full potential of CakeShares Platform and start adding & managing your products.`,
       );
       setTitle('KYC Upgraded Successful!');
-      // Toast({
-      //   type: 'success',
-      //   message: `KYC Requested Successfully!`,
-      // });
       setOpen(false);
-      setPermission(prev => !prev);
+      refetch();
     } catch ({ message }) {
       Toast({
         type: 'error',
