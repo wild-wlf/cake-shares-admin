@@ -76,7 +76,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
     };
-  
+
     const formDataToSend = new FormData();
     Object.keys(obj).forEach(key => {
       if (key === 'images') {
@@ -406,11 +406,11 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
-                message: 'Please enter a valid limit between 9 and 999',
+                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                message: 'Please enter a valid limit between 1 and 1000',
               },
             ]}>
-            <Field maxLength={3} />
+            <Field maxLength={4} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -429,15 +429,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               //   message: 'Please enter a valid limit between 1 and 99',
               // },
               {
-                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
-                message: 'Please enter a valid limit between 9 and 999',
+                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                message: 'Please enter a valid limit between 1 and 1000',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
                 message: 'Maximun backers cannot be less than minimum backers!',
               },
             ]}>
-            <Field />
+            <Field maxLength={4} />
           </Form.Item>
           <Form.Item
             type="number"
