@@ -4,20 +4,20 @@ import MyWallet from '@/components/common/MyWallet/MyWallet';
 import TransactionTable from '../components/common/TransactionTable';
 import { SellerContainer } from '@/styles/GlobalStyles.styles';
 import SellerTopBar from '@/components/common/SellerTopBar/SellerTopBar';
-import { useContextHook } from 'use-context-hook';
-import { AuthContext } from '@/context/authContext';
+import userService from '@/services/userService';
 
 const Wallet = () => {
-  const { user } = useContextHook(AuthContext, v => ({
-    user: v.user,
-  }));
+ 
+//  const res = userService.getWalletDetails(fetch);
+
+
   return (
     <div>
       <SellerContainer>
         <SellerTopBar title={'My Wallet'} tagLine={"Let's explore what's new with your product today!"} />
         <MyWallet />
         <DetailBar />
-        <TransactionTable />
+        <TransactionTable  />
       </SellerContainer>
     </div>
   );

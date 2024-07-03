@@ -8,12 +8,14 @@ import { CiSearch } from 'react-icons/ci';
 import Image from 'next/image';
 import Field from '@/components/molecules/Field';
 import { debounce } from '@/helpers/common';
+import Select from '../../atoms/Select';
 
 function TableLayout({
   children,
   currentPage = 1,
   pageSize = 10,
   totalCount = 0,
+  lastPage,
   onChangeFilters,
   customFilterKey = '',
   exportBtn,
@@ -24,6 +26,7 @@ function TableLayout({
   onOptionClick,
   resetFilter = false,
   tableHeading,
+  transationFilter,
   noPagination,
   placeholder,
   btnType,
@@ -33,6 +36,7 @@ function TableLayout({
   filterBlock,
   iconImg,
   openModal,
+  setSearchQuery,
   setResetFilter = () => {},
 }) {
   const [filterState, setFilterState] = useState('');
@@ -42,6 +46,25 @@ function TableLayout({
   }
 
   const debouncedFetchResults = useCallback(debounce(fetchResults, 300), []);
+
+  const filterData = [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: 'earn',
+      label: 'Earn',
+    },
+    {
+      value: 'top_up',
+      label: 'Top up',
+    },
+    {
+      value: 'product',
+      label: 'Filter by products',
+    },
+  ];
 
   return (
     <>
@@ -60,7 +83,23 @@ function TableLayout({
       )} */}
       <StyledTableLayout noNegativeMargin={noNegativeMargin} noPagination={noPagination} filterBlock={filterBlock}>
         <div className="head">
+        <div className="heading-holder">
           {tableHeading && <strong className="table-heading">{tableHeading}</strong>}
+          {transationFilter && (
+            <div className="select-holder">
+              <Select
+               noMargin
+                placeholder="Transaction type"
+                onChange={({ target: { value } }) => {
+                  // onChangeFilters({ type: value?.value });
+                  setSearchQuery(prev => ({...prev, type: value?.value}))
+                }}
+                options={filterData}
+                labelReverse
+              />
+            </div>
+          )}
+  </div>
           <div className="actions">
             {placeholder && (
               <div className="item">
@@ -106,7 +145,7 @@ function TableLayout({
           />
           {children}
           <div className="pagination">
-            {totalCount > 1 ? (
+            {lastPage > 1 ? (
               <Pagination
                 currentPage={currentPage}
                 totalCount={totalCount}

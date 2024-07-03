@@ -440,11 +440,18 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
-                message: 'Please enter a valid limit between 9 and 999',
+                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                message: 'Please enter a valid limit between 1 and 1000',
               },
             ]}>
-            <Field />
+            <Field
+              maxLength={4}
+              onKeyPress={e => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
           </Form.Item>
           <Form.Item
             type="number"
@@ -459,15 +466,22 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Maximum Backers Limit',
               },
               {
-                pattern: /^(9|[0-9][0-9]|[1-9][0-9][0-9])$/,
-                message: 'Please enter a valid limit between 9 and 999',
+                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                message: 'Please enter a valid limit between 1 and 1000',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
                 message: 'Maximun backers cannot be less than minimum backers!',
               },
             ]}>
-            <Field />
+            <Field
+              maxLength={4}
+              onKeyPress={e => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
           </Form.Item>
           <Form.Item
             type="number"
@@ -490,7 +504,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Asset value must be whole number (greater than zero)',
               },
             ]}>
-            <Field maxLength={10}/>
+            <Field maxLength={10} />
           </Form.Item>
           <Form.Item
             type="number"

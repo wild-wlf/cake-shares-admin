@@ -137,7 +137,7 @@ const PortfolioTable = ({ title }) => {
     </>
   );
 
-  const { product_rows, totalCount } = useMemo(() => {
+  const { product_rows,lastPage, totalCount } = useMemo(() => {
     const items = products_data.items || [];
     return {
       product_rows: items.map(data => [
@@ -150,7 +150,8 @@ const PortfolioTable = ({ title }) => {
         `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
-      totalCount: items.totalItems,
+      totalCount: products_data.totalItems,
+      lastPage: products_data?.lastPage
     };
   }, [products_data]);
   const columnNamess = [
@@ -273,6 +274,7 @@ const PortfolioTable = ({ title }) => {
           }}
           currentPage={searchQuery.page}
           totalCount={totalCount}
+          lastPage={lastPage}
           pageSize={searchQuery.itemsPerPage}
           tableHeading={<ButtonsGroup title={title} setSearchQuery={setSearchQuery} />}
           placeholder="Search Product"
