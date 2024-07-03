@@ -12,7 +12,7 @@ import notificationService from '@/services/notificationservice';
 import Loader from '@/components/atoms/Loader';
 import { updateChatIfActive } from '@/helpers/comMsgHandlers';
 
-const ComChat = ({ chosenComDetails }) => {
+const ComChat = ({ chosenComDetails, type }) => {
   const [chatMessages, setChatMessages] = useState([]);
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -23,6 +23,7 @@ const ComChat = ({ chosenComDetails }) => {
     page: 1,
     itemsPerPage: 10,
     conversationId: chosenComDetails?.conversationId ?? '',
+    type,
   });
   const [chatLoading, setChatLoading] = useState(true);
   const [moreMsgLoading, setMoreMsgLoading] = useState(false);
@@ -135,7 +136,7 @@ const ComChat = ({ chosenComDetails }) => {
             )
           )}
         </ChatBody>
-        <ChatFooter chosenComDetails={chosenComDetails} type="community" />
+        <ChatFooter chosenComDetails={chosenComDetails} type={type} />
       </div>
       <div className="hamburger" onClick={() => document.body.classList.toggle('chat-sidebar-active')}>
         <RiMenu3Fill size={30} />

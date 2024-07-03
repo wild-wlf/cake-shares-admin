@@ -32,7 +32,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
     return () => {
       window.removeEventListener('seen_message_response', () => {});
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageId]);
 
   useEffect(() => {

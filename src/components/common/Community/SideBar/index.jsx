@@ -25,7 +25,11 @@ const SideBar = ({
   const [conversations, setConversations] = useState([]);
 
   const { conversations_loading, conversations_data } = notificationService.GetAllConversations(
-    { page: 1, itemsPerPage: 10, type: type === 'private' ? 'PERSONAL_CHAT' : type === 'community' ? 'COM_CHAT' : '' },
+    {
+      page: 1,
+      itemsPerPage: 10,
+      type: type === 'private' ? 'PERSONAL_CHAT' : type === 'community' ? 'COM_CHAT' : 'STAKE_CHAT',
+    },
     fetch,
   );
 
@@ -53,7 +57,7 @@ const SideBar = ({
 
   useEffect(() => {
     window.addEventListener('com_message_history', event => {
-      if (type === 'community') {
+      if (type === 'community' || type === 'stake') {
         updateCurrentComConversations({
           ...event.detail,
           setConversations,
@@ -109,7 +113,7 @@ const SideBar = ({
                 image1={
                   type === 'private'
                     ? getReceiverInfo(item?.participants)?.profilePicture
-                    : type === 'community'
+                    : type === 'community' || type === 'stake'
                     ? user?.profilePicture || profileplaceHolder
                     : null
                 }
@@ -124,7 +128,7 @@ const SideBar = ({
                 title={
                   type === 'private'
                     ? getReceiverInfo(item?.participants)?.username
-                    : type === 'community'
+                    : type === 'community' || type === 'stake'
                     ? renderParticipants(item?.participants)
                     : null
                 }
@@ -143,7 +147,7 @@ const SideBar = ({
                     ? chosenChatDetails
                       ? 0
                       : item?.unreadCount ?? 0
-                    : type === 'community'
+                    : type === 'community' || type === 'stake'
                     ? chosenComDetails
                       ? 0
                       : item?.unreadCount ?? 0
@@ -162,7 +166,7 @@ const SideBar = ({
                       username: getReceiverInfo(item?.participants)?.username,
                     });
                   }
-                  if (type === 'community') {
+                  if (type === 'community' || type === 'stake') {
                     handleChoseComDetails({
                       conversationId: item?._id,
                       author: user._id,

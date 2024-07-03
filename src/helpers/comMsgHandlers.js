@@ -79,7 +79,7 @@ export const updateCurrentComConversations = data => {
     if (!con) {
       existingCons.unshift({
         _id: conversationId,
-        participants: [{ ...message?.author }, { ...message?.receivers }],
+        participants: [{ ...message?.author }, ...message?.receivers],
         lastMessage: message,
         unreadCount: 1,
         updated_at: message?.created_at,

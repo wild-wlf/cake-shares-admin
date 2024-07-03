@@ -31,11 +31,12 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
       });
     }
 
-    if (type === 'community') {
+    if (type === 'community' || type === 'stake') {
       sendComMsg({
         author: user?._id,
         content: message,
         conversationId: chosenComDetails?.conversationId,
+        type,
       });
     }
     form.setFieldsValue({ message: '' });
@@ -59,7 +60,7 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
               </Form.Item>
             </div>
             <div className="icons-div">
-              {type === 'community' && (
+              {(type === 'community' || type === 'stake') && (
                 <Image src={PollIcon} alt="PollIcon" width={14} height={14} onClick={() => setOpenModal(true)} />
               )}
               <Image src={LinkIcon} alt="LinkIcon" width={14} height={14} />
@@ -77,6 +78,7 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
           onClose={() => setOpenModal(false)}
           conversationId={chosenComDetails?.conversationId}
           user={user}
+          type={type}
         />
       </CenterModal>
     </>
