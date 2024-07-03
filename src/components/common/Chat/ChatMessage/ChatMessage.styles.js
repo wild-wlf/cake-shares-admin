@@ -27,11 +27,21 @@ export const StyledChatMessage = styled.div`
             border-radius: 10px 10px 10px 0;
             background-color: rgba(78, 97, 153, 0.1);
             color: var(--base-text-color);
+            a {
+              color: var(--base-text-color);
+              font-weight: 500;
+              text-decoration: underline;
+            }
           `
         : css`
             border-radius: 10px 0 10px 10px;
             background: var(--green);
             color: var(--white);
+            a {
+              color: var(--white);
+              font-weight: 500;
+              text-decoration: underline;
+            }
           `}
   }
 
