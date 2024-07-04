@@ -80,7 +80,7 @@ const TransactionTable = () => {
   // ];
 
   //  for earn spend and topup
-  // const { totalCount, lastPage, transaction_rows } = useMemo(
+  // const { totalCount, transaction_rows } = useMemo(
   //   () => ({
   //     transaction_rows: transactions_data?.transactions?.map(_ => [
 
@@ -89,12 +89,12 @@ const TransactionTable = () => {
   //       _.amount?.$numberDecimal ?? '------------',
   //     ]),
   //     totalCount: transactions_data?.totalItems,
-  //     lastPage: transactions_data?.lastPage,
+  //   
   //   }),
   //   [transactions_data],
   // );
 
-  const { totalCount, lastPage, transaction_rows } = useMemo(() => {
+  const { totalCount, transaction_rows } = useMemo(() => {
     const mappedTransactions = transactions_data?.transactions?.map(transaction => {
      
       if (searchQuery.type === 'product') {
@@ -123,9 +123,9 @@ const TransactionTable = () => {
     return {
       transaction_rows: mappedTransactions,
       totalCount: transactions_data?.totalItems,
-      lastPage: transactions_data?.lastPage,
+    
     };
-  }, [searchQuery.type, transactions_data?.lastPage, transactions_data?.totalItems, transactions_data?.transactions]);
+  }, [searchQuery.type, transactions_data?.totalItems, transactions_data?.transactions]);
 
  
   let columnNames;
@@ -170,7 +170,6 @@ const TransactionTable = () => {
           setSearchQuery={setSearchQuery}
           currentPage={searchQuery.page}
           totalCount={totalCount}
-          lastPage={lastPage}
           pageSize={searchQuery.itemsPerPage}>
           <Table
             width={1024}

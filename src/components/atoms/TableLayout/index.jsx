@@ -15,7 +15,6 @@ function TableLayout({
   currentPage = 1,
   pageSize = 10,
   totalCount = 0,
-  lastPage,
   onChangeFilters,
   customFilterKey = '',
   exportBtn,
@@ -83,23 +82,23 @@ function TableLayout({
       )} */}
       <StyledTableLayout noNegativeMargin={noNegativeMargin} noPagination={noPagination} filterBlock={filterBlock}>
         <div className="head">
-        <div className="heading-holder">
-          {tableHeading && <strong className="table-heading">{tableHeading}</strong>}
-          {transationFilter && (
-            <div className="select-holder">
-              <Select
-               noMargin
-                placeholder="Transaction type"
-                onChange={({ target: { value } }) => {
-                  // onChangeFilters({ type: value?.value });
-                  setSearchQuery(prev => ({...prev, type: value?.value}))
-                }}
-                options={filterData}
-                labelReverse
-              />
-            </div>
-          )}
-  </div>
+          <div className="heading-holder">
+            {tableHeading && <strong className="table-heading">{tableHeading}</strong>}
+            {transationFilter && (
+              <div className="select-holder">
+                <Select
+                  noMargin
+                  placeholder="Transaction type"
+                  onChange={({ target: { value } }) => {
+                    // onChangeFilters({ type: value?.value });
+                    setSearchQuery(prev => ({ ...prev, type: value?.value }));
+                  }}
+                  options={filterData}
+                  labelReverse
+                />
+              </div>
+            )}
+          </div>
           <div className="actions">
             {placeholder && (
               <div className="item">
@@ -145,7 +144,7 @@ function TableLayout({
           />
           {children}
           <div className="pagination">
-            {lastPage > 1 ? (
+            {totalCount > 1 ? (
               <Pagination
                 currentPage={currentPage}
                 totalCount={totalCount}
