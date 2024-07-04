@@ -22,6 +22,8 @@ const Home = () => {
     }
   }, [allowedPages, router]);
 
+  
+
   return <div></div>;
 };
 

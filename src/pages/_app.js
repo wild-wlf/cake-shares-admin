@@ -52,14 +52,9 @@ export default function App({ Component, pageProps }) {
               <Component {...pageProps} />
             ) : (
               <Layout>
-                {userInfo?.isIndividualSeller ? (
+                {userInfo ? (
                   <PageWrapper>
-                    <Sidenav data={indivisualSellerNav} />
-                    <Component {...pageProps} />
-                  </PageWrapper>
-                ) : userInfo?.isCompanySeller ? (
-                  <PageWrapper>
-                    <Sidenav data={companySellerNav} />
+                    <Sidenav data={userInfo.isIndividualSeller ? indivisualSellerNav : companySellerNav} />
                     <Component {...pageProps} />
                   </PageWrapper>
                 ) : (

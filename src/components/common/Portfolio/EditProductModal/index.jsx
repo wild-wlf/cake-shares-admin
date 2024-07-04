@@ -440,17 +440,17 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 1000',
               },
             ]}>
             <Field
               maxLength={4}
-              onKeyPress={e => {
-                if (!/[0-9]/.test(e.key)) {
-                  e.preventDefault();
-                }
-              }}
+              // onKeyPress={e => {
+              //   if (!/[0-9]/.test(e.key)) {
+              //     e.preventDefault();
+              //   }
+              // }}
             />
           </Form.Item>
           <Form.Item
@@ -466,7 +466,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Maximum Backers Limit',
               },
               {
-                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 1000',
               },
               {
@@ -476,11 +476,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             ]}>
             <Field
               maxLength={4}
-              onKeyPress={e => {
-                if (!/[0-9]/.test(e.key)) {
-                  e.preventDefault();
-                }
-              }}
+              // onKeyPress={e => {
+              //   if (!/[0-9]/.test(e.key)) {
+              //     e.preventDefault();
+              //   }
+              // }}
             />
           </Form.Item>
           <Form.Item
