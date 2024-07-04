@@ -3,9 +3,9 @@ import { StyledContainer, ChartWrapper } from './SellerWalletStyles';
 import Graph from '@/components/molecules/Charts';
 import PieChart from '@/components/molecules/PieChart';
 
-const SellerWallet = () => {
+const SellerWallet = ({ pieData, amount }) => {
   const ary2 = [0, 200, 300, 6000, 500, 1000, 500, 5000, 1000, 8000, 200, 5000, 5200, 5500, 5700, 5720, 5880];
-  const pieData = [
+  const dummyPieData = [
     { name: 'Banking', y: 30, color: '#408F8C' },
     { name: 'Properties', y: 25, color: '#00AFD6' },
     { name: 'Ventures', y: 20, color: '#0A1149' },
@@ -19,9 +19,9 @@ const SellerWallet = () => {
         <ChartWrapper>
           <div className="ChartContainer">
             <PieChart
-              // graphData={pieData}
+              graphData={pieData || dummyPieData}
               title="Total Investments"
-              amount="$0"
+              amount={`$${amount || 0}`}
               timeFrame="year"
               sm={true}
             />
