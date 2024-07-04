@@ -406,7 +406,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Minimum Backers Limit',
               },
               {
-                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 1000',
               },
             ]}>
@@ -429,7 +429,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               //   message: 'Please enter a valid limit between 1 and 99',
               // },
               {
-                pattern: /^(?:[1-9][0-9]{0,2}|1000)$/,
+                pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 1000',
               },
               {
