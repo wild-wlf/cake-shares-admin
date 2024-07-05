@@ -18,10 +18,18 @@ import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 
-const MyWallet = () => {
+const MyWallet = ({ pieData, amount }) => {
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
-  }));
+}));
+
+const dummyPieData = [
+  { name: 'Banking product', y: 30, color: '#408F8C' },
+  { name: 'Properties', y: 25, color: '#00AFD6' },
+  { name: 'Ventures', y: 20, color: '#0A1149' },
+  { name: 'Bazar', y: 15, color: '#419400' },
+  { name: 'Cars', y: 10, color: '#4E6199' },
+];
 
   const [open, setOpen] = useState(false);
   const [openLast, setOpenLast] = useState(false);
@@ -248,9 +256,9 @@ const MyWallet = () => {
         <ChartWrapper>
           <div className="ChartContainer">
             <PieChart
-              // graphData={pieData}
-              title="Total Investments"
-              amount="$0"
+                graphData={pieData || dummyPieData}
+                title="Total Investments"
+                amount={`$${amount || 0}`}
               timeFrame="year"
             />
           </div>

@@ -26,6 +26,10 @@ export const StyledTableLayout = styled.div`
         display: none;
       }
     `}
+    .select-holder {
+    width: 100%;
+    max-width: 150px;
+  }
 
   .head {
     width: 100%;
@@ -40,7 +44,7 @@ export const StyledTableLayout = styled.div`
       line-height: 25px;
       font-weight: 500;
       text-transform: capitalize;
-      margin: 0 0 15px;
+      /* margin: 0 0 15px; */
     }
     .actions {
       display: flex;
@@ -69,6 +73,13 @@ export const StyledTableLayout = styled.div`
           }
         }
       `}
+
+      .heading-holder {
+     
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
     .icon-div {
       display: flex;
