@@ -150,7 +150,8 @@ const PortfolioTable = ({ title }) => {
         `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
         actionBtns(data),
       ]),
-      totalCount: items.totalItems,
+      totalCount: products_data.totalItems,
+  
     };
   }, [products_data]);
   const columnNamess = [
@@ -273,6 +274,7 @@ const PortfolioTable = ({ title }) => {
           }}
           currentPage={searchQuery.page}
           totalCount={totalCount}
+        
           pageSize={searchQuery.itemsPerPage}
           tableHeading={<ButtonsGroup title={title} setSearchQuery={setSearchQuery} />}
           placeholder="Search Product"
