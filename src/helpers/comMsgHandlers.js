@@ -40,6 +40,7 @@ const updateChatHistoryIfSameConversationActive = ({
       conversationId,
       user: loggedInUser?._id,
       messageId: message?._id,
+      type: 'user',
     });
   }
 
@@ -62,30 +63,32 @@ function removeDuplicates(array, propertyName) {
 export const updateCurrentComConversations = data => {
   const { conversationId, message, setConversations } = data;
 
-  setConversations(prev => {
-    const con = prev?.find(_ => _?._id === conversationId);
-    let existingCons = [...prev];
+  if (type === message?.type) {
+    setConversations(prev => {
+      const con = prev?.find(_ => _?._id === conversationId);
+      let existingCons = [...prev];
 
-    if (con) {
-      const conversationIndex = existingCons?.findIndex(item => item?._id === conversationId);
+      if (con) {
+        const conversationIndex = existingCons?.findIndex(item => item?._id === conversationId);
 
-      if (conversationIndex > -1) {
-        existingCons.splice(conversationIndex, 1);
-        const { unreadCount, lastMessage, ...rest } = con;
-        existingCons.unshift({ ...rest, unreadCount: unreadCount + 1, lastMessage: message });
+        if (conversationIndex > -1) {
+          existingCons.splice(conversationIndex, 1);
+          const { unreadCount, lastMessage, ...rest } = con;
+          existingCons.unshift({ ...rest, unreadCount: unreadCount + 1, lastMessage: message });
+        }
       }
-    }
 
-    if (!con) {
-      existingCons.unshift({
-        _id: conversationId,
-        participants: [{ ...message?.author }, ...message?.receivers],
-        lastMessage: message,
-        unreadCount: 1,
-        updated_at: message?.created_at,
-      });
-    }
+      if (!con) {
+        existingCons.unshift({
+          _id: conversationId,
+          participants: [{ ...message?.author }, ...message?.receivers],
+          lastMessage: message,
+          unreadCount: 1,
+          updated_at: message?.created_at,
+        });
+      }
 
-    return existingCons;
-  });
+      return existingCons;
+    });
+  }
 };

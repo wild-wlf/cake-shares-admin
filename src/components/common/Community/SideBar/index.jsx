@@ -44,6 +44,7 @@ const SideBar = ({
       if (type === 'private') {
         updateCurrentConversations({
           ...event.detail,
+          type: 'DIRECT_MESSAGE',
           setConversations,
         });
       }
@@ -60,6 +61,7 @@ const SideBar = ({
       if (type === 'community' || type === 'stake') {
         updateCurrentComConversations({
           ...event.detail,
+          type: type === 'community' ? 'COM_CHAT_MESSAGE' : 'STAKE_CHAT_MESSAGE',
           setConversations,
         });
       }
