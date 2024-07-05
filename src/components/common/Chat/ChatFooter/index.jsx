@@ -37,6 +37,7 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
         content: message,
         conversationId: chosenComDetails?.conversationId,
         type,
+        user_type: 'user',
       });
     }
     form.setFieldsValue({ message: '' });

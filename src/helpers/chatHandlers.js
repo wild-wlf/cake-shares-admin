@@ -40,6 +40,7 @@ const updateDirectChatHistoryIfSameConversationActive = ({
       conversationId,
       user: loggedInUser?._id,
       message,
+      type: 'user',
     });
   }
 
@@ -60,32 +61,34 @@ function removeDuplicates(array, propertyName) {
 }
 
 export const updateCurrentConversations = data => {
-  const { conversationId, message, setConversations } = data;
+  const { conversationId, message, setConversations, type } = data;
 
-  setConversations(prev => {
-    const con = prev?.find(_ => _?._id === conversationId);
-    let existingCons = [...prev];
+  if (type === message?.type) {
+    setConversations(prev => {
+      const con = prev?.find(_ => _?._id === conversationId);
+      let existingCons = [...prev];
 
-    if (con) {
-      const conversationIndex = existingCons?.findIndex(item => item?._id === conversationId);
+      if (con) {
+        const conversationIndex = existingCons?.findIndex(item => item?._id === conversationId);
 
-      if (conversationIndex > -1) {
-        existingCons.splice(conversationIndex, 1);
-        const { unreadCount, lastMessage, ...rest } = con;
-        existingCons.unshift({ ...rest, unreadCount: unreadCount + 1, lastMessage: message });
+        if (conversationIndex > -1) {
+          existingCons.splice(conversationIndex, 1);
+          const { unreadCount, lastMessage, ...rest } = con;
+          existingCons.unshift({ ...rest, unreadCount: unreadCount + 1, lastMessage: message });
+        }
       }
-    }
 
-    if (!con) {
-      existingCons.unshift({
-        _id: conversationId,
-        participants: [{ ...message.author }, { ...message.receiver }],
-        lastMessage: message,
-        unreadCount: 1,
-        updated_at: message?.created_at,
-      });
-    }
+      if (!con) {
+        existingCons.unshift({
+          _id: conversationId,
+          participants: [{ ...message.author }, { ...message.receiver }],
+          lastMessage: message,
+          unreadCount: 1,
+          updated_at: message?.created_at,
+        });
+      }
 
-    return existingCons;
-  });
+      return existingCons;
+    });
+  }
 };

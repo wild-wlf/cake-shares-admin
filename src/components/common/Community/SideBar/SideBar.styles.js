@@ -26,7 +26,7 @@ export const StyledSideBar = styled.div`
   }
 
   .group-holder {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 224px);
     overflow-y: auto;
     margin: 0 -22px;
     padding: 0 22px;

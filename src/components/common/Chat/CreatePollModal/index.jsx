@@ -35,6 +35,7 @@ const CreatePollModal = ({ conversationId, user, onClose, type }) => {
       conversationId,
       pool,
       type,
+      user_type: 'user',
     });
     onClose();
   };
