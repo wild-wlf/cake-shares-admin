@@ -12,31 +12,18 @@ const ProfilePage = () => {
   const [searchQuery, setSearchQuery] = useState({
     type: 'funded',
   });
-  const [financialInfo, setFinalcialInfo] = useState();
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
   }));
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery);
-
-  const fetchFinancialInfo = async () => {
-    const res = await productService.getFinancialInfo();
-    if (res.success) {
-      setFinalcialInfo(res);
-    }
-  };
-
-  useEffect(() => {
-    if (!financialInfo) {
-      fetchFinancialInfo();
-    }
-  }, [financialInfo]);
+  const { financial_data } = productService.GetFinancialInfo();
 
   return (
     <SellerContainer>
       <SellerTopBar title={'Settings'} tagLine={'Here you can manage your Profile & Account Settings'} />
       <Profile />
       <div className="child-Wrapper">
-        <UserDetail userData={user} financialData={financialInfo} />
+        <UserDetail userData={user} financialData={financial_data} />
         <Categories title="My Fully Funded Products" loading={products_loading} data={products_data?.items} />
       </div>
     </SellerContainer>

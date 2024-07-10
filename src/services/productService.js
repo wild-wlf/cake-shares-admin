@@ -40,6 +40,22 @@ const productService = {
       products_data: products,
     };
   },
+
+  GetFinancialInfo() {
+    const [financialInfo, setFinancialInfo] = useState();
+    const { cancellablePromise } = useCancellablePromise();
+    useEffect(() => {
+      cancellablePromise(this.getFinancialInfo()).then(res => {
+        if (res.success) {
+          setFinancialInfo(() => res);
+        }
+      });
+    }, []);
+    return {
+      financial_data: financialInfo,
+    };
+  },
+
   async getAllProducts({
     page = 1,
     itemsPerPage = 10,

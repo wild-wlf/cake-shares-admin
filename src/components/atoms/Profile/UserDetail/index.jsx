@@ -129,7 +129,7 @@ const UserDetail = ({ userData, financialData }) => {
                 <Image src={userIcon} alt="userIcon" />
               </div>
               <div className="textWrap">
-                <strong className="title">{financialData?.totalOngoingProducts}</strong>
+                <strong className="title">{financialData?.totalOngoingProducts || 0}</strong>
                 <span>Ongoing Products</span>
               </div>
             </div>
