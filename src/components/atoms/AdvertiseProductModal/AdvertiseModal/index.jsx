@@ -102,7 +102,7 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
                 setSelected(e.target.value.value);
               }}
               rules={[{ required: true, message: 'Please Select Advertisement Duration!' }]}>
-              <Select />
+              <Select  menuPlacement="top"/>
             </Form.Item>
           </div>
           {selected && (

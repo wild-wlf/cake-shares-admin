@@ -163,11 +163,10 @@ const TransactionTable = () => {
           onChangeFilters={filters => {
             setSearchQuery(_ => ({
               ..._,
-              searchText: filters,
+              // searchText: filters,
               ...filters,
             }));
           }}
-          setSearchQuery={setSearchQuery}
           currentPage={searchQuery.page}
           totalCount={totalCount}
           pageSize={searchQuery.itemsPerPage}>

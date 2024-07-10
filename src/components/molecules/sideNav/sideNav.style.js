@@ -30,6 +30,19 @@ export const Sidenav = styled.div`
     display: none;
   }
 
+  .message {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+  height: 10px;
+    background: red;
+        border-radius: 10px;
+        right: 10px;
+        transform: translateY(-50%);
+
+     
+    }
+
   .sideNav-active & {
     left: 0 !important;
     .layer {
@@ -64,6 +77,7 @@ export const NavLinks = styled.ul`
     margin-top: 17px;
     transition: 0.5s all ease-in-out;
     .Link {
+      position: relative;
       max-width: 190px;
       width: 100%;
       padding: 14px 20px;
@@ -93,6 +107,7 @@ export const NavLinks = styled.ul`
       width: 25px;
       display: flex;
       padding: 3px;
+      flex-shrink: 0;
       align-items: center;
       justify-content: center;
       background-color: black;
@@ -103,7 +118,7 @@ export const NavLinks = styled.ul`
     &:hover {
       background-color: rgba(64, 143, 140, 0.3);
       .Link {
-        font-weight: 500;
+        /* font-weight: 500; */
         color: #408f8c;
       }
       .iconCon {
@@ -114,7 +129,7 @@ export const NavLinks = styled.ul`
   .active {
     background-color: rgba(64, 143, 140, 0.3);
     .Link {
-      font-weight: 500;
+      /* font-weight: 500; */
       color: #408f8c;
     }
     .iconCon {

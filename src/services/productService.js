@@ -50,7 +50,7 @@ const productService = {
     endDate = '',
   }) {
     let res = await Fetch.get(
-      `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&searchText=${searchText}&type=${type}&startDate=${startDate}&endDate=${endDate}`,
+      `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&searchText=${searchText}&type=${type}&status=${status}&startDate=${startDate}&endDate=${endDate}`,
     );
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
