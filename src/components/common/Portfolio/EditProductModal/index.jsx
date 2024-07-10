@@ -496,12 +496,12 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid value up to 4 digits',
-              },
-              {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset value must be whole number (greater than zero)',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,8}$/,
+                message: 'Please enter a valid number with up to 9 digits',
               },
             ]}>
             <Field maxLength={10} />
@@ -518,13 +518,14 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
               },
-              {
-                pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid value up to 4 digits',
-              },
+
               {
                 pattern: /^[1-9]\d*$/,
                 message: 'Minimum investment must be whole number (greater than zero)',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,8}$/,
+                message: 'Please enter a valid number with up to 9 digits',
               },
               {
                 transform: value => value > +form.getFieldValue('assetValue'),

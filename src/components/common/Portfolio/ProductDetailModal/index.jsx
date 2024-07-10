@@ -6,6 +6,20 @@ import Image from 'next/image';
 import { daysLeft, formatDateWithSuffix } from '@/helpers/common';
 
 const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct }) => {
+
+
+
+  const getRemainingDays = (targetDate) => {
+    const target = new Date(targetDate);
+    const now = new Date();
+    const differenceInTime = target.getTime() - now.getTime();
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    return differenceInDays;
+  };
+
+  const remainingDays = getRemainingDays(data?.endTime[0]);
+
+
   const infoData = [
     {
       heading: 'Product Name:',
@@ -56,6 +70,10 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
     {
       heading: 'Total Asset Value',
       text: `$${data?.assetValue?.toLocaleString('en-US')}`,
+    },
+    {
+      heading: 'Advertised Remaining Days',
+      text: `${remainingDays || 0}`,
     },
   ];
   const productDescription = [

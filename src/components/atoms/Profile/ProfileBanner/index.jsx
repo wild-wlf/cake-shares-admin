@@ -50,7 +50,7 @@ const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
       await userService.uploadMedia(data, user._id);
       Toast({
         type: 'success',
-        message: 'profile updated successfully',
+        message: 'Banner updated successfully',
       });
       refetch();
     } catch (error) {

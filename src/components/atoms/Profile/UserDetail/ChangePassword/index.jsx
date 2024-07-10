@@ -40,12 +40,9 @@ const ChangePassword = ({ setOpen }) => {
         placeholder="Enter Current Password"
         rules={[
           { required: true },
-          {
-            pattern: /^.{0,40}$/,
-            message: 'Maximum Character Length is 256',
-          },
+          { password: true },
         ]}>
-        <Field />
+        <Field  maxLength={64} />
       </Form.Item>
       <div className="combine-fields">
         <Form.Item
@@ -57,12 +54,9 @@ const ChangePassword = ({ setOpen }) => {
           placeholder="Enter New Password"
           rules={[
             { required: true },
-            {
-              pattern: /^.{0,40}$/,
-              message: 'Maximum Character Length is 256',
-            },
+            { password: true },
           ]}>
-          <Field />
+          <Field maxLength={64} />
         </Form.Item>
         <Form.Item
           type="password"
@@ -80,7 +74,7 @@ const ChangePassword = ({ setOpen }) => {
               message: 'The two passwords that you entered do not match!',
             },
           ]}>
-          <Field />
+          <Field maxLength={64} />
         </Form.Item>
       </div>
       <Button rounded md btntype="primary" width="170" htmlType="submit">

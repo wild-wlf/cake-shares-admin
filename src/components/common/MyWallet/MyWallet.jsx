@@ -23,13 +23,7 @@ const MyWallet = ({ pieData, amount }) => {
     user: v.user,
 }));
 
-const dummyPieData = [
-  { name: 'Banking product', y: 30, color: '#408F8C' },
-  { name: 'Properties', y: 25, color: '#00AFD6' },
-  { name: 'Ventures', y: 20, color: '#0A1149' },
-  { name: 'Bazar', y: 15, color: '#419400' },
-  { name: 'Cars', y: 10, color: '#4E6199' },
-];
+
 
   const [open, setOpen] = useState(false);
   const [openLast, setOpenLast] = useState(false);
@@ -256,7 +250,7 @@ const dummyPieData = [
         <ChartWrapper>
           <div className="ChartContainer">
             <PieChart
-                graphData={pieData || dummyPieData}
+                graphData={pieData}
                 title="Total Investments"
                 amount={`$${amount || 0}`}
               timeFrame="year"

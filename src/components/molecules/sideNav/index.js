@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import logo from '../../../_assets/logo.svg';
 import Image from 'next/image';
 import { Sidenav, NavLinks, LinkContainer, UserDet } from './sideNav.style';
@@ -18,7 +18,7 @@ import KycLevel from '@/components/atoms/KYC/KycLevel';
 import SuccessIcon from '../../../_assets/successIcon.png';
 import SuccessfulModal from '@/components/atoms/ProductDeleteModal/SuccessfulModal';
 import KycBuyerLevelFour from '@/components/atoms/KYC/KYCBuyer4';
-
+import notificationService from '@/services/notificationservice';
 const SideBar = ({ data }) => {
   const [text, setText] = useState(null);
   const [title, setTitle] = useState(null);
@@ -31,6 +31,21 @@ const SideBar = ({ data }) => {
   const [successfulModal, setSuccessfulModal] = useState(false);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
+  const [conversations, setConversations] = useState([]);
+
+  // const { conversations_loading, conversations_data } = notificationService.GetAllConversations(
+  //   {
+  //     page: 1,
+  //     itemsPerPage: 10,
+  //     type: data?.type === 'private' ? 'PERSONAL_CHAT' : data?.type === 'community' ? 'COM_CHAT' : data?.type === 'stake' ? 'STAKE_CHAT':'',
+  //   },
+  //   fetch,
+  // );
+
+
+ 
+
+
 
   const closeSideNav = () => {
     document.body.classList.toggle('sideNav-active');
@@ -164,6 +179,13 @@ const SideBar = ({ data }) => {
                         <Image src={data.icon} width={18} height={18} alt="icon" />
                       </figure>
                       {data.name}
+                      {/* <span
+                        className={`${
+                          data.nav === pathname  &&
+                          result[0]?.unreadCount > 0
+                            ? 'message'
+                            : ''
+                        }`}></span> */}
                     </Link>
                   )}
                 </li>
