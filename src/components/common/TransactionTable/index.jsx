@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 import userService from '@/services/userService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import { formatNumber } from '@/helpers/common';
+import { convertToCurrencyFormat } from '@/helpers/common';
 const TransactionTable = () => {
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -107,8 +107,8 @@ const TransactionTable = () => {
           transaction.productName ?? '------------',
           transaction.investmentTypeName ?? '------------',
           ownershipPercentage,
-          `$${formatNumber(transaction.investmentAmount)}` ?? '------------',
-          `$${formatNumber(transaction.assetValue)}` ?? '------------',
+          `${convertToCurrencyFormat(transaction.investmentAmount)}` ?? '------------',
+          `${convertToCurrencyFormat(transaction.assetValue)}` ?? '------------',
         ];
       } else {
         // Return a different mapping logic or structure
