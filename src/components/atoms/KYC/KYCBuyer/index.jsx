@@ -21,7 +21,6 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData, kycData, setKyc0 }
       });
     }
   }, [kycData, form]);
- 
 
   const onSubmit = data => {
     try {
@@ -44,13 +43,17 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData, kycData, setKyc0 }
   return (
     <StyledKycBuyer>
       <div className="back-icon">
-        <IoIosArrowRoundBack
+        <Button
+          rounded
+          sm
+          btntype="primary"
+          width="150"
           onClick={() => {
             setKyc0(true);
             setOpen(false);
-          }}
-          size={45}
-        />
+          }}>
+          Go back
+        </Button>
       </div>
       <Form form={form} onSubmit={onSubmit}>
         <span className="kycdiscreption">ID Proof Info:</span>
@@ -64,12 +67,10 @@ const KycBuyerLevelOne = ({ setOpen, setKycLevel, setKycData, kycData, setKyc0 }
             name="passportImageFront"
             type="img"
             img={kycData?.passportImageFront || ''}
-             document
+            document
             fileSize="5"
             accept="image/jpeg, image/jpg, image/png, application/pdf"
             uploadTitle="Upload Front Side of Passport"
-
-            
             rules={[{ required: true, message: 'Please Upload Front Side of Passport Image!' }]}>
             <Field />
           </Form.Item>

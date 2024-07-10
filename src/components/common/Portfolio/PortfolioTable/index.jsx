@@ -157,9 +157,9 @@ const PortfolioTable = ({ title }) => {
         data.investmentType?.name || '------------',
         getStatus(data),
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
-        `$ ${formatNumber(data.minimumInvestment)}.00` ?? 0 ?? '------------',
-        `$ ${formatNumber(data.valueRaised)}.00` ?? 0 ?? '------------',
-        `$ ${formatNumber(data.assetValue)}.00` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.minimumInvestment)}` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.valueRaised)}` ?? 0 ?? '------------',
+        `$ ${formatNumber(data.assetValue)}` ?? 0 ?? '------------',
         actionBtns(data, user),
       ]),
       totalCount: products_data.totalItems,
@@ -292,7 +292,7 @@ const PortfolioTable = ({ title }) => {
           btnWidth={'40px'}
           btnType="download"
           iconImg={CalenderIcon}
-         searchQuery={searchQuery}
+          searchQuery={searchQuery}
           openModal={openModal}>
           <Table width={1024} rowsData={product_rows} loading={products_loading} columnNames={columnNamess} noPadding />
         </TableLayout>

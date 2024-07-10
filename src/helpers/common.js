@@ -293,7 +293,13 @@ export const bas64toFile = async (dataUrl, fileName) => {
   return new File([blob], fileName, { type: 'image/jpg' });
 };
 
-export const formatNumber = number => new Intl.NumberFormat().format(number);
+export const formatNumber = number => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(number);
+};
 
 export const validateAmenity = (e, arr) => {
   for (let i = 0; i < arr.length; i++) {

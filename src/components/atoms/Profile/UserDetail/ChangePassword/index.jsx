@@ -38,11 +38,8 @@ const ChangePassword = ({ setOpen }) => {
         sm
         rounded
         placeholder="Enter Current Password"
-        rules={[
-          { required: true },
-          { password: true },
-        ]}>
-        <Field  maxLength={64} />
+        rules={[{ required: true }, { password: true }]}>
+        <Field maxLength={64} />
       </Form.Item>
       <div className="combine-fields">
         <Form.Item
@@ -54,7 +51,15 @@ const ChangePassword = ({ setOpen }) => {
           placeholder="Enter New Password"
           rules={[
             { required: true },
-            { password: true },
+            {
+              pattern: /^.{0,40}$/,
+              message: 'Maximum Character Length is 256',
+            },
+            {
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?`~\-]).{8,}$/,
+              message:
+                'Password must be 8 char long with 1 special character 1 number and 1 capital and small alphabet',
+            },
           ]}>
           <Field maxLength={64} />
         </Form.Item>
