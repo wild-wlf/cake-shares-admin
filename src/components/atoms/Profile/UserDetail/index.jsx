@@ -139,7 +139,7 @@ const UserDetail = ({ userData }) => {
                 <Image src={userName} alt="userName" />
               </div>
               <div className="textWrap">
-                <strong className="title">$2,653,000</strong>
+                <strong className="title">$0.00</strong>
                 <span>Total Return Made</span>
               </div>
             </div>

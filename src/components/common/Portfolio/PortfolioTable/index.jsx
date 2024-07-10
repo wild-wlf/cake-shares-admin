@@ -60,7 +60,7 @@ const PortfolioTable = ({ title }) => {
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
   const modalParagraph =
-    "Your account statement is now available at mailto:alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
+    "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
     setOpen(true);
   };
@@ -107,7 +107,7 @@ const PortfolioTable = ({ title }) => {
         </li>
         <li>
           <button
-            // disabled={ ?.isAdvertised === true || ?.isVerified !== true}
+            // disabled={ _?.isAdvertised === true || _?.isVerified !== true}
             disabled={
               parseFloat(user?.wallet) <= 0 ||
               _?.isAdvertised === true ||
