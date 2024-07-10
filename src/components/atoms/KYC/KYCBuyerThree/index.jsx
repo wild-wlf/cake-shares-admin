@@ -79,13 +79,17 @@ const KYCBuyerThree = ({
   return (
     <StyledKycBuyer>
       <div className="back-icon">
-        <IoIosArrowRoundBack
+        <Button
+          rounded
+          sm
+          btntype="primary"
+          width="150"
           onClick={() => {
             setKyc2(true);
             setOpen(false);
-          }}
-          size={45}
-        />
+          }}>
+          Go back
+        </Button>
       </div>
       <div className="twoCol">
         <span className="description">Facial Info:</span>

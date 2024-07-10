@@ -59,7 +59,7 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData, kycData }) => {
               { required: true, message: 'Business Name is Required!' },
               { minLength: 3, message: 'Business Name should be at least 3 characters.' },
               { maxLength: 30, message: 'Business Name should not exceed 30 characters.' },
-              ]}>
+            ]}>
             <Field maxLength={30} />
           </Form.Item>
           <Form.Item
@@ -86,20 +86,19 @@ const KycBuyerLevelZero = ({ setOpen, setKycLevel, setKycData, kycData }) => {
               { minLength: 3, message: 'Full Name should be at least 3 characters.' },
               { pattern: /^[a-zA-Z\s]*$/, message: 'Only alphabets are allowed' },
               { maxLength: 20, message: 'Full Name should not exceed 20 characters.' },
-            ]}
-          >
+            ]}>
             <Field maxLength={20} />
           </Form.Item>
           <Form.Item
-            type="number"
             label="Owner Phone Number"
             name="ownerPhoneNumber"
             placeholder="+1 123 456 789"
             rules={[
               { required: true, message: 'Owner Phone Number is Required!' },
-              { pattern: /^[0-9+]{1,15}$/, message: 'Phone Number length should not exceed 15 characters.' },
+              { pattern: /^\+/, message: 'Phone number must start with a + followed by the country code.' },
+              { pattern: /^\+[0-9]{1,15}$/, message: 'Phone number should be up to 15 digits long.' },
             ]}>
-            <Field />
+            <Field type="text" />
           </Form.Item>
         </div>
         <Button rounded md btntype="primary" loader={isLoading} width="214" htmlType="submit">

@@ -5,7 +5,9 @@ export const StyledKycBuyer = styled.div`
   width: 100%;
   font-size: 20px;
   line-height: 24px;
-
+  .back-icon {
+    cursor: pointer;
+  }
   .kycdiscreption {
     display: block;
     font-size: 14px;
@@ -46,6 +48,7 @@ export const StyledKycBuyer = styled.div`
   }
   .combineField {
     width: 100%;
+    margin-bottom: 20px;
 
     @media screen and (min-width: 768px) {
       display: flex;
