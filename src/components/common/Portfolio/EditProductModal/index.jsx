@@ -152,6 +152,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     try {
       let options = [];
       const response = await categoryService.getAllCategories({
+        getAll: true,
         searchText,
       });
       options = response?.items?.map(_ => ({ value: _?._id, label: _?.name }));

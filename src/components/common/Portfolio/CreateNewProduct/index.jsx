@@ -114,6 +114,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
     try {
       let options = [];
       const response = await categoryService.getAllCategories({
+        getAll: true,
         searchText,
       });
       options = response?.items?.map(_ => ({ value: _?._id, label: _?.name }));
