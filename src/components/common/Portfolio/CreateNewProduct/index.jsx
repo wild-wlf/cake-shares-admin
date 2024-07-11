@@ -439,7 +439,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               },
               {
                 pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid limit between 1 and 1000',
+                message: 'Please enter a valid limit between 1 and 9999',
               },
             ]}>
             <Field maxLength={4} />
@@ -462,7 +462,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               // },
               {
                 pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid limit between 1 and 1000',
+                message: 'Please enter a valid limit between 1 and 9999',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
@@ -484,12 +484,12 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid value up to 4 digits',
-              },
-              {
                 pattern: /^[1-9]\d*$/,
                 message: 'Asset value must be whole number (greater than zero)',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,8}$/,
+                message: 'Please enter a valid number with up to 9 digits',
               },
             ]}>
             <Field />
@@ -506,13 +506,14 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
               },
-              {
-                pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid value up to 4 digits',
-              },
+
               {
                 pattern: /^[1-9]\d*$/,
                 message: 'Minimum investment must be whole number (greater than zero)',
+              },
+              {
+                pattern: /^[1-9][0-9]{0,8}$/,
+                message: 'Please enter a valid number with up to 9 digits',
               },
               {
                 transform: value => value > +form.getFieldValue('assetValue'),

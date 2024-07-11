@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import userService from '@/services/userService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
+import { formatNumber } from '@/helpers/common';
 const TransactionTable = () => {
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -89,14 +90,13 @@ const TransactionTable = () => {
   //       _.amount?.$numberDecimal ?? '------------',
   //     ]),
   //     totalCount: transactions_data?.totalItems,
-  //   
+  //
   //   }),
   //   [transactions_data],
   // );
 
   const { totalCount, transaction_rows } = useMemo(() => {
     const mappedTransactions = transactions_data?.transactions?.map(transaction => {
-     
       if (searchQuery.type === 'product') {
         const ownershipPercentage = transaction.assetValue
           ? ((transaction.investmentAmount / transaction.assetValue) * 100).toFixed(2)
@@ -107,9 +107,8 @@ const TransactionTable = () => {
           transaction.productName ?? '------------',
           transaction.investmentTypeName ?? '------------',
           ownershipPercentage,
-          transaction.investmentAmount ?? '------------',
-          `$${transaction.assetValue}` ?? '------------',
-
+          `$${formatNumber(transaction.investmentAmount)}` ?? '------------',
+          `$${formatNumber(transaction.assetValue)}` ?? '------------',
         ];
       } else {
         // Return a different mapping logic or structure
@@ -123,14 +122,19 @@ const TransactionTable = () => {
     return {
       transaction_rows: mappedTransactions,
       totalCount: transactions_data?.totalItems,
-    
     };
   }, [searchQuery.type, transactions_data?.totalItems, transactions_data?.transactions]);
 
- 
   let columnNames;
   if (searchQuery.type === 'product') {
-    columnNames = [`Created at`, `Product`, 'Investment Type','Total Shares', 'Investment Amount', 'Total Asset Value'];
+    columnNames = [
+      `Created at`,
+      `Product`,
+      'Investment Type',
+      'Total Shares',
+      'Investment Amount',
+      'Total Asset Value',
+    ];
   } else {
     columnNames = [`Created at`, `Transaction type`, 'Amount'];
   }
@@ -163,11 +167,10 @@ const TransactionTable = () => {
           onChangeFilters={filters => {
             setSearchQuery(_ => ({
               ..._,
-              searchText: filters,
+              // searchText: filters,
               ...filters,
             }));
           }}
-          setSearchQuery={setSearchQuery}
           currentPage={searchQuery.page}
           totalCount={totalCount}
           pageSize={searchQuery.itemsPerPage}>

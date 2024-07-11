@@ -17,7 +17,7 @@ const ProfilePage = () => {
   }));
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery);
 
-  return (
+  return ( 
     <SellerContainer>
       <SellerTopBar title={'Settings'} tagLine={'Here you can manage your Profile & Account Settings'} />
       <Profile />

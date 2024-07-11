@@ -26,6 +26,7 @@ function TableLayout({
   resetFilter = false,
   tableHeading,
   transationFilter,
+  statusFilter,
   noPagination,
   placeholder,
   btnType,
@@ -35,13 +36,14 @@ function TableLayout({
   filterBlock,
   iconImg,
   openModal,
-  setSearchQuery,
+  searchQuery,
   setResetFilter = () => {},
 }) {
   const [filterState, setFilterState] = useState('');
   const [searchText, setSearchText] = useState('');
   function fetchResults(e) {
-    onChangeFilters(e);
+    // onChangeFilters(e);
+    onChangeFilters({ searchText: e });
   }
 
   const debouncedFetchResults = useCallback(debounce(fetchResults, 300), []);
@@ -64,6 +66,26 @@ function TableLayout({
       label: 'Filter by products',
     },
   ];
+
+  const filterStatus = [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: 'new',
+      label: 'New',
+    },
+    {
+      value: 'active',
+      label: 'Active',
+    },
+    {
+      value: 'completed',
+      label: 'Completed',
+    },
+  ];
+
 
   return (
     <>
@@ -88,12 +110,24 @@ function TableLayout({
               <div className="select-holder">
                 <Select
                   noMargin
-                  placeholder="Transaction type"
+                  placeholder="Transaction Type"
                   onChange={({ target: { value } }) => {
-                    // onChangeFilters({ type: value?.value });
-                    setSearchQuery(prev => ({ ...prev, type: value?.value }));
+                    onChangeFilters({ type: value?.value });
                   }}
                   options={filterData}
+                  labelReverse
+                />
+              </div>
+            )}
+            {statusFilter && searchQuery?.type === "all" && (
+              <div className="select-holder">
+                <Select
+                  noMargin
+                  placeholder="Status "
+                  onChange={({ target: { value } }) => {
+                    onChangeFilters({ status: value?.value });
+                  }}
+                  options={filterStatus}
                   labelReverse
                 />
               </div>

@@ -116,7 +116,7 @@ const CreateUserModal = () => {
                 },
               ]}
             >
-              <Field />
+              <Field maxLength={64}/>
             </Form.Item>
           </div>
           <div className="wrapper">

@@ -33,7 +33,7 @@ const UpdatePasswordModal = () => {
                 },
               ]}
             >
-              <Field />
+              <Field maxLength={64} />
             </Form.Item>
           </div>
           <div className="wrapper">
@@ -51,7 +51,7 @@ const UpdatePasswordModal = () => {
                 },
               ]}
             >
-              <Field />
+              <Field maxLength={64} />
             </Form.Item>
           </div>
         </div>
