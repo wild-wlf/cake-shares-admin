@@ -45,6 +45,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [form] = useForm();
   const [media, setMedia] = useState([]);
   const [images, setImages] = useState([]);
+  const [addressDetails, setAddressDetails] = useState('');
 
   const [amenities, setAmenities] = useState();
   const handleSubmit = async data => {
@@ -56,6 +57,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       investmentType: e?.investmentType?.value,
       kycLevel: e?.kycLevel.value,
       media,
+      addressDetails,
       ...(images?.length > 0 && { images }),
       amenities,
     };
@@ -68,6 +70,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         });
       } else if (
         key === 'media' ||
+        key === 'addressDetails' ||
         (key === 'amenities' && (Array.isArray(payload[key]) || typeof payload[key] === 'object'))
       ) {
         formDataToSend.append(key, JSON.stringify(payload[key]));
@@ -149,6 +152,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     try {
       let options = [];
       const response = await categoryService.getAllCategories({
+        getAll: true,
         searchText,
       });
       options = response?.items?.map(_ => ({ value: _?._id, label: _?.name }));
@@ -161,6 +165,35 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const libraries = ['places'];
   const handlePlaceSelect = place => {
     if (place.geometry && place.geometry.location) {
+      const address = {
+        street_address: place.name || '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: '',
+        latlng: {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        },
+      };
+
+      place.address_components.forEach(component => {
+        const types = component.types;
+        if (types.includes('locality')) {
+          address.city = component.long_name;
+        }
+        if (types.includes('administrative_area_level_1')) {
+          address.state = component.short_name;
+        }
+        if (types.includes('postal_code')) {
+          address.postal_code = component.long_name;
+        }
+        if (types.includes('country')) {
+          address.country = component.short_name;
+        }
+      });
+      setAddressDetails(address);
+
       setSearchValue(place.name?.concat(` ${place.formatted_address}`));
       form.setFieldsValue({
         address: place.name?.concat(` ${place.formatted_address}`),
