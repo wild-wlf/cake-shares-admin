@@ -23,8 +23,10 @@ import EditBank from './EditBank';
 import EditProfile from './EditBank/EditProfile';
 import { countries } from '@/components/Constant';
 import ModalContainer from '@/components/molecules/ModalContainer';
+import { NoRecord } from '../../categories/categories.style';
+import Loader from '../../Loader';
 
-const UserDetail = ({ userData, financialData }) => {
+const UserDetail = ({ userData, financialData, loading }) => {
   const fromatDate = value => {
     const date = new Date(value);
     const day = String(date.getDate()).padStart(2, '0');
@@ -129,7 +131,7 @@ const UserDetail = ({ userData, financialData }) => {
                 <Image src={userIcon} alt="userIcon" />
               </div>
               <div className="textWrap">
-                <strong className="title">{financialData?.totalOngoingProducts || 0}</strong>
+                <strong className="title">{financialData?.totalOngoingProducts}</strong>
                 <span>Ongoing Products</span>
               </div>
             </div>
@@ -151,7 +153,10 @@ const UserDetail = ({ userData, financialData }) => {
             <strong className="colTitle">My Product Top Categories:</strong>
           </div>
           <div className="category-colBody">
-            {financialData && financialData?.productCategories?.length > 0 ? (
+            {loading ? (
+              // <Loader />
+              ''
+            ) : financialData && financialData?.productCategories?.length > 0 ? (
               financialData?.productCategories.map((data, index) => {
                 return (
                   <div className="col-content categorySide" key={index}>
@@ -163,7 +168,7 @@ const UserDetail = ({ userData, financialData }) => {
                 );
               })
             ) : (
-              <span>No category available</span>
+              <NoRecord>No Category available</NoRecord>
             )}
           </div>
         </div>

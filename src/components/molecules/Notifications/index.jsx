@@ -8,6 +8,7 @@ import Message from '../../../_assets/message-icon.svg';
 import Image from 'next/image';
 import notificationService from '@/services/notificationservice';
 import { format } from 'date-fns';
+import { limitText } from '@/helpers/common';
 
 const Notifications = ({ fetchNotifications, setIsBadge }) => {
   const [searchQuery, setSearchQuery] = useState({
@@ -47,6 +48,7 @@ const Notifications = ({ fetchNotifications, setIsBadge }) => {
 
     return data;
   };
+     
   return (
     <NotificationsHolder>
       {notification_data.length > 0
@@ -70,7 +72,7 @@ const Notifications = ({ fetchNotifications, setIsBadge }) => {
                   </div>
                 )}
               </div>
-              <span className="text">{item.message}</span>
+              <span className="text">{limitText(item?.message, 50)}</span>
             </div>
           ))
         : 'Nothing found'}

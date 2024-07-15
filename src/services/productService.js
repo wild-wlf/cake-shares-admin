@@ -41,17 +41,22 @@ const productService = {
     };
   },
 
-  GetFinancialInfo() {
+  GetFinancialInfo(fetch) {
     const [financialInfo, setFinancialInfo] = useState();
+    const [productStatus, setProductStatus] = useState(STATUS.LOADING);
     const { cancellablePromise } = useCancellablePromise();
     useEffect(() => {
-      cancellablePromise(this.getFinancialInfo()).then(res => {
-        if (res.success) {
+      setProductStatus(STATUS.LOADING);
+      cancellablePromise(this.getFinancialInfo())
+        .then(res => {
           setFinancialInfo(() => res);
-        }
-      });
-    }, []);
+          setProductStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setProductStatus(STATUS.ERROR));
+    }, [fetch]);
     return {
+      data_loading: productStatus === STATUS.LOADING,
+      data_error: productStatus === STATUS.ERROR,
       financial_data: financialInfo,
     };
   },

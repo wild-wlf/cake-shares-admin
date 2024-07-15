@@ -16,14 +16,14 @@ const ProfilePage = () => {
     user: v.user,
   }));
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery);
-  const { financial_data } = productService.GetFinancialInfo();
+  const { financial_data, data_loading } = productService.GetFinancialInfo();
 
   return (
     <SellerContainer>
       <SellerTopBar title={'Settings'} tagLine={'Here you can manage your Profile & Account Settings'} />
       <Profile />
       <div className="child-Wrapper">
-        <UserDetail userData={user} financialData={financial_data} />
+        <UserDetail userData={user} financialData={financial_data} loading={data_loading} />
         <Categories title="My Fully Funded Products" loading={products_loading} data={products_data?.items} />
       </div>
     </SellerContainer>
