@@ -154,8 +154,7 @@ const UserDetail = ({ userData, financialData, loading }) => {
           </div>
           <div className="category-colBody">
             {loading ? (
-              // <Loader />
-              ''
+              <Loader />
             ) : financialData && financialData?.productCategories?.length > 0 ? (
               financialData?.productCategories.map((data, index) => {
                 return (
