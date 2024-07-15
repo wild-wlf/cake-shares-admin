@@ -294,11 +294,7 @@ export const bas64toFile = async (dataUrl, fileName) => {
 };
 
 export const formatNumber = number => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(number);
+  return new Intl.NumberFormat().format(number);
 };
 
 export const validateAmenity = (e, arr) => {

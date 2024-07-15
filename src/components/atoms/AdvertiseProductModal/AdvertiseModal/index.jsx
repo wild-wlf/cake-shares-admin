@@ -9,7 +9,7 @@ import GeneralInfoModal from '@/components/common/GeneralInfoModal';
 import InfoIcon from '../../../../_assets/info-icon.svg';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import { formatNumber } from '@/helpers/common';
+import { convertToCurrencyFormat } from '@/helpers/common';
 import productService from '@/services/productService';
 import Toast from '@/components/molecules/Toast';
 
@@ -78,8 +78,8 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
           title="Insufficient Wallet Balance!"
           description={`You currently do not have sufficient wallet balance to perform this action. The amount required to advertise this product for ${selected} day${
             selected > 1 ? 's' : ''
-          } is $${formatNumber(estimatedCost)}, while your current account balance is $${
-            formatNumber(parseFloat(user?.wallet)) || '0.00'
+          } is ${convertToCurrencyFormat(estimatedCost)}, while your current account balance is ${
+            convertToCurrencyFormat(user?.wallet) 
           }. Please top up your account.`}
           setOpen={setGeneralInfoModal}
         />

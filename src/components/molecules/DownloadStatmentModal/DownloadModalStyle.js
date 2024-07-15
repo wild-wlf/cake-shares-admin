@@ -10,7 +10,7 @@ export const ModalContainer = styled.div`
 
 export const DateContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 26px 0;
   .wrapper {
