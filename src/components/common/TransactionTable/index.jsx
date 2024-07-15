@@ -106,7 +106,7 @@ const TransactionTable = () => {
           format(new Date(transaction.created_at), 'yyyy-MM-dd'),
           transaction.productName ?? '------------',
           transaction.investmentTypeName ?? '------------',
-          ownershipPercentage,
+          `${ownershipPercentage}%`,
           `${convertToCurrencyFormat(transaction.investmentAmount)}` ?? '------------',
           `${convertToCurrencyFormat(transaction.assetValue)}` ?? '------------',
         ];
@@ -115,7 +115,7 @@ const TransactionTable = () => {
         return [
           format(new Date(transaction.created_at), 'yyyy-MM-dd'),
           transaction.transactionType ?? '------------',
-          transaction.amount?.$numberDecimal ?? '------------',
+          convertToCurrencyFormat(transaction.amount?.$numberDecimal) ?? '------------',
         ];
       }
     });

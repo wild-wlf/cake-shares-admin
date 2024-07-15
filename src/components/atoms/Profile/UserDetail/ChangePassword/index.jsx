@@ -38,7 +38,7 @@ const ChangePassword = ({ setOpen }) => {
         sm
         rounded
         placeholder="Enter Current Password"
-        rules={[{ required: true }, { password: true }]}>
+        rules={[{ required: true }]}>
         <Field maxLength={64} />
       </Form.Item>
       <div className="combine-fields">
