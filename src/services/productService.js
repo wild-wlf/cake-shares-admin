@@ -87,6 +87,19 @@ const productService = {
     const { message } = await res.json();
     throw new Error(message ?? 'Something Went Wrong');
   },
+
+  async downloadStatement(payload) {
+    let res = await Fetch.post(`${this._url}/download-statement`, payload);
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(new Blob([blob]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'statement.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+  },
 };
 
 export default productService;

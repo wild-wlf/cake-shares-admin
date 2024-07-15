@@ -9,12 +9,14 @@ import { useContext } from 'react';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import productService from '@/services/productService';
+import Toast from '@/components/molecules/Toast';
 
 const DownloadModal = ({ openNext }) => {
   const { fetch, user } = useContextHook(AuthContext, v => ({
     user: v.user,
     fetch: v.fetch,
   }));
+
   const [searchQuery, setSearchQuery] = useState({
     page: 1,
     itemsPerPage: 10,
@@ -24,51 +26,71 @@ const DownloadModal = ({ openNext }) => {
     endDate: '',
   });
   const [form] = useForm();
-  const [date1, setDate1] = useState();
-  const [date2, setDate2] = useState();
-
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
+  const [isLoading, setIsLoading] = useState(false);
+  const onSubmit = async data => {
+    console.log(data);
+    try {
+      const postData = {
+        startDate: data.startDate,
+        endDate: data?.endDate,
+        productId: data?.choose_product?.value,
+      };
+      setIsLoading(true);
+
+      await productService.downloadStatement(postData);
+
+      setIsLoading(false);
+    } catch ({ message }) {
+      Toast({
+        type: 'error',
+        message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <ModalContainer>
       <h3 className="text">Please fill up the details to proceed.</h3>
-      <Form form={form}>
+      <Form form={form} onSubmit={onSubmit}>
         <DateContainer>
           <div className="wrapper">
-            <Field
+            <Form.Item
+              name="startDate"
               noMargin
-              selected={date1}
-              onChange={({ target: { value } }) => {
-                setDate1(value);
-              }}
-              suffix={<MdDateRange />}
-              placeholderText="Select Date"
-              type="datepicker"
+              sm
+              type="date"
               label="From"
               rules={[
                 {
                   required: true,
-                  message: 'Email is Required',
+                  message: 'Start Date is required',
                 },
-              ]}
-            />
+                {
+                  transform: value => new Date(value) > new Date(form.getFieldValue('endDate')),
+                  message: `Start date cannot be greator than end date`,
+                },
+              ]}>
+              <Field />
+            </Form.Item>
           </div>
           <div className="wrapper">
             <Form.Item
-              minWidth
+              name="endDate"
               noMargin
-              selected={date2}
-              onChange={({ target: { value } }) => {
-                setDate2(value);
-              }}
-              suffix={<MdDateRange />}
-              placeholderText="Select Date"
-              type="datepicker"
+              sm
+              type="date"
               label="To"
               rules={[
                 {
                   required: true,
-                  message: 'Email is Required',
+                  message: 'End Date is required',
+                },
+                {
+                  transform: value => new Date(value) < new Date(form.getFieldValue('startDate')),
+                  message: `End date cannot be less than start date`,
                 },
               ]}>
               <Field />
@@ -80,27 +102,22 @@ const DownloadModal = ({ openNext }) => {
             <div className="wrapper">
               <Form.Item
                 label="Choose Product"
-                type="email"
                 rounded
                 sm
                 name="choose_product"
+                options={
+                  user?.isVerified
+                    ? products_data?.items?.map(item => ({ label: item.productName, value: item._id }))
+                    : []
+                }
                 rules={[
-                  {
-                    required: true,
-                    // message: 'Email is Required',
-                  },
+                  
                 ]}>
-                <Select
-                  options={
-                    user?.isVerified
-                      ? products_data?.items?.map(item => ({ label: item.productName, value: item.productName }))
-                      : []
-                  }
-                />
+                <Select />
               </Form.Item>
             </div>
           )}
-          <div className="wrapper">
+          {/* <div className="wrapper">
             <Form.Item
               label="Email Address"
               type="email"
@@ -116,10 +133,10 @@ const DownloadModal = ({ openNext }) => {
               ]}>
               <Field />
             </Form.Item>
-          </div>
+          </div> */}
         </MailContainer>
-        <Button rounded width={'170px'} height={'40px'} sm btntype="green" onClick={openNext}>
-          Send Mail
+        <Button rounded width={'170px'} height={'40px'} sm btntype="green" htmlType="submit" loader={isLoading}>
+          Get Records
         </Button>
       </Form>
     </ModalContainer>

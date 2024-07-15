@@ -28,7 +28,7 @@ import productService from '@/services/productService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { format } from 'date-fns';
-import { formatNumber, getStatus } from '@/helpers/common';
+import { convertToCurrencyFormat,formatNumber, getStatus } from '@/helpers/common';
 
 const PortfolioTable = ({ title }) => {
   const { fetch, refetch, user } = useContextHook(AuthContext, v => ({
@@ -157,9 +157,9 @@ const PortfolioTable = ({ title }) => {
         data.investmentType?.name || '------------',
         getStatus(data),
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
-        `$ ${formatNumber(data.minimumInvestment)}` ?? 0 ?? '------------',
-        `$ ${formatNumber(data.valueRaised)}` ?? 0 ?? '------------',
-        `$ ${formatNumber(data.assetValue)}` ?? 0 ?? '------------',
+        `${convertToCurrencyFormat(data.minimumInvestment)}` ?? 0 ?? '------------',
+        `${convertToCurrencyFormat(data.valueRaised)}` ?? 0 ?? '------------',
+        `${convertToCurrencyFormat(data.assetValue)}` ?? 0 ?? '------------',
         actionBtns(data, user),
       ]),
       totalCount: products_data.totalItems,
