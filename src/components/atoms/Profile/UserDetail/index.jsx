@@ -23,8 +23,10 @@ import EditBank from './EditBank';
 import EditProfile from './EditBank/EditProfile';
 import { countries } from '@/components/Constant';
 import ModalContainer from '@/components/molecules/ModalContainer';
+import { NoRecord } from '../../categories/categories.style';
+import Loader from '../../Loader';
 
-const UserDetail = ({ userData }) => {
+const UserDetail = ({ userData, financialData, loading }) => {
   const fromatDate = value => {
     const date = new Date(value);
     const day = String(date.getDate()).padStart(2, '0');
@@ -129,7 +131,7 @@ const UserDetail = ({ userData }) => {
                 <Image src={userIcon} alt="userIcon" />
               </div>
               <div className="textWrap">
-                <strong className="title">42</strong>
+                <strong className="title">{financialData?.totalOngoingProducts}</strong>
                 <span>Ongoing Products</span>
               </div>
             </div>
@@ -151,47 +153,22 @@ const UserDetail = ({ userData }) => {
             <strong className="colTitle">My Product Top Categories:</strong>
           </div>
           <div className="category-colBody">
-            <div className="col-content">
-              <div className="category-col">
-                <FaFire size={20} />
-                <span>Popular</span>
-              </div>
-            </div>
-
-            <div className="col-content">
-              <div className="category-col">
-                <FaHouseChimney size={20} />
-                <span>Properties</span>
-              </div>
-            </div>
-
-            <div className="col-content">
-              <div className="category-col">
-                <TbBuildingFactory size={20} />
-                <span>Ventures</span>
-              </div>
-            </div>
-
-            <div className="col-content">
-              <div className="category-col">
-                <PiStorefrontFill size={20} />
-                <span>Bazaar</span>
-              </div>
-            </div>
-
-            <div className="col-content">
-              <div className="category-col">
-                <TbBuildingFactory size={20} />
-                <span>Ventures</span>
-              </div>
-            </div>
-
-            <div className="col-content">
-              <div className="category-col">
-                <FaCarAlt size={20} />
-                <span>Vehicals</span>
-              </div>
-            </div>
+            {loading ? (
+              <Loader />
+            ) : financialData && financialData?.productCategories?.length > 0 ? (
+              financialData?.productCategories.map((data, index) => {
+                return (
+                  <div className="col-content categorySide" key={index}>
+                    <div className="category-col">
+                      <Image src={data.icon} width={25} height={25} />
+                      <span>{data.name}</span>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <NoRecord>No Category available</NoRecord>
+            )}
           </div>
         </div>
       </div>

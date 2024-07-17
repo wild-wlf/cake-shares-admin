@@ -40,6 +40,27 @@ const productService = {
       products_data: products,
     };
   },
+
+  GetFinancialInfo(fetch) {
+    const [financialInfo, setFinancialInfo] = useState();
+    const [productStatus, setProductStatus] = useState(STATUS.LOADING);
+    const { cancellablePromise } = useCancellablePromise();
+    useEffect(() => {
+      setProductStatus(STATUS.LOADING);
+      cancellablePromise(this.getFinancialInfo())
+        .then(res => {
+          setFinancialInfo(() => res);
+          setProductStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setProductStatus(STATUS.ERROR));
+    }, [fetch]);
+    return {
+      data_loading: productStatus === STATUS.LOADING,
+      data_error: productStatus === STATUS.ERROR,
+      financial_data: financialInfo,
+    };
+  },
+
   async getAllProducts({
     page = 1,
     itemsPerPage = 10,
@@ -59,6 +80,16 @@ const productService = {
     const { message } = await res.json();
     throw new Error(message ?? 'Something Went Wrong');
   },
+  async getFinancialInfo() {
+    let res = await Fetch.get(`${this._url}/get-ongoing-products`);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something Went Wrong');
+  },
+
   async updateProduct(id, payload) {
     let res = await Fetch.upload(`${this._url}/update-product/${id}`, 'PUT', payload);
     if (res.status >= 200 && res.status < 300) {
@@ -68,6 +99,7 @@ const productService = {
     const { message } = await res.json();
     throw new Error(message ?? 'Something Went Wrong');
   },
+
   async deleteProduct(id) {
     let res = await Fetch.delete(`${this._url}/delete-product/${id}`);
     if (res.status >= 200 && res.status < 300) {

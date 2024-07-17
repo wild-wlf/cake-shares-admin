@@ -3,6 +3,7 @@ import { CardWrapper } from './card.style';
 import Image from 'next/image';
 import Heart from '../../../_assets/heart.svg';
 import ProgressBar from '@ramonak/react-progress-bar';
+import people from '../../../_assets/people.png';
 
 const index = ({ Cardimage, data }) => {
   return (
@@ -19,9 +20,13 @@ const index = ({ Cardimage, data }) => {
         </div>
         <div className="decription">
           <div className="title-div">
-            <span>{data.productName}</span>
+            <div className="productNameWrapper">
+              <span className="producName">{data.productName}</span>
+              <Image src={people} alt="people" />
+              <span className=" currentBackers">{data?.currentBackers}</span>
+            </div>
             <span>
-              {data?.currentBackers == 0 ? '0' : Math.ceil((data?.valueRaised / data?.assetValue) * 100)}% -{' '}
+              {data?.currentBackers == 0 ? '0' : Math.ceil((data?.valueRaised / data?.assetValue) * 100)}% -
               {data?.assetValue}
             </span>
           </div>

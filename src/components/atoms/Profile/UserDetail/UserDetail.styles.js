@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledUserDetail = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 20px;
   margin-bottom: 40px;
-
+  .categorySide {
+    justify-content: center;
+  }
   @media screen and (min-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
