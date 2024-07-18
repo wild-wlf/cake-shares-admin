@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChatFooterWrapper } from './ChatFooter.style';
 import Image from 'next/image';
 import SendIcon from '../../../../_assets/send-icon.svg';
@@ -12,10 +12,13 @@ import Button from '@/components/atoms/Button';
 import Field from '@/components/atoms/Field';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
-import { sendDirectMessage, sendComMsg } from '@/helpers/socketConnection';
+import {
+  sendDirectMessage,
+  sendComMsg,
+} from '@/helpers/socketConnection';
 import CenterModal from '@/components/molecules/Modal/CenterModal';
 
-const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
+const ChatFooter = ({ chosenChatDetails, chosenComDetails, type, receivers,channelName }) => {
   const [form] = useForm();
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -38,11 +41,14 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type }) => {
         conversationId: chosenComDetails?.conversationId,
         type,
         user_type: 'user',
+        channelName: channelName,
+        receivers
       });
     }
     form.setFieldsValue({ message: '' });
     form.setFieldsError({ message: { message: '' } });
   };
+
 
   return (
     <>

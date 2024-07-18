@@ -53,7 +53,7 @@ const CommunityChat = () => {
           />
           {chosenComDetails && (
             <>
-              <ComChat chosenComDetails={chosenComDetails} type="community" />
+              <ComChat chosenComDetails={chosenComDetails} setChosenComDetails={setChosenComDetails} type="community" />
               <ChatMedia onlineUsers={onlineUsers} chosenComDetails={chosenComDetails} type="community" />
             </>
           )}

@@ -47,7 +47,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
       console.log(error);
     }
   };
-
+ 
   useEffect(() => {
     const handleSellerNotification = () => {
       setfetchNotifications(_ => !_);

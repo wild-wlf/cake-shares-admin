@@ -10,6 +10,8 @@ import { useContextHook } from 'use-context-hook';
 import notificationService from '@/services/notificationservice';
 import { updateDirectChatHistoryIfActive } from '@/helpers/chatHandlers';
 import Loader from '@/components/atoms/Loader';
+import { removeDuplicates } from '@/helpers/common';
+import { startChat, endChat,} from '@/helpers/socketConnection';
 
 const Chat = ({ chosenChatDetails }) => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -36,9 +38,12 @@ const Chat = ({ chosenChatDetails }) => {
   useEffect(() => {
     setSearchQuery(prev => ({
       ...prev,
-      ['conversationId']: chosenChatDetails?.conversationId,
-      ['receiver']: chosenChatDetails?.receiver,
+      conversationId: chosenChatDetails?.conversationId,
+      receiver: chosenChatDetails?.receiver,
+      page: 1,
     }));
+    setChatMessages([]);
+    setChatLoading(true);
   }, [chosenChatDetails?.conversationId, chosenChatDetails?.receiver]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ const Chat = ({ chosenChatDetails }) => {
       setChatMessages(prev => [...messages_data?.messages, ...prev]);
       setMoreMsgLoading(false);
     }
-  }, [messages_data]);
+  }, [messages_data, chosenChatDetails?.conversationId]);
 
   useEffect(() => {
     setChatLoading(chatMessages?.length > 0 ? false : messages_loading);
@@ -63,9 +68,9 @@ const Chat = ({ chosenChatDetails }) => {
       handleScrollToBottom();
     }, 300);
   }, []);
-
+ 
   useEffect(() => {
-    window.addEventListener('direct_chat_history', event => {
+    window.addEventListener('direct_chat_history', event => {  
       updateDirectChatHistoryIfActive({
         ...event.detail,
         user,
@@ -79,7 +84,7 @@ const Chat = ({ chosenChatDetails }) => {
     return () => {
       window.removeEventListener('direct_chat_history', () => {});
     };
-  }, [user, chosenChatDetails]);
+  }, [chosenChatDetails?.receiver, user]);
 
   const onScrolledToTop = e => {
     if (e.target.scrollTop === 0 && chatMessages?.length < messages_data?.totalItems && messages_data?.totalItems > 0) {
@@ -87,6 +92,28 @@ const Chat = ({ chosenChatDetails }) => {
       setMoreMsgLoading(true);
     }
   };
+
+  useEffect(() => {
+    const handleStartChat = () => {
+      if (user?._id && chosenChatDetails?.receiver) {
+        startChat({ author: user._id, receiver: chosenChatDetails.receiver });
+      }
+    };
+    const handleEndChat = () => {
+      if (user?._id && chosenChatDetails?.receiver) {
+        endChat({ author: user?._id, receiver: chosenChatDetails?.receiver });
+      }
+    };
+    handleStartChat();
+    window.addEventListener('beforeunload', handleEndChat);
+    window.addEventListener('unload', handleEndChat);
+
+    return () => {
+      handleEndChat();
+      window.removeEventListener('beforeunload', handleEndChat);
+      window.removeEventListener('unload', handleEndChat);
+    };
+  }, [chosenChatDetails.receiver, user._id]);
 
   return (
     <ChatWrapper>
@@ -110,7 +137,9 @@ const Chat = ({ chosenChatDetails }) => {
               <Loader />
             </div>
           ) : (
-            chatMessages?.map((item, index) => (
+            chatMessages
+            ?.filter(item => item.conversationId === chosenChatDetails?.conversationId)
+            ?.map((item, index) => (
               <ChatMessage
                 key={index}
                 type={item?.author?._id === user?._id ? 'seen' : 'send'}
@@ -121,7 +150,7 @@ const Chat = ({ chosenChatDetails }) => {
                 receiverId={chosenChatDetails?.receiver}
               />
             ))
-          )}
+                    )}
         </ChatBody>
         <ChatFooter chosenChatDetails={chosenChatDetails} type="private" />
       </div>

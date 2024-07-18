@@ -353,3 +353,15 @@ export const getStatus = data => {
     return '------------';
   }
 };
+
+
+export const removeDuplicates = (array, propertyName) => {
+  return Object.values(
+    array.reduce(function (unique, current) {
+      if (!unique[current[propertyName]]) {
+        unique[current[propertyName]] = current;
+      }
+      return unique;
+    }, {}),
+  );
+};

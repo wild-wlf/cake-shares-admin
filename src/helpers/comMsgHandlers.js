@@ -1,5 +1,5 @@
 import { setComSeenMsg } from './socketConnection';
-
+import { removeDuplicates } from './common';
 export const updateChatIfActive = data => {
   const { participants, message, conversationId, user, setChatMessages } = data;
 
@@ -49,21 +49,12 @@ const updateChatHistoryIfSameConversationActive = ({
   });
 };
 
-function removeDuplicates(array, propertyName) {
-  return Object.values(
-    array.reduce(function (unique, current) {
-      if (!unique[current[propertyName]]) {
-        unique[current[propertyName]] = current;
-      }
-      return unique;
-    }, {}),
-  );
-}
+
 
 export const updateCurrentComConversations = data => {
-  const { conversationId, message, setConversations } = data;
+  const { conversationId, message, setConversations, type } = data;
 
-  if (type === message?.type) {
+  if (type && type === message?.type) {
     setConversations(prev => {
       const con = prev?.find(_ => _?._id === conversationId);
       let existingCons = [...prev];
