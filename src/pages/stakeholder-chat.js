@@ -53,7 +53,7 @@ const StakeHolderChat = () => {
           />
           {chosenComDetails && (
             <>
-              <ComChat chosenComDetails={chosenComDetails} type="stake" />
+              <ComChat chosenComDetails={chosenComDetails} setChosenComDetails= {setChosenComDetails} type="stake" />
               <ChatMedia onlineUsers={onlineUsers} chosenComDetails={chosenComDetails} type="stake" />
             </>
           )}

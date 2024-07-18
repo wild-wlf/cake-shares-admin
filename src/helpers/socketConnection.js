@@ -47,7 +47,7 @@ export const connectionWithSocketServer = token => {
     onUserUpdated(data);
   });
 
-  socket.on('sellerNotification', data => {
+  socket.on('sellerNotification', data => { 
     window.dispatchEvent(new CustomEvent('seller_notification', { detail: data }));
   });
 
@@ -61,6 +61,30 @@ export const socketServer = () => socket;
 export const sendDirectMessage = data => {
   if (socket && data) {
     socket.emit('direct-message', data);
+  }
+};
+
+export const startChat = data => {
+  if (socket && data) {
+    socket.emit('startChat', data);
+  }
+};
+
+export const endChat = data => {
+  if (socket && data) {
+    socket.emit('endChat', data);
+  }
+};
+
+export const joinGroupChat = data => {
+  if (socket && data) {
+    socket.emit('joinGroupChat', data);
+  }
+};
+
+export const leaveGroupChat = data => {
+  if (socket && data) {
+    socket.emit('leaveGroupChat', data);
   }
 };
 

@@ -1,8 +1,8 @@
 import { setSeenMessage } from './socketConnection';
+import { removeDuplicates } from './common';
 
 export const updateDirectChatHistoryIfActive = data => {
   const { participants, message, conversationId, user, receiverId, setChatMessages } = data;
-
   const loggedInUser = user;
   const usersInConversation = [receiverId, loggedInUser._id];
 
@@ -44,21 +44,12 @@ const updateDirectChatHistoryIfSameConversationActive = ({
     });
   }
 
-  setChatMessages(prev => {
-    return removeDuplicates([...prev, message], '_id');
-  });
+    setChatMessages(prev => {
+      return removeDuplicates([...prev, message], '_id');
+    });
 };
 
-function removeDuplicates(array, propertyName) {
-  return Object.values(
-    array.reduce(function (unique, current) {
-      if (!unique[current[propertyName]]) {
-        unique[current[propertyName]] = current;
-      }
-      return unique;
-    }, {}),
-  );
-}
+
 
 export const updateCurrentConversations = data => {
   const { conversationId, message, setConversations, type } = data;

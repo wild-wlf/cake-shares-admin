@@ -11,9 +11,13 @@ import { useContextHook } from 'use-context-hook';
 import notificationService from '@/services/notificationservice';
 import Loader from '@/components/atoms/Loader';
 import { updateChatIfActive } from '@/helpers/comMsgHandlers';
+import { removeDuplicates } from '@/helpers/common';
+import { joinGroupChat, leaveGroupChat } from '@/helpers/socketConnection';
 
-const ComChat = ({ chosenComDetails, type }) => {
+const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
   const [chatMessages, setChatMessages] = useState([]);
+  const [receivers, setreceivers] = useState([]);
+  const [channelName, setChannelName] = useState(null);
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     fetch: v.fetch,
@@ -35,15 +39,19 @@ const ComChat = ({ chosenComDetails, type }) => {
   );
 
   useEffect(() => {
-    setSearchQuery(prev => ({ ...prev, ['conversationId']: chosenComDetails?.conversationId }));
+    setSearchQuery(prev => ({ ...prev, ['conversationId']: chosenComDetails?.conversationId, page: 1 }));
+    setChatMessages([]);
+    setChatLoading(true);
   }, [chosenComDetails?.conversationId]);
 
   useEffect(() => {
     if (messages_data?.messages?.length > 0) {
       setChatMessages(prev => [...messages_data?.messages, ...prev]);
+      setreceivers(messages_data?.messages[messages_data?.messages.length - 1]?.receivers);
       setMoreMsgLoading(false);
+      setChannelName(messages_data?.messages[0]?.conversationId?.channelName);
     }
-  }, [messages_data]);
+  }, [chosenComDetails?.conversationId, messages_data]);
 
   useEffect(() => {
     setChatLoading(chatMessages?.length > 0 ? false : messages_loading);
@@ -54,20 +62,20 @@ const ComChat = ({ chosenComDetails, type }) => {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   };
-
   useEffect(() => {
     setTimeout(() => {
       handleScrollToBottom();
     }, 300);
   }, []);
-
   useEffect(() => {
     window.addEventListener('com_message_history', event => {
       updateChatIfActive({
         ...event.detail,
         user,
+        chosenComDetails,
         setChatMessages,
       });
+      setreceivers(event?.detail?.participants);
       handleScrollToBottom();
     });
 
@@ -75,7 +83,7 @@ const ComChat = ({ chosenComDetails, type }) => {
     return () => {
       window.removeEventListener('com_message_history', () => {});
     };
-  }, [chosenComDetails?.conversationId, user]);
+  }, [chosenComDetails, chosenComDetails.conversationId, user]);
 
   const onScrolledToTop = e => {
     if (e.target.scrollTop === 0 && chatMessages?.length < messages_data?.totalItems && messages_data?.totalItems > 0) {
@@ -83,6 +91,23 @@ const ComChat = ({ chosenComDetails, type }) => {
       setMoreMsgLoading(true);
     }
   };
+
+  useEffect(() => {
+    const handleEndChat = () => {
+      leaveGroupChat({ userId: user?._id, groupId: channelName });
+    };
+
+    joinGroupChat({ userId: user?._id, groupId: channelName });
+
+    window.addEventListener('beforeunload', handleEndChat);
+    window.addEventListener('unload', handleEndChat);
+
+    return () => {
+      handleEndChat();
+      window.removeEventListener('beforeunload', handleEndChat);
+      window.removeEventListener('unload', handleEndChat);
+    };
+  }, [channelName]);
 
   return (
     <ChatWrapper>
@@ -106,37 +131,48 @@ const ComChat = ({ chosenComDetails, type }) => {
               <Loader />
             </div>
           ) : (
-            chatMessages?.map((item, index) =>
-              item?.isPool ? (
-                <Pole
-                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
-                  time={item?.created_at}
-                  key={index}
-                  question={item?.pool?.question}
-                  options={item?.pool?.options}
-                  allow_multiple={item?.pool?.allow_multiple}
-                  receivers={item?.receivers}
-                  showImage={item?.author?.profilePicture}
-                  readBy={item?.readBy?.length >= item?.receivers?.length}
-                  messageId={item?._id}
-                />
-              ) : (
-                <ChatMessage
-                  key={index}
-                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
-                  message={item.content}
-                  time={item?.created_at}
-                  readBy={item?.readBy?.length >= item?.receivers?.length}
-                  messageId={item?._id}
-                  receivers={item?.receivers}
-                  showImage={item?.author?.profilePicture}
-                  group
-                />
-              ),
-            )
+            chatMessages
+              ?.filter(
+                item =>
+                  item.conversationId._id === chosenComDetails?.conversationId ||
+                  item.conversationId === chosenComDetails?.conversationId,
+              )
+              ?.map((item, index) =>
+                item?.isPool ? (
+                  <Pole
+                    type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                    time={item?.created_at}
+                    key={index}
+                    question={item?.pool?.question}
+                    options={item?.pool?.options}
+                    allow_multiple={item?.pool?.allow_multiple}
+                    receivers={item?.receivers}
+                    showImage={item?.author?.profilePicture}
+                    readBy={item?.readBy?.length >= item?.receivers?.length}
+                    messageId={item?._id}
+                  />
+                ) : (
+                  <ChatMessage
+                    key={index}
+                    type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                    message={item.content}
+                    time={item?.created_at}
+                    readBy={item?.readBy?.length >= item?.receivers?.length}
+                    messageId={item?._id}
+                    receivers={item?.receivers}
+                    showImage={item?.author?.profilePicture}
+                    group
+                  />
+                ),
+              )
           )}
         </ChatBody>
-        <ChatFooter chosenComDetails={chosenComDetails} type={type} />
+        <ChatFooter
+          chosenComDetails={chosenComDetails}
+          type={type}
+          receivers={receivers?.map(receiver => receiver?._id?.toString()) || receivers}
+          channelName={channelName}
+        />
       </div>
       <div className="hamburger" onClick={() => document.body.classList.toggle('chat-sidebar-active')}>
         <RiMenu3Fill size={30} />
