@@ -27,7 +27,6 @@ export const AuthContextProvider = props => {
     JSON.parse(getCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE)) || [],
   );
 
-  
   const publicPages = ['/sign-in'];
 
   const privatePages = [
@@ -94,12 +93,13 @@ export const AuthContextProvider = props => {
   useEffect(() => {
     if (isLoggedIn) {
       getPermissions();
-    }else if (!isLoggedIn) {
-      if (privatePages.includes(router.pathname)) {
-        router.push('/sign-in');
-      }
+    } else if (!isLoggedIn) {
+      clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
+      clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
+      clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
+      router.push('/sign-in');
     }
-    
+
     window.addEventListener('FETCH_ADMIN_ROLE', () => {
       getPermissions();
     });
@@ -109,7 +109,6 @@ export const AuthContextProvider = props => {
       });
     };
   }, [isLoggedIn, fetch_user, reFetch]);
-
 
   useEffect(() => {
     if (socketData?.approved && isLoggedIn) {
