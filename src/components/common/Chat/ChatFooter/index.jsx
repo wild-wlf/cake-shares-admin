@@ -18,7 +18,7 @@ import {
 } from '@/helpers/socketConnection';
 import CenterModal from '@/components/molecules/Modal/CenterModal';
 
-const ChatFooter = ({ chosenChatDetails, chosenComDetails, type, receivers,channelName }) => {
+const ChatFooter = ({ chosenChatDetails, chosenComDetails, type,channelName }) => {
   const [form] = useForm();
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -42,7 +42,6 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type, receivers,chann
         type,
         user_type: 'user',
         channelName: channelName,
-        receivers
       });
     }
     form.setFieldsValue({ message: '' });
