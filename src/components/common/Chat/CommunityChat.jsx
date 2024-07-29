@@ -16,7 +16,6 @@ import { joinGroupChat, leaveGroupChat } from '@/helpers/socketConnection';
 
 const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
   const [chatMessages, setChatMessages] = useState([]);
-  const [receivers, setreceivers] = useState([]);
   const [channelName, setChannelName] = useState(null);
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -47,7 +46,6 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
   useEffect(() => {
     if (messages_data?.messages?.length > 0) {
       setChatMessages(prev => [...messages_data?.messages, ...prev]);
-      setreceivers(messages_data?.messages[messages_data?.messages.length - 1]?.receivers);
       setMoreMsgLoading(false);
       setChannelName(messages_data?.messages[0]?.conversationId?.channelName);
     }
@@ -75,7 +73,6 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
         chosenComDetails,
         setChatMessages,
       });
-      setreceivers(event?.detail?.participants);
       handleScrollToBottom();
     });
 
@@ -170,7 +167,6 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
         <ChatFooter
           chosenComDetails={chosenComDetails}
           type={type}
-          receivers={receivers?.map(receiver => receiver?._id?.toString()) || receivers}
           channelName={channelName}
         />
       </div>

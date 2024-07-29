@@ -23,7 +23,7 @@ const Portfolio = () => {
         <SellerTopBar
           title={'My Portfolio'}
           tagLine={`You have total ${
-            products_data?.items?.length ? products_data?.items.length : '0'
+            products_data?.totalItems ? products_data?.totalItems : '0'
           } Products in your Portfolio right now!`}
         />
         <PortfolioTable />
