@@ -49,7 +49,8 @@ const notificationService = {
           setNotificationStatus(STATUS.SUCCESS);
         })
         .catch(() => setNotificationStatus(STATUS.ERROR));
-    }, [searchQuery?.page, searchQuery?.itemsPerPage, searchQuery?.type, fetch]);
+    }, [searchQuery?.page, searchQuery?.itemsPerPage, searchQuery?.type, searchQuery?.searchText, fetch]);
+
     return {
       conversations_loading: notificationStatus === STATUS.LOADING,
       conversations_error: notificationStatus === STATUS.ERROR,
@@ -139,9 +140,9 @@ const notificationService = {
     throw new Error(message ?? 'Something Went Wrong');
   },
 
-  async getAllConversations({ page = 1, itemsPerPage = 10, type = '' }) {
+  async getAllConversations({ page = 1, itemsPerPage = 10, type = '', searchText = '' }) {
     let res = await Fetch.get(
-      `${this._url}/get-all-conversations?page=${page}&itemsPerPage=${itemsPerPage}&type=${type}`,
+      `${this._url}/get-all-conversations?page=${page}&itemsPerPage=${itemsPerPage}&type=${type}&searchText=${searchText}`,
     );
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();

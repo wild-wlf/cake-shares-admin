@@ -80,7 +80,7 @@ const CreatePollModal = ({ conversationId, user, onClose, type }) => {
                   } else {
                     Toast({
                       type: 'error',
-                      message: 'Pool Cannot Have One Option',
+                      message: 'Poll Cannot Have One Option',
                     });
                   }
                 }}

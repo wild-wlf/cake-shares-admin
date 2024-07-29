@@ -44,7 +44,7 @@ const RolesTable = ({ title }) => {
       content: "Private Chat",
     },
     {
-      label: "Stakeholder Chat",
+      label: "Shareholder Chat",
       content: (
         <>
           <Switch onChange={(e) => console.log(e)} label="Select All" />
