@@ -67,9 +67,7 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
                 {getThreeParticipants()?.map((item, index) => {
                   return (
                     <Image
-                      src={
-                        // item?.profilePicture ||
-                         ProfilePic}
+                      src={item?.profilePicture || ProfilePic}
                       alt="profilePic"
                       width={45}
                       height={45}
