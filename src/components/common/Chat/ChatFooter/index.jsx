@@ -79,7 +79,7 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type,channelName }) =
         </ChatFooterWrapper>
       </Form>
 
-      <CenterModal zIndex={9999} open={openModal} setOpen={setOpenModal} width="688" title="Create Pool">
+      <CenterModal zIndex={9999} open={openModal} setOpen={setOpenModal} width="688" title="Create Poll">
         <CreatePollModal
           onClose={() => setOpenModal(false)}
           conversationId={chosenComDetails?.conversationId}

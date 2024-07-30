@@ -33,15 +33,15 @@ const StakeHolderChat = () => {
   return (
     <div>
       <Head>
-        <title>CAKESHARES | Stakeholder Chat</title>
+        <title>CAKESHARES | Shareholder Chat</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <SellerContainer>
         <SellerTopBar
-          title={'Stakeholder Chat'}
+          title={'Shareholder Chat'}
           tagLine={`You have total ${totalConversations} chat${
             totalConversations?.length > 1 ? 's' : ''
-          } in your Stakeholder chat right now!`}
+          } in your Shareholder chat right now!`}
         />
         <div className="chat-holder">
           <SideBar

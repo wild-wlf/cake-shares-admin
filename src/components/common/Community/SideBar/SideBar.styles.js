@@ -8,6 +8,10 @@ export const StyledSideBar = styled.div`
   border-radius: 30px 0px 0px 0px;
   overflow: hidden;
 
+  .search {
+    margin-bottom: 6px;
+  }
+
   @media (max-width: 1199px) {
     position: absolute;
     top: 50px;
@@ -30,6 +34,12 @@ export const StyledSideBar = styled.div`
     overflow-y: auto;
     margin: 0 -22px;
     padding: 0 22px;
+
+    .noConvoFound {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 500;
+    }
   }
 
   .tabs-holder {
