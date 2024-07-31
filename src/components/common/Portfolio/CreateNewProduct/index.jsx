@@ -300,8 +300,8 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^.{10,1000}$/,
-                  message: 'Minimum character length of product description is 10',
+                  pattern: /^(.|\n){10,1000}$/,
+                  message: 'Minimum character length of description is 10',
                 },
               ]}>
               <Field maxLength={1000} />
@@ -321,7 +321,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^.{10,1000}$/,
+                  pattern: /^(.|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
                 },
               ]}>
@@ -485,16 +485,18 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^[1-9]\d*$/,
-                message: 'Asset value must be whole number (greater than zero)',
+                pattern: /^(?!0\d)(\d+(\.\d{1,2})?)$/,
+                message: 'Asset value must be a valid number (greater than zero) with up to 2 decimal places',
               },
               {
-                pattern: /^[1-9][0-9]{0,8}$/,
-                message: 'Please enter a valid number with up to 9 digits',
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
             ]}>
             <Field />
           </Form.Item>
+
           <Form.Item
             type="number"
             label="Min Investment"
@@ -507,14 +509,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
               },
-
               {
-                pattern: /^[1-9]\d*$/,
-                message: 'Minimum investment must be whole number (greater than zero)',
+                pattern: /^(?!0\d)(\d+(\.\d{1,2})?)$/,
+                message:
+                  'Minimum Investment Value must be a valid number (greater than zero) with up to 2 decimal places',
               },
               {
-                pattern: /^[1-9][0-9]{0,8}$/,
-                message: 'Please enter a valid number with up to 9 digits',
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
               {
                 transform: value => value > +form.getFieldValue('assetValue'),

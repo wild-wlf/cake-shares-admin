@@ -28,7 +28,7 @@ import productService from '@/services/productService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { format } from 'date-fns';
-import { convertToCurrencyFormat,formatNumber, getStatus } from '@/helpers/common';
+import { convertToCurrencyFormat, formatNumber, getStatus } from '@/helpers/common';
 
 const PortfolioTable = ({ title }) => {
   const { fetch, refetch, user } = useContextHook(AuthContext, v => ({
@@ -97,6 +97,7 @@ const PortfolioTable = ({ title }) => {
         <li>
           <button
             type="button"
+            disabled={_?.valueRaised === _?.assetValue}
             className="btn edit"
             onClick={() => {
               setEditProductModal(true);
@@ -135,7 +136,7 @@ const PortfolioTable = ({ title }) => {
 
         <li>
           <button
-            disabled={_?.isAdvertised}
+            disabled={_?.isAdvertised || _?.valueRaised === _?.assetValue}
             type="button"
             className="btn delete"
             onClick={() => {
