@@ -444,7 +444,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                       message: 'Please enter Amentity',
                     },
                     {
-                      pattern: /^.{3,20}$/,
+                      pattern: /^.{2,20}$/,
                       message: 'Please enter a valid amenity',
                     },
                     {

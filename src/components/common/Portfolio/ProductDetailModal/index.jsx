@@ -3,13 +3,10 @@ import { StyledProductDetailModal } from './ProductDetailModal.styles';
 import Button from '@/components/atoms/Button';
 import bellIcon from '../../../../_assets/bell-icon.svg';
 import Image from 'next/image';
-import { daysLeft, formatDateWithSuffix } from '@/helpers/common';
+import { convertToCurrencyFormat, daysLeft, formatDateWithSuffix } from '@/helpers/common';
 
 const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct }) => {
-
-
-
-  const getRemainingDays = (targetDate) => {
+  const getRemainingDays = targetDate => {
     const target = new Date(targetDate);
     const now = new Date();
     const differenceInTime = target.getTime() - now.getTime();
@@ -18,7 +15,6 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
   };
 
   const remainingDays = getRemainingDays(data?.endTime[0]);
-
 
   const infoData = [
     {
@@ -65,11 +61,11 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
     },
     {
       heading: 'Min Investment:',
-      text: `$${data?.minimumInvestment?.toLocaleString('en-US')}`,
+      text: `${convertToCurrencyFormat(data?.minimumInvestment)}`,
     },
     {
       heading: 'Total Asset Value',
-      text: `$${data?.assetValue?.toLocaleString('en-US')}`,
+      text: `${convertToCurrencyFormat(data?.assetValue)}`,
     },
     {
       heading: 'Advertised Remaining Days',
@@ -90,7 +86,7 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
     <StyledProductDetailModal>
       <div className="head">
         <span className="heading">Product Info:</span>
-        {data && !data?.isAdvertised && data?.isVerified && (
+        {data && !data?.isAdvertised && data?.isVerified && data?.valueRaised !== data?.assetValue && (
           <Button
             onClick={() => {
               setProductAdvertiseModal(true);
