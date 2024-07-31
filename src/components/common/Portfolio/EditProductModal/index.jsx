@@ -18,7 +18,8 @@ import { validateAmenity } from '@/helpers/common';
 
 const EditProductModal = ({ product, setEditProductModal }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState(''); // For Google Map Search Field
+  const [searchValue, setSearchValue] = useState('');
+  const [formattedAddress, setFormattedAddress] = useState();
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -29,17 +30,16 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const { categories_data } = categoryService.GetAllCategories(
     {
       itemsPerPage: 10,
+      getAll: true,
     },
     fetch,
   );
 
   const categoriesOptions = useMemo(() => {
-    return categories_data?.items
-      ?.filter(item => item?.status !== 'Inactive')
-      ?.map(ele => ({
-        value: ele?._id,
-        label: ele?.name,
-      }));
+    return categories_data?.items?.map(ele => ({
+      value: ele?._id,
+      label: ele?.name,
+    }));
   }, [categories_data?.items]);
 
   const [form] = useForm();
@@ -107,14 +107,6 @@ const EditProductModal = ({ product, setEditProductModal }) => {
 
   const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
 
-  const handleFileChange = (e, index) => {
-    const file = e.target.file;
-    setImages(prev => {
-      const updatedImages = [...prev];
-      updatedImages[index] = file;
-      return updatedImages;
-    });
-  };
   useEffect(() => {
     form.setFieldsValue({
       productName: product?.productName,
@@ -198,6 +190,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       form.setFieldsValue({
         address: place.name?.concat(` ${place.formatted_address}`),
       });
+      setFormattedAddress({
+        address: place.name?.concat(` ${place.formatted_address}`),
+      });
+      form.setFieldRules('address', [{ pattern: /.*/ }]);
+      form.removeFieldError('address');
     }
   };
   return (
@@ -256,9 +253,17 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   placeholder="Please enter address"
                   value={searchValue}
                   onChange={e => {
-                    form.setFieldsValue({
-                      address: e.target.value,
-                    });
+                    const currentAddress = formattedAddress?.address || product?.address;
+                    if ((e.target.value && e.target.value !== currentAddress) || e.target.value === '') {
+                      form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
+                      form.setFieldsError({
+                        address: { message: 'Please enter a valid Address' },
+                      });
+                    } else if (currentAddress && currentAddress === e.target.value) {
+                      form.setFieldRules('address', [{ pattern: /.*/ }]);
+                      form.removeFieldError('address');
+                    }
+
                     setSearchValue(e.target.value);
                   }}
                   rules={[
@@ -476,15 +481,13 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 1000',
               },
+              {
+                transform: value => {
+                  if (value < +form.getFieldValue('maxBackers')) form.removeFieldError('maxBackers');
+                },
+              },
             ]}>
-            <Field
-              maxLength={4}
-              // onKeyPress={e => {
-              //   if (!/[0-9]/.test(e.key)) {
-              //     e.preventDefault();
-              //   }
-              // }}
-            />
+            <Field maxLength={4} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -500,21 +503,14 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               },
               {
                 pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid limit between 1 and 1000',
+                message: 'Please enter a valid limit between 1 and 9999',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
                 message: 'Maximun backers cannot be less than minimum backers!',
               },
             ]}>
-            <Field
-              maxLength={4}
-              // onKeyPress={e => {
-              //   if (!/[0-9]/.test(e.key)) {
-              //     e.preventDefault();
-              //   }
-              // }}
-            />
+            <Field maxLength={4} />
           </Form.Item>
           <Form.Item
             type="number"
@@ -535,6 +531,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               {
                 pattern: /^[1-9][0-9]{0,8}$/,
                 message: 'Please enter a valid number with up to 9 digits',
+              },
+              {
+                transform: value => {
+                  if (value > +form.getFieldValue('minimumInvestment')) form.removeFieldError('minimumInvestment');
+                },
               },
             ]}>
             <Field maxLength={10} />
