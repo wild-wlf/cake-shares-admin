@@ -89,3 +89,34 @@ export const StyledChatMessage = styled.div`
     }
   }
 `;
+
+export const MessageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+`;
+
+export const ReactionContainer = styled.div`
+  position: absolute;
+  top: 0px;
+  right: -30px;
+  cursor: pointer;
+`;
+
+export const AddedReaction = styled.div`
+  position: absolute;
+  left: -8%;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(64, 143, 140, 0.5);
+  span {
+    font-size: 13px;
+  }
+`;
