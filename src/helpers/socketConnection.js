@@ -27,6 +27,12 @@ export const connectionWithSocketServer = token => {
     }
   });
 
+  socket.on('reaction-added', async data => {
+    if (socket && data) {
+      window.dispatchEvent(new CustomEvent('reaction-added', { detail: { ...data } }));
+    }
+  });
+
   socket.on('seen-message-response', data => {
     window.dispatchEvent(new CustomEvent('seen_message_response', { detail: { ...data } }));
   });
@@ -47,7 +53,7 @@ export const connectionWithSocketServer = token => {
     onUserUpdated(data);
   });
 
-  socket.on('sellerNotification', data => { 
+  socket.on('sellerNotification', data => {
     window.dispatchEvent(new CustomEvent('seller_notification', { detail: data }));
   });
 
@@ -91,6 +97,12 @@ export const leaveGroupChat = data => {
 export const setSeenMessage = data => {
   if (data && socket) {
     socket?.emit('get-seen-message', data);
+  }
+};
+
+export const sendPrivateReaction = data => {
+  if (socket && data) {
+    socket.emit('private-reaction', data);
   }
 };
 
