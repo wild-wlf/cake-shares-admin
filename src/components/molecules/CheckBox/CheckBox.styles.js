@@ -10,8 +10,8 @@ export const StyledCheckBox = styled.div`
     justify-content: flex-start;
     user-select: none;
     gap: 5px;
-    font-size: 12px;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 16px;
     text-align: left;
 

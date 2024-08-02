@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import loginBg from "../../../_assets/loginBg.jpg";
+import styled from 'styled-components';
+import loginBg from '../../../_assets/loginBg.jpg';
 export const StyledLogin = styled.div`
   display: flex;
   min-height: 100vh;
@@ -68,6 +68,12 @@ export const StyledLogin = styled.div`
     max-width: 500px;
     width: 100%;
     padding-top: 25px;
+    #username {
+      font-size: 16px;
+    }
+    #password {
+      font-size: 16px;
+    }
   }
   .loginBanner {
     display: none;

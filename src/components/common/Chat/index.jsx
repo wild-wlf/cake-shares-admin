@@ -11,7 +11,7 @@ import notificationService from '@/services/notificationservice';
 import { updateDirectChatHistoryIfActive } from '@/helpers/chatHandlers';
 import Loader from '@/components/atoms/Loader';
 import { removeDuplicates } from '@/helpers/common';
-import { startChat, endChat,} from '@/helpers/socketConnection';
+import { startChat, endChat } from '@/helpers/socketConnection';
 
 const Chat = ({ chosenChatDetails }) => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -68,9 +68,9 @@ const Chat = ({ chosenChatDetails }) => {
       handleScrollToBottom();
     }, 300);
   }, []);
- 
+
   useEffect(() => {
-    window.addEventListener('direct_chat_history', event => {  
+    window.addEventListener('direct_chat_history', event => {
       updateDirectChatHistoryIfActive({
         ...event.detail,
         user,
@@ -138,19 +138,22 @@ const Chat = ({ chosenChatDetails }) => {
             </div>
           ) : (
             chatMessages
-            ?.filter(item => item.conversationId === chosenChatDetails?.conversationId)
-            ?.map((item, index) => (
-              <ChatMessage
-                key={index}
-                type={item?.author?._id === user?._id ? 'seen' : 'send'}
-                message={item.content}
-                time={item?.created_at}
-                readBy={item?.readBy?.find(_ => _?._id === chosenChatDetails?.receiver)}
-                messageId={item?._id}
-                receiverId={chosenChatDetails?.receiver}
-              />
-            ))
-                    )}
+              ?.filter(item => item.conversationId === chosenChatDetails?.conversationId)
+              ?.map((item, index) => (
+                <ChatMessage
+                  key={index}
+                  chatType={'private'}
+                  type={item?.author?._id === user?._id ? 'seen' : 'send'}
+                  message={item.content}
+                  time={item?.created_at}
+                  readBy={item?.readBy?.find(_ => _?._id === chosenChatDetails?.receiver)}
+                  messageId={item?._id}
+                  receiverId={chosenChatDetails?.receiver}
+                  defaultReaction={item?.reaction}
+                  showReaction={item?.author?._id !== user?._id ? true : false}
+                />
+              ))
+          )}
         </ChatBody>
         <ChatFooter chosenChatDetails={chosenChatDetails} type="private" />
       </div>
