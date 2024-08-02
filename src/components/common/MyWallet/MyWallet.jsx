@@ -17,13 +17,12 @@ import CryptoModal from '@/components/molecules/CryptoModal/CryptoModal';
 import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
+import paymentService from '@/services/paymentService';
 
 const MyWallet = ({ pieData, amount }) => {
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
-}));
-
-
+  }));
 
   const [open, setOpen] = useState(false);
   const [openLast, setOpenLast] = useState(false);
@@ -39,6 +38,7 @@ const MyWallet = ({ pieData, amount }) => {
   const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('bank');
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
@@ -85,6 +85,15 @@ const MyWallet = ({ pieData, amount }) => {
   const saveDetailsModal = () => {
     setOpenAmount(false);
     setOpenTopupSuccess(true);
+  };
+
+  const cardSaveHandler = async () => {
+    try {
+      console.log(paymentMethod);
+      // await paymentService.cardSave({ payment_method: paymentMethod });
+      setOpenCardSuccess(false);
+      setOpenCardLast(true);
+    } catch (error) {}
   };
 
   return (
@@ -174,23 +183,14 @@ const MyWallet = ({ pieData, amount }) => {
           <Button rounded width={'170px'} height={'40px'} sm btntype="cancel" onClick={() => setOpenCardSuccess(false)}>
             Cancel
           </Button>
-          <Button
-            rounded
-            width={'170px'}
-            height={'40px'}
-            sm
-            btntype="green"
-            onClick={() => {
-              setOpenCardSuccess(false);
-              setOpenCardLast(true);
-            }}>
+          <Button rounded width={'170px'} height={'40px'} sm btntype="green" onClick={cardSaveHandler}>
             Save Card Details
           </Button>
         </ButtonContainer>
       </CenterModal>
 
       <CenterModal open={openCard} setOpen={setOpenCard} width="666" title={'Top up via Credit Card'}>
-        <CardModal openCardNext={openCardNext} />
+        <CardModal openCardNext={openCardNext} setPaymentMethod={setPaymentMethod} />
       </CenterModal>
 
       <CenterModal open={openSuccessModal} setOpen={setOpenSuccessModal} width="543" headImage={SuccessIcon}>
@@ -249,12 +249,7 @@ const MyWallet = ({ pieData, amount }) => {
 
         <ChartWrapper>
           <div className="ChartContainer">
-            <PieChart
-                graphData={pieData}
-                title="Total Investments"
-                amount={`$${amount || 0}`}
-              timeFrame="year"
-            />
+            <PieChart graphData={pieData} title="Total Investments" amount={`$${amount || 0}`} timeFrame="year" />
           </div>
 
           <div className="ChartContainer">
