@@ -14,7 +14,7 @@ const PollDetailsModal = ({ poolOptions, question, user, receivers, author }) =>
     <StyledPollDetailsModal>
       <div className="question">
         <span className="heading">Question:</span>
-        <span>{question}</span>
+        <span className="heading">{question}</span>
       </div>
       <div className="options-holder">
         <span className="heading">Options:</span>
@@ -25,7 +25,7 @@ const PollDetailsModal = ({ poolOptions, question, user, receivers, author }) =>
                 <span className="heading vote-option">{item?.option}</span>
                 <div className="votes-holder">
                   <span className="heading">{item?.users?.length}</span>
-                  {item?.users?.includes(user?._id) && <HiMiniStar color="#FFB800" size={20} />}
+                  {item?.users?.some(u => u._id === user?._id) && <HiMiniStar color="#FFB800" size={20} />}
                 </div>
               </div>
 

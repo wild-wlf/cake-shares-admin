@@ -102,7 +102,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
       )}
       <ModalContainer
         width={600}
-        title="Create Poll"
+        title="Poll Details"
         btnComponent={({ onClick }) => (
           <button className="view-votes" onClick={onClick}>
             View Votes
