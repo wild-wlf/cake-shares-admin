@@ -22,6 +22,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addressDetails, setAddressDetails] = useState('');
+  const [formattedAddress, setFormattedAddress] = useState();
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -32,17 +33,16 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const { categories_data } = categoryService.GetAllCategories(
     {
       itemsPerPage: 10,
+      getAll: true,
     },
     fetch,
   );
 
   const categoriesOptions = useMemo(() => {
-    return categories_data?.items
-      ?.filter(item => item?.status !== 'Inactive')
-      ?.map(ele => ({
-        value: ele?._id,
-        label: ele?.name,
-      }));
+    return categories_data?.items?.map(ele => ({
+      value: ele?._id,
+      label: ele?.name,
+    }));
   }, [categories_data?.items]);
 
   const addAmenities = () => setAmenities([...amenities, '']);
@@ -50,14 +50,6 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
 
   const [form] = useForm();
-  const handleFileChange = (e, index) => {
-    const file = e;
-    setImages(prev => {
-      const updatedImages = [...prev];
-      updatedImages[index] = file;
-      return updatedImages;
-    });
-  };
 
   const handleSubmit = async e => {
     const obj = {
@@ -160,6 +152,11 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       form.setFieldsValue({
         address: place.name?.concat(` ${place.formatted_address}`),
       });
+      setFormattedAddress({
+        address: place.name?.concat(` ${place.formatted_address}`),
+      });
+      form.setFieldRules('address', [{ pattern: /.*/ }]);
+      form.removeFieldError('address');
     }
   };
   return (
@@ -209,7 +206,6 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 onLoad={autocomplete =>
                   autocomplete.addListener('place_changed', () => {
                     handlePlaceSelect(autocomplete.getPlace());
-                    // console.log(autocomplete.getPlace());
                   })
                 }>
                 <Form.Item
@@ -221,15 +217,24 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   placeholder="Please enter address"
                   value={searchValue}
                   onChange={e => {
-                    form.setFieldsValue({
-                      address: e.target.value,
-                    });
+                    if (
+                      (e.target.value && formattedAddress && e.target.value !== formattedAddress?.address) ||
+                      e.target.value === ''
+                    ) {
+                      form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
+                      form.setFieldsError({
+                        address: { message: 'Please enter a valid Address' },
+                      });
+                    } else if (formattedAddress && formattedAddress?.address === e.target.value) {
+                      form.setFieldRules('address', [{ pattern: /.*/ }]);
+                      form.removeFieldError('address');
+                    }
                     setSearchValue(e.target.value);
                   }}
                   rules={[
                     {
                       required: true,
-                      message: 'Please enter Address',
+                      message: 'Please select Address',
                     },
                     {
                       pattern: /^.{0,256}$/,
@@ -442,6 +447,11 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 pattern: /^[1-9][0-9]{0,3}$/,
                 message: 'Please enter a valid limit between 1 and 9999',
               },
+              {
+                transform: value => {
+                  if (value < +form.getFieldValue('maxBackers')) form.removeFieldError('maxBackers');
+                },
+              },
             ]}>
             <Field maxLength={4} />
           </Form.Item>
@@ -492,6 +502,11 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
                 message:
                   'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
+              },
+              {
+                transform: value => {
+                  if (value > +form.getFieldValue('minInvestment')) form.removeFieldError('minInvestment');
+                },
               },
             ]}>
             <Field />

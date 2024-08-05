@@ -12,8 +12,8 @@ const PoleOption = ({ type, name, users, user, option_id, messageId, receivers, 
   };
 
   useEffect(() => {
-    setChecked(users?.includes(user?._id));
-  }, [user?._id, users]);
+    setChecked(users?.some(u => u._id === user?._id));
+  }, [users, user?._id]);
 
   const calculateProgressValues = totalVotes => {
     const totalReceivers = receivers?.length + 1;
