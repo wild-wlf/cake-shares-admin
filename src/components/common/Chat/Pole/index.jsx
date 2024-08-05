@@ -12,7 +12,7 @@ import { useContextHook } from 'use-context-hook';
 import PoleOption from './poleOption';
 import { clearPoolVotes } from '@/helpers/socketConnection';
 
-const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy, messageId, showImage }) => {
+const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy, messageId, showImage, author }) => {
   const [isMessageRead, setIsMessageRead] = useState(readBy);
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -102,7 +102,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
       )}
       <ModalContainer
         width={600}
-        title="Create Poll"
+        title="Poll Details"
         btnComponent={({ onClick }) => (
           <button className="view-votes" onClick={onClick}>
             View Votes
@@ -115,6 +115,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
             question={question}
             user={user}
             receivers={receivers}
+            author={author}
           />
         )}
       />

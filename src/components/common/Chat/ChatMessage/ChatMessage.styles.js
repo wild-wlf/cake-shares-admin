@@ -120,3 +120,20 @@ export const AddedReaction = styled.div`
     font-size: 13px;
   }
 `;
+
+export const GroupReaction = styled.div`
+  position: absolute;
+  left: -10px;
+  padding: 1px 3px;
+  border-radius: 29%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(64, 143, 140, 0.5);
+  span {
+    font-size: 12px;
+    white-space: nowrap;
+    color: #fff;
+  }
+`;

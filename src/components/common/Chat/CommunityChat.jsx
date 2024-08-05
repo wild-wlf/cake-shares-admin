@@ -104,7 +104,7 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
       window.removeEventListener('beforeunload', handleEndChat);
       window.removeEventListener('unload', handleEndChat);
     };
-  }, [channelName]);
+  }, [channelName, user]);
 
   return (
     <ChatWrapper>
@@ -147,6 +147,7 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
                     showImage={item?.author?.profilePicture}
                     readBy={item?.readBy?.length >= item?.receivers?.length}
                     messageId={item?._id}
+                    author={item?.author}
                   />
                 ) : (
                   <ChatMessage
@@ -158,17 +159,18 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
                     messageId={item?._id}
                     receivers={item?.receivers}
                     showImage={item?.author?.profilePicture}
+                    senderId={user?._id}
+                    chatType={type === 'stake' ? 'stakeholder' : 'community'}
+                    showReaction={item?.author?._id !== user?._id ? true : false}
+                    defaultGroupReactions={item.reactions}
+                    channelName={channelName}
                     group
                   />
                 ),
               )
           )}
         </ChatBody>
-        <ChatFooter
-          chosenComDetails={chosenComDetails}
-          type={type}
-          channelName={channelName}
-        />
+        <ChatFooter chosenComDetails={chosenComDetails} type={type} channelName={channelName} />
       </div>
       <div className="hamburger" onClick={() => document.body.classList.toggle('chat-sidebar-active')}>
         <RiMenu3Fill size={30} />

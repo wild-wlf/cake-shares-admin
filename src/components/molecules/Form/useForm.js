@@ -63,20 +63,20 @@ class FormStore {
             error.message = error.hasError ? rule.message ?? `${name} is required` : '';
           }
           break;
-          case 'minLength':
-            if (typeof value === 'string') {
-              error.hasError = value.length < rule.minLength;
-            } else {
-              error.hasError = value < rule.minLength;
-            }
-            error.message = error.hasError ? rule.message ?? `Value must be greater than ${rule.min}` : '';
-            break;
-          case 'maxLength':
-            if (typeof value === 'string') {
-              error.hasError = value.length > rule.maxLength;
-            } else {
-              error.hasError = value > rule.maxLength;
-            }
+        case 'minLength':
+          if (typeof value === 'string') {
+            error.hasError = value.length < rule.minLength;
+          } else {
+            error.hasError = value < rule.minLength;
+          }
+          error.message = error.hasError ? rule.message ?? `Value must be greater than ${rule.min}` : '';
+          break;
+        case 'maxLength':
+          if (typeof value === 'string') {
+            error.hasError = value.length > rule.maxLength;
+          } else {
+            error.hasError = value > rule.maxLength;
+          }
         case 'min':
           if (Number.isNaN(value)) error.hasError = value.length < rule.min;
           else error.hasError = value < rule.min;
@@ -244,6 +244,17 @@ class FormStore {
     }
   };
 
+  setFieldRules = (fieldName, rules) => {
+    this.rules[fieldName] = rules;
+  };
+
+  removeFieldError = fieldName => {
+    if (this.errors[fieldName]) {
+      delete this.errors[fieldName];
+      this.notifyObservers(this.store);
+    }
+  };
+
   setCallbacks = callbacks => {
     this.callbacks = callbacks;
   };
@@ -257,6 +268,8 @@ class FormStore {
     getFieldsValue: this.getFieldsValue,
     setFieldsValue: this.setFieldsValue,
     registerField: this.registerField,
+    setFieldRules: this.setFieldRules,
+    removeFieldError: this.removeFieldError,
     submit: this.submit,
     getInternalHooks: () => ({
       setInitialValues: this.setInitialValues,
