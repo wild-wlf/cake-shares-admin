@@ -132,15 +132,15 @@ const ChatMessage = ({
             </p>
           </div>
           {(chatType === 'community' || chatType === 'stakeholder') &&
-            (defaultGroupReactions.length > 0 || receivedGroupReaction.length > 0) && (
+            (defaultGroupReactions?.length > 0 || receivedGroupReaction?.length > 0) && (
               <GroupReaction type={'count'}>
                 <span>
-                  {receivedGroupReaction.length > 0
+                  {receivedGroupReaction?.length > 0
                     ? `${receivedGroupReaction[0]?.reaction}${
-                        receivedGroupReaction.length > 1 ? ` +${receivedGroupReaction.length - 1}` : ''
+                        receivedGroupReaction?.length > 1 ? ` +${receivedGroupReaction?.length - 1}` : ''
                       }`
                     : `${defaultGroupReactions[0]?.reaction}${
-                        defaultGroupReactions.length > 1 ? ` +${defaultGroupReactions.length - 1}` : ''
+                        defaultGroupReactions?.length > 1 ? ` +${defaultGroupReactions?.length - 1}` : ''
                       }`}
                 </span>
               </GroupReaction>
