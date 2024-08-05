@@ -18,6 +18,16 @@ export const InputWrapper = styled.div`
         color: var(--danger);
       }
     }
+    &.checkbox {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 10px;
+
+      label {
+        margin-bottom: 3px;
+        cursor: pointer;
+      }
+    }
   }
 
   .customInput {

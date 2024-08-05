@@ -1,7 +1,18 @@
 import React from 'react';
 import { StyledCheckBox } from './CheckBox.styles';
 
-const CheckBox = ({ type = 'checkbox', label, fieldName, className, onChange, checked, color, value = '', name }) => {
+const CheckBox = ({
+  type = 'checkbox',
+  label,
+  fieldName,
+  className,
+  onChange,
+  checked,
+  color,
+  value = '',
+  name,
+  disabled = false,
+}) => {
   function handelChange(e) {
     const isChecked = e.target.checked;
     onChange({ fieldName, isChecked });
@@ -14,6 +25,7 @@ const CheckBox = ({ type = 'checkbox', label, fieldName, className, onChange, ch
         onChange={handelChange}
         checked={checked}
         value={value}
+        disabled={disabled}
         name={name ?? fieldName}
       />
       <label htmlFor={fieldName}>{label}</label>

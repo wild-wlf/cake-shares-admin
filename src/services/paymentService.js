@@ -1,7 +1,36 @@
+import { useCancellablePromise } from '@/helpers/promiseHandler';
 import { Fetch } from '../helpers/fetchWrapper';
+import { useEffect, useState } from 'react';
+
+const STATUS = {
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error',
+};
 
 const paymentService = {
   _url: `${process.env.NEXT_PUBLIC_PAYMENT_URL}`,
+
+  GetAllCards() {
+    const [cards, setCards] = useState([]);
+    const { cancellablePromise } = useCancellablePromise();
+    const [status, setStatus] = useState(STATUS.LOADING);
+
+    useEffect(() => {
+      setStatus(STATUS.LOADING);
+      cancellablePromise(this.listCustomerCards())
+        .then(res => {
+          setCards(() => res);
+          setStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setStatus(STATUS.SUCCESS));
+    }, []);
+    return {
+      cards_loading: status === STATUS.LOADING,
+      cards_error: status === STATUS.ERROR,
+      cards_data: cards,
+    };
+  },
 
   async getStripeConfig() {
     let res = await Fetch.get(`${this._url}/stripe-config`);
@@ -22,11 +51,13 @@ const paymentService = {
     const { message } = await res.json();
     throw new Error(message ?? 'Something went wrong');
   },
-  async cardSave(payload) {
-    let res = await Fetch.post(`${this._url}/attach-card`, payload);
+
+  async listCustomerCards(payload) {
+    let res = await Fetch.get(`${this._url}/list-cards`, payload);
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
-      return res;
+
+      return res.data;
     }
     const { message } = await res.json();
     throw new Error(message ?? 'Something went wrong');
