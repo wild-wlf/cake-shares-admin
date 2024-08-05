@@ -41,7 +41,7 @@ export const StyledCommunityGroup = styled.div`
       ${({ $type }) =>
         $type === 'private' &&
         css`
-          width: 100%;
+          width: 45px;
           height: 100%;
           position: relative;
           &::after {
@@ -56,7 +56,7 @@ export const StyledCommunityGroup = styled.div`
       img {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
         border-radius: 50%;
         object-fit: cover;
       }
