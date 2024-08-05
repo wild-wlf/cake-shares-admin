@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyledChatMessage, MessageContainer, ReactionContainer, AddedReaction } from './ChatMessage.styles';
+import {
+  StyledChatMessage,
+  MessageContainer,
+  ReactionContainer,
+  AddedReaction,
+  GroupReaction,
+} from './ChatMessage.styles';
 import Pic from '../../../../_assets/SellerProfile.png';
 import { LiaCheckDoubleSolid, LiaCheckSolid } from 'react-icons/lia';
 import Image from 'next/image';
@@ -8,7 +14,7 @@ import RenderTextMessage from './renderTextMessage';
 import reactionIcon from '@/_assets/reaction.png';
 import ReactionTooltip from '@/components/atoms/ReactionTooltip';
 import MessageReaction from '@/components/atoms/MessageReactions/index';
-import { sendPrivateReaction } from '@/helpers/socketConnection';
+import { sendGroupReaction, sendPrivateReaction } from '@/helpers/socketConnection';
 
 const ChatMessage = ({
   showImage,
@@ -23,10 +29,14 @@ const ChatMessage = ({
   defaultReaction,
   showReaction,
   chatType,
+  senderId,
+  defaultGroupReactions,
+  channelName,
 }) => {
   const [isMessageRead, setIsMessageRead] = useState(readBy);
   const [reaction, setReactions] = useState('');
   const [receivedReaction, setReceivedReaction] = useState('');
+  const [receivedGroupReaction, setReceivedGroupReaction] = useState([]);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -56,7 +66,16 @@ const ChatMessage = ({
         receiverId,
       });
     }
-  }, [reaction, chatType, messageId, receiverId]);
+
+    if ((chatType === 'community' || chatType == 'stakeholder') && reaction) {
+      sendGroupReaction({
+        reaction,
+        messageId,
+        senderId,
+        channelName,
+      });
+    }
+  }, [reaction, chatType, messageId, senderId, receiverId, channelName]);
 
   useEffect(() => {
     const handleReaction = event => {
@@ -67,11 +86,21 @@ const ChatMessage = ({
       }
     };
 
+    const handelGroupReaction = event => {
+      const currentMessage = event.detail;
+
+      if (messageId === currentMessage?.messageId && currentMessage?.reactions) {
+        setReceivedGroupReaction(currentMessage?.reactions);
+      }
+    };
+
     window.addEventListener('reaction-added', handleReaction);
+    window.addEventListener('added-group-reaction', handelGroupReaction);
 
     // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener('reaction-added', handleReaction);
+      window.removeEventListener('added-group-reaction', handelGroupReaction);
     };
   }, [messageId, receiverId, receivers]);
 
@@ -102,19 +131,25 @@ const ChatMessage = ({
               <RenderTextMessage text={message} />
             </p>
           </div>
-          {(chatType === 'private' && defaultReaction) || receivedReaction ? (
+          {(chatType === 'community' || chatType === 'stakeholder') &&
+            (defaultGroupReactions.length > 0 || receivedGroupReaction.length > 0) && (
+              <GroupReaction type={'count'}>
+                <span>
+                  {receivedGroupReaction.length > 0
+                    ? `${receivedGroupReaction[0]?.reaction}${
+                        receivedGroupReaction.length > 1 ? ` +${receivedGroupReaction.length - 1}` : ''
+                      }`
+                    : `${defaultGroupReactions[0]?.reaction}${
+                        defaultGroupReactions.length > 1 ? ` +${defaultGroupReactions.length - 1}` : ''
+                      }`}
+                </span>
+              </GroupReaction>
+            )}
+
+          {chatType === 'private' && (defaultReaction || receivedReaction) && (
             <AddedReaction>
               <span>{receivedReaction || defaultReaction}</span>
             </AddedReaction>
-          ) : (
-            ''
-          )}
-          {(chatType === 'private' && defaultReaction) || reaction ? (
-            <AddedReaction>
-              <span>{reaction || defaultReaction}</span>
-            </AddedReaction>
-          ) : (
-            ''
           )}
         </MessageContainer>
         {time && (
