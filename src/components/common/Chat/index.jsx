@@ -150,6 +150,7 @@ const Chat = ({ chosenChatDetails }) => {
                   messageId={item?._id}
                   receiverId={chosenChatDetails?.receiver}
                   defaultReaction={item?.reaction}
+                  senderId={user?._id}
                   showReaction={item?.author?._id !== user?._id ? true : false}
                 />
               ))

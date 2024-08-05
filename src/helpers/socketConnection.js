@@ -33,6 +33,12 @@ export const connectionWithSocketServer = token => {
     }
   });
 
+  socket.on('added-group-reaction', async data => {
+    if (socket && data) {
+      window.dispatchEvent(new CustomEvent('added-group-reaction', { detail: { ...data } }));
+    }
+  });
+
   socket.on('seen-message-response', data => {
     window.dispatchEvent(new CustomEvent('seen_message_response', { detail: { ...data } }));
   });
@@ -103,6 +109,12 @@ export const setSeenMessage = data => {
 export const sendPrivateReaction = data => {
   if (socket && data) {
     socket.emit('private-reaction', data);
+  }
+};
+
+export const sendGroupReaction = data => {
+  if (socket && data) {
+    socket.emit('group-reaction', data);
   }
 };
 
