@@ -13,6 +13,7 @@ import userService from '@/services/userService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { convertToCurrencyFormat } from '@/helpers/common';
+
 const TransactionTable = () => {
   const { user, fetch } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -40,60 +41,6 @@ const TransactionTable = () => {
   };
 
   const { transactions_data, transactions_loading } = userService.GetAllTransactions(searchQuery, fetch);
-
-  // const transactions = [
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "24-May-2024",
-  //   },
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "24-May-2024",
-  //   },
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "24-May-2024",
-  //   },
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "",
-  //   },
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "24-May-2024",
-  //   },
-  //   {
-  //     name: "name",
-  //     phone: "2301652065",
-  //     email: "shjdgf@.com",
-  //     date: "24-May-2024",
-  //   },
-  // ];
-
-  //  for earn spend and topup
-  // const { totalCount, transaction_rows } = useMemo(
-  //   () => ({
-  //     transaction_rows: transactions_data?.transactions?.map(_ => [
-
-  //       format(new Date(_.created_at), 'yyyy-MM-dd'),
-  //       _.transactionType ?? '------------',
-  //       _.amount?.$numberDecimal ?? '------------',
-  //     ]),
-  //     totalCount: transactions_data?.totalItems,
-  //
-  //   }),
-  //   [transactions_data],
-  // );
 
   const { totalCount, transaction_rows } = useMemo(() => {
     const mappedTransactions = transactions_data?.transactions?.map(transaction => {

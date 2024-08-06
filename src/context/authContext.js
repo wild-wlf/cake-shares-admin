@@ -21,6 +21,7 @@ export const AuthContextProvider = props => {
   const [fetch_user, setFetchUser] = useState(false);
   const { cancellablePromise } = useCancellablePromise();
   const [socketData, setSocketData] = useState(null);
+  const [permission, setPermission] = useState(false);
   const [reFetch, setRefetch] = useState(false);
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [allowedPages, setAllowedPages] = useState(
@@ -92,17 +93,16 @@ export const AuthContextProvider = props => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn || permission) {
       getPermissions();
+      setPermission(false);
     } else if (!isLoggedIn) {
-      
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
       if (privatePages.includes(router.pathname)) {
         router.push('/sign-in');
       }
-
     }
 
     window.addEventListener('FETCH_ADMIN_ROLE', () => {
@@ -113,7 +113,7 @@ export const AuthContextProvider = props => {
         getPermissions();
       });
     };
-  }, [isLoggedIn, fetch_user, reFetch]);
+  }, [isLoggedIn, fetch_user, reFetch, permission]);
 
   useEffect(() => {
     if (socketData?.approved && isLoggedIn) {
@@ -215,6 +215,7 @@ export const AuthContextProvider = props => {
         user,
         setUser,
         getPermissions,
+        setPermission,
       }}>
       {props.children}
     </AuthContext.Provider>
