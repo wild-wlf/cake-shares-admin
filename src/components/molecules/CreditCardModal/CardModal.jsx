@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import CardForm from './CardForm';
 import { Elements } from '@stripe/react-stripe-js';
 
-const CardModal = ({ openCardNext, setPaymentMethod }) => {
+const CardModal = ({ openCardNext }) => {
   const [stripePromise, setStripePromise] = useState();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const CardModal = ({ openCardNext, setPaymentMethod }) => {
     <Container>
       {stripePromise ? (
         <Elements stripe={stripePromise}>
-          <CardForm openCardNext={openCardNext} setPaymentMethod={setPaymentMethod} />
+          <CardForm openCardNext={openCardNext} />
         </Elements>
       ) : (
         'Loading Stripe payment...'

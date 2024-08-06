@@ -17,7 +17,6 @@ import CryptoModal from '@/components/molecules/CryptoModal/CryptoModal';
 import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
-import paymentService from '@/services/paymentService';
 
 const MyWallet = ({ pieData, amount }) => {
   const { user } = useContextHook(AuthContext, v => ({
@@ -34,11 +33,9 @@ const MyWallet = ({ pieData, amount }) => {
   const [openInfo, setOpenInfo] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
   const [openWalletLink, setOpenWalletLink] = useState(false);
-  const [openCardSuccess, setOpenCardSuccess] = useState(false);
   const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('bank');
-  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
@@ -76,7 +73,8 @@ const MyWallet = ({ pieData, amount }) => {
   };
   const openCardNext = () => {
     setOpenCard(false);
-    setOpenCardSuccess(true);
+    // setOpenCardSuccess(true);
+    setOpenCardLast(true);
   };
   const walletLinkModal = () => {
     setOpenCrypto(false);
@@ -89,10 +87,8 @@ const MyWallet = ({ pieData, amount }) => {
 
   const cardSaveHandler = async () => {
     try {
-      console.log(paymentMethod);
-      // await paymentService.cardSave({ payment_method: paymentMethod });
-      setOpenCardSuccess(false);
-      setOpenCardLast(true);
+      // setOpenCardSuccess(false);
+      // setOpenCardLast(true);
     } catch (error) {}
   };
 
@@ -168,29 +164,11 @@ const MyWallet = ({ pieData, amount }) => {
       </CenterModal>
 
       <CenterModal open={openCardLast} setOpen={setOpenCardLast} width="543" headImage={SuccessIcon}>
-        <SuccessModal
-          heading="Card Details Saved Successfully!"
-          paragraph="Your credit card details have been saved for future top ups."
-        />
-      </CenterModal>
-
-      <CenterModal open={openCardSuccess} setOpen={setOpenCardSuccess} width="543" headImage={SuccessIcon}>
-        <SuccessModal
-          heading="Wallet Top up Successful!"
-          paragraph="Great news! Your wallet top-up using your credit card was successful. Funds should be available within 3 business days."
-        />
-        <ButtonContainer>
-          <Button rounded width={'170px'} height={'40px'} sm btntype="cancel" onClick={() => setOpenCardSuccess(false)}>
-            Cancel
-          </Button>
-          <Button rounded width={'170px'} height={'40px'} sm btntype="green" onClick={cardSaveHandler}>
-            Save Card Details
-          </Button>
-        </ButtonContainer>
+        <SuccessModal heading="Top-Up SuccessFull !" />
       </CenterModal>
 
       <CenterModal open={openCard} setOpen={setOpenCard} width="666" title={'Top up via Credit Card'}>
-        <CardModal openCardNext={openCardNext} setPaymentMethod={setPaymentMethod} />
+        <CardModal openCardNext={openCardNext} />
       </CenterModal>
 
       <CenterModal open={openSuccessModal} setOpen={setOpenSuccessModal} width="543" headImage={SuccessIcon}>
