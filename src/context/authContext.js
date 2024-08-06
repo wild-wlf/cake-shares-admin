@@ -21,7 +21,6 @@ export const AuthContextProvider = props => {
   const [fetch_user, setFetchUser] = useState(false);
   const { cancellablePromise } = useCancellablePromise();
   const [socketData, setSocketData] = useState(null);
-  const [permission, setPermission] = useState(false);
   const [reFetch, setRefetch] = useState(false);
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [allowedPages, setAllowedPages] = useState(
@@ -93,9 +92,8 @@ export const AuthContextProvider = props => {
   };
 
   useEffect(() => {
-    if (isLoggedIn || permission) {
+    if (isLoggedIn) {
       getPermissions();
-      setPermission(false);
     } else if (!isLoggedIn) {
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
@@ -113,7 +111,7 @@ export const AuthContextProvider = props => {
         getPermissions();
       });
     };
-  }, [isLoggedIn, fetch_user, reFetch, permission]);
+  }, [isLoggedIn, fetch_user, reFetch]);
 
   useEffect(() => {
     if (socketData?.approved && isLoggedIn) {
@@ -215,7 +213,6 @@ export const AuthContextProvider = props => {
         user,
         setUser,
         getPermissions,
-        setPermission,
       }}>
       {props.children}
     </AuthContext.Provider>

@@ -19,9 +19,8 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 
 const MyWallet = ({ pieData, amount }) => {
-  const { user, setPermission, refetch } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
-    setPermission: v.setPermission,
     refetch: v.refetch,
   }));
 
