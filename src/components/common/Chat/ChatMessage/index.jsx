@@ -15,6 +15,12 @@ import reactionIcon from '@/_assets/reaction.png';
 import ReactionTooltip from '@/components/atoms/ReactionTooltip';
 import MessageReaction from '@/components/atoms/MessageReactions/index';
 import { sendGroupReaction, sendPrivateReaction } from '@/helpers/socketConnection';
+import MenuButton, { MenuItem } from '../../../molecules/Menu/index';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { MdOutlineReport } from 'react-icons/md';
+import ReportModal from '@/components/molecules/ReportModal';
+import ModalContainer from '../../../molecules/ModalContainer';
+import declineIcon from '../../../../_assets/decline-icon.svg';
 
 const ChatMessage = ({
   showImage,
@@ -32,6 +38,7 @@ const ChatMessage = ({
   senderId,
   defaultGroupReactions,
   channelName,
+  item,
 }) => {
   const [isMessageRead, setIsMessageRead] = useState(readBy);
   const [reaction, setReactions] = useState('');
@@ -124,6 +131,28 @@ const ChatMessage = ({
                 alignRight={true}>
                 <Image src={reactionIcon} alt="add reaction" height={22} width={22} />
               </ReactionTooltip>
+
+              <ModalContainer
+                md
+                width={700}
+                title={<Image src={declineIcon} alt="declineIcon" />}
+                btnComponent={({ onClick }) => (
+                  <MenuButton
+                    icon={
+                      <span>
+                        <BsThreeDotsVertical />
+                      </span>
+                    }>
+                    <MenuItem onClick={onClick} icon={<MdOutlineReport size={20} />}>
+                      {' '}
+                      Report
+                    </MenuItem>
+                  </MenuButton>
+                )}
+                content={({ onClose }) => (
+                  <ReportModal onClose={onClose} item={item} title="Report this Message!" btnText="Report" />
+                )}
+              />
             </ReactionContainer>
           )}
           <div className="message">

@@ -77,7 +77,7 @@ export const StyledChatMessage = styled.div`
     border-radius: 50%;
     overflow: hidden;
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     display: ${({ $type }) => ($type === 'send' ? 'block' : 'none')};
 
@@ -101,13 +101,16 @@ export const MessageContainer = styled.div`
 export const ReactionContainer = styled.div`
   position: absolute;
   top: 0px;
-  right: -30px;
+  right: -50px;
   cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const AddedReaction = styled.div`
   position: absolute;
-  left: -8%;
+  left: -10%;
   height: 25px;
   width: 25px;
   border-radius: 50%;
