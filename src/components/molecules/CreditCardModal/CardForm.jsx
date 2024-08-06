@@ -4,11 +4,14 @@ import { Container } from '../BankModal/BankStyles';
 import Button from '@/components/atoms/Button';
 
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { InputWrapper } from './CreditCard.styles';
+import { InputWrapper, SavedCardStyles } from './CreditCard.styles';
 import paymentService from '@/services/paymentService';
 import Toast from '../Toast';
 import CheckBox from '../CheckBox';
-
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
 const CardForm = ({ openCardNext }) => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
@@ -103,23 +106,67 @@ const CardForm = ({ openCardNext }) => {
     fontWeight: '500',
     borderRadius: '60px',
   };
+  var settings = {
+    dots: false,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    autoplay: false,
+    slidesToShow: 1,
+    variableWidth: true,
+    swipeToSlide: true,
+    arrows: true,
+  };
+  const getSource = networkType => {
+    switch (networkType.toLowerCase()) {
+      case 'visa':
+        return 'https://img.icons8.com/color/100/000000/visa.png';
+      case 'mastercard':
+        return 'https://img.icons8.com/color/100/000000/mastercard.png';
+      case 'american_express':
+        return 'https://img.icons8.com/color/100/000000/amex.png';
+      case 'discover':
+        return 'https://img.icons8.com/color/100/000000/discover.png';
+      case 'diners-club':
+        return 'https://img.icons8.com/color/100/000000/diners-club.png';
+      case 'jcb':
+        return 'https://img.icons8.com/color/100/000000/jcb.png';
+      case 'unionpay':
+        return 'https://img.icons8.com/color/100/000000/unionpay.png';
+      case 'cash':
+        return 'https://img.icons8.com/color/100/000000/cash.png';
+      default:
+        return 'https://img.icons8.com/color/100/000000/cash.png';
+    }
+  };
   return (
     <Container>
       <h3 className="Heading">Almost there! Fill in the details to top up your wallet.</h3>
-
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-        {cards_loading
-          ? 'Loading Cards'
-          : cards_data.map(_ => {
+      {cards_loading ? (
+        <SavedCardStyles>Loading ....</SavedCardStyles>
+      ) : (
+        <SavedCardStyles>
+          <div className="head">
+            <strong className="title">Saved Cards</strong>
+            <strong className="title danger" onClick={() => setIsCardClicked('')}>
+              Clear
+            </strong>
+          </div>
+          <Slider {...settings}>
+            {cards_data.map((_, ind) => {
               return (
-                <div
-                  style={{ border: '1px solid red', padding: '10px 20px', borderRadius: '10px', cursor: 'pointer' }}
-                  onClick={() => cardClickHandler(_)}>
-                  <span>{_.brand}</span> <button>**** **** **** {_.last4}</button>
+                <div key={ind} className="savedCard" onClick={() => cardClickHandler(_)}>
+                  <div className="card-img">
+                    <Image src={getSource(_.brand)} width={100} height={50} alt={_.brand} />{' '}
+                  </div>
+                  <button>**** **** **** {_.last4}</button>
+                  <div className={`fake-checkbox ${isCardClicked === _.id && 'active'}`} />
                 </div>
               );
             })}
-      </div>
+          </Slider>
+        </SavedCardStyles>
+      )}
 
       <InputWrapper>
         <div className="inputBox">
