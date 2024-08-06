@@ -19,8 +19,9 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 
 const MyWallet = ({ pieData, amount }) => {
-  const { user } = useContextHook(AuthContext, v => ({
+  const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
+    refetch: v.refetch,
   }));
 
   const [open, setOpen] = useState(false);
@@ -75,6 +76,7 @@ const MyWallet = ({ pieData, amount }) => {
     setOpenCard(false);
     // setOpenCardSuccess(true);
     setOpenCardLast(true);
+    refetch();
   };
   const walletLinkModal = () => {
     setOpenCrypto(false);

@@ -95,14 +95,12 @@ export const AuthContextProvider = props => {
     if (isLoggedIn) {
       getPermissions();
     } else if (!isLoggedIn) {
-      
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
       if (privatePages.includes(router.pathname)) {
         router.push('/sign-in');
       }
-
     }
 
     window.addEventListener('FETCH_ADMIN_ROLE', () => {

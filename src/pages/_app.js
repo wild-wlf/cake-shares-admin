@@ -11,6 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from '@/helpers/common';
 import { SocketContextProvider } from '@/context/socketContext';
 import Layout from '@/components/molecules/Layout';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import PreLoader from '@/components/molecules/PreLoader';
 
 export const StyledToastContainer = styled(ToastContainer)`
   z-index: 99999;
@@ -36,12 +39,28 @@ export const StyledToastContainer = styled(ToastContainer)`
 `;
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+  // const [load, setLoad] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userInfo = JSON.parse(getCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE));
   const GlobalStyles = createGlobalStyle`
   ${Variables}
   ${Styling}
   ${HelperClasses}
 `;
+
+  useEffect(() => {
+    router.events.on('routeChangeError', () => setLoading(false));
+    router.events.on('routeChangeStart', () => setLoading(true));
+    router.events.on('routeChangeComplete', () => setLoading(false));
+
+    return () => {
+      router.events.off('routeChangeError', () => setLoading(false));
+      router.events.off('routeChangeStart', () => setLoading(true));
+      router.events.off('routeChangeComplete', () => setLoading(false));
+    };
+  }, [router.events]);
+
   return (
     <>
       <AuthContextProvider>
@@ -51,16 +70,19 @@ export default function App({ Component, pageProps }) {
             {pageProps?.statusCode === 404 ? (
               <Component {...pageProps} />
             ) : (
-              <Layout>
-                {userInfo ? (
-                  <PageWrapper>
-                    <Sidenav data={userInfo.isIndividualSeller ? indivisualSellerNav : companySellerNav} />
+              <>
+                {loading && <PreLoader />}
+                <Layout>
+                  {userInfo ? (
+                    <PageWrapper>
+                      <Sidenav data={userInfo.isIndividualSeller ? indivisualSellerNav : companySellerNav} />
+                      <Component {...pageProps} />
+                    </PageWrapper>
+                  ) : (
                     <Component {...pageProps} />
-                  </PageWrapper>
-                ) : (
-                  <Component {...pageProps} />
-                )}
-              </Layout>
+                  )}
+                </Layout>
+              </>
             )}
           </KycContextProvider>
           <StyledToastContainer />
