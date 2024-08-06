@@ -15,6 +15,7 @@
     "@react-google-maps/api": "^2.19.3",
     "@stripe/react-stripe-js": "^2.7.3",
     "@stripe/stripe-js": "^4.1.0",
+    "@szhsin/react-menu": "github:szhsin/react-menu",
     "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^3.6.0",
     "env-cmd": "^10.1.0",

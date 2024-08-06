@@ -165,6 +165,7 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
                     defaultGroupReactions={item?.reactions}
                     channelName={channelName}
                     group
+                    item={item}
                   />
                 ),
               )

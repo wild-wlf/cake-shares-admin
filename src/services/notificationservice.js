@@ -173,6 +173,16 @@ const notificationService = {
     const { message } = await res.json();
     throw new Error(message ?? 'Something Went Wrong');
   },
+
+  async reportMessage(payload) {
+    let res = await Fetch.post(`${this._url}/report-message`, payload);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something went wrong');
+  },
 };
 
 export default notificationService;
