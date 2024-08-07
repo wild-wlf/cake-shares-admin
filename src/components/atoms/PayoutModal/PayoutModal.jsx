@@ -8,13 +8,18 @@ import Toast from '@/components/molecules/Toast';
 import paymentService from '@/services/paymentService';
 
 const PayoutModal = ({ currentAmount, setPayoutModal }) => {
+  const comission = 0.4;
   const [form] = useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState();
 
   const submitHandler = async value => {
     try {
       setIsLoading(true);
-      const response = await paymentService.requestPayout({ amount: value.amount });
+      const response = await paymentService.requestPayout({
+        amountIn: value.amount,
+        amountEx: value.amount - calculateComission(value.amount, comission),
+      });
       if (response.success) {
         Toast({ type: 'success', message: response.message });
         setPayoutModal(false);
@@ -28,13 +33,19 @@ const PayoutModal = ({ currentAmount, setPayoutModal }) => {
     }
   };
 
+  const calculateComission = (value, percent = 0.2) => {
+    const amount = (percent / 100) * value;
+
+    return amount.toFixed(2);
+  };
+
   return (
     <Container>
       <Form form={form} onSubmit={submitHandler}>
         <div className="feildContainer">
           <div className="wrapper">
             <Form.Item
-              label="Amount"
+              label="Amount (Cakeshares will deduct 0.4% comission on this)"
               type="input"
               rounded
               sm
@@ -46,12 +57,19 @@ const PayoutModal = ({ currentAmount, setPayoutModal }) => {
                   message: 'Amount is required',
                 },
                 {
-                  transform: value => Number(value) > Number(currentAmount),
+                  transform: value => {
+                    setAmount(value);
+                    return Number(value) > Number(currentAmount);
+                  },
                   message: 'You cannot exceed from your wallet amount.',
                 },
                 {
-                  pattern: /^\d+(\.\d+)?$/,
-                  message: 'Please enter valid number',
+                  pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                  message: 'Amount must be greater than zero',
+                },
+                {
+                  pattern: /^\d+(\.\d{1,2})?$/,
+                  message: 'Amount must have up to 2 decimal places',
                 },
               ]}>
               <Field />
@@ -62,6 +80,12 @@ const PayoutModal = ({ currentAmount, setPayoutModal }) => {
           Please ensure that the amount does not exceed your current wallet balance of{' '}
           {convertToCurrencyFormat(currentAmount)}.
         </div>
+
+        {calculateComission(amount, comission) > 0 && (
+          <span style={{ marginTop: '10px', display: 'block' }}>
+            Cakeshaes will get ${calculateComission(amount, comission)} from ${amount}.
+          </span>
+        )}
 
         <div className="btnWrapper">
           <Button width={'170'} height={'40px'} loader={isLoading} rounded sm btntype="primary" htmlType={'submit'}>
