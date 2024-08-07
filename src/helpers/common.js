@@ -354,7 +354,6 @@ export const getStatus = data => {
   }
 };
 
-
 export const removeDuplicates = (array, propertyName) => {
   return Object.values(
     array.reduce(function (unique, current) {
@@ -365,3 +364,5 @@ export const removeDuplicates = (array, propertyName) => {
     }, {}),
   );
 };
+
+export const formatAmount = value => parseFloat(value).toFixed(2);

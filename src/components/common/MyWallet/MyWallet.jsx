@@ -17,6 +17,7 @@ import CryptoModal from '@/components/molecules/CryptoModal/CryptoModal';
 import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
+import PayoutModal from '@/components/atoms/PayoutModal/PayoutModal';
 
 const MyWallet = ({ pieData, amount }) => {
   const { user, refetch } = useContextHook(AuthContext, v => ({
@@ -31,6 +32,7 @@ const MyWallet = ({ pieData, amount }) => {
   const [openCrypto, setOpenCrypto] = useState(false);
   const [openAmout, setOpenAmount] = useState(false);
   const [openTopupSuccess, setOpenTopupSuccess] = useState(false);
+  const [payoutModal, setPayoutModal] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
   const [openWalletLink, setOpenWalletLink] = useState(false);
@@ -102,7 +104,9 @@ const MyWallet = ({ pieData, amount }) => {
           paragraph="Your wallet details have been saved for future top ups."
         />
       </CenterModal>
-
+      <CenterModal open={payoutModal} setOpen={setPayoutModal} width="623" title="Payout">
+        <PayoutModal currentAmount={user?.wallet} setPayoutModal={setPayoutModal} />
+      </CenterModal>
       <CenterModal open={openTopupSuccess} setOpen={setOpenTopupSuccess} width="543" headImage={SuccessIcon}>
         <SuccessModal
           heading="Wallet Top up Successful!"
@@ -221,10 +225,23 @@ const MyWallet = ({ pieData, amount }) => {
             <span>Total Credit:</span> <br />
             <h1>{+user?.wallet != null && user?.wallet != undefined ? `$ ${user?.wallet}` : '$0'}</h1>
           </div>
-          <Button width={'142px'} height={'40px'} rounded sm btntype="primary" onClick={() => openModal()}>
-            Top Up Wallet
-            <Image src={walletWhite} alt="walletWhite" />
-          </Button>
+          <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
+            <Button
+              rounded
+              sm
+              btntype="primary"
+              width={'102px'}
+              height={'40px'}
+              onClick={() => setPayoutModal(true)}
+              disabled={user?.wallet < 50}>
+              Payout
+              <Image src={walletWhite} alt="walletWhite" />
+            </Button>
+            <Button width={'142px'} height={'40px'} rounded sm btntype="primary" onClick={() => openModal()}>
+              Top Up Wallet
+              <Image src={walletWhite} alt="walletWhite" />
+            </Button>
+          </div>
         </div>
 
         <ChartWrapper>
