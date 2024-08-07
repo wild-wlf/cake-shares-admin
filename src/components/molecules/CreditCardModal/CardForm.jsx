@@ -145,27 +145,29 @@ const CardForm = ({ openCardNext }) => {
       {cards_loading ? (
         <SavedCardStyles>Loading ....</SavedCardStyles>
       ) : (
-        <SavedCardStyles>
-          <div className="head">
-            <strong className="title">Saved Cards</strong>
-            <strong className="title danger" onClick={() => setIsCardClicked('')}>
-              Clear
-            </strong>
-          </div>
-          <Slider {...settings}>
-            {cards_data.map((_, ind) => {
-              return (
-                <div key={ind} className="savedCard" onClick={() => cardClickHandler(_)}>
-                  <div className="card-img">
-                    <Image src={getSource(_.brand)} width={100} height={50} alt={_.brand} />{' '}
+        cards_data.length > 0 && (
+          <SavedCardStyles>
+            <div className="head">
+              <strong className="title">Saved Cards</strong>
+              <strong className="title danger" onClick={() => setIsCardClicked('')}>
+                Clear
+              </strong>
+            </div>
+            <Slider {...settings}>
+              {cards_data.map((_, ind) => {
+                return (
+                  <div key={ind} className="savedCard" onClick={() => cardClickHandler(_)}>
+                    <div className="card-img">
+                      <Image src={getSource(_.brand)} width={100} height={50} alt={_.brand} />{' '}
+                    </div>
+                    <button>**** **** **** {_.last4}</button>
+                    <div className={`fake-checkbox ${isCardClicked === _.id && 'active'}`} />
                   </div>
-                  <button>**** **** **** {_.last4}</button>
-                  <div className={`fake-checkbox ${isCardClicked === _.id && 'active'}`} />
-                </div>
-              );
-            })}
-          </Slider>
-        </SavedCardStyles>
+                );
+              })}
+            </Slider>
+          </SavedCardStyles>
+        )
       )}
 
       <InputWrapper>
