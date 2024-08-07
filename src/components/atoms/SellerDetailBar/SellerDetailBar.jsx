@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Data } from './SellerBarStyles';
+import { formatAmount } from '@/helpers/common';
 
 const SellerDetailBar = ({ sm, topData, amount, totalInvestmentCount }) => {
   topData?.sort((a, b) => b.percentage - a.percentage);
@@ -11,7 +12,7 @@ const SellerDetailBar = ({ sm, topData, amount, totalInvestmentCount }) => {
       return (
         <Data key={item._id}>
           <span className="f-span">{item.investmentTypeName}</span>
-          <h1>{`$${item.investmentAmount}`}</h1>
+          <h1>{`$${formatAmount(item.investmentAmount)}`}</h1>
           <span className="l-span">{`${item.totalInvestment} Investments`}</span>
         </Data>
       );
@@ -30,7 +31,7 @@ const SellerDetailBar = ({ sm, topData, amount, totalInvestmentCount }) => {
       {[...Array(4)].map((_, index) => renderData(topInvestments[index], index))}
       <Data>
         <span className="f-span">Total Investment</span>
-        <h1>{`$${amount}`}</h1>
+        <h1>{`$${formatAmount(amount)}`}</h1>
         <span className="l-span">{`${totalInvestmentCount} Investments`} </span>
       </Data>
     </Container>

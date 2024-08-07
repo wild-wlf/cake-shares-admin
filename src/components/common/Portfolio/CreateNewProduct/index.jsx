@@ -415,7 +415,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                       message: 'Please enter Amentity',
                     },
                     {
-                      pattern: /^.{3,20}$/,
+                      pattern: /^.{2,20}$/,
                       message: 'Please enter a valid amenity',
                     },
                     {
@@ -495,8 +495,12 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^(?!0\d)(\d+(\.\d{1,2})?)$/,
-                message: 'Asset value must be a valid number (greater than zero) with up to 2 decimal places',
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Minimum Investment Value must be greater than zero',
+              },
+              {
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Minimum Investment Value must have up to 2 decimal places',
               },
               {
                 pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
@@ -525,9 +529,12 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter Minimum Investment Value',
               },
               {
-                pattern: /^(?!0\d)(\d+(\.\d{1,2})?)$/,
-                message:
-                  'Minimum Investment Value must be a valid number (greater than zero) with up to 2 decimal places',
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Minimum Investment Value must be greater than zero',
+              },
+              {
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Minimum Investment Value must have up to 2 decimal places',
               },
               {
                 pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,

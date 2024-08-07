@@ -525,12 +525,17 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 message: 'Please enter Total Asset Value',
               },
               {
-                pattern: /^[1-9]\d*$/,
-                message: 'Asset value must be whole number (greater than zero)',
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Minimum Investment Value must be greater than zero',
               },
               {
-                pattern: /^[1-9][0-9]{0,8}$/,
-                message: 'Please enter a valid number with up to 9 digits',
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Minimum Investment Value must have up to 2 decimal places',
+              },
+              {
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
               {
                 transform: value => {
@@ -552,14 +557,18 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 required: true,
                 message: 'Please enter Minimum Investment Value',
               },
-
               {
-                pattern: /^[1-9]\d*$/,
-                message: 'Minimum investment must be whole number (greater than zero)',
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Minimum Investment Value must be greater than zero',
               },
               {
-                pattern: /^[1-9][0-9]{0,8}$/,
-                message: 'Please enter a valid number with up to 9 digits',
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Minimum Investment Value must have up to 2 decimal places',
+              },
+              {
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
               {
                 transform: value => value > +form.getFieldValue('assetValue'),
