@@ -26,7 +26,7 @@ const Portfolio = () => {
             products_data?.totalItems ? products_data?.totalItems : '0'
           } Products in your Portfolio right now!`}
         />
-        <PortfolioTable />
+        <PortfolioTable title="Portfolio" />
       </SellerContainer>
     </>
   );

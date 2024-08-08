@@ -15,6 +15,9 @@ const ButtonsGroup = ({ title = '', setSearchQuery }) => {
     {
       text: 'Funded',
     },
+    {
+      text: 'Active',
+    },
   ];
   return (
     <ButtonsGroupWrapper>

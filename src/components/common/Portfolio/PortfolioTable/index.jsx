@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ActionBtnList } from '@/components/atoms/ActionBtns/ActionBtns.styles';
 import Table from '@/components/molecules/Table';
 import TableLayout from '@/components/atoms/TableLayout';
 import { TableContainer } from './PorfolioTable.style';
 import CenterModal from '@/components/molecules/Modal/CenterModal';
-import DownloadModal from '@/components/molecules/DownloadStatmentModal/DownloadModal';
 import SuccessModal from '@/components/molecules/SuccessModal/SuccessModal';
 import SuccessIcon from '../../../../_assets/successIcon.png';
 import ButtonsGroup from '@/components/atoms/ButtonsGroup';
@@ -12,7 +11,6 @@ import CalenderIcon from '../../../../_assets/calander.svg';
 import { MdModeEditOutline } from 'react-icons/md';
 import DeleteIcon from '../../../../_assets/delete.svg';
 import DeleteDisabledIcon from '../../../../_assets/delete-disabled.svg';
-import SpeakerIcon from '../../../../_assets/speaker.svg';
 import FileIcon from '../../../../_assets/file.svg';
 import TableStyle from '../../../../_assets/table-style.jpg';
 import EditProductModal from '../EditProductModal';
@@ -36,6 +34,7 @@ const PortfolioTable = ({ title }) => {
     refetch: v.refetch,
     user: v.user,
   }));
+
   const [searchQuery, setSearchQuery] = useState({
     page: 1,
     itemsPerPage: 10,
@@ -45,9 +44,11 @@ const PortfolioTable = ({ title }) => {
     status: 'all',
     endDate: '',
   });
+
+  const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
   const [selecteData, setSelecteData] = useState();
@@ -59,6 +60,7 @@ const PortfolioTable = ({ title }) => {
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
+
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -288,7 +290,7 @@ const PortfolioTable = ({ title }) => {
           totalCount={totalCount}
           pageSize={searchQuery.itemsPerPage}
           tableHeading={<ButtonsGroup title={title} setSearchQuery={setSearchQuery} />}
-          statusFilter={true}
+          statusFilter={false}
           placeholder="Search Product"
           btnWidth={'40px'}
           btnType="download"
