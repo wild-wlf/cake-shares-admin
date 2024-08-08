@@ -36,8 +36,8 @@ export const indivisualSellerNav = [
         icon: privateChat,
       },
       {
-        navigation: "/shareholder-chat",
-        name: "Shareholder Chat",
+        navigation: "/investor-chat",
+        name: "Investor Chat",
         icon: stakeChat,
       },
       {
@@ -96,8 +96,8 @@ export const companySellerNav = [
         // nav: '/private-chat',
       },
       {
-        navigation: "/shareholder-chat",
-        name: "Shareholder Chat",
+        navigation: "/investor-chat",
+        name: "Investor Chat",
         icon: stakeChat,
         // type: 'stake',
         // nav: '/stakeholder-chat',
