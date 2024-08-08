@@ -14,7 +14,7 @@ import categoryService from '@/services/categoryService';
 import UploadField from '../../../atoms/Field';
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import { validateAmenity } from '@/helpers/common';
-import UploadImg from '@/components/molecules/UploadImg';
+import Switch from '@/components/molecules/Switch';
 
 const CreateNewProduct = ({ handleCreateProduct }) => {
   const [media, setmedia] = useState([]);
@@ -23,6 +23,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const [loading, setLoading] = useState(false);
   const [addressDetails, setAddressDetails] = useState('');
   const [formattedAddress, setFormattedAddress] = useState();
+  const [isInfiniteBackers, setIsInfiniteBackers] = useState(false);
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -69,6 +70,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       maximumBackers: e.maxBackers,
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
+      isInfiniteBackers,
     };
 
     const formDataToSend = new FormData();
@@ -429,7 +431,36 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             ))}
           </div>
         </div>
-        <span className="heading">Investment Info:</span>
+        <div className="head">
+          <span className="heading">Investment Info:</span>
+          <Switch
+            label="Is Infinite Backers?"
+            value={isInfiniteBackers}
+            onChange={e => {
+              setIsInfiniteBackers(e.target.value);
+              if (e.target.value) {
+                form.setFieldsValue({ maxBackers: '' });
+                form.setFieldRules('maxBackers', [{ required: false }, { pattern: /.*/ }]);
+                form.removeFieldError('maxBackers');
+              } else {
+                form.setFieldRules('maxBackers', [
+                  {
+                    required: true,
+                    message: 'Please enter Maximum Backers Limit',
+                  },
+                  {
+                    pattern: /^[1-9][0-9]*$/,
+                    message: 'Please enter a valid limit greater than 0',
+                  },
+                  {
+                    transform: value => value < +form.getFieldValue('minBackers'),
+                    message: 'Maximum backers cannot be less than minimum backers!',
+                  },
+                ]);
+              }
+            }}
+          />
+        </div>
         <div className="input-grid">
           <Form.Item
             type="number"
@@ -459,6 +490,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             type="number"
             label="Maximum Backers"
             name="maxBackers"
+            disabled={isInfiniteBackers}
             sm
             rounded
             placeholder="01"
@@ -467,17 +499,13 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 required: true,
                 message: 'Please enter Maximum Backers Limit',
               },
-              // {
-              //   pattern: /^(0?[1-9]|[1-9][0-9])$/,
-              //   message: 'Please enter a valid limit between 1 and 99',
-              // },
               {
-                pattern: /^[1-9][0-9]{0,3}$/,
-                message: 'Please enter a valid limit between 1 and 9999',
+                pattern: /^[1-9][0-9]*$/,
+                message: 'Please enter a valid limit greater than 0',
               },
               {
                 transform: value => value < +form.getFieldValue('minBackers'),
-                message: 'Maximun backers cannot be less than minimum backers!',
+                message: 'Maximum backers cannot be less than minimum backers!',
               },
             ]}>
             <Field maxLength={4} />

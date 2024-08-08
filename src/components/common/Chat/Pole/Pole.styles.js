@@ -5,6 +5,7 @@ export const StyledPole = styled.div`
   max-width: 273px;
   padding: 18px 13px;
   margin-left: ${({ $type }) => ($type === 'seen' ? 'auto' : '')};
+  margin-bottom: 10px;
 
   ${({ $type }) =>
     $type === 'seen'
