@@ -2,7 +2,7 @@ import React from 'react';
 import { VerficationModalWrapper } from './BlockModal.style';
 import Image from 'next/image';
 import VerificationIcon from '../../../_assets/verification.svg';
-import Button from '../Button';
+import Button from '../../atoms/Button';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
 import arrowImg from '../../../_assets/half-white-arrow.svg';
