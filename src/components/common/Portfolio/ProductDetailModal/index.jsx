@@ -53,7 +53,7 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
     },
     {
       heading: 'Maximum Backers:',
-      text: data?.maximumBackers,
+      text: data?.isInfiniteBackers ? 'Infinite' : data?.maximumBackers,
     },
     {
       heading: 'Annual Cost:',

@@ -161,6 +161,7 @@ const PortfolioTable = ({ title }) => {
         getStatus(data),
         data?.isProductRequest == true ? 'Requested' : '-----------',
         formatNumber(data.maximumBackers) ?? 0 ?? '------------',
+        data?.isInfiniteBackers ? 'Infinite' : formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.minimumInvestment)}` ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.valueRaised)}` ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.assetValue)}` ?? 0 ?? '------------',

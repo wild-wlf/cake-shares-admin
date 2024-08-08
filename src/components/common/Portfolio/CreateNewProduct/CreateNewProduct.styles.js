@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledCreateNewProduct = styled.div`
   .heading {
@@ -7,6 +7,12 @@ export const StyledCreateNewProduct = styled.div`
     line-height: 22px;
     font-weight: 500;
     margin-bottom: 10px;
+  }
+
+  .head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .input-grid {
