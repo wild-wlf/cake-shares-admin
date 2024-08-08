@@ -13,13 +13,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 const CardForm = ({ openCardNext }) => {
+  const comission = 0;
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [cardDetails, setCardDetails] = useState(false);
   const [isCardClicked, setIsCardClicked] = useState('');
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(true);
-  const comission = 0.2;
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -230,7 +231,7 @@ const CardForm = ({ openCardNext }) => {
 
         <div className="inputBox">
           <label>
-            <span>*</span>Enter Amount (cakeshares will deduct 0.2% comission on this)
+            <span>*</span>Enter Amount (cakeshares will deduct {comission}% comission on this)
           </label>
 
           <input
