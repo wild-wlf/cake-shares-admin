@@ -157,7 +157,7 @@ const PortfolioTable = ({ title }) => {
         data.productName || '------------',
         data.investmentType?.name || '------------',
         getStatus(data),
-        formatNumber(data.maximumBackers) ?? 0 ?? '------------',
+        data?.isInfiniteBackers ? 'Infinite' : formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.minimumInvestment)}` ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.valueRaised)}` ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.assetValue)}` ?? 0 ?? '------------',
