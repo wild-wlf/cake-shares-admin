@@ -27,7 +27,10 @@ const ReportModal = ({ onClose = () => {}, item, title = 'Report Request!', btnT
       const payload = {
         messageId: item?._id,
         conversationId: item?.conversationId,
-        reportedBy: user?._id,
+        reportedBy: {
+          _id: user?._id,
+          model_type: 'user',
+        },
         reason: selectedReason,
         details: selectedReason === 'other' ? details : '',
       };
