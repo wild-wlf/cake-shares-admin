@@ -71,17 +71,8 @@ export default function App({ Component, pageProps }) {
               <Component {...pageProps} />
             ) : (
               <>
-                {loading && <PreLoader />}
-                <Layout>
-                  {userInfo ? (
-                    <PageWrapper>
-                      <Sidenav data={userInfo.isIndividualSeller ? indivisualSellerNav : companySellerNav} />
-                      <Component {...pageProps} />
-                    </PageWrapper>
-                  ) : (
-                    <Component {...pageProps} />
-                  )}
-                </Layout>
+                {/* {loading && <PreLoader />} */}
+                <Layout Component={Component} pageProps={pageProps} loading={loading} />
               </>
             )}
           </KycContextProvider>

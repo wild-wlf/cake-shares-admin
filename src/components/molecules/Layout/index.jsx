@@ -5,15 +5,21 @@ import VerficationModal from '../VerficationModal';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import BlockModal from '../BlockModal';
+import { PageWrapper } from '@/styles/GlobalStyles.styles';
+import Sidenav from '@/components/molecules/sideNav/index';
+import { companySellerNav, indivisualSellerNav } from '@/helpers/nav';
+import PreLoader from '@/components/molecules/PreLoader';
 
 function isEmptyObject(obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-const Layout = ({ children }) => {
-  const { user } = useContextHook(AuthContext, v => ({
+const Layout = ({ Component, pageProps,loading }) => {
+  const { user, userCookkies } = useContextHook(AuthContext, v => ({
     user: v.user,
+    userCookkies: v.userCookkies,
   }));
+  console.log(userCookkies);
   const [modal, setModal] = useState(false);
   const [blockModal, setblockModal] = useState(false);
   useEffect(() => {
@@ -42,8 +48,16 @@ const Layout = ({ children }) => {
           <BlockModal setOpen={setblockModal} />
         </CenterModal>
       )}
-
-      {children}
+ 
+      {userCookkies ? (
+        <PageWrapper>
+          {loading && <PreLoader />}
+          <Sidenav data={userCookkies?.isIndividualSeller ? indivisualSellerNav : companySellerNav} />
+          <Component {...pageProps} />
+        </PageWrapper>
+      ) : (
+        <Component {...pageProps} />
+      )}
     </>
   );
 };

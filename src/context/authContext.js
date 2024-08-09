@@ -14,6 +14,7 @@ export const AuthContext = createContextHook(context);
 
 export const AuthContextProvider = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE));
+  const [userCookkies, setUserCookies] = useState(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
@@ -46,6 +47,7 @@ export const AuthContextProvider = props => {
   const onLogout = async () => {
     try {
       await userService.logout();
+      setUserCookies(null);
       setIsLoggedIn(false);
       router.push('/sign-in');
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
@@ -72,6 +74,10 @@ export const AuthContextProvider = props => {
             type: res?.user?.type,
             isIndividualSeller: res?.user?.isIndividualSeller,
           }),
+          setUserCookies({
+            type: res?.user?.type,
+            isIndividualSeller: res?.user?.isIndividualSeller,
+          }),
         );
         const firstPage = res.permissions.filter(p => p.includes('.nav')).map(p => `${p.split('.')[0]}`)[0];
 
@@ -83,6 +89,7 @@ export const AuthContextProvider = props => {
       })
       .catch(err => {
         setIsLoggedIn(false);
+        setUserCookies(null);
         setLoadingUser(false);
         Toast({
           type: 'error',
@@ -142,6 +149,7 @@ export const AuthContextProvider = props => {
       Toast({ type: 'success', message: 'Logged In Successfully!' });
     } catch ({ message }) {
       setIsLoggedIn(false);
+      setUserCookies(null);
       setLoadingUser(false);
       setLoading(false);
       Toast({ type: 'error', message });
@@ -213,6 +221,7 @@ export const AuthContextProvider = props => {
         user,
         setUser,
         getPermissions,
+        userCookkies
       }}>
       {props.children}
     </AuthContext.Provider>
