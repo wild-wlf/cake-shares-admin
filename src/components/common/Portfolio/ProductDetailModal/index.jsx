@@ -86,8 +86,10 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
     <StyledProductDetailModal>
       <div className="head">
         <span className="heading">Product Info:</span>
+
         {data && !data?.isAdvertised && data?.isVerified && data?.valueRaised !== data?.assetValue && (
           <Button
+            disabled={new Date() > new Date(data?.deadline)}
             onClick={() => {
               setProductAdvertiseModal(true);
               setSelectedProduct(data);

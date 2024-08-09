@@ -12,7 +12,7 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
       <h3 className="heading">How would you like to add money to your Cakeshares Wallet?</h3>
 
       <OptionsWrapper>
-        <Option onClick={() => handleOptionSelect('bank')}>
+        <Option onClick={() => handleOptionSelect('bank')} $disable>
           <div className="imgContainer">
             <Image src={Bank} alt="bank image" />
           </div>
@@ -36,7 +36,7 @@ const TopUpModal = ({ openNext, handleOptionSelect, selectedOption }) => {
           </div>
         </Option>
 
-        <Option onClick={() => handleOptionSelect('crypto')}>
+        <Option onClick={() => handleOptionSelect('crypto')} $disable>
           <div className="imgContainer">
             <Image src={CryptoWallet} alt="bank image" />
           </div>

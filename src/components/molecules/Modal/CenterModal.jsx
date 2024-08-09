@@ -71,11 +71,11 @@ const CenterModal = ({
           <Head>
             {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
-            {iscloseAble && (
-              <button type="button" className="closer" onClick={handleClose} tabIndex={0}>
+            {
+              <button type="button" className="closer" onClick={() => setOpen(false)} tabIndex={0}>
                 <RxCross2 className="Icon" />
               </button>
-            )}
+            }
           </Head>
           {children}
         </ContentHolder>

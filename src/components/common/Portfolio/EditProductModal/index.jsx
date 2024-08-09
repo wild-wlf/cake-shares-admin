@@ -330,6 +330,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               label="Product Description"
               name="description"
               sm
+              rounded
               placeholder="Enter Text"
               rules={[
                 {
@@ -337,8 +338,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^.{10,1000}$/,
-                  message: 'Minimum character length of product description is 10',
+                  pattern: /^(.|\n){10,1000}$/,
+                  message: 'Minimum character length of description is 10',
                 },
               ]}>
               <Field maxLength={1000} />
@@ -358,7 +359,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^.{10,1000}$/,
+                  pattern: /^(.|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
                 },
               ]}>

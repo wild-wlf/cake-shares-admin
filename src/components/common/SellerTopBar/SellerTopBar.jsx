@@ -47,7 +47,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
       console.log(error);
     }
   };
- 
+
   useEffect(() => {
     const handleSellerNotification = () => {
       setfetchNotifications(_ => !_);
@@ -75,7 +75,12 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
 
   return (
     <>
-      <CenterModal open={createProductModal} setOpen={setCreateProductModal} title="Create new Product" width="900">
+      <CenterModal
+        open={createProductModal}
+        setOpen={setCreateProductModal}
+        title="Create new Product"
+        width="900"
+        iscloseAble={false}>
         <CreateNewProduct handleCreateProduct={handleCreateProduct} />
       </CenterModal>
       <CenterModal
