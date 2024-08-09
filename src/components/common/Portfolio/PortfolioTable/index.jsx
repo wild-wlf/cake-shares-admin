@@ -41,7 +41,6 @@ const PortfolioTable = ({ title }) => {
     searchText: '',
     type: 'all',
     startDate: '',
-    status: 'all',
     endDate: '',
   });
 
