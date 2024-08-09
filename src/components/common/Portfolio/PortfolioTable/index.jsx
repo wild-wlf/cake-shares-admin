@@ -114,7 +114,8 @@ const PortfolioTable = ({ title }) => {
               parseFloat(user?.wallet) <= 0 ||
               _?.isAdvertised === true ||
               _?.isVerified !== true ||
-              _?.valueRaised === _?.assetValue
+              _?.valueRaised === _?.assetValue ||
+              new Date() > new Date(_?.deadline)
             }
             type="button"
             className="btn speaker"
@@ -126,7 +127,11 @@ const PortfolioTable = ({ title }) => {
               <path
                 d="M14.8533 8.06582V12.1499C14.8521 12.3184 14.7879 12.4804 14.6733 12.6039C14.5587 12.7275 14.4021 12.8037 14.2342 12.8177C14.0663 12.8317 13.8992 12.7823 13.7658 12.6794C13.6324 12.5764 13.5424 12.4273 13.5133 12.2613C13.2507 10.6864 11.0696 10.1248 9.11596 10.1248H6.07819V2.69908H9.11596C11.0696 2.69908 13.2507 2.1381 13.5133 0.562506C13.5415 0.395714 13.6313 0.24559 13.7649 0.14185C13.8986 0.038109 14.0662 -0.0116867 14.2348 0.00231914C14.4034 0.0163249 14.5606 0.0931114 14.6752 0.217479C14.7899 0.341847 14.8537 0.504732 14.854 0.673891V4.75802C15.2355 4.83548 15.5785 5.04246 15.8249 5.34388C16.0712 5.6453 16.2058 6.02262 16.2058 6.41192C16.2058 6.80121 16.0712 7.17853 15.8249 7.47995C15.5785 7.78137 15.2348 7.98835 14.8533 8.06582ZM4.72739 10.1248V2.69908H3.71479C1.66733 2.69908 0.00195312 4.36445 0.00195312 6.41192C0.00195312 8.45938 1.66733 10.1248 3.71479 10.1248H4.72739ZM5.75551 11.4749H3.71479C3.13862 11.4754 2.56663 11.377 2.02376 11.1839L3.48932 15.0939C3.56451 15.3016 3.68013 15.4924 3.82948 15.6552C3.97884 15.818 4.15897 15.9496 4.35948 16.0424C4.5596 16.1359 4.77624 16.189 4.99695 16.1985C5.21765 16.208 5.43805 16.1737 5.64547 16.0977C5.85321 16.0225 6.04399 15.9069 6.20678 15.7575C6.36958 15.6082 6.50116 15.4281 6.59393 15.2276C6.78363 14.8198 6.8032 14.3635 6.64929 13.9422L5.75483 11.4742L5.75551 11.4749Z"
                 fill={
-                  parseFloat(user.wallet) <= 0 || _?.isAdvertised || !_?.isVerified || _?.valueRaised === _?.assetValue
+                  parseFloat(user.wallet) <= 0 ||
+                  _?.isAdvertised ||
+                  !_?.isVerified ||
+                  _?.valueRaised === _?.assetValue ||
+                  new Date() > new Date(_?.deadline)
                     ? 'grey'
                     : '#419400'
                 }
@@ -158,8 +163,8 @@ const PortfolioTable = ({ title }) => {
         data.productName || '------------',
         data.investmentType?.name || '------------',
         getStatus(data),
-        data?.isProductRequest == true ? 'Requested' : '-----------',
-        formatNumber(data.maximumBackers) ?? 0 ?? '------------',
+        // data?.isProductRequest == true ? 'Requested' : '-----------',
+        // formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         data?.isInfiniteBackers ? 'Infinite' : formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.minimumInvestment)}` ?? 0 ?? '------------',
         `${convertToCurrencyFormat(data.valueRaised)}` ?? 0 ?? '------------',
@@ -173,7 +178,7 @@ const PortfolioTable = ({ title }) => {
     `Product`,
     `Investment type`,
     `Status`,
-    `Edit Status`,
+    // `Edit Status`,
     'Backers Limit',
     'Minimum Investment',
     'Value Raised',
@@ -236,7 +241,12 @@ const PortfolioTable = ({ title }) => {
         />
       </CenterModal>
 
-      <CenterModal open={editProductModal} setOpen={setEditProductModal} title="Edit Product" width="900">
+      <CenterModal
+        open={editProductModal}
+        setOpen={setEditProductModal}
+        title="Edit Product"
+        width="900"
+        iscloseAble={false}>
         <EditProductModal product={selecteData} setEditProductModal={setEditProductModal} />
       </CenterModal>
       <CenterModal

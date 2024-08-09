@@ -38,7 +38,7 @@ const MyWallet = ({ pieData, amount }) => {
   const [openWalletLink, setOpenWalletLink] = useState(false);
   const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('bank');
+  const [selectedOption, setSelectedOption] = useState('card');
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
@@ -246,14 +246,19 @@ const MyWallet = ({ pieData, amount }) => {
 
         <ChartWrapper>
           <div className="ChartContainer">
-            <PieChart graphData={pieData} title="Total Investments" amount={`$${amount || 0}`} timeFrame="year" />
+            <PieChart
+              graphData={pieData?.length > 0 ? pieData : null}
+              title="Total Investments"
+              amount={`$${amount || 0}`}
+              timeFrame="year"
+            />
           </div>
 
           <div className="ChartContainer">
             <Graph
               graphLineColor="#4E6199"
               // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
-              // graphData={ary2}
+              // graphData={ary2?.length > 0 ? ary2 : null}
               tooltipBg=""
               title="Potential Return P.A"
               // amount={dashboard_data?.totalTransactionAmount}
@@ -265,7 +270,7 @@ const MyWallet = ({ pieData, amount }) => {
             <Graph
               graphLineColor="#D74120"
               // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
-              // graphData={ary3}
+              // graphData={ary2?.length > 0 ? ary2 : null}
               tooltipBg=""
               tooltipImg=""
               title="Portfolio Costs"

@@ -52,6 +52,10 @@ function TableLayout({
       label: 'Top up',
     },
     {
+      value: 'payout',
+      label: 'Payout',
+    },
+    {
       value: 'product',
       label: 'Filter by products',
     },
