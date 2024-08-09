@@ -39,6 +39,11 @@ export const ChatBody = styled.div`
   overflow: auto;
   padding-right: 8px;
 
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+
   @media screen and (min-width: 1200px) {
     height: calc(100vh - 239px);
   }

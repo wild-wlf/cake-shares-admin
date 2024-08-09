@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import css from 'styled-jsx/css';
 
 export const StyledChatMessage = styled.div`
-  max-width: 650px;
+  /* max-width: 650px; */
   display: flex;
   align-items: flex-end;
   position: relative;
@@ -10,6 +10,7 @@ export const StyledChatMessage = styled.div`
   margin-left: ${({ $type }) => ($type === 'send' ? '' : 'auto')};
 
   .message-holder {
+    width: ${({ $type }) => ($type === 'send' ? '100%' : '')};
     margin-left: ${({ $type }) => ($type === 'send' ? '' : 'auto')};
   }
 
@@ -77,7 +78,7 @@ export const StyledChatMessage = styled.div`
     border-radius: 50%;
     overflow: hidden;
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     left: 0;
     display: ${({ $type }) => ($type === 'send' ? 'block' : 'none')};
 
@@ -93,15 +94,19 @@ export const StyledChatMessage = styled.div`
 export const MessageContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 10px;
   position: relative;
+
+  .message-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
 `;
 
 export const ReactionContainer = styled.div`
-  position: absolute;
-  top: 0px;
-  right: -50px;
+
   cursor: pointer;
   display: flex;
   align-items: flex-start;

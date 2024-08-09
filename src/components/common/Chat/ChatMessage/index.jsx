@@ -120,18 +120,30 @@ const ChatMessage = ({
       )}
       <div className="message-holder">
         <MessageContainer>
+        <div className="message-content">
+            <div className="message">
+              <p>
+                <RenderTextMessage text={message} />
+              </p>
+            </div>
+            {showReaction && (
+              <>
+                <ReactionContainer>
+                  <ReactionTooltip
+                    data={<MessageReaction setActive={setActive} setReaction={setReactions} />}
+                    type="primary"
+                    width={230}
+                    active={active}
+                    setActive={setActive}
+                    alignRight={true}>
+                    <Image src={reactionIcon} alt="add reaction" height={22} width={22} />
+                  </ReactionTooltip>
+                </ReactionContainer>
+              </>
+            )}
+          </div>
           {showReaction && (
-            <ReactionContainer>
-              <ReactionTooltip
-                data={<MessageReaction setActive={setActive} setReaction={setReactions} />}
-                type="primary"
-                width={230}
-                active={active}
-                setActive={setActive}
-                alignRight={true}>
-                <Image src={reactionIcon} alt="add reaction" height={22} width={22} />
-              </ReactionTooltip>
-
+            <>
               <ModalContainer
                 md
                 width={700}
@@ -153,13 +165,8 @@ const ChatMessage = ({
                   <ReportModal onClose={onClose} item={item} title="Report this Message!" btnText="Report" />
                 )}
               />
-            </ReactionContainer>
+            </>
           )}
-          <div className="message">
-            <p>
-              <RenderTextMessage text={message} />
-            </p>
-          </div>
           {(chatType === 'community' || chatType === 'stakeholder') &&
             (defaultGroupReactions?.length > 0 || receivedGroupReaction?.length > 0) && (
               <GroupReaction type={'count'}>

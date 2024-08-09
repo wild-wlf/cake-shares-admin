@@ -62,7 +62,8 @@ export const StyledTooltip = styled.div`
   ${({ type }) =>
     type === 'primary' &&
     css`
-      background: rgba(64, 143, 140, 0.3);
+        background: var(--white);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       &:before {
         border-color: rgba(64, 143, 140, 0.3) transparent transparent transparent;
       }
