@@ -206,6 +206,7 @@ const SideBar = ({
                     conversationId: item?._id,
                     author: user._id,
                     receivers: item?.participants,
+                    productName:item?.productName,
                   });
                 }
               }}

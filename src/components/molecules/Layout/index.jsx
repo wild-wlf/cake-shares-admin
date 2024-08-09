@@ -19,7 +19,6 @@ const Layout = ({ Component, pageProps,loading }) => {
     user: v.user,
     userCookkies: v.userCookkies,
   }));
-  console.log(userCookkies);
   const [modal, setModal] = useState(false);
   const [blockModal, setblockModal] = useState(false);
   useEffect(() => {
