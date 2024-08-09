@@ -99,7 +99,7 @@ const PortfolioTable = ({ title }) => {
         <li>
           <button
             type="button"
-            disabled={_?.valueRaised === _?.assetValue}
+            disabled={_?.valueRaised > 0 || _?.isProductRequest}
             className="btn edit"
             onClick={() => {
               setEditProductModal(true);
