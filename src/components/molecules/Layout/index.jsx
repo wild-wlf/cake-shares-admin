@@ -14,7 +14,7 @@ function isEmptyObject(obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-const Layout = ({ Component, pageProps,loading }) => {
+const Layout = ({ Component, pageProps, loading }) => {
   const { user, userCookkies } = useContextHook(AuthContext, v => ({
     user: v.user,
     userCookkies: v.userCookkies,
@@ -28,9 +28,9 @@ const Layout = ({ Component, pageProps,loading }) => {
       setModal(false);
     }
 
-    if (user && !isEmptyObject(user) && user.isBlock) {
+    if (user && !isEmptyObject(user) && user.status === 'Suspended') {
       setblockModal(true);
-    } else if (user && !isEmptyObject(user) && !user.isBlock) {
+    } else if (user && !isEmptyObject(user) && !user.status === 'Suspended') {
       setblockModal(false);
     }
   }, [user]);
@@ -47,7 +47,7 @@ const Layout = ({ Component, pageProps,loading }) => {
           <BlockModal setOpen={setblockModal} />
         </CenterModal>
       )}
- 
+
       {userCookkies ? (
         <PageWrapper>
           {loading && <PreLoader />}

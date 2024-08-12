@@ -61,7 +61,7 @@ function PieCharts({graphData, tooltipBg, title, amount, sm, graphLineColor, tim
                     <strong>{amount}</strong>
                 </div>
             </GraphHeader>
-            {graphData ? (
+            {graphData && graphData?.length > 0 ? (
                 <ChartContainer sm={sm}>
                     <HighchartsReact highcharts={Highcharts} options={options} />
                 </ChartContainer>

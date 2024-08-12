@@ -104,7 +104,7 @@ const PortfolioTable = ({ title }) => {
               setEditProductModal(true);
               setSelecteData(_);
             }}>
-            <MdModeEditOutline color="rgba(64, 143, 140, 1)" size={16} />
+            <MdModeEditOutline color={_?.valueRaised === _?.assetValue ? 'grey' : 'rgba(64, 143, 140, 1)'} size={16} />
           </button>
         </li>
         <li>
@@ -241,12 +241,7 @@ const PortfolioTable = ({ title }) => {
         />
       </CenterModal>
 
-      <CenterModal
-        open={editProductModal}
-        setOpen={setEditProductModal}
-        title="Edit Product"
-        width="900"
-        iscloseAble={false}>
+      <CenterModal open={editProductModal} setOpen={setEditProductModal} title="Edit Product" width="900">
         <EditProductModal product={selecteData} setEditProductModal={setEditProductModal} />
       </CenterModal>
       <CenterModal
