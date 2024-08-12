@@ -79,8 +79,7 @@ const SellerTopBar = ({ title, tagLine, suffix }) => {
         open={createProductModal}
         setOpen={setCreateProductModal}
         title="Create new Product"
-        width="900"
-        iscloseAble={false}>
+        width="900">
         <CreateNewProduct handleCreateProduct={handleCreateProduct} />
       </CenterModal>
       <CenterModal
