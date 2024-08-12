@@ -131,6 +131,7 @@ export const AddedReaction = styled.div`
 
 export const GroupReaction = styled.div`
   position: absolute;
+  cursor: pointer;
   left: -10px;
   padding: 1px 3px;
   border-radius: 29%;
