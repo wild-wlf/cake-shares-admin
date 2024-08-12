@@ -4,6 +4,13 @@ import styled from 'styled-components';
 import userProfile from '../../../_assets/userProfile.png';
 
 const ReactionListModal = ({ reactionData }) => {
+  const getProfilePicture = (img, img2) => {
+    if (img === '' || img === 'undefined') {
+      return img2;
+    } else {
+      return img;
+    }
+  };
   return (
     <Container>
       {reactionData && reactionData.length > 0
@@ -12,7 +19,7 @@ const ReactionListModal = ({ reactionData }) => {
               <Wrapper key={index}>
                 <div className="userDets">
                   <Image
-                    src={data?.senderId?._id?.profilePicture || userProfile}
+                    src={getProfilePicture(data?.senderId?._id?.profilePicture, userProfile)}
                     height={50}
                     width={50}
                     alt="profile"
