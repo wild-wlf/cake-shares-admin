@@ -33,7 +33,7 @@ const StakeHolderChat = () => {
   return (
     <div>
       <Head>
-        <title>CAKESHARES | Investor's Chat</title>
+        <title>{`CAKESHARES | Investor's Chat`}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <SellerContainer>
