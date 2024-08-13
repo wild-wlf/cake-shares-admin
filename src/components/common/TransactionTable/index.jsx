@@ -13,6 +13,7 @@ import userService from '@/services/userService';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import { convertToCurrencyFormat } from '@/helpers/common';
+import ButtonsGroup from '@/components/atoms/ButtonsGroup';
 
 const TransactionTable = () => {
   const { user, fetch } = useContextHook(AuthContext, v => ({
@@ -30,6 +31,29 @@ const TransactionTable = () => {
   });
   const [open, setOpen] = useState(false);
   const [statementModal, setStatementModal] = useState(false);
+  const filterData = [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: 'earn',
+      label: 'Earn',
+    },
+    {
+      value: 'top_up',
+      label: 'Top up',
+    },
+    {
+      value: 'payout',
+      label: 'Payout',
+    },
+    {
+      value: 'product',
+      label: 'Filter by products',
+    },
+  ];
+
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
   const openModal = () => {
@@ -103,7 +127,15 @@ const TransactionTable = () => {
 
       <TableContainer>
         <TableLayout
-          tableHeading="Transaction History"
+          tableHeading={
+            <ButtonsGroup
+              title={'Transaction History'}
+              buttons={false}
+              dropdown={true}
+              setSearchQuery={setSearchQuery}
+              data={filterData}
+            />
+          }
           transationFilter={true}
           placeholder="Search history"
           btnText="Download Statement"

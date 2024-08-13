@@ -44,6 +44,29 @@ const PortfolioTable = ({ title }) => {
     endDate: '',
   });
 
+  const categoryData = [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: 'new',
+      label: 'New',
+    },
+    {
+      value: 'funded',
+      label: 'Funded',
+    },
+    {
+      value: 'active',
+      label: 'Active',
+    },
+    {
+      value: 'rejected',
+      label: 'rejected',
+    },
+  ];
+
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
 
   const [startDate, setStartDate] = useState(null);
@@ -59,6 +82,7 @@ const PortfolioTable = ({ title }) => {
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
+
 
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
@@ -296,7 +320,7 @@ const PortfolioTable = ({ title }) => {
           currentPage={searchQuery.page}
           totalCount={totalCount}
           pageSize={searchQuery.itemsPerPage}
-          tableHeading={<ButtonsGroup title={title} setSearchQuery={setSearchQuery} />}
+          tableHeading={<ButtonsGroup title={title} buttons={false} dropdown={true} setSearchQuery={setSearchQuery} data ={categoryData}/>}
           statusFilter={false}
           placeholder="Search Product"
           btnWidth={'40px'}

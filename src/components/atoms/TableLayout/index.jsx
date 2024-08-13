@@ -38,28 +38,7 @@ function TableLayout({
 
   const debouncedFetchResults = useCallback(debounce(fetchResults, 300), []);
 
-  const filterData = [
-    {
-      value: 'all',
-      label: 'All',
-    },
-    {
-      value: 'earn',
-      label: 'Earn',
-    },
-    {
-      value: 'top_up',
-      label: 'Top up',
-    },
-    {
-      value: 'payout',
-      label: 'Payout',
-    },
-    {
-      value: 'product',
-      label: 'Filter by products',
-    },
-  ];
+
 
   return (
     <>
@@ -67,19 +46,6 @@ function TableLayout({
         <div className="head">
           <div className="heading-holder">
             {tableHeading && <strong className="table-heading">{tableHeading}</strong>}
-            {transationFilter && (
-              <div className="select-holder">
-                <Select
-                  noMargin
-                  placeholder="Transaction Type"
-                  onChange={({ target: { value } }) => {
-                    onChangeFilters({ type: value?.value });
-                  }}
-                  options={filterData}
-                  labelReverse
-                />
-              </div>
-            )}
           </div>
           <div className="actions">
             {placeholder && (
