@@ -41,7 +41,8 @@ export const StyledChatMedia = styled.div`
   .chat-between {
     display: flex;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 10px;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #d4dcdb;
@@ -58,16 +59,15 @@ export const StyledChatMedia = styled.div`
         height: 80px;
         border-radius: 50%;
         background: #313131;
-        display: flex;
-        align-items: flex-start;
         position: relative;
+        border-radius: 50%;
+        overflow: hidden;
 
         img {
           display: block;
           width: 100%;
           height: auto;
           object-fit: cover;
-          border-radius: 50%;
         }
 
         &::after {
@@ -118,11 +118,20 @@ export const StyledChatMedia = styled.div`
     flex-direction: column;
     gap: 11px;
     .images-wrapper {
+      max-width: 160px;
       display: flex;
+      flex-flow: wrap;
       gap: 20px;
-      img {
-        border-radius: 50px;
-        border: 1.5px solid #ffffff;
+      .img-holder {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
       }
     }
     span {

@@ -124,6 +124,9 @@ const Chat = ({ chosenChatDetails }) => {
       </div>
       <div className="chatWrapper">
         <ChatBody ref={chatBoxRef} onScroll={onScrolledToTop}>
+          <div className="title">
+            <h1>{chosenChatDetails?.productName}</h1>
+          </div>
           {moreMsgLoading && <Loader noHeight />}
           {chatLoading ? (
             <div

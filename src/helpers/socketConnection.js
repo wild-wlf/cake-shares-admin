@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client';
+import { clearCookie } from './common';
 let socket = null;
 
 export const connectionWithSocketServer = token => {
@@ -49,6 +50,15 @@ export const connectionWithSocketServer = token => {
 
   socket.on('pool-response', data => {
     window.dispatchEvent(new CustomEvent('pool_response', { detail: { ...data } }));
+  });
+
+  socket.on('logout-user', data => {
+    if (socket && data) {
+      clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
+      clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);
+      clearCookie(process.env.NEXT_PUBLIC_USER_TYPE_COOKIE);
+      window.location.href = '/sign-in';
+    }
   });
 
   socket.on('join-channel-room', data => {

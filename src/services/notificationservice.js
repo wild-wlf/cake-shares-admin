@@ -128,6 +128,16 @@ const notificationService = {
     throw new Error(message ?? 'Something Went Wrong');
   },
 
+  async getMessageReactions(messageId) {
+    let res = await Fetch.get(`${this._url}/get-reaction-detail?messageId=${messageId}`);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something Went Wrong');
+  },
+
   async getAllConversationMessages({ page = 1, itemsPerPage = 10, author = '', receiver = '', conversationId = '' }) {
     let res = await Fetch.get(
       `${this._url}/get-conversation-messages?page=${page}&itemsPerPage=${itemsPerPage}&author=${author}&receiver=${receiver}&conversationId=${conversationId}`,
@@ -176,6 +186,16 @@ const notificationService = {
 
   async reportMessage(payload) {
     let res = await Fetch.post(`${this._url}/report-message`, payload);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something went wrong');
+  },
+
+  async requestMessage(payload) {
+    let res = await Fetch.post(`${this._url}/unblock-request`, payload);
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
       return res;

@@ -13,6 +13,7 @@ import Loader from '@/components/atoms/Loader';
 import { updateChatIfActive } from '@/helpers/comMsgHandlers';
 import { removeDuplicates } from '@/helpers/common';
 import { joinGroupChat, leaveGroupChat } from '@/helpers/socketConnection';
+import ChatHeader from './ChatHeader';
 
 const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -114,6 +115,7 @@ const ComChat = ({ chosenComDetails, setChosenComDetails, type }) => {
         <HiOutlineMenuAlt2 size={30} />
       </div>
       <div className="chatWrapper">
+        <ChatHeader type={type} productName={chosenComDetails.productName} />
         <ChatBody ref={chatBoxRef} onScroll={onScrolledToTop}>
           {moreMsgLoading && <Loader noHeight />}
           {chatLoading ? (

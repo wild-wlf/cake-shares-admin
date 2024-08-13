@@ -49,14 +49,7 @@ const CenterModal = ({
     open && (
       <StyledModal
         open={open}
-        onClick={handleClose}
-        onKeyDown={e => {
-          if (iscloseAble) {
-            if (e.key === 'Escape') {
-              handleClose();
-            }
-          }
-        }}>
+        >
         <ContentHolder
           bg={bg}
           padding={padding}
@@ -71,11 +64,11 @@ const CenterModal = ({
           <Head>
             {title && <strong className="title">{title}</strong>}
             {headImage && <Image src={headImage} alt="Icon" />}
-            {
+            {iscloseAble && (
               <button type="button" className="closer" onClick={() => setOpen(false)} tabIndex={0}>
                 <RxCross2 className="Icon" />
               </button>
-            }
+            )}
           </Head>
           {children}
         </ContentHolder>

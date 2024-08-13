@@ -66,13 +66,9 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
               <div className="images-wrapper">
                 {getThreeParticipants()?.map((item, index) => {
                   return (
-                    <Image
-                      src={item?.profilePicture || ProfilePic}
-                      alt="profilePic"
-                      width={45}
-                      height={45}
-                      key={index}
-                    />
+                    <div className="img-holder" key={index}>
+                      <Image src={item?.profilePicture || ProfilePic} alt="profilePic" width={45} height={45} />
+                    </div>
                   );
                 })}
               </div>

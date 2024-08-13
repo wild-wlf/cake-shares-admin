@@ -354,6 +354,15 @@ export const getStatus = data => {
   }
 };
 
+export const findReactionByUserId = (array, senderId) => {
+  const Index = array.findIndex(obj => obj.senderId?._id === senderId);
+  if (Index >= 0) {
+    return array[Index]?.reaction;
+  } else {
+    return array[0]?.reaction;
+  }
+};
+
 export const removeDuplicates = (array, propertyName) => {
   return Object.values(
     array.reduce(function (unique, current) {
