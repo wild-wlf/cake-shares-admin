@@ -341,6 +341,9 @@ export const checkAge = birthdate => {
   }
 };
 export const getStatus = data => {
+  if (data?.verificationStatus === 'rejected') {
+    return <span className="product-status-reject">Rejected</span>;
+  }
   if (data.valueRaised === data.assetValue) {
     return <span className="product-status-complete">Completed</span>;
   }

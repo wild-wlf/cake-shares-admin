@@ -34,6 +34,7 @@ function Select({
   async,
   labelIcon,
   invert,
+  width,
   ...props
 }) {
   const debouncedRef = React.useRef(0);
@@ -54,7 +55,7 @@ function Select({
     return _options;
   };
   return (
-    <StyledFormGroup $invalid={invalid || error} noMargin={noMargin}>
+    <StyledFormGroup width={width} $invalid={invalid || error} noMargin={noMargin}>
       {label && (
         <Label
           $invert={invert}

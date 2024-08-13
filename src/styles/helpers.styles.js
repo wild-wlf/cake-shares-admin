@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Flex = styled.div`
   display: flex;
@@ -67,8 +67,8 @@ export const StyledFormGroup = styled.div`
       $invalid || noMargin ? "0px" : "20px"};
   }
   /* position: relative; */
-  font-family: "Outfit", sans-serif;
-  width: 100%;
+  font-family: 'Outfit', sans-serif;
+  width: ${({ $invalid, width }) => ($invalid || width ? width : '100%')};
   &:nth-last-child(1) {
     margin-bottom: 0;
   }

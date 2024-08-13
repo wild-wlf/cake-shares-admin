@@ -26,10 +26,7 @@ export const StyledTableLayout = styled.div`
         display: none;
       }
     `}
-    .select-holder {
-    width: 100%;
-    max-width: 150px;
-  }
+   
 
   .head {
     width: 100%;
