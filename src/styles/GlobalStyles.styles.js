@@ -190,6 +190,9 @@ export const Styling = css`
   .product-status-complete{
     color: var(--primary);
   }
+  .product-status-reject{
+    color: var(--danger);
+  }
   .chat-holder{
     display: flex;
     gap: 20px;
