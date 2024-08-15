@@ -104,6 +104,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     { label: 'Level 0', value: '0' },
     { label: 'Level 1', value: '1' },
     { label: 'Level 2', value: '2' },
+    { label: 'Level 3', value: '3' },
   ];
 
   const addAmenity = () => setAmenities([...amenities, '']);
@@ -201,6 +202,29 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       form.removeFieldError('address');
     }
   };
+
+  useEffect(() => {
+    form.setFieldRules('maxBackers', [
+      {
+        required: !isInfiniteBackers,
+        message: 'Please enter Maximum Backers Limit',
+      },
+      {
+        pattern: /^[1-9][0-9]*$/,
+        message: 'Please enter a valid limit greater than 0',
+      },
+      {
+        transform: value => value < +form.getFieldValue('minBackers'),
+        message: 'Maximum backers cannot be less than minimum backers!',
+      },
+    ]);
+
+    if (isInfiniteBackers) {
+      form.removeFieldError('maxBackers');
+      form.setFieldsValue({ maxBackers: '' });
+    }
+  }, [isInfiniteBackers, form]);
+
   return (
     <StyledCreateNewProduct>
       <Form form={form} onSubmit={handleSubmit}>
@@ -473,29 +497,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
           <Switch
             label="Is Infinite Backers?"
             value={isInfiniteBackers}
-            onChange={e => {
-              setIsInfiniteBackers(e.target.value);
-              if (e.target.value) {
-                form.setFieldsValue({ maxBackers: '' });
-                form.setFieldRules('maxBackers', [{ required: false }, { pattern: /.*/ }]);
-                form.removeFieldError('maxBackers');
-              } else {
-                form.setFieldRules('maxBackers', [
-                  {
-                    required: true,
-                    message: 'Please enter Maximum Backers Limit',
-                  },
-                  {
-                    pattern: /^[1-9][0-9]*$/,
-                    message: 'Please enter a valid limit greater than 0',
-                  },
-                  {
-                    transform: value => value < +form.getFieldValue('minBackers'),
-                    message: 'Maximum backers cannot be less than minimum backers!',
-                  },
-                ]);
-              }
-            }}
+            onChange={e => setIsInfiniteBackers(e.target.value)}
           />
         </div>
         <div className="input-grid">
@@ -533,7 +535,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             placeholder="01"
             rules={[
               {
-                required: !product?.isInfiniteBackers,
+                required: !isInfiniteBackers,
                 message: 'Please enter Maximum Backers Limit',
               },
               {
