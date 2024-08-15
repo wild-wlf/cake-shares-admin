@@ -86,7 +86,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       await productService.updateProduct(product._id, formDataToSend);
       Toast({
         type: 'success',
-        message: 'Product updated successfully',
+        message: 'Product Update Request Completed Successfully!',
       });
       refetch();
       setEditProductModal(false);

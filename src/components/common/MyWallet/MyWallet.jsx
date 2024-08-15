@@ -233,7 +233,7 @@ const MyWallet = ({ pieData, amount }) => {
               width={'102px'}
               height={'40px'}
               onClick={() => setPayoutModal(true)}
-              disabled={user?.wallet < 50}>
+              disabled={user?.wallet < 50 || user?.isPayoutRequest}>
               Payout
               <Image src={walletWhite} alt="walletWhite" />
             </Button>
