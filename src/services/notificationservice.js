@@ -138,6 +138,18 @@ const notificationService = {
     throw new Error(message ?? 'Something Went Wrong');
   },
 
+  async getUnreadCounts({ page = 1, itemsPerPage = 10, type = '', searchText = '' }) {
+    let res = await Fetch.get(
+      `${this._url}/get-unread-count?page=${page}&itemsPerPage=${itemsPerPage}&type=${type}&searchText=${searchText}`,
+    );
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something Went Wrong');
+  },
+
   async getAllConversationMessages({ page = 1, itemsPerPage = 10, author = '', receiver = '', conversationId = '' }) {
     let res = await Fetch.get(
       `${this._url}/get-conversation-messages?page=${page}&itemsPerPage=${itemsPerPage}&author=${author}&receiver=${receiver}&conversationId=${conversationId}`,

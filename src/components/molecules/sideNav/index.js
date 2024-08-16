@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import logo from '../../../_assets/logo.svg';
 import Image from 'next/image';
 import { Sidenav, NavLinks, LinkContainer, UserDet } from './sideNav.style';
@@ -22,7 +22,9 @@ import notificationService from '@/services/notificationservice';
 const SideBar = ({ data }) => {
   const [text, setText] = useState(null);
   const [title, setTitle] = useState(null);
-  const { user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
+  const { unreadCounts, setUnreadCounts, user, onLogout, isLoggedIn } = useContextHook(AuthContext, v => ({
+    unreadCounts: v.unreadCounts,
+    setUnreadCounts: v.setUnreadCounts,
     user: v.user,
     onLogout: v.onLogout,
     isLoggedIn: v.isLoggedIn,
@@ -31,21 +33,6 @@ const SideBar = ({ data }) => {
   const [successfulModal, setSuccessfulModal] = useState(false);
   const [kycData, setKycData] = useState();
   const { pathname } = useRouter();
-  const [conversations, setConversations] = useState([]);
-
-  // const { conversations_loading, conversations_data } = notificationService.GetAllConversations(
-  //   {
-  //     page: 1,
-  //     itemsPerPage: 10,
-  //     type: data?.type === 'private' ? 'PERSONAL_CHAT' : data?.type === 'community' ? 'COM_CHAT' : data?.type === 'stake' ? 'STAKE_CHAT':'',
-  //   },
-  //   fetch,
-  // );
-
-
- 
-
-
 
   const closeSideNav = () => {
     document.body.classList.toggle('sideNav-active');
@@ -54,6 +41,67 @@ const SideBar = ({ data }) => {
 
   const { setKycLevel, kyc0, setKyc0, kyc1, setKyc1, kyc2, setKyc2, kyc3, setKyc3, kyc4, setKyc4 } =
     useContext(KycContext);
+
+  useEffect(() => {
+    const fetchUnreadCounts = async () => {
+      try {
+        const response = await notificationService.getUnreadCounts({
+          page: 1,
+          itemsPerPage: 10,
+        });
+        console.log('RESPONSE: ', response);
+        setUnreadCounts(response || { PRIV_CHAT: false, COM_CHAT: false, STAKE_CHAT: false });
+      } catch (error) {
+        console.error('Error fetching unread counts:', error);
+      }
+    };
+
+    fetchUnreadCounts();
+  }, []);
+
+  useEffect(() => {
+    const handleNewMessage = event => {
+      const message = event.detail;
+      const { channelName, message: msg } = message;
+
+      const isPrivateChat = channelName.startsWith('com_');
+      const isCommunityChat = channelName.startsWith('com_');
+      const isInvestorChat = channelName.startsWith('stake_');
+
+      setUnreadCounts(prevCounts => ({
+        PRIV_CHAT: isPrivateChat && window.location.pathname !== '/private-chat' ? true : prevCounts.PRIV_CHAT,
+        COM_CHAT: isCommunityChat && window.location.pathname !== '/community-chat' ? true : prevCounts.COM_CHAT,
+        STAKE_CHAT: isInvestorChat && window.location.pathname !== '/investor-chat' ? true : prevCounts.STAKE_CHAT,
+      }));
+    };
+
+    window.addEventListener('com_message_history', handleNewMessage);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('com_message_history', handleNewMessage);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleNewMessage = event => {
+      const message = event.detail;
+      // const { channelName, message: msg } = message;
+      console.log('MESSAGE: ', message);
+
+      setUnreadCounts(prevCounts => ({
+        ...prevCounts,
+        PRIV_CHAT: window.location.pathname !== '/private-chat' ? true : prevCounts.PRIV_CHAT,
+      }));
+    };
+
+    window.addEventListener('direct_chat_history', handleNewMessage);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('direct_chat_history', handleNewMessage);
+    };
+  }, []);
 
   return (
     <>
@@ -175,17 +223,17 @@ const SideBar = ({ data }) => {
                     </>
                   ) : (
                     <Link className="Link" href={data.navigation}>
-                      <figure className="iconCon">
+                      <figure
+                        className={`iconCon ${
+                          (data?.name === 'Private Chat' && unreadCounts.PRIV_CHAT) ||
+                          (data?.name === 'Community Chat' && unreadCounts.COM_CHAT) ||
+                          (data?.name === "Investor's Chat" && unreadCounts.STAKE_CHAT)
+                            ? 'new'
+                            : ''
+                        }`}>
                         <Image src={data.icon} width={18} height={18} alt="icon" />
                       </figure>
                       {data.name}
-                      {/* <span
-                        className={`${
-                          data.nav === pathname  &&
-                          result[0]?.unreadCount > 0
-                            ? 'message'
-                            : ''
-                        }`}></span> */}
                     </Link>
                   )}
                 </li>
