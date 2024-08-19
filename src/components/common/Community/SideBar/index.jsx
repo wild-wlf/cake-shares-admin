@@ -21,9 +21,10 @@ const SideBar = ({
   handleChoseComDetails,
   chosenComDetails,
 }) => {
-  const { user, fetch } = useContextHook(AuthContext, v => ({
+  const { user, fetch, setUnreadCounts } = useContextHook(AuthContext, v => ({
     user: v.user,
     fetch: v.fetch,
+    setUnreadCounts: v.setUnreadCounts,
   }));
   const [searchText, setSearchText] = useState('');
   const debounceRef = useRef(0);
@@ -85,6 +86,14 @@ const SideBar = ({
       handleGetTotalConversations(conversations?.length);
     }
   }, [conversations, handleGetTotalConversations]);
+
+  useEffect(() => {
+    setUnreadCounts(prevUnreadCounts => ({
+      PRIV_CHAT: type === 'private' ? false : prevUnreadCounts.PRIV_CHAT,
+      COM_CHAT: type === 'community' ? false : prevUnreadCounts.COM_CHAT,
+      STAKE_CHAT: type === 'stake' ? false : prevUnreadCounts.STAKE_CHAT,
+    }));
+  }, [type]);
 
   const getReceiverInfo = participants => {
     const receiver = participants.find(_ => _?._id !== user?._id);
@@ -206,7 +215,7 @@ const SideBar = ({
                     conversationId: item?._id,
                     author: user._id,
                     receivers: item?.participants,
-                    productName:item?.productName,
+                    productName: item?.productName,
                   });
                 }
               }}

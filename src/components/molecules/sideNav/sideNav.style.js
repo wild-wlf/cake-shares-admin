@@ -34,14 +34,12 @@ export const Sidenav = styled.div`
     position: absolute;
     top: 50%;
     width: 10px;
-  height: 10px;
+    height: 10px;
     background: red;
-        border-radius: 10px;
-        right: 10px;
-        transform: translateY(-50%);
-
-     
-    }
+    border-radius: 10px;
+    right: 10px;
+    transform: translateY(-50%);
+  }
 
   .sideNav-active & {
     left: 0 !important;
@@ -113,6 +111,20 @@ export const NavLinks = styled.ul`
       background-color: black;
       border-radius: 50%;
       transition: 0.5s all ease-in-out;
+    }
+
+    .new {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: -2px;
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 10px;
+      right: 0;
     }
 
     &:hover {

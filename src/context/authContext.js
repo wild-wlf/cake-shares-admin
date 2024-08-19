@@ -24,6 +24,7 @@ export const AuthContextProvider = props => {
   const [socketData, setSocketData] = useState(null);
   const [reFetch, setRefetch] = useState(false);
   const [showTokenModal, setShowTokenModal] = useState(false);
+  const [unreadCounts, setUnreadCounts] = useState({ PRIV_CHAT: false, COM_CHAT: false, STAKE_CHAT: false });
   const [allowedPages, setAllowedPages] = useState(
     JSON.parse(getCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE)) || [],
   );
@@ -212,6 +213,7 @@ export const AuthContextProvider = props => {
         setLoading,
         hasPermission,
         setSocketData,
+        setUnreadCounts,
         socketData,
         allowedPages,
         showTokenModal,
@@ -221,7 +223,8 @@ export const AuthContextProvider = props => {
         user,
         setUser,
         getPermissions,
-        userCookkies
+        userCookkies,
+        unreadCounts,
       }}>
       {props.children}
     </AuthContext.Provider>
