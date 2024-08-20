@@ -24,6 +24,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const [addressDetails, setAddressDetails] = useState('');
   const [formattedAddress, setFormattedAddress] = useState();
   const [isInfiniteBackers, setIsInfiniteBackers] = useState(false);
+  const [tempMaxBackersVal, setTempMaxBackersVal] = useState();
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -179,8 +180,11 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
     ]);
 
     if (isInfiniteBackers) {
+      setTempMaxBackersVal(form.getFieldValue('maxBackers'));
       form.removeFieldError('maxBackers');
       form.setFieldsValue({ maxBackers: '' });
+    } else if (tempMaxBackersVal) {
+      form.setFieldsValue({ maxBackers: tempMaxBackersVal || '' });
     }
   }, [isInfiniteBackers, form]);
 
