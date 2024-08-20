@@ -51,7 +51,7 @@ const PayoutModal = ({ currentAmount, setPayoutModal }) => {
         <div className="feildContainer">
           <div className="wrapper">
             <Form.Item
-              label={`Amount (Cakeshares will deduct ${comission}% comission on this)`}
+              label={`Amount (Cakeshares will deduct ${comission}% commission on this)`}
               type="input"
               rounded
               sm

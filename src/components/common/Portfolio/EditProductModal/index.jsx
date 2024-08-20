@@ -22,6 +22,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [searchValue, setSearchValue] = useState('');
   const [formattedAddress, setFormattedAddress] = useState();
   const [isInfiniteBackers, setIsInfiniteBackers] = useState(false);
+  const [tempMaxBackersVal, setTempMaxBackersVal] = useState();
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -220,8 +221,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     ]);
 
     if (isInfiniteBackers) {
+      setTempMaxBackersVal(form.getFieldValue('maxBackers'));
       form.removeFieldError('maxBackers');
       form.setFieldsValue({ maxBackers: '' });
+    } else if (tempMaxBackersVal) {
+      form.setFieldsValue({ maxBackers: tempMaxBackersVal || '' });
     }
   }, [isInfiniteBackers, form]);
 

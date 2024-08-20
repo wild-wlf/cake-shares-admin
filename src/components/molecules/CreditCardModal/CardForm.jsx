@@ -231,7 +231,7 @@ const CardForm = ({ openCardNext }) => {
 
         <div className="inputBox">
           <label>
-            <span>*</span>Enter Amount (cakeshares will deduct {comission}% comission on this)
+            <span>*</span>Enter Amount (cakeshares will deduct {comission}% commission on this)
           </label>
 
           <input
@@ -239,7 +239,15 @@ const CardForm = ({ openCardNext }) => {
             className="customInput"
             placeholder="$2,000,00"
             value={amount}
-            onChange={e => setAmount(e.target.value)}
+            onChange={e => {
+              const inputValue = e.target.value;
+              const numericValue = inputValue.replace(/[^0-9.]/g, '');
+              if (numericValue > 0) {
+                setAmount(numericValue);
+              } else {
+                setAmount('');
+              }
+            }}
           />
         </div>
         <div className="inputBox checkbox">
@@ -254,7 +262,7 @@ const CardForm = ({ openCardNext }) => {
       </InputWrapper>
       {calculateComission(amount, comission) > 0 && (
         <span style={{ marginTop: '10px', display: 'block' }}>
-          After deeduction of ${calculateComission(amount, comission)} comission, You wil get $
+          After deduction of ${calculateComission(amount, comission)} commission, You wil get $
           {amount - calculateComission(amount, comission)} in your wallet
         </span>
       )}

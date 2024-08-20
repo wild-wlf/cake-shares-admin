@@ -34,7 +34,7 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
 
   const onSubmit = async data => {
     const { duration } = data;
-    if (parseFloat(user?.wallet) < estimatedCost) {
+    if (parseFloat(user?.wallet || 0.00) < estimatedCost) {
       setGeneralInfoModal(true);
       return;
     }
@@ -78,9 +78,11 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
           title="Insufficient Wallet Balance!"
           description={`You currently do not have sufficient wallet balance to perform this action. The amount required to advertise this product for ${selected} day${
             selected > 1 ? 's' : ''
-          } is ${convertToCurrencyFormat(estimatedCost)}, while your current account balance is ${
-            convertToCurrencyFormat(user?.wallet) 
-          }. Please top up your account.`}
+          } is ${convertToCurrencyFormat(
+            estimatedCost,
+          )}, while your current account balance is ${convertToCurrencyFormat(
+            user?.wallet,
+          )}. Please top up your account.`}
           setOpen={setGeneralInfoModal}
         />
       </CenterModal>
@@ -102,7 +104,7 @@ const AdvertiseModal = ({ handleAdvertiseModal, setProductAdvertiseModal, produc
                 setSelected(e.target.value.value);
               }}
               rules={[{ required: true, message: 'Please Select Advertisement Duration!' }]}>
-              <Select  menuPlacement="top"/>
+              <Select menuPlacement="top" />
             </Form.Item>
           </div>
           {selected && (
