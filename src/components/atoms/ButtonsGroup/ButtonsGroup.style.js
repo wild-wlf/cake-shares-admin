@@ -15,7 +15,7 @@ export const ButtonsGroupWrapper = styled.div`
   h1 {
     font-size: 22px;
     font-weight: 600;
-    width: 130px;
+    white-space: nowrap;
   }
 
   @media (max-width: 992px) {

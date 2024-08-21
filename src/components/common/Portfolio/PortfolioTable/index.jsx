@@ -42,6 +42,7 @@ const PortfolioTable = ({ title }) => {
     type: 'all',
     startDate: '',
     endDate: '',
+    kyc: 'all',
   });
 
   const categoryData = [
@@ -67,6 +68,29 @@ const PortfolioTable = ({ title }) => {
     },
   ];
 
+  const kycData = [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: '0',
+      label: 'Level 0',
+    },
+    {
+      value: '1',
+      label: 'Level 1',
+    },
+    {
+      value: '2',
+      label: 'Level 2',
+    },
+    {
+      value: '3',
+      label: 'Level 3',
+    },
+  ];
+
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
 
   const [startDate, setStartDate] = useState(null);
@@ -82,7 +106,6 @@ const PortfolioTable = ({ title }) => {
   const [advertiseSuccessfulModal, setAdvertiseSuccessfulModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [advertisedDays, setAdvertisedDays] = useState();
-
 
   const modalParagraph =
     "Your account statement is now available at alex123@gmail.com. Be sure to check your spam folder if you don't see it right away.";
@@ -320,14 +343,24 @@ const PortfolioTable = ({ title }) => {
           currentPage={searchQuery.page}
           totalCount={totalCount}
           pageSize={searchQuery.itemsPerPage}
-          tableHeading={<ButtonsGroup title={title} buttons={false} dropdown={true} setSearchQuery={setSearchQuery} data ={categoryData}/>}
+          tableHeading={
+            <ButtonsGroup
+              title={title}
+              buttons={false}
+              dropdown={true}
+              setSearchQuery={setSearchQuery}
+              data={categoryData}
+              kycData={kycData}
+            />
+          }
           statusFilter={false}
           placeholder="Search Product"
           btnWidth={'40px'}
           btnType="download"
           iconImg={CalenderIcon}
           searchQuery={searchQuery}
-          openModal={openModal}>
+          openModal={openModal}
+          overflow>
           <Table width={1024} rowsData={product_rows} loading={products_loading} columnNames={columnNamess} noPadding />
         </TableLayout>
       </TableContainer>

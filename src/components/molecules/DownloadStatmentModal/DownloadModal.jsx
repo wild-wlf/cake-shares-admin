@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ModalContainer, DateContainer, MailContainer } from './DownloadModalStyle';
 import Field from '../Field';
 import Form, { useForm } from '../Form';
@@ -29,18 +29,15 @@ const DownloadModal = ({ openNext }) => {
   const { products_data, products_loading } = productService.GetAllProducts(searchQuery, fetch);
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async data => {
-    console.log(data);
     try {
       const postData = {
         startDate: data.startDate,
         endDate: data?.endDate,
-        productId: data?.choose_product?.value,
+        ...(data?.choose_product?.value !== 'all' && { productId: data?.choose_product?.value }),
       };
       setIsLoading(true);
-
       await productService.downloadStatement(postData);
-
-      setIsLoading(false);
+      openNext();
     } catch ({ message }) {
       Toast({
         type: 'error',
@@ -48,6 +45,28 @@ const DownloadModal = ({ openNext }) => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const productOptions = useMemo(
+    () => [
+      { label: 'All', value: 'all' },
+      ...(products_data?.items?.map(item => ({ label: item.productName, value: item._id })) || []),
+    ],
+    [products_data?.items],
+  );
+
+  const loadProducts = async searchText => {
+    try {
+      let options = [];
+      const response = await productService.getAllProducts({
+        getAll: true,
+        searchText,
+      });
+      options = response?.items?.map(item => ({ label: item.productName, value: item._id }));
+      return options;
+    } catch (error) {
+      return [];
     }
   };
 
@@ -66,11 +85,15 @@ const DownloadModal = ({ openNext }) => {
               rules={[
                 {
                   required: true,
-                  message: 'Start Date is required',
+                  message: 'Start Date is Required',
+                },
+                {
+                  transform: value => new Date(value).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0),
+                  message: 'Start Date cannot be in the Future!',
                 },
                 {
                   transform: value => new Date(value) > new Date(form.getFieldValue('endDate')),
-                  message: `Start date cannot be greator than end date`,
+                  message: `Start Date cannot be greator than end date`,
                 },
               ]}>
               <Field />
@@ -86,11 +109,15 @@ const DownloadModal = ({ openNext }) => {
               rules={[
                 {
                   required: true,
-                  message: 'End Date is required',
+                  message: 'End Date is Required',
+                },
+                {
+                  transform: value => new Date(value).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0),
+                  message: 'End Date cannot be in the Future!',
                 },
                 {
                   transform: value => new Date(value) < new Date(form.getFieldValue('startDate')),
-                  message: `End date cannot be less than start date`,
+                  message: `End Date cannot be less than start date`,
                 },
               ]}>
               <Field />
@@ -103,17 +130,19 @@ const DownloadModal = ({ openNext }) => {
               <Form.Item
                 label="Choose Product"
                 rounded
+                menuPlacement="top"
                 sm
                 name="choose_product"
-                options={
-                  user?.isVerified
-                    ? products_data?.items?.map(item => ({ label: item.productName, value: item._id }))
-                    : []
-                }
+                isSearchable
+                placeholder="Select Product"
+                defaultOptions={productOptions}
                 rules={[
-                  
+                  {
+                    required: true,
+                    message: 'Please Select Product!',
+                  },
                 ]}>
-                <Select />
+                <Select async loadOptions={loadProducts} />
               </Form.Item>
             </div>
           )}
