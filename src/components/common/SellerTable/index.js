@@ -94,8 +94,9 @@ const SellerTable = () => {
         width="543"
         headImage={SuccessIcon}>
         <SuccessModal
-          heading="Statement Sent Successfully!"
-          paragraph={modalParagraph}
+          // heading="Statement Sent Successfully!"
+          heading="Statement Downloaded Successfully!"
+          // paragraph={modalParagraph}
         />
       </CenterModal>
 

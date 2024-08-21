@@ -29,6 +29,7 @@ function TableLayout({
   filterBlock,
   iconImg,
   openModal,
+  overflow,
 }) {
   const [filterState, setFilterState] = useState('');
   const [searchText, setSearchText] = useState('');
@@ -38,11 +39,9 @@ function TableLayout({
 
   const debouncedFetchResults = useCallback(debounce(fetchResults, 300), []);
 
-
-
   return (
     <>
-      <StyledTableLayout noNegativeMargin={noNegativeMargin} noPagination={noPagination} filterBlock={filterBlock}>
+      <StyledTableLayout $overflow={overflow} noNegativeMargin={noNegativeMargin} noPagination={noPagination} filterBlock={filterBlock}>
         <div className="head">
           <div className="heading-holder">
             {tableHeading && <strong className="table-heading">{tableHeading}</strong>}

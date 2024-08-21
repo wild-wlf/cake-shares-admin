@@ -3,7 +3,7 @@ import Button from '../Button';
 import { ButtonsGroupWrapper } from './ButtonsGroup.style';
 import Select from '../Select';
 
-const ButtonsGroup = ({ title = '', setSearchQuery, buttons = false, dropdown = false, data }) => {
+const ButtonsGroup = ({ title = '', setSearchQuery, buttons = false, dropdown = false, data, kycData }) => {
   const [Tab, setTab] = useState(0);
 
   return (
@@ -36,11 +36,31 @@ const ButtonsGroup = ({ title = '', setSearchQuery, buttons = false, dropdown = 
           <Select
             width="200px"
             noMargin
-            placeholder="All"
+            placeholder="Select Type"
             onChange={({ target: { value } }) => {
-              setSearchQuery({ type: value?.value });
+              setSearchQuery(prev => ({
+                ...prev,
+                type: value?.value,
+              }));
             }}
             options={data}
+            labelReverse
+          />
+        </div>
+      )}
+      {kycData && (
+        <div className="select-holder">
+          <Select
+            width="200px"
+            noMargin
+            placeholder="Select KYC"
+            onChange={({ target: { value } }) => {
+              setSearchQuery(prev => ({
+                ...prev,
+                kyc: value?.value,
+              }));
+            }}
+            options={kycData}
             labelReverse
           />
         </div>

@@ -37,6 +37,10 @@ const TransactionTable = () => {
       label: 'All',
     },
     {
+      value: 'spend',
+      label: 'Spend',
+    },
+    {
       value: 'earn',
       label: 'Earn',
     },
@@ -122,7 +126,11 @@ const TransactionTable = () => {
         width="543"
         padding={'25px'}
         headImage={SuccessIcon}>
-        <SuccessModal heading="Statement Sent Successfully!" paragraph={modalParagraph} />
+        <SuccessModal
+          // heading="Statement Sent Successfully!"
+          heading="Statement Downloaded Successfully!"
+          //  paragraph={modalParagraph}
+        />
       </CenterModal>
 
       <TableContainer>
@@ -152,7 +160,8 @@ const TransactionTable = () => {
           }}
           currentPage={searchQuery.page}
           totalCount={totalCount}
-          pageSize={searchQuery.itemsPerPage}>
+          pageSize={searchQuery.itemsPerPage}
+          overflow>
           <Table
             width={1024}
             rowsData={transaction_rows}

@@ -61,9 +61,18 @@ const productService = {
     };
   },
 
-  async getAllProducts({ page = 1, itemsPerPage = 10, searchText = '', type = '', startDate = '', endDate = '' }) {
+  async getAllProducts({
+    page = 1,
+    itemsPerPage = 10,
+    searchText = '',
+    getAll = false,
+    type = '',
+    kyc = '',
+    startDate = '',
+    endDate = '',
+  }) {
     let res = await Fetch.get(
-      `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&searchText=${searchText}&type=${type}&startDate=${startDate}&endDate=${endDate}`,
+      `${this._url}/get-all-products?page=${page}&itemsPerPage=${itemsPerPage}&searchText=${searchText}&getAll=${getAll}&type=${type}&kyc=${kyc}&startDate=${startDate}&endDate=${endDate}`,
     );
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
@@ -119,7 +128,7 @@ const productService = {
     const url = window.URL.createObjectURL(new Blob([blob]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'statement.xlsx');
+    link.setAttribute('download', 'Statement.xlsx');
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);

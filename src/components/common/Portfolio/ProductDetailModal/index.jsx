@@ -160,6 +160,24 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
           </div>
         ))}
       </div>
+      <div className="product-description">
+        {data?.declineReason && (
+          <div className="description-holder">
+            <span className="heading">Approval Request Decline Reason</span>
+            <div className="description">
+              <p>{data?.declineReason}</p>
+            </div>
+          </div>
+        )}
+        {data?.editRequestDeclineReason && (
+          <div className="description-holder">
+            <span className="heading">Edit Request Decline Reason</span>
+            <div className="description">
+              <p>{data?.editRequestDeclineReason}</p>
+            </div>
+          </div>
+        )}
+      </div>
     </StyledProductDetailModal>
   );
 };

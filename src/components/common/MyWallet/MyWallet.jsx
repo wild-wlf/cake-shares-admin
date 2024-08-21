@@ -18,8 +18,9 @@ import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import PayoutModal from '@/components/atoms/PayoutModal/PayoutModal';
+import { convertToCurrencyFormat } from '@/helpers/common';
 
-const MyWallet = ({ pieData, amount }) => {
+const   MyWallet = ({ pieData, amount }) => {
   const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     refetch: v.refetch,
@@ -223,7 +224,7 @@ const MyWallet = ({ pieData, amount }) => {
         <div className="btnDiv">
           <div className="credit">
             <span>Total Credit:</span> <br />
-            <h1>{+user?.wallet != null && user?.wallet != undefined ? `$ ${user?.wallet}` : '$0'}</h1>
+            <h1>{+user?.wallet != null && user?.wallet != undefined ? `${convertToCurrencyFormat(user?.wallet)}` : '$0.00'}</h1>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
             <Button
