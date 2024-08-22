@@ -64,13 +64,17 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
       text: `${convertToCurrencyFormat(data?.minimumInvestment)}`,
     },
     {
-      heading: 'Total Asset Value',
+      heading: 'Total Asset Value:',
       text: `${convertToCurrencyFormat(data?.assetValue)}`,
     },
-    {
-      heading: 'Advertised Remaining Days',
-      text: `${remainingDays || 0}`,
-    },
+    ...(data?.remainingAdvertisementDays
+      ? [
+          {
+            heading: 'Advertised Remaining Days:',
+            text: `${data.remainingAdvertisementDays}`,
+          },
+        ]
+      : []),
   ];
   const productDescription = [
     {
