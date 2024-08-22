@@ -64,7 +64,7 @@ const Pole = ({ type, time, question, options, allow_multiple, receivers, readBy
         </figure>
       )}
       <div className="head">
-        <strong className="pole_title">{question}</strong>
+        <strong className="pole_title">{question}?</strong>
         {isOneOptionSelected() && (
           <button
             onClick={() => {

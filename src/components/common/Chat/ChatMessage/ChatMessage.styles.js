@@ -106,7 +106,6 @@ export const MessageContainer = styled.div`
 `;
 
 export const ReactionContainer = styled.div`
-
   cursor: pointer;
   display: flex;
   align-items: flex-start;
@@ -115,7 +114,7 @@ export const ReactionContainer = styled.div`
 
 export const AddedReaction = styled.div`
   position: absolute;
-  left: -10%;
+  left: -10px;
   height: 25px;
   width: 25px;
   border-radius: 50%;
