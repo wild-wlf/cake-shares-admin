@@ -335,7 +335,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^(.|\n){10,1000}$/,
+                  pattern: /^(.|\r|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
                 },
               ]}>
@@ -356,7 +356,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^(.|\n){10,1000}$/,
+                  pattern: /^(.|\r|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
                 },
               ]}>

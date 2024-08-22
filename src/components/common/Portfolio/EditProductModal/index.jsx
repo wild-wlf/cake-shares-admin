@@ -84,10 +84,10 @@ const EditProductModal = ({ product, setEditProductModal }) => {
     });
     try {
       setIsLoading(true);
-      await productService.updateProduct(product._id, formDataToSend);
+      const { message } = await productService.updateProduct(product._id, formDataToSend);
       Toast({
         type: 'success',
-        message: 'Product Update Request Completed Successfully!',
+        message,
       });
       refetch();
       setEditProductModal(false);
@@ -366,9 +366,9 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Product Description',
                 },
                 {
-                  pattern: /^(.|\n){10,1000}$/,
+                  pattern: /^(.|\r|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
-                },
+                },                
               ]}>
               <Field maxLength={1000} />
             </Form.Item>
@@ -387,8 +387,8 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                   message: 'Please enter Description',
                 },
                 {
-                  pattern: /^(.|\n){10,1000}$/,
-                  message: 'Minimum character length of description is 10',
+                  pattern: /^(.|\r|\n){10,1000}$/,
+                  message: 'Minimum character length of Investment Reason is 10',
                 },
               ]}>
               <Field maxLength={1000} />
