@@ -8,14 +8,14 @@ const ChatMembers = ({ chosenComDetails, user, onlineUsers }) => {
   return (
     <ChatMembersWrapper>
       {chosenComDetails?.receivers
-        ?.filter(_ => _?._id !== user?._id)
+        // ?.filter(_ => _?._id !== user?._id)
         ?.map((data, index) => (
           <div key={index}>
             <div className="infoWrapper">
               <Image src={data?.profilePicture || profileplaceHolder} alt="profilePic" height={100} width={100} />
               <div className="info">
                 <h6>{data?.fullName || data?.username}</h6>
-                <span>Buyer</span>
+                <span>{data?.type || 'admin'}</span>
               </div>
             </div>
             <span className={data?.online ? 'online' : 'offline'}>

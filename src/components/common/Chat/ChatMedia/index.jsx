@@ -73,8 +73,9 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
                 })}
               </div>
 
-              {chosenComDetails?.receivers?.filter(_ => _?._id !== user?._id)?.length > 3 && (
+              {chosenComDetails?.receivers?.filter(_ => _?._id !== user?._id)?.length > 2 && (
                 <span
+                  style={{ color: 'white' }}
                   onClick={() => {
                     setChatMembers(true);
                   }}>

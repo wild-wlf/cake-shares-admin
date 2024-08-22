@@ -1,46 +1,37 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import userProfile from '../../../_assets/userProfile.png';
 
-const ReactionListModal = ({ reactionData }) => {
-  const getProfilePicture = (img, img2) => {
-    if (img === '' || img === 'undefined') {
-      return img2;
-    } else {
-      return img;
-    }
-  };
+const PollVotingList = ({ users, user, userAvatar, Pic }) => {
   return (
     <Container>
-      {reactionData && reactionData.length > 0
-        ? reactionData.map((data, index) => {
+      {users && users.length > 0
+        ? users.map((_, index) => {
             return (
               <Wrapper key={index}>
                 <div className="userDets">
                   <Image
-                    src={getProfilePicture(data?.senderId?._id?.profilePicture, userProfile)}
+                    src={_?.isAnonymous && _?._id !== user?._id ? userAvatar : _?._id?.profilePicture || Pic}
                     height={100}
                     width={100}
                     alt="profile"
                   />
                   <div className="info">
-                    <h6>{data?.senderId?._id?.fullName || data?.senderId?._id?.username}</h6>
-                    <span>{data?.senderId?._id?.type}</span>
+                    <h6>
+                      {_?.isAnonymous && _?._id !== user?._id ? 'Anonymous' : _?._id?.fullName || _?._id?.username}
+                    </h6>
+                    <span>{_?.isAnonymous && _?._id !== user?._id ? 'Anonymous' : _?._id?.type || 'admin'}</span>
                   </div>
-                </div>
-                <div className="reaction">
-                  <span>{data?.reaction}</span>
                 </div>
               </Wrapper>
             );
           })
-        : 'No Reactions Available'}
+        : 'No Vote Available'}
     </Container>
   );
 };
 
-export default ReactionListModal;
+export default PollVotingList;
 
 const Container = styled.div`
   padding-top: 20px;
@@ -78,11 +69,6 @@ const Wrapper = styled.div`
         font-size: 14px;
         font-weight: 400;
       }
-    }
-  }
-  .reaction {
-    span {
-      font-size: 18px;
     }
   }
 `;

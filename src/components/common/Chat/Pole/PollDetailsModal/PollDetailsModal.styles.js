@@ -10,7 +10,6 @@ export const StyledPollDetailsModal = styled.div`
     font-size: 18px;
     line-height: 22px;
     font-weight: 500;
-    text-align: center;
     margin-bottom: 10px;
     position: relative;
 
@@ -61,17 +60,34 @@ export const StyledPollDetailsModal = styled.div`
     .user-holder {
       display: flex;
       flex-flow: wrap;
+      justify-content: space-between;
       gap: 15px;
+      .container {
+        display: flex;
+        flex-flow: wrap;
+        gap: 20px;
+      }
+      .view-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(64, 143, 140, 1);
+        cursor: pointer;
+      }
+      .length {
+        font-size: 16px;
+        font-weight: 600;
+      }
       .img-holders {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        overflow: hidden;
         margin: 0 auto 5px;
 
         img {
-          width: 100%;
-          height: auto;
+          border-radius: 50%;
+          height: 30px;
+          width: 30px;
           object-fit: cover;
         }
       }
