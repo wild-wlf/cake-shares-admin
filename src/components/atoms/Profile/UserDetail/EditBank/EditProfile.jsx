@@ -119,32 +119,7 @@ const EditProfile = ({ personalInfo, onClose }) => {
             ]}>
             <Field maxLength={40} />
           </Form.Item>
-          <Form.Item
-            type="text"
-            label="Username"
-            name="username"
-            sm
-            disabled
-            rounded
-            placeholder="alex123"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter username',
-              },
-              {
-                pattern: /^.{5,20}$/,
-                message: 'Minimum character length is 5',
-              },
-              {
-                pattern: /^(?!.*\s)[a-zA-Z0-9_-]+$/,
-                message: 'Please enter a valid username (no spaces, letters, numbers, underscores, and hyphens only)',
-              },
-              {
-                pattern: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9_-]+$/,
-                message: 'Username must be a combination of characters and digits',
-              },
-            ]}>
+          <Form.Item type="text" label="Username" name="username" sm disabled rounded placeholder="alex123">
             <Field maxLength={20} />
           </Form.Item>
           <Form.Item
