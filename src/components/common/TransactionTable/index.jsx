@@ -89,7 +89,9 @@ const TransactionTable = () => {
         // Return a different mapping logic or structure
         return [
           format(new Date(transaction.created_at), 'yyyy-MM-dd'),
-          transaction.transactionType ?? '------------',
+          transaction.transactionType === 'spend'
+            ? `spend ${transaction?.spendType ? `(${transaction.spendType})` : ''}`
+            : transaction.transactionType || '------------',
           convertToCurrencyFormat(transaction.amount?.$numberDecimal) ?? '------------',
         ];
       }

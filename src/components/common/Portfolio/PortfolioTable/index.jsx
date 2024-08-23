@@ -145,7 +145,7 @@ const PortfolioTable = ({ title }) => {
         <li>
           <button
             type="button"
-            disabled={_?.valueRaised > 0 || _?.isProductRequest}
+            disabled={_?.isProductRequest}
             className="btn edit"
             onClick={() => {
               setEditProductModal(true);
@@ -210,7 +210,7 @@ const PortfolioTable = ({ title }) => {
         data.productName || '------------',
         data.investmentType?.name || '------------',
         getStatus(data),
-        data?.isProductRequest == true ? 'Requested' : '-----------',
+        data?.isProductRequest == true ? 'Requested' : '----------',
         data?.remainingAdvertisementDays ?? '-----------',
         // formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         data?.isInfiniteBackers ? 'Infinite' : formatNumber(data.maximumBackers) ?? 0 ?? '------------',

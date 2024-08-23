@@ -87,6 +87,7 @@ function Select({
             $suffix={suffix}
             options={options}
             disabled={disabled}
+            menuPosition="fixed"
             classNamePrefix="react-select"
             loadOptions={loadOptions}
             error={error}
@@ -109,9 +110,9 @@ function Select({
             options={options}
             classNamePrefix="react-select"
             error={error}
+            menuPosition="fixed"
             components={{ DropdownIndicator, IndicatorSeparator: () => null }}
             onChange={value => {
-            //   console.log(value);
               props?.onChange?.({
                 target: {
                   value,

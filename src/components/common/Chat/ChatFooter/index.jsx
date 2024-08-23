@@ -12,13 +12,10 @@ import Button from '@/components/atoms/Button';
 import Field from '@/components/atoms/Field';
 import { AuthContext } from '@/context/authContext';
 import { useContextHook } from 'use-context-hook';
-import {
-  sendDirectMessage,
-  sendComMsg,
-} from '@/helpers/socketConnection';
+import { sendDirectMessage, sendComMsg } from '@/helpers/socketConnection';
 import CenterModal from '@/components/molecules/Modal/CenterModal';
 
-const ChatFooter = ({ chosenChatDetails, chosenComDetails, type,channelName }) => {
+const ChatFooter = ({ chosenChatDetails, chosenComDetails, type, channelName }) => {
   const [form] = useForm();
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -47,7 +44,6 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type,channelName }) =
     form.setFieldsValue({ message: '' });
     form.setFieldsError({ message: { message: '' } });
   };
-
 
   return (
     <>
@@ -85,6 +81,7 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type,channelName }) =
           conversationId={chosenComDetails?.conversationId}
           user={user}
           type={type}
+          productName={chosenComDetails?.productName}
         />
       </CenterModal>
     </>

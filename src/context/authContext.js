@@ -50,6 +50,7 @@ export const AuthContextProvider = props => {
       await userService.logout();
       setUserCookies(null);
       setIsLoggedIn(false);
+      setUser({});
       router.push('/sign-in');
       clearCookie(process.env.NEXT_PUBLIC_TOKEN_COOKIE);
       clearCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE);

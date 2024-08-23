@@ -9,7 +9,7 @@ import Switch from '@/components/molecules/Switch';
 import { sendComMsg } from '@/helpers/socketConnection';
 import Toast from '@/components/molecules/Toast';
 
-const CreatePollModal = ({ conversationId, user, onClose, type }) => {
+const CreatePollModal = ({ conversationId, user, onClose, type ,productName}) => {
   const [form] = useForm();
   const [addOption, setAddOption] = useState(['', '']);
   const handleAddOption = () => {
@@ -32,6 +32,7 @@ const CreatePollModal = ({ conversationId, user, onClose, type }) => {
 
     sendComMsg({
       author: user?._id,
+      productName,
       conversationId,
       pool,
       type,
