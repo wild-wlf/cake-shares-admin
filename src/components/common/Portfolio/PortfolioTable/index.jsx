@@ -151,7 +151,7 @@ const PortfolioTable = ({ title }) => {
               setEditProductModal(true);
               setSelecteData(_);
             }}>
-            <MdModeEditOutline color={_?.valueRaised === _?.assetValue ? 'grey' : 'rgba(64, 143, 140, 1)'} size={16} />
+            <MdModeEditOutline color={_?.valueRaised > 0 || _?.isProductRequest ? 'grey' : 'rgba(64, 143, 140, 1)'} size={16} />
           </button>
         </li>
         <li>
@@ -189,14 +189,14 @@ const PortfolioTable = ({ title }) => {
 
         <li>
           <button
-            disabled={_?.isAdvertised || _?.valueRaised === _?.assetValue}
+            disabled={_?.isAdvertised || _?.valueRaised > 0}
             type="button"
             className="btn delete"
             onClick={() => {
               setProductDeleteModal(true);
               setSelecteData(_?._id);
             }}>
-            <Image src={_?.isAdvertised ? DeleteDisabledIcon : DeleteIcon} alt="delete" />
+            <Image src={_?.isAdvertised || _?.valueRaised > 0 ? DeleteDisabledIcon : DeleteIcon} alt="delete" />
           </button>
         </li>
       </ActionBtnList>
@@ -210,7 +210,7 @@ const PortfolioTable = ({ title }) => {
         data.productName || '------------',
         data.investmentType?.name || '------------',
         getStatus(data),
-        data?.isProductRequest == true ? 'Requested' : '-----------',
+        data?.isProductRequest == true ? 'Requested' : '----------',
         data?.remainingAdvertisementDays ?? '-----------',
         // formatNumber(data.maximumBackers) ?? 0 ?? '------------',
         data?.isInfiniteBackers ? 'Infinite' : formatNumber(data.maximumBackers) ?? 0 ?? '------------',

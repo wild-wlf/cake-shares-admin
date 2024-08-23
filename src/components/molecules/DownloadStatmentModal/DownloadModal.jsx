@@ -130,7 +130,6 @@ const DownloadModal = ({ openNext }) => {
               <Form.Item
                 label="Choose Product"
                 rounded
-                menuPlacement="top"
                 sm
                 name="choose_product"
                 isSearchable

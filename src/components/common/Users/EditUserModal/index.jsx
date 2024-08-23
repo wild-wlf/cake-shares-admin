@@ -53,6 +53,11 @@ const EditUserModal = () => {
               rounded
               sm
               name="Username"
+              onChange={e => {
+                form.setFieldsValue({
+                  Username: e.target.value.replace(/[A-Z]/g, char => char.toLowerCase()),
+                });
+              }}
               placeholder="Enter text"
               rules={[
                 {

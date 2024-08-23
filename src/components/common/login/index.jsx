@@ -33,7 +33,11 @@ const Login = () => {
               type="text"
               label="Username"
               name="username"
-              sm
+              onChange={e => {
+                form.setFieldsValue({
+                  username: e.target.value.replace(/[A-Z]/g, char => char.toLowerCase()),
+                });
+              }}
               rounded
               placeholder="jhondoe@gmail.com"
               rules={[

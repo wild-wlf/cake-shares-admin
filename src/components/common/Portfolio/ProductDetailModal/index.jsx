@@ -75,6 +75,10 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
           },
         ]
       : []),
+    {
+      heading: 'Value Raised:',
+      text: `${convertToCurrencyFormat(data?.valueRaised)}`,
+    },
   ];
   const productDescription = [
     {
