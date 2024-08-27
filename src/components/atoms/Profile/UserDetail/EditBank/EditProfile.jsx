@@ -71,7 +71,7 @@ const EditProfile = ({ personalInfo, onClose }) => {
         username: e.username,
         email: e.email,
         country: e.country.value,
-        dob: convertDateToISO(e.dob),
+        dob: e.dob,
       },
     };
     try {
@@ -158,14 +158,20 @@ const EditProfile = ({ personalInfo, onClose }) => {
             rounded
             value={dob}
             onChange={e => {
-              setDob(e.target.value);
+              setDob(e[0]);
               form.setFieldsValue({
-                dob: e.target.value,
+                dob: e[0],
               });
             }}
             rules={[
-              { required: true, message: 'Birthdate is required' },
-
+              {
+                required: true,
+                message: 'Please enter Date Of Birth',
+              },
+              {
+                transform: value => new Date(value) > new Date(),
+                message: 'DOB cannot be in the future',
+              },
               {
                 transform: value => checkAge(value) === false,
                 message: 'Age must be 18',

@@ -16,6 +16,7 @@ import FakeInput from '../FakeInput';
 import FakeLabel from '../FakeLabel';
 import InputIcon from '../InputIcon';
 import UploadFile from '@/components/molecules/UploadFile';
+import { DatePickr } from '../DatePickr';
 const defaultProps = {
   type: 'text',
 };
@@ -157,6 +158,8 @@ const Field = forwardRef(
                 <DatePicker {...inputProps} prefix={prefix} $invalid={invalid || error} />
               ) : type === 'file' ? (
                 <UploadFile {...inputProps} $invalid={invalid || error} />
+              ) : type === 'date' ? (
+                <DatePickr {...inputProps} noMargin={noMargin} $invalid={invalid || error} />
               ) : (
                 <>
                   {/* any other input type */}
