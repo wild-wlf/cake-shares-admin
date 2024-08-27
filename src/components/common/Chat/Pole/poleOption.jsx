@@ -41,7 +41,7 @@ const PoleOption = ({ type, name, users, user, option_id, messageId, receivers, 
         name={allow_multiple ? name : `vote_${messageId}`}
       />
       <PoleProgress value={users?.length > 0 ? calculateProgressValues(users?.length) : 0} />
-      <span className="totalVotes">{users?.length}</span>
+      <span className="totalVotes">{users?.length} votes</span>
     </>
   );
 };

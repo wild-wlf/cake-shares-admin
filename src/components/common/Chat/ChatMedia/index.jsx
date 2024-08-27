@@ -41,8 +41,8 @@ const ChatMedia = ({ chosenChatDetails, type, onlineUsers, chosenComDetails }) =
                 }`}>
                 <Image src={chosenChatDetails?.profilePicture} alt="profilePicture" width={80} height={80} />
               </div>
-              <label className="userName">Buyer</label>
-              <span>{chosenChatDetails?.username}</span>
+              <label className="userName">{chosenChatDetails?.username}</label>
+              <span>Buyer</span>
             </div>
           )}
 

@@ -25,7 +25,7 @@ export const StyledCommunityGroup = styled.div`
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      overflow:hidden;
+      overflow: hidden;
 
       &::after {
         content: '';
@@ -56,8 +56,8 @@ export const StyledCommunityGroup = styled.div`
         `}
       img {
         display: block;
-        width: 100%;
-        height: auto;
+        width: 50px;
+        height: 50px;
         object-fit: cover;
       }
     }
