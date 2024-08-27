@@ -65,8 +65,8 @@ export const StyledChatMedia = styled.div`
 
         img {
           display: block;
-          width: 100%;
-          height: auto;
+          width: 80px;
+          height: 80px;
           object-fit: cover;
         }
 
@@ -129,8 +129,8 @@ export const StyledChatMedia = styled.div`
         overflow: hidden;
         img {
           display: block;
-          width: 100%;
-          height: auto;
+          width: 60px;
+          height: 60px;
         }
       }
     }
