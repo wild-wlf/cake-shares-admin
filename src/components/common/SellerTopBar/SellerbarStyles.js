@@ -82,7 +82,7 @@ export const Container = styled.div`
       right: 0px;
       transform: translateY(50px);
       transition: 0.4s;
-      z-index: 1;
+      z-index: 5;
       max-height: 400px;
       overflow-y: auto;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
