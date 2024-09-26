@@ -270,7 +270,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
           <div>
-            <LoadScript googleMapsApiKey={'AIzaSyB0gq-rFU2D-URzDgIQOkqa_fL6fBAz9qI'} libraries={libraries}>
+            <LoadScript googleMapsApiKey={'AIzaSyARhFVFYkqqbvJ1moa2_73JMEa8Z5LeVaM'} libraries={libraries}>
               <Autocomplete
                 className="map-list"
                 onLoad={autocomplete =>
@@ -368,7 +368,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
                 {
                   pattern: /^(.|\r|\n){10,1000}$/,
                   message: 'Minimum character length of description is 10',
-                },                
+                },
               ]}>
               <Field maxLength={1000} />
             </Form.Item>
