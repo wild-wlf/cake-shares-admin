@@ -399,7 +399,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         <div className="upload-image">
           {Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div className="upload" key={index}>
+              <div className="upload " key={index}>
                 <Form.Item
                   type="img"
                   sm
