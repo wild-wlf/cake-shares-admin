@@ -1,78 +1,85 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledUploadFile = styled.div`
+  width: 100%;
+  margin-bottom: ${({ $noMargin }) => ($noMargin ? '0' : '30px')};
+  .error {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--danger);
+  }
+  .label-text {
+    display: block;
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: var(--matte-black);
+    margin: 0 0 8px;
+  }
+  .labelButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    margin-bottom: ${({$noMargin}) => ($noMargin ? "0" : "30px")};
-    .error {
-        font-size: 12px;
-        line-height: 16px;
-        color: var(--danger);
-    }
-    .label-text {
+    height: 200px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 5px;
+    background: ${({ $bg }) => ($bg ? 'var(--white)' : '#F1F1F1')};
+    border-radius: 20px;
+    border: ${({ $error }) => ($error ? '1px dashed var(--danger)' : '1px dashed #d9d9d9')};
+    position: relative;
+
+    .upload-text {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 300;
+      color: var(--matte-black);
+
+      .icon-img {
         display: block;
-        font-size: 20px;
-        line-height: 24px;
-        text-transform: capitalize;
-        color: var(--matte-black);
+        width: 50px;
+        height: auto;
+        margin: 0 auto 15px;
+      }
+
+      .text-lg {
+        display: block;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 400;
         margin: 0 0 8px;
-    }
-    .labelButton {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-        cursor: pointer;
-        padding: 5px;
-        background: ${({$bg}) => ($bg ? "var(--white)" : "#F1F1F1")};
-        border-radius: 20px;
-        border: ${({$error}) => ($error ? "1px dashed var(--danger)" : "1px dashed #d9d9d9")};
+      }
 
-        .upload-text {
-            display: block;
-            text-align: center;
-            font-size: 12px;
-            line-height: 16px;
-            font-weight: 300;
-            color: var(--matte-black);
-
-            .icon-img {
-                display: block;
-                width: 50px;
-                height: auto;
-                margin: 0 auto 15px;
-            }
-
-            .text-lg {
-                display: block;
-                font-size: 16px;
-                line-height: 20px;
-                font-weight: 400;
-                margin: 0 0 8px;
-            }
-
-            .text {
-                display: block;
-                max-width: 220px;
-                margin: 0 auto;
-            }
-        }
-    }
-
-    input {
-        display: none;
-    }
-
-    img {
+      .text {
         display: block;
-        max-width: 100%;
-        height: 100%;
-        object-fit: cover;
+        max-width: 220px;
+        margin: 0 auto;
+      }
     }
-    .uploaded-file-name {
-        font-weight: 600;
-    }
+  }
+
+  input {
+    display: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .uploaded-file-name {
+    font-weight: 600;
+  }
+  .pdf-file-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const StyledBtn = styled.label``;

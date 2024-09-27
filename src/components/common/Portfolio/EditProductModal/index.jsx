@@ -440,6 +440,40 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             );
           })}
         </div>
+
+        <span className="heading">Upload Document:</span>
+        <div className="upload-image">
+          {Array.from({ length: 3 }).map((_, index) => {
+            const mediaIndex = index + 3;
+            return (
+              <div className="upload" key={mediaIndex}>
+                <Form.Item
+                  type="img"
+                  sm
+                  rounded
+                  placeholder="Enter Text"
+                  // rules={[{ required: true, message: 'Please Upload Product Media!' }]}
+                  id={`media${mediaIndex}`} // Starts from media3
+                  name={`media${mediaIndex}`}
+                  img={media[mediaIndex]}
+                  uploadTitle={'Upload Pdf'}
+                  accept={'application/pdf'}
+                  noMargin
+                  disc={'File size must be less than 1MB in PDF'}
+                  onChange={e => {
+                    form.setFieldsValue({ [`media${mediaIndex}`]: e });
+                    setImages(prev => {
+                      const updatedImages = [...prev];
+                      updatedImages[mediaIndex] = e.target.file;
+                      return updatedImages;
+                    });
+                  }}>
+                  <Field />
+                </Form.Item>
+              </div>
+            );
+          })}
+        </div>
         <div className="add-amenities-holder">
           <span className="heading">Amenities:</span>
           {amenities && amenities?.length < 10 && (

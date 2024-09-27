@@ -19,10 +19,10 @@ const UploadFile = ({
   onChange,
   disc = 'File size must be less than 5MB in PDF, JPG, or PNG format.',
   title,
-  uploadTitle = 'Upload Image',
+  uploadTitle = 'Upload Image or PDF',
   label = true,
   fileSize = 5,
-  accept = 'image/jpeg, image/jpg, image/png',
+  accept = 'image/jpeg, image/jpg, image/png, application/pdf',
   type = 'img',
   csv,
   document = false,
@@ -38,6 +38,7 @@ const UploadFile = ({
   function handelChange(e) {
     const file = e.target.files[0];
     if (!file) return;
+
     const acceptableExtensions = accept.split(',').map(ext => ext.trim());
     if (!acceptableExtensions?.includes(file?.type)) {
       const extensions = acceptableExtensions
@@ -51,6 +52,7 @@ const UploadFile = ({
       });
       return;
     }
+
     if (file) {
       const fileLength = file.size / (1024 * 1024);
       if (fileLength <= fileSize) {
@@ -75,7 +77,7 @@ const UploadFile = ({
     return '';
   };
 
-  console.log(uploaded)
+  console.log(uploaded);
   const getFileName = () => {
     if (uploaded) {
       const fileNameParts = uploaded.name.split('.');
@@ -97,6 +99,16 @@ const UploadFile = ({
     }
   }, [img]);
 
+  function getFileNameIfPdf(url) {
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    const extension = fileName.split('.').pop();
+
+    if (extension === 'pdf') {
+      return fileName;
+    }
+    return null;
+  }
+
   return (
     <StyledUploadFile $bg={bg} $noMargin={noMargin}>
       {label && <span className="label-text">{title}</span>}
@@ -116,11 +128,21 @@ const UploadFile = ({
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <Image src={uploaded} alt="img" width={250} height={300} />
+              <div>
+                <span className="pdf-file-name">{getFileNameIfPdf(uploaded)}</span>
+                <Image src={uploaded} alt="img" width={250} height={300} />
+              </div>
             )
           ) : (
             uploaded &&
-            (uploaded.type.startsWith('video/') ? (
+            (uploaded.type === 'application/pdf' ? (
+              <div>
+                <span>
+                  {getFileName()}.{getFileExtension()}
+                </span>
+                {/* <span>(PDF File)</span> */}
+              </div>
+            ) : uploaded.type.startsWith('video/') ? (
               <video width={319} height={191} autoPlay>
                 <source src={URL.createObjectURL(uploaded)} type={uploaded.type} />
                 Your browser does not support the video tag.
@@ -135,6 +157,7 @@ const UploadFile = ({
         <label htmlFor={id} className="labelButton">
           <span className="upload-text">
             <Image className="icon-img" src={UploadImg} alt="icon" />
+
             <span className="text-lg">{uploadTitle}</span>
             <span className="text">{disc}</span>
             {uploaded && (
