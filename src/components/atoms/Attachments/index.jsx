@@ -8,7 +8,7 @@ import Image from 'next/image';
 const Attachments = () => {
   return (
     <AttachmentsWrapper>
-      <h6>Attachments</h6>
+      {/* <h6>Attachments</h6>
       <div className="attachmentWrap">
         <div className="fileName">
           <Image src={PdfIcon} alt="pdfIcon" width={18.33} height={22} />
@@ -46,7 +46,7 @@ const Attachments = () => {
           <Image src={DocumentIcon} alt="documentIcon" width={18.33} height={22} />
           <span>How to Build a Case Study</span>
         </div>
-      </div>
+      </div> */}
     </AttachmentsWrapper>
   );
 };
