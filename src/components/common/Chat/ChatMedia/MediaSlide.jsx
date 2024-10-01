@@ -101,7 +101,7 @@ const MediaSlide = () => {
   const mediaChunks = chunkArray(media, 6);
   return (
     <StyledMediaSlide>
-      <label className="slideTitle">Photos & Multimedia</label>
+      {/* <label className="slideTitle">Photos & Multimedia</label>
       <Slider {...settings}>
         {mediaChunks.map((chunk, index) => (
           <div className="col-wrapper" key={index}>
@@ -112,7 +112,7 @@ const MediaSlide = () => {
             ))}
           </div>
         ))}
-      </Slider>
+      </Slider> */}
     </StyledMediaSlide>
   );
 };
