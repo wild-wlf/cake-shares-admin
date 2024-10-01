@@ -282,6 +282,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               <div className="head">
                 <Switch
                   label="Google Map"
+                  name="mapCheck"
                   value={googleMapCheck}
                   onChange={e => {
                     setGoogleMapCheck(e.target.value);
@@ -589,6 +590,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
           <span className="heading">Investment Info:</span>
           <Switch
             label="Is Infinite Backers?"
+            name="isInfiniteBackers"
             value={isInfiniteBackers}
             onChange={e => setIsInfiniteBackers(e.target.value)}
           />
