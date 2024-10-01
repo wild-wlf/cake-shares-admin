@@ -203,7 +203,9 @@ const SideBar = ({ data }) => {
           }}
         />
         <div className="nav-logo">
-          <Image src={logo} alt="logo" />
+          <Link href="/">
+            <Image src={logo} alt="logo" />
+          </Link>
         </div>
 
         <LinkContainer>
