@@ -25,6 +25,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const [formattedAddress, setFormattedAddress] = useState();
   const [isInfiniteBackers, setIsInfiniteBackers] = useState(false);
   const [tempMaxBackersVal, setTempMaxBackersVal] = useState();
+  const [googleMapCheck, setGoogleMapCheck] = useState(true);
 
   const { user, refetch, fetch } = useContextHook(AuthContext, v => ({
     refetch: v.refetch,
@@ -50,7 +51,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
   const addAmenities = () => setAmenities([...amenities, '']);
 
   const removeAmenity = index => setAmenities(prev => prev.filter((_, i) => i !== index));
-
+  const [searchValue, setSearchValue] = useState('');
   const [form] = useForm();
 
   const handleSubmit = async e => {
@@ -58,13 +59,14 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       userId: user._id,
       productName: e.productName,
       investmentType: e.investmentType.value,
-      address: e.address,
+      address: searchValue || e.address,
+      mapCheck: googleMapCheck,
       deadline: e.deadline,
       kycLevel: e.kycLevel.value,
       description: e.productDescription,
       investmentReason: e.whyInvest,
       amenities: amenities,
-      addressDetails,
+      addressDetails: googleMapCheck ? addressDetails : null,
       media,
       ...(images?.length > 0 && { images }),
       minimumBackers: e.minBackers,
@@ -72,6 +74,8 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       assetValue: e.assetValue,
       minimumInvestment: e.minInvestment,
       isInfiniteBackers,
+      returnRatio: e.returnRatio,
+      annualCost: e.annualCost,
     };
 
     const formDataToSend = new FormData();
@@ -104,7 +108,6 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       setLoading(false);
     }
   };
-
   const loadInvestmentTypeOptions = async searchText => {
     try {
       let options = [];
@@ -118,7 +121,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
       return [];
     }
   };
-  const [searchValue, setSearchValue] = useState('');
+
   const libraries = ['places'];
   const handlePlaceSelect = place => {
     if (place.geometry && place.geometry.location) {
@@ -228,52 +231,99 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             ]}>
             <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
+
           <div>
-            <LoadScript googleMapsApiKey={'AIzaSyARhFVFYkqqbvJ1moa2_73JMEa8Z5LeVaM'} libraries={libraries}>
-              <Autocomplete
-                className="map-list"
-                onLoad={autocomplete =>
-                  autocomplete.addListener('place_changed', () => {
-                    handlePlaceSelect(autocomplete.getPlace());
-                  })
-                }>
-                <Form.Item
-                  type="text"
-                  label="Address"
-                  name="address"
-                  sm
-                  rounded
-                  placeholder="Please enter address"
-                  value={searchValue}
+            <div className="checkbox-holder">
+              <div className="head">
+                <Switch
+                  label="Google Map"
+                  value={googleMapCheck}
                   onChange={e => {
-                    if (
-                      (e.target.value && formattedAddress && e.target.value !== formattedAddress?.address) ||
-                      e.target.value === ''
-                    ) {
-                      form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
-                      form.setFieldsError({
-                        address: { message: 'Please enter a valid Address' },
-                      });
-                    } else if (formattedAddress && formattedAddress?.address === e.target.value) {
-                      form.setFieldRules('address', [{ pattern: /.*/ }]);
-                      form.removeFieldError('address');
-                    }
-                    setSearchValue(e.target.value);
+                    setGoogleMapCheck(e.target.value);
+                    form.setFieldsValue({ address: '' });
+                    setAddressDetails('');
+                    setSearchValue('');
                   }}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please select Address',
-                    },
-                    {
-                      pattern: /^.{0,256}$/,
-                      message: 'Please enter a valid Address',
-                    },
-                  ]}>
-                  <Field />
-                </Form.Item>
-              </Autocomplete>
-            </LoadScript>
+                />
+              </div>
+            </div>
+
+            {googleMapCheck ? (
+              <LoadScript googleMapsApiKey={'AIzaSyARhFVFYkqqbvJ1moa2_73JMEa8Z5LeVaM'} libraries={libraries}>
+                <Autocomplete
+                  className="map-list"
+                  onLoad={autocomplete =>
+                    autocomplete.addListener('place_changed', () => {
+                      handlePlaceSelect(autocomplete.getPlace());
+                    })
+                  }>
+                  <Form.Item
+                    type="text"
+                    label="Address"
+                    name="address"
+                    placeholder="Please enter address"
+                    value={searchValue}
+                    onChange={e => {
+                      // Validation logic for Google Map address input
+                      if (
+                        (e.target.value && formattedAddress && e.target.value !== formattedAddress?.address) ||
+                        e.target.value === ''
+                      ) {
+                        form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
+                        form.setFieldsError({ address: { message: 'Please enter a valid Address' } });
+                      } else if (formattedAddress && formattedAddress?.address === e.target.value) {
+                        form.setFieldRules('address', [{ pattern: /.*/ }]);
+                        form.removeFieldError('address');
+                      }
+                      setSearchValue(e.target.value);
+                    }}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select Address',
+                      },
+                      {
+                        pattern: /^.{0,256}$/,
+                        message: 'Please enter a valid Address',
+                      },
+                    ]}>
+                    <Field />
+                  </Form.Item>
+                </Autocomplete>
+              </LoadScript>
+            ) : (
+              <Form.Item
+                type="text"
+                label="Address"
+                name="address"
+                placeholder="Enter address manually"
+                value={searchValue}
+                onChange={e => {
+                  form.setFieldRules('address', [{ pattern: /.*/ }]);
+                  setSearchValue(e.target.value);
+                  if (!e.target.value) {
+                    // If value is empty, set validation error
+                    form.setFieldsError({
+                      address: { message: 'Please enter address' },
+                    });
+                  } else {
+                    // Remove error if value is not empty
+                    form.removeFieldError('address');
+                  }
+                }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter address',
+                  },
+                  {
+                    pattern: /^.{0,256}$/,
+                    message: 'Please enter a valid Address',
+                  },
+                ]}>
+                <Field />
+              </Form.Item>
+            )}
           </div>
           <Form.Item
             type="date"
@@ -611,6 +661,55 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
               {
                 transform: value => value > +form.getFieldValue('assetValue'),
                 message: 'Minimum investment cannot be greater than asset value!',
+              },
+            ]}>
+            <Field />
+          </Form.Item>
+
+          <Form.Item
+            type="number"
+            label="Return Ratio"
+            name="returnRatio"
+            sm
+            rounded
+            placeholder="1.0"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter the return ratio',
+              },
+              {
+                pattern: /^[0-9]+(\.[0-9]{1,2})?$/,
+                message: 'Return ratio must be a valid number with up to 2 decimal places',
+              },
+            ]}>
+            <Field />
+          </Form.Item>
+
+          <Form.Item
+            type="number"
+            label="Approx Annual Cost"
+            name="annualCost"
+            sm
+            rounded
+            placeholder="10"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter Approx Annual Cost',
+              },
+              {
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Approx Annual Cost must be greater than zero',
+              },
+              {
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Approx Annual Cost must have up to 2 decimal places',
+              },
+              {
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
             ]}>
             <Field />

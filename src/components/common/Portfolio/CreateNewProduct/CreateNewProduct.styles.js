@@ -9,7 +9,16 @@ export const StyledCreateNewProduct = styled.div`
     margin-bottom: 10px;
   }
 
-  .head{
+  .checkbox-map {
+  }
+  .checkbox-holder {
+    display: grid;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+    margin-right: 10px;
+  }
+
+  .head {
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -20,7 +20,7 @@ import { AuthContext } from '@/context/authContext';
 import PayoutModal from '@/components/atoms/PayoutModal/PayoutModal';
 import { convertToCurrencyFormat } from '@/helpers/common';
 
-const   MyWallet = ({ pieData, amount }) => {
+const MyWallet = ({ pieData, amount }) => {
   const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     refetch: v.refetch,
@@ -40,6 +40,9 @@ const   MyWallet = ({ pieData, amount }) => {
   const [openCardLast, setOpenCardLast] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState('card');
+
+  const ary3 = [0, 200, 10, 1000, 5000, 200, 8000, 10, 500];
+  const ary2 = [0, 200, 300, 6000, 500, 1000, 500, 5000, 1000, 8000, 200, 5000, 5200, 5500, 5700, 5720, 5880];
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
@@ -224,7 +227,11 @@ const   MyWallet = ({ pieData, amount }) => {
         <div className="btnDiv">
           <div className="credit">
             <span>Total Credit:</span> <br />
-            <h1>{+user?.wallet != null && user?.wallet != undefined ? `${convertToCurrencyFormat(user?.wallet)}` : '$0.00'}</h1>
+            <h1>
+              {+user?.wallet != null && user?.wallet != undefined
+                ? `${convertToCurrencyFormat(user?.wallet)}`
+                : '$0.00'}
+            </h1>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
             <Button
@@ -259,7 +266,7 @@ const   MyWallet = ({ pieData, amount }) => {
             <Graph
               graphLineColor="#4E6199"
               // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
-              // graphData={ary2?.length > 0 ? ary2 : null}
+              graphData={ary2?.length > 0 ? ary2 : null}
               tooltipBg=""
               title="Potential Return P.A"
               // amount={dashboard_data?.totalTransactionAmount}
@@ -271,7 +278,7 @@ const   MyWallet = ({ pieData, amount }) => {
             <Graph
               graphLineColor="#D74120"
               // graphData={dashboard_data?.charDataTransaction?.map( => .total)}
-              // graphData={ary2?.length > 0 ? ary2 : null}
+              graphData={ary2?.length > 0 ? ary2 : null}
               tooltipBg=""
               tooltipImg=""
               title="Portfolio Costs"

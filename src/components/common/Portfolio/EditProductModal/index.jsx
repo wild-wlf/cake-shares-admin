@@ -49,7 +49,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
   const [media, setMedia] = useState([]);
   const [images, setImages] = useState([]);
   const [addressDetails, setAddressDetails] = useState('');
-
+  const [googleMapCheck, setGoogleMapCheck] = useState(true);
   const [amenities, setAmenities] = useState();
   const handleSubmit = async data => {
     const { media0, media1, media2, ...e } = data;
@@ -58,12 +58,16 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       minimumBackers: e.minBackers,
       maximumBackers: e.maxBackers,
       investmentType: e?.investmentType?.value,
+      address: searchValue || e.address,
+      mapCheck: googleMapCheck,
       kycLevel: e?.kycLevel.value,
       media,
-      ...(addressDetails && Object.keys(addressDetails).length > 0 && { addressDetails }),
+      ...(googleMapCheck && addressDetails && Object.keys(addressDetails).length > 0 && { addressDetails }),
       ...(images?.length > 0 && { images }),
       amenities,
       isInfiniteBackers,
+      returnRatio: e.returnRatio,
+      annualCost: e.annualCost,
     };
     const formDataToSend = new FormData();
 
@@ -119,6 +123,7 @@ const EditProductModal = ({ product, setEditProductModal }) => {
         ? categoriesOptions?.find(({ value }) => product?.investmentType?._id === value)
         : { label: product?.investmentType?.name, value: product?.investmentType?._id },
       address: product?.address,
+      mapCheck: product.mapCheck,
       deadline: format(product?.deadline, 'yyyy-MM-dd'),
       kycLevel: kycOptions.find(ele => ele.value === product.kycLevel.toString()),
       description: product.description,
@@ -127,8 +132,11 @@ const EditProductModal = ({ product, setEditProductModal }) => {
       maxBackers: product.maximumBackers || '',
       assetValue: product.assetValue,
       minimumInvestment: product.minimumInvestment,
+      returnRatio: product?.returnRatio,
+      annualCost: product?.annualCost,
     });
     setMedia(product?.media);
+    setGoogleMapCheck(product.mapCheck);
     setIsInfiniteBackers(product?.isInfiniteBackers);
     product?.media.map((field, index) => {
       form.setFieldsValue({
@@ -270,48 +278,95 @@ const EditProductModal = ({ product, setEditProductModal }) => {
             <Select async loadOptions={loadInvestmentTypeOptions} />
           </Form.Item>
           <div>
-            <LoadScript googleMapsApiKey={'AIzaSyARhFVFYkqqbvJ1moa2_73JMEa8Z5LeVaM'} libraries={libraries}>
-              <Autocomplete
-                className="map-list"
-                onLoad={autocomplete =>
-                  autocomplete.addListener('place_changed', () => handlePlaceSelect(autocomplete.getPlace()))
-                }>
-                <Form.Item
-                  type="text"
-                  label="Address"
-                  name="address"
-                  sm
-                  rounded
-                  placeholder="Please enter address"
-                  value={searchValue}
+            <div className="checkbox-holder">
+              <div className="head">
+                <Switch
+                  label="Google Map"
+                  value={googleMapCheck}
                   onChange={e => {
-                    const currentAddress = formattedAddress?.address || product?.address;
-                    if ((e.target.value && e.target.value !== currentAddress) || e.target.value === '') {
-                      form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
-                      form.setFieldsError({
-                        address: { message: 'Please enter a valid Address' },
-                      });
-                    } else if (currentAddress && currentAddress === e.target.value) {
-                      form.setFieldRules('address', [{ pattern: /.*/ }]);
-                      form.removeFieldError('address');
-                    }
-
-                    setSearchValue(e.target.value);
+                    setGoogleMapCheck(e.target.value);
+                    form.setFieldsValue({ address: '' });
+                    setAddressDetails('');
+                    setSearchValue('');
                   }}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter Address',
-                    },
-                    {
-                      pattern: /^.{0,256}$/,
-                      message: 'Please enter a valid Address',
-                    },
-                  ]}>
-                  <Field />
-                </Form.Item>
-              </Autocomplete>
-            </LoadScript>
+                />
+              </div>
+            </div>
+
+            {googleMapCheck ? (
+              <LoadScript googleMapsApiKey={'AIzaSyARhFVFYkqqbvJ1moa2_73JMEa8Z5LeVaM'} libraries={libraries}>
+                <Autocomplete
+                  className="map-list"
+                  onLoad={autocomplete =>
+                    autocomplete.addListener('place_changed', () => handlePlaceSelect(autocomplete.getPlace()))
+                  }>
+                  <Form.Item
+                    type="text"
+                    label="Address"
+                    name="address"
+                    sm
+                    rounded
+                    placeholder="Please enter address"
+                    value={searchValue}
+                    onChange={e => {
+                      const currentAddress = formattedAddress?.address || product?.address;
+                      if ((e.target.value && e.target.value !== currentAddress) || e.target.value === '') {
+                        form.setFieldRules('address', [{ pattern: /(?!)/, message: 'Please enter a valid Address' }]);
+                        form.setFieldsError({
+                          address: { message: 'Please enter a valid Address' },
+                        });
+                      } else if (currentAddress && currentAddress === e.target.value) {
+                        form.setFieldRules('address', [{ pattern: /.*/ }]);
+                        form.removeFieldError('address');
+                      }
+
+                      setSearchValue(e.target.value);
+                    }}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please enter Address',
+                      },
+                      {
+                        pattern: /^.{0,256}$/,
+                        message: 'Please enter a valid Address',
+                      },
+                    ]}>
+                    <Field />
+                  </Form.Item>
+                </Autocomplete>
+              </LoadScript>
+            ) : (
+              <Form.Item
+                type="text"
+                label="Address"
+                name="address"
+                placeholder="Enter address manually"
+                value={searchValue}
+                onChange={e => {
+                  form.setFieldRules('address', [{ pattern: /.*/ }]);
+                  setSearchValue(e.target.value);
+                  if (!e.target.value) {
+                    form.setFieldsError({
+                      address: { message: 'Please enter address' },
+                    });
+                  } else {
+                    form.removeFieldError('address');
+                  }
+                }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter address',
+                  },
+                  {
+                    pattern: /^.{0,256}$/,
+                    message: 'Please enter a valid Address',
+                  },
+                ]}>
+                <Field />
+              </Form.Item>
+            )}
           </div>
           <Form.Item
             type="date"
@@ -648,6 +703,55 @@ const EditProductModal = ({ product, setEditProductModal }) => {
               {
                 transform: value => value > +form.getFieldValue('assetValue'),
                 message: 'Minimum investment cannot be greater than asset value!',
+              },
+            ]}>
+            <Field />
+          </Form.Item>
+
+          <Form.Item
+            type="number"
+            label="Return Ratio"
+            name="returnRatio"
+            sm
+            rounded
+            placeholder="1.0"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter the return ratio',
+              },
+              {
+                pattern: /^[0-9]+(\.[0-9]{1,2})?$/,
+                message: 'Return ratio must be a valid number with up to 2 decimal places',
+              },
+            ]}>
+            <Field />
+          </Form.Item>
+
+          <Form.Item
+            type="number"
+            label="Approx Annual Cost"
+            name="annualCost"
+            sm
+            rounded
+            placeholder="10"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter Approx Annual Cost',
+              },
+              {
+                pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
+                message: 'Approx Annual Cost must be greater than zero',
+              },
+              {
+                pattern: /^\d+(\.\d{1,2})?$/,
+                message: 'Approx Annual Cost must have up to 2 decimal places',
+              },
+              {
+                pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
+                message:
+                  'Please enter a valid number with up to 9 digits before the decimal and up to 2 digits after the decimal',
               },
             ]}>
             <Field />

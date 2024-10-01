@@ -36,7 +36,7 @@ const SellerWallet = ({ pieData, amount }) => {
           </div>
           <div className="ChartContainer">
             <PieChart
-              // graphData={pieData}
+              graphData={pieData}
               title="Best Selling Products"
               amount="$0"
               timeFrame="year"
