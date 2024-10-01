@@ -65,8 +65,8 @@ const ChatFooter = ({ chosenChatDetails, chosenComDetails, type, channelName }) 
               {(type === 'community' || type === 'stake') && (
                 <Image src={PollIcon} alt="PollIcon" width={14} height={14} onClick={() => setOpenModal(true)} />
               )}
-              <Image src={LinkIcon} alt="LinkIcon" width={14} height={14} />
-              <Image src={GalleryIcon} alt="GalleryIcon" width={14} height={14} />
+              {/* <Image src={LinkIcon} alt="LinkIcon" width={14} height={14} />
+              <Image src={GalleryIcon} alt="GalleryIcon" width={14} height={14} /> */}
             </div>
           </div>
           <Button htmlType="submit" className="send-icon" sm>
