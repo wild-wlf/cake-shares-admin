@@ -1,13 +1,15 @@
-import SellerDetailBar from "@/components/atoms/SellerDetailBar/SellerDetailBar";
-import PortfolioTable from "@/components/common/Portfolio/PortfolioTable";
-import SellerTopBar from "@/components/common/SellerTopBar/SellerTopBar";
-import SellerWallet from "@/components/common/SellerWallet/SellerWallet";
-import {SellerContainer} from "@/styles/GlobalStyles.styles";
+import SellerDetailBar from '@/components/atoms/SellerDetailBar/SellerDetailBar';
+import PortfolioTable from '@/components/common/Portfolio/PortfolioTable';
+import SellerTopBar from '@/components/common/SellerTopBar/SellerTopBar';
+import SellerWallet from '@/components/common/SellerWallet/SellerWallet';
+import { SellerContainer } from '@/styles/GlobalStyles.styles';
 import React, { useState } from 'react';
 import handIcon from '../_assets/handIcon.png';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import userService from '@/services/userService';
+import productService from '@/services/productService';
+
 const Dashoard = () => {
   const { user } = useContextHook(AuthContext, v => ({
     user: v.user,
@@ -43,7 +45,6 @@ const Dashoard = () => {
   }
   const totalInvestmentCount = filterData?.reduce((total, item) => total + item.totalInvestment, 0);
 
-
   return (
     <div>
       <SellerContainer>
@@ -52,12 +53,13 @@ const Dashoard = () => {
           suffix={handIcon}
           tagLine={"Let's explore what's new with your product today!"}
         />
-        <SellerWallet pieData={pieData} amount={wallet_Details?.wallet?.totalInvestmentAmount}/>
-        <SellerDetailBar sm={true}  
-         topData={filterData}
-         amount={wallet_Details?.wallet?.totalInvestmentAmount}
-         totalInvestmentCount={totalInvestmentCount}
-          />
+        <SellerWallet pieData={pieData} amount={wallet_Details?.wallet?.totalInvestmentAmount} />
+        <SellerDetailBar
+          sm={true}
+          topData={filterData}
+          amount={wallet_Details?.wallet?.totalInvestmentAmount}
+          totalInvestmentCount={totalInvestmentCount}
+        />
         <PortfolioTable title="My Portfolio" />
       </SellerContainer>
     </div>
