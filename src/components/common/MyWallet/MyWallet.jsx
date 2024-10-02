@@ -18,7 +18,7 @@ import AddAmountModal from '@/components/molecules/AddAmountModal/AddAmountModal
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import PayoutModal from '@/components/atoms/PayoutModal/PayoutModal';
-import { convertToCurrencyFormat } from '@/helpers/common';
+import { convertToCurrencyFormat, formatAmount } from '@/helpers/common';
 
 const MyWallet = ({ pieData, amount }) => {
   const { user, refetch } = useContextHook(AuthContext, v => ({
@@ -257,7 +257,7 @@ const MyWallet = ({ pieData, amount }) => {
             <PieChart
               graphData={pieData?.length > 0 ? pieData : null}
               title="Total Investments"
-              amount={`$${amount || 0}`}
+              amount={`$${formatAmount(amount) || 0}`}
               timeFrame="year"
             />
           </div>

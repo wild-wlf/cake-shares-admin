@@ -377,4 +377,16 @@ export const removeDuplicates = (array, propertyName) => {
   );
 };
 
-export const formatAmount = value => parseFloat(value).toFixed(2);
+export const formatAmount = value => {
+  const numberStr = parseFloat(value).toFixed(2);
+  return Number(numberStr).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+export const getRandomColor = index => {
+  const colors = ['#408F8C', '#00AFD6', '#0A1149', '#419400'];
+  if (index >= 0 && index < colors.length) {
+    return colors[index];
+  } else {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  }
+};
