@@ -681,8 +681,8 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
                 message: 'Please enter the return ratio',
               },
               {
-                pattern: /^[0-9]+(\.[0-9]{1,2})?$/,
-                message: 'Return ratio must be a valid number with up to 2 decimal places',
+                pattern: /^(100(\.00?)?|[1-9]?\d(\.\d{1,2})?)$/,
+                message: 'Return ratio must be a valid number between 0 and 100 with up to 2 decimal places',
               },
             ]}>
             <Field />
@@ -690,7 +690,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
 
           <Form.Item
             type="number"
-            label="Approx Annual Cost"
+            label="Approximate return"
             name="annualCost"
             sm
             rounded
@@ -698,15 +698,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             rules={[
               {
                 required: true,
-                message: 'Please enter Approx Annual Cost',
+                message: 'Please enter Approximate return',
               },
               {
                 pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
-                message: 'Approx Annual Cost must be greater than zero',
+                message: 'Approximate return must be greater than zero',
               },
               {
                 pattern: /^\d+(\.\d{1,2})?$/,
-                message: 'Approx Annual Cost must have up to 2 decimal places',
+                message: 'Approximate return must have up to 2 decimal places',
               },
               {
                 pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,
