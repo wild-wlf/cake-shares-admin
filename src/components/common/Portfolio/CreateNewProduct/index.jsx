@@ -690,7 +690,7 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
 
           <Form.Item
             type="number"
-            label="Approximate return"
+            label="Approximate Cost"
             name="annualCost"
             sm
             rounded
@@ -698,15 +698,15 @@ const CreateNewProduct = ({ handleCreateProduct }) => {
             rules={[
               {
                 required: true,
-                message: 'Please enter Approximate return',
+                message: 'Please enter Approximate Cost',
               },
               {
                 pattern: /^[1-9]\d*(\.\d+)?|0\.\d*[1-9]\d*$/,
-                message: 'Approximate return must be greater than zero',
+                message: 'Approximate Cost must be greater than zero',
               },
               {
                 pattern: /^\d+(\.\d{1,2})?$/,
-                message: 'Approximate return must have up to 2 decimal places',
+                message: 'Approximate Cost must have up to 2 decimal places',
               },
               {
                 pattern: /^(?!0\d)\d{1,9}(\.\d{1,2})?$/,

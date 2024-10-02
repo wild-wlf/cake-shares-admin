@@ -4,6 +4,8 @@ import Button from '@/components/atoms/Button';
 import bellIcon from '../../../../_assets/bell-icon.svg';
 import Image from 'next/image';
 import { convertToCurrencyFormat, daysLeft, formatDateWithSuffix } from '@/helpers/common';
+import { FaFilePdf } from 'react-icons/fa';
+import Link from 'next/link';
 
 const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct }) => {
   const getRemainingDays = targetDate => {
@@ -90,6 +92,16 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
       text: data?.investmentReason,
     },
   ];
+
+  function getFileNameIfPdf(url) {
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    const extension = fileName.split('.').pop();
+
+    if (extension === 'pdf') {
+      return fileName;
+    }
+    return null;
+  }
   return (
     <StyledProductDetailModal>
       <div className="head">
@@ -133,7 +145,7 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
         <div className="product-media">
           <span className="heading">Product Media:</span>
           <div className="product-images">
-            {data?.media?.map((item, index) =>
+            {data?.media?.slice(0, 3)?.map((item, index) =>
               item ? (
                 item.endsWith('.mp4') ? (
                   <video key={index} width={319} height={191} autoPlay>
@@ -148,6 +160,23 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
           </div>
         </div>
       )}
+      {data?.media && data?.media?.length > 4}
+      {
+        <div className="amenities-holder">
+          <span className="heading">Additional Documents:</span>
+          <div className="amenities">
+            {data?.media?.slice(3).map((data, index) => (
+              <div className="additional-document" key={index}>
+                <FaFilePdf color="var(--danger-dark)" size={20} />
+                <Link href={data} download target="_blank">
+                  {getFileNameIfPdf(data)}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      }
+
       {data?.amenities && data?.amenities?.length > 0 && (
         <div className="amenities-holder">
           <span className="heading">Amenities:</span>
