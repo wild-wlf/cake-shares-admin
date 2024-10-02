@@ -61,6 +61,26 @@ const productService = {
     };
   },
 
+  GetBestSellingSellerProducts(fetch) {
+    const [bestSellingSellerProd, setBestSellingSellerProd] = useState();
+    const [bestSellingSellerProdStatus, setbestSellingSellerProdStatus] = useState(STATUS.LOADING);
+    const { cancellablePromise } = useCancellablePromise();
+    useEffect(() => {
+      setbestSellingSellerProdStatus(STATUS.LOADING);
+      cancellablePromise(this.getBestSellingSellerProducts())
+        .then(res => {
+          setBestSellingSellerProd(() => res);
+          setbestSellingSellerProdStatus(STATUS.SUCCESS);
+        })
+        .catch(() => setbestSellingSellerProdStatus(STATUS.ERROR));
+    }, [fetch]);
+    return {
+      data_loading: bestSellingSellerProdStatus === STATUS.LOADING,
+      data_error: bestSellingSellerProdStatus === STATUS.ERROR,
+      best_selling_seller_prod_data: bestSellingSellerProd,
+    };
+  },
+
   async getAllProducts({
     page = 1,
     itemsPerPage = 10,
@@ -86,6 +106,18 @@ const productService = {
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
       return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something Went Wrong');
+  },
+
+  async getBestSellingSellerProducts() {
+    let res = await Fetch.get(`${this._url}/best-selling-seller-product`);
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return {
+        bestSellingProducts: res?.data,
+      };
     }
     const { message } = await res.json();
     throw new Error(message ?? 'Something Went Wrong');

@@ -9,6 +9,7 @@ import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '@/context/authContext';
 import userService from '@/services/userService';
 import productService from '@/services/productService';
+import { getRandomColor } from '@/helpers/common';
 
 const Dashoard = () => {
   const { user } = useContextHook(AuthContext, v => ({
@@ -16,7 +17,7 @@ const Dashoard = () => {
   }));
 
   const { wallet_Details } = userService.GetWalletDetails();
-  // console.log({ wallet_Details });
+  const { best_selling_seller_prod_data } = productService.GetBestSellingSellerProducts();
 
   let filterData = wallet_Details?.wallet?.data.reduce((acc, record) => {
     let existingRecord = acc.find(r => r.investmentTypeName === record.investmentTypeName);
@@ -30,19 +31,20 @@ const Dashoard = () => {
     return acc;
   }, []);
 
-  const pieData = filterData?.map((item, index) => ({
+  const investmentData = filterData?.map((item, index) => ({
     name: item.investmentTypeName,
     y: item.percentage,
     color: index <= 5 ? getRandomColor(index) : getRandomColor(),
   }));
-  function getRandomColor(index) {
-    const colors = ['#408F8C', '#00AFD6', '#0A1149', '#419400'];
-    if (index >= 0 && index < colors.length) {
-      return colors[index];
-    } else {
-      return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
-  }
+
+  const bestSellingProdData = best_selling_seller_prod_data?.bestSellingProducts
+    ?.map((item, index) => ({
+      name: item.productName,
+      y: item.sellingScore,
+      color: index <= 5 ? getRandomColor(index) : getRandomColor(),
+    }))
+    ?.filter(ele => ele?.y !== 0);
+
   const totalInvestmentCount = filterData?.reduce((total, item) => total + item.totalInvestment, 0);
 
   return (
@@ -53,7 +55,11 @@ const Dashoard = () => {
           suffix={handIcon}
           tagLine={"Let's explore what's new with your product today!"}
         />
-        <SellerWallet pieData={pieData} amount={wallet_Details?.wallet?.totalInvestmentAmount} />
+        <SellerWallet
+          pieData={investmentData}
+          bestSellingProdData={bestSellingProdData}
+          amount={wallet_Details?.wallet?.totalInvestmentAmount}
+        />
         <SellerDetailBar
           sm={true}
           topData={filterData}

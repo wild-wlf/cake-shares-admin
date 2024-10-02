@@ -1,77 +1,77 @@
-import React from "react";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import {GraphHeader, StyledGraph, ChartContainer} from "./PieStyles";
+import React from 'react';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import { GraphHeader, StyledGraph, ChartContainer } from './PieStyles';
 
-function PieCharts({graphData, tooltipBg, title, amount, sm, graphLineColor, timeFrame}) {
-    const options = {
-        chart: {
-            type: "pie",
+function PieCharts({ graphData, tooltipBg, title, amount, sm, graphLineColor, timeFrame }) {
+  const options = {
+    chart: {
+      type: 'pie',
+    },
+    title: {
+      text: '',
+      align: 'left',
+    },
+    subtitle: {
+      text: '',
+      align: 'left',
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%',
+      },
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        borderWidth: 2,
+        cursor: 'pointer',
+        innerSize: '40%',
+        animation: {
+          duration: 1000,
         },
-        title: {
-            text: "",
-            align: "left",
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
+          distance: 20,
         },
-        subtitle: {
-            text: "",
-            align: "left",
-        },
-        tooltip: {
-            pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
-        },
-        accessibility: {
-            point: {
-                valueSuffix: "%",
-            },
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                borderWidth: 2,
-                cursor: "pointer",
-                innerSize: "40%",
-                animation: {
-                    duration: 1000,
-                },
-                dataLabels: {
-                    enabled: true,
-                    format: "<b>{point.name}</b><br>{point.percentage:.1f}%",
-                    distance: 20,
-                },
-                borderRadius: 10,
-            },
-        },
-        series: [
-            {
-                name: "",
-                colorByPoint: true,
-                data: graphData,
-            },
-        ],
-        credits: {
-            enabled: false,
-        },
-    };
+        borderRadius: 10,
+      },
+    },
+    series: [
+      {
+        name: '',
+        colorByPoint: true,
+        data: graphData,
+      },
+    ],
+    credits: {
+      enabled: false,
+    },
+  };
 
-    return (
-        <StyledGraph sm={sm}>
-            <GraphHeader bg={tooltipBg} sm={sm}>
-                <div className="head">
-                    <strong>{title}</strong>
-                    <strong>{amount}</strong>
-                </div>
-            </GraphHeader>
-            {graphData && graphData?.length > 0 ? (
-                <ChartContainer sm={sm}>
-                    <HighchartsReact highcharts={Highcharts} options={options} />
-                </ChartContainer>
-            ) : (
-                <div className="no-data">
-                    <span>No Data</span>
-                </div>
-            )}
-        </StyledGraph>
-    );
+  return (
+    <StyledGraph sm={sm}>
+      <GraphHeader bg={tooltipBg} sm={sm}>
+        <div className="head">
+          <strong>{title}</strong>
+          <strong>{amount}</strong>
+        </div>
+      </GraphHeader>
+      {graphData && graphData?.length > 0 ? (
+        <ChartContainer sm={sm}>
+          <HighchartsReact highcharts={Highcharts} options={options} />
+        </ChartContainer>
+      ) : (
+        <div className="no-data">
+          <span>No Data</span>
+        </div>
+      )}
+    </StyledGraph>
+  );
 }
 
 export default PieCharts;
