@@ -41,11 +41,11 @@ const ProductDetailModal = ({ data, setProductAdvertiseModal, setSelectedProduct
   const investmentData = [
     {
       heading: 'Return Rate (%):',
-      text: '0%',
+      text: `${data?.returnRatio || 0}`,
     },
     {
       heading: 'Funding Ratio:',
-      text: '0%',
+      text: `${((data?.valueRaised / data?.assetValue) * 100).toFixed(2) || 0}`,
     },
     {
       heading: 'Minimum Backers:',
