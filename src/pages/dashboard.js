@@ -51,7 +51,7 @@ const Dashoard = () => {
     <div>
       <SellerContainer>
         <SellerTopBar
-          title={`Welcome ${user?.fullName || user?.username}!`}
+          title={`Welcome ${user ? user.fullName || user.username : 'User'}!`}
           suffix={handIcon}
           tagLine={"Let's explore what's new with your product today!"}
         />

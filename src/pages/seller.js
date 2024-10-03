@@ -15,7 +15,7 @@ const Seller = () => {
   return (
     <SellerContainer>
       <SellerTopBar
-        title={`Welcome ${user?.fullName}!`}
+        title={`Welcome ${user ? user.fullName || user.username : 'User'}!`}
         suffix={handIcon}
         tagLine={"Let's explore what's new with your product today!"}
       />

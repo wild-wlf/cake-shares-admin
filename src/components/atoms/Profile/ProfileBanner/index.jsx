@@ -9,7 +9,7 @@ import { convertToFormData } from '@/helpers/common';
 import Toast from '@/components/molecules/Toast';
 import userService from '@/services/userService';
 
-const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
+const ProfileBanner = ({ title = 'Cakeshares' }) => {
   const { user, refetch } = useContextHook(AuthContext, v => ({
     user: v.user,
     refetch: v.refetch,
@@ -30,6 +30,15 @@ const ProfileBanner = ({ title = 'Master the World of NFT’s!' }) => {
       Toast({
         type: 'error',
         message: `Image Must be in ${extensions} format!`,
+      });
+      return;
+    }
+
+    const fileLength = file.size / (1024 * 1024);
+    if (fileLength > 1) {
+      Toast({
+        type: 'error',
+        message: 'File size exceeded! Please upload a file having size upto 1MB.',
       });
       return;
     }
