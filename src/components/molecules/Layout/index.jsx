@@ -55,7 +55,10 @@ const Layout = ({ Component, pageProps, loading }) => {
           <Component {...pageProps} />
         </PageWrapper>
       ) : (
-        <Component {...pageProps} />
+        <>
+          {loading && <PreLoader />}
+          <Component {...pageProps} />
+        </>
       )}
     </>
   );
